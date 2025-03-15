@@ -2,6 +2,8 @@
   "$schema": "https://typedoc.org/schema.json",
   "entryPoints": ["./src/v20170710.ts", "./src/index.ts"],
   "out": "docs",
+  "plugin": ["./typedoc/plugin.js"],
+  "router": "cloudflare",
   "sourceLinkTemplate": "https://github.com/bachman-dev/wanikani-api-types/blob/{gitRevision}/{path}#L{line}",
   "cleanOutputDir": true,
   "includeVersion": true,
