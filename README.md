@@ -1,4 +1,4 @@
-# @bachmacintosh/wanikani-api-types
+# @bachman-dev/wanikani-api-types
 
 [![Tests (Main)](https://github.com/bachman-dev/wanikani-api-types/actions/workflows/push.yml/badge.svg)](https://github.com/bachman-dev/wanikani-api-types/actions/workflows/push.yml)
 [![codecov](https://codecov.io/gh/bachman-dev/wanikani-api-types/branch/main/graph/badge.svg?token=CCVBE1UM9M)](https://codecov.io/gh/bachman-dev/wanikani-api-types)
@@ -33,15 +33,15 @@ A new Major Version x includes backwards-incompatible changes such as removing p
 Run the following command pertaining to your package manager:
 
 ```shell
-npm install @bachmacintosh/wanikani-api-types
+npm install @bachman-dev/wanikani-api-types
 ```
 
 ```shell
-yarn add @bachmacintosh/wanikani-api-types
+yarn add @bachman-dev/wanikani-api-types
 ```
 
 ```shell
-pnpm install @bachmacintosh/wanikani-api-types
+pnpm add @bachman-dev/wanikani-api-types
 ```
 
 Then, import using one of two methods.
@@ -51,8 +51,8 @@ Then, import using one of two methods.
 The module you import from matches a [WaniKani API Revision](https://docs.api.wanikani.com/20170710/#revisions-aka-versioning); you shouldn't expect any breaking changes from the package.
 
 ```typescript
-import type { WKAssignmentParameters, WKDatableString } from "@bachmacintosh/wanikani-api-types/dist/v20170710";
-import { stringifyParameters } from "@bachmacintosh/wanikani-api-types/dist/v20170710";
+import type { WKAssignmentParameters, WKDatableString } from "@bachman-dev/wanikani-api-types/dist/v20170710";
+import { stringifyParameters } from "@bachman-dev/wanikani-api-types/dist/v20170710";
 ```
 
 #### Latest API Revision (Not Recommended)
@@ -60,8 +60,8 @@ import { stringifyParameters } from "@bachmacintosh/wanikani-api-types/dist/v201
 Importing from the index module will always provide types, methods, etc. for use with the latest and greatest API Revision.
 
 ```typescript
-import type { WKAssignmentParameters, WKDatableString } from "@bachmacintosh/wanikani-api-types";
-import { stringifyParameters } from "@bachmacintosh/wanikani-api-types";
+import type { WKAssignmentParameters, WKDatableString } from "@bachman-dev/wanikani-api-types";
+import { stringifyParameters } from "@bachman-dev/wanikani-api-types";
 ```
 
 </details>
@@ -80,11 +80,8 @@ Deno version 1.28 and up can import the library using an [npm specifier](https:/
 The module you import from matches a [WaniKani API Revision](https://docs.api.wanikani.com/20170710/#revisions-aka-versioning); you shouldn't expect any breaking changes from the package.
 
 ```typescript
-import type {
-  WKAssignmentParameters,
-  WKDatableString,
-} from "npm:@bachmacintosh/wanikani-api-types@x.y.z/dist/v20170710";
-import { stringifyParameters } from "npm:@bachmacintosh/wanikani-api-types@x.y.z/dist/v20170710";
+import type { WKAssignmentParameters, WKDatableString } from "npm:@bachman-dev/wanikani-api-types@x.y.z/dist/v20170710";
+import { stringifyParameters } from "npm:@bachman-dev/wanikani-api-types@x.y.z/dist/v20170710";
 ```
 
 #### Latest API Revision (Not Recommended)
@@ -92,8 +89,8 @@ import { stringifyParameters } from "npm:@bachmacintosh/wanikani-api-types@x.y.z
 Importing from the index module will always provide types, methods, etc. for use with the latest and greatest API Revision.
 
 ```typescript
-import type { WKAssignmentParameters, WKDatableString } from "npm:@bachmacintosh/wanikani-api-types@x.y.z";
-import { stringifyParameters } from "npm:@bachmacintosh/wanikani-api-types@x.y.z";
+import type { WKAssignmentParameters, WKDatableString } from "npm:@bachman-dev/wanikani-api-types@x.y.z";
+import { stringifyParameters } from "npm:@bachman-dev/wanikani-api-types@x.y.z";
 ```
 
 </details>
@@ -116,8 +113,8 @@ The module you import from matches a [WaniKani API Revision](https://docs.api.wa
 import type {
   WKAssignmentParameters,
   WKDatableString,
-} from "https://esm.sh/@bachmacintosh/wanikani-api-types@x.y.z/dist/v20170710.js";
-import { stringifyParameters } from "https://esm.sh/@bachmacintosh/wanikani-api-types@x.y.z/dist/v20170710.js";
+} from "https://esm.sh/@bachman-dev/wanikani-api-types@x.y.z/dist/v20170710.js";
+import { stringifyParameters } from "https://esm.sh/@bachman-dev/wanikani-api-types@x.y.z/dist/v20170710.js";
 ```
 
 #### Latest API Revision (Not Recommended)
@@ -125,8 +122,8 @@ import { stringifyParameters } from "https://esm.sh/@bachmacintosh/wanikani-api-
 Importing from the index module will always provide types, methods, etc. for use with the latest and greatest API Revision.
 
 ```typescript
-import type { WKAssignmentParameters, WKDatableString } from "https://esm.sh/@bachmacintosh/wanikani-api-types@x.y.z";
-import { stringifyParameters } from "https://esm.sh/@bachmacintosh/wanikani-api-types@x.y.z";
+import type { WKAssignmentParameters, WKDatableString } from "https://esm.sh/@bachman-dev/wanikani-api-types@x.y.z";
+import { stringifyParameters } from "https://esm.sh/@bachman-dev/wanikani-api-types@x.y.z";
 ```
 
 </details>
