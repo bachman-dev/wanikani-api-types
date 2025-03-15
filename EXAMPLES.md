@@ -28,7 +28,7 @@ import {
   WKRequestFactory,
   type WKSummary,
   WK_API_REVISION,
-} from "@bachmacintosh/wanikani-api-types/v20170710";
+} from "@bachman-dev/wanikani-api-types/v20170710";
 
 interface WaniKaniReviewForecast {
   date: Date;
@@ -77,7 +77,7 @@ import {
   type WKSubjectParameters,
   WK_API_REVISION,
   isWKLevel,
-} from "@bachmacintosh/wanikani-api-types/v20170710";
+} from "@bachman-dev/wanikani-api-types/v20170710";
 
 async function getSubjects(level?: number): Promise<WKSubjectData[]> {
   if (typeof level !== "undefined" && !isWKLevel(level)) {
@@ -135,7 +135,7 @@ import {
   type WKSubjectParameters,
   type WKUser,
   WK_API_REVISION,
-} from "@bachmacintosh/wanikani-api-types/v20170710";
+} from "@bachman-dev/wanikani-api-types/v20170710";
 
 interface WaniKaniLesson {
   subject: WKSubjectData;
@@ -266,7 +266,7 @@ import {
   WKRequestFactory,
   WK_API_REVISION,
   isWKDatableString,
-} from "@bachmacintosh/wanikani-api-types/v20170710";
+} from "@bachman-dev/wanikani-api-types/v20170710";
 
 async function startAssignment(id: number, started_at?: WKDatableString | Date): Promise<WKAssignment> {
   let payload: WKAssignmentPayload = {};
@@ -311,7 +311,7 @@ import {
   type WKReviewPayload,
   WK_API_REVISION,
   isWKDatableString,
-} from "@bachmacintosh/wanikani-api-types/v20170710";
+} from "@bachman-dev/wanikani-api-types/v20170710";
 
 async function createReview(
   id: number,
