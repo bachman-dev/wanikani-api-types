@@ -1,4 +1,4 @@
-# @bachmacintosh/wanikani-api-types
+# @bachman-dev/wanikani-api-types
 
 [![Tests (Main)](https://github.com/bachman-dev/wanikani-api-types/actions/workflows/push.yml/badge.svg)](https://github.com/bachman-dev/wanikani-api-types/actions/workflows/push.yml)
 [![codecov](https://codecov.io/gh/bachman-dev/wanikani-api-types/branch/main/graph/badge.svg?token=CCVBE1UM9M)](https://codecov.io/gh/bachman-dev/wanikani-api-types)
@@ -34,23 +34,23 @@ A new Major Version x includes backwards-incompatible changes such as removing p
 Run the following command pertaining to your package manager:
 
 ```shell
-npm install @bachmacintosh/wanikani-api-types
+npm install @bachman-dev/wanikani-api-types
 ```
 
 ```shell
-yarn add @bachmacintosh/wanikani-api-types
+yarn add @bachman-dev/wanikani-api-types
 ```
 
 ```shell
-pnpm add @bachmacintosh/wanikani-api-types
+pnpm add @bachman-dev/wanikani-api-types
 ```
 
 ```shell
-deno add npm:@bachmacintosh/wanikani-api-types
+deno add npm:@bachman-dev/wanikani-api-types
 ```
 
 ```shell
-bun add @bachmacintosh/wanikani-api-types
+bun add @bachman-dev/wanikani-api-types
 ```
 
 Then, import using one of two methods.
@@ -64,7 +64,7 @@ import {
   type WKAssignmentParameters,
   type WKDatableString,
   stringifyParameters,
-} from "@bachmacintosh/wanikani-api-types/v20170710";
+} from "@bachman-dev/wanikani-api-types/v20170710";
 ```
 
 #### Latest API Revision (Not Recommended)
@@ -76,7 +76,7 @@ import {
   type WKAssignmentParameters,
   type WKDatableString,
   stringifyParameters,
-} from "@bachmacintosh/wanikani-api-types";
+} from "@bachman-dev/wanikani-api-types";
 ```
 
 </details>
@@ -99,8 +99,8 @@ The module you import from matches a [WaniKani API Revision](https://docs.api.wa
 import type {
   WKAssignmentParameters,
   WKDatableString,
-} from "https://esm.sh/@bachmacintosh/wanikani-api-types@x.y.z/v20170710";
-import { stringifyParameters } from "https://esm.sh/@bachmacintosh/wanikani-api-types@x.y.z/v20170710";
+} from "https://esm.sh/@bachman-dev/wanikani-api-types@x.y.z/v20170710";
+import { stringifyParameters } from "https://esm.sh/@bachman-dev/wanikani-api-types@x.y.z/v20170710";
 ```
 
 #### Latest API Revision (Not Recommended)
@@ -108,8 +108,8 @@ import { stringifyParameters } from "https://esm.sh/@bachmacintosh/wanikani-api-
 Importing from the index module will always provide types, methods, etc. for use with the latest and greatest API Revision.
 
 ```typescript
-import type { WKAssignmentParameters, WKDatableString } from "https://esm.sh/@bachmacintosh/wanikani-api-types@x.y.z";
-import { stringifyParameters } from "https://esm.sh/@bachmacintosh/wanikani-api-types@x.y.z";
+import type { WKAssignmentParameters, WKDatableString } from "https://esm.sh/@bachman-dev/wanikani-api-types@x.y.z";
+import { stringifyParameters } from "https://esm.sh/@bachman-dev/wanikani-api-types@x.y.z";
 ```
 
 </details>
