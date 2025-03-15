@@ -1,4 +1,4 @@
-name: Tests (Main)
+name: Release
 on:
   release:
     types: [published]
@@ -44,4 +44,4 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
       - name: Publish Documentation
-        run: "curl -X POST ${{ secrets.VERCEL_DEPLOY_HOOK }}"
+        run: "curl -X POST ${{ secrets.CLOUDFLARE_DEPLOY_HOOK }}"
