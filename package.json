@@ -40,7 +40,7 @@
     "url": "https://github.com/bachman-dev/wanikani-api-types"
   },
   "dependencies": {
-    "valibot": "1.0.0-rc.3"
+    "valibot": "1.0.0-rc.4"
   },
   "devDependencies": {
     "@bachman-dev/eslint-config": "2.2.0",
