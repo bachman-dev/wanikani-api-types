@@ -1,3 +1,4 @@
+import * as m from "./lang/index.js";
 import * as v from "valibot";
 import { BaseCollection, BaseResource, CollectionParameters, DatableString } from "./base.js";
 import { Assignment } from "./assignments.js";
@@ -221,7 +222,7 @@ export const ReviewPayload = v.object({
     v.object({
       incorrect_meaning_answers: v.number(),
       incorrect_reading_answers: v.number(),
-      created_at: v.optional(v.union([DatableString, v.date()])),
+      created_at: v.optional(v.union([DatableString, v.date()], m.dateUnion)),
     }),
     v.union([
       v.object({
