@@ -20,7 +20,7 @@ export default tseslint.config(
       },
     },
     rules: {
-      "id-length": ["error", { exceptions: ["v"] }],
+      "id-length": ["error", { exceptions: ["m", "v"] }],
     },
   },
   {

@@ -1,3 +1,4 @@
+import * as m from "./lang/index.js";
 import * as v from "valibot";
 
 /**
@@ -7,7 +8,7 @@ import * as v from "valibot";
  * @category Base
  */
 export type ApiRevision = "20170710";
-export const ApiRevision = v.literal("20170710");
+export const ApiRevision = v.literal("20170710", m.apiRevision);
 
 /**
  * A constant representing the WaniKani API revision. This will match the revision module being imported from, or the
@@ -207,7 +208,7 @@ export const CollectionParameters = v.object({
   ids: v.optional(v.array(v.number())),
   page_after_id: v.optional(v.number()),
   page_before_id: v.optional(v.number()),
-  updated_after: v.optional(v.union([DatableString, v.date()])),
+  updated_after: v.optional(v.union([DatableString, v.date()], m.dateUnion)),
 });
 
 /**

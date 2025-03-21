@@ -1,3 +1,4 @@
+import * as m from "./lang/index.js";
 import * as v from "valibot";
 import { BaseCollection, BaseResource, CollectionParameters, DatableString, Level } from "./base.js";
 import { SubjectTuple, SubjectType } from "./subjects.js";
@@ -239,8 +240,8 @@ export const AssignmentParameters = v.object(
   v.entriesFromObjects([
     CollectionParameters,
     v.object({
-      available_after: v.optional(v.union([DatableString, v.date()])),
-      available_before: v.optional(v.union([DatableString, v.date()])),
+      available_after: v.optional(v.union([DatableString, v.date()], m.dateUnion)),
+      available_before: v.optional(v.union([DatableString, v.date()], m.dateUnion)),
       burned: v.optional(v.boolean()),
       hidden: v.optional(v.boolean()),
       immediately_available_for_lessons: v.optional(v.boolean()),
@@ -276,6 +277,6 @@ export interface AssignmentPayload {
 }
 export const AssignmentPayload = v.object({
   assignment: v.object({
-    started_at: v.optional(v.union([DatableString, v.date()])),
+    started_at: v.optional(v.union([DatableString, v.date()], m.dateUnion)),
   }),
 });
