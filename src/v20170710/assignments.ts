@@ -1,6 +1,6 @@
 import * as m from "./lang/index.js";
 import * as v from "valibot";
-import { BaseCollection, BaseResource, CollectionParameters, DatableString, Level } from "./base.js";
+import { BaseCollection, BaseResource, CollectionParameters, DatableString, Integer, Level } from "./base.js";
 import { SubjectTuple, SubjectType } from "./subjects.js";
 import { SpacedRepetitionSystemStageNumber } from "./spaced-repetition-systems.js";
 
@@ -223,7 +223,7 @@ export interface AssignmentParameters extends CollectionParameters {
   /**
    * Only assignments where `data.subject_id` matches one of the array values are returned.
    */
-  subject_ids?: number[];
+  subject_ids?: Integer[];
 
   /**
    * Only assignments where `data.subject_type` matches one of the array values are returned.
@@ -250,7 +250,7 @@ export const AssignmentParameters = v.object(
       levels: v.optional(v.array(Level)),
       srs_stages: v.optional(v.array(SpacedRepetitionSystemStageNumber)),
       started: v.optional(v.boolean()),
-      subject_ids: v.optional(v.array(v.number())),
+      subject_ids: v.optional(v.array(Integer)),
       subject_types: v.optional(SubjectTuple),
       unlocked: v.optional(v.boolean()),
     }),

@@ -1,6 +1,6 @@
 import * as m from "./lang/index.js";
 import * as v from "valibot";
-import { BaseCollection, BaseResource, CollectionParameters, DatableString } from "./base.js";
+import { BaseCollection, BaseResource, CollectionParameters, DatableString, Integer } from "./base.js";
 import { Assignment } from "./assignments.js";
 import { ReviewStatistic } from "./review-statistics.js";
 import { SpacedRepetitionSystemStageNumber } from "./spaced-repetition-systems.js";
@@ -147,19 +147,19 @@ export interface ReviewParameters extends CollectionParameters {
   /**
    * Only reviews where `data.assignment_id` matches one of the array values are returned.
    */
-  assignment_ids?: number[];
+  assignment_ids?: Integer[];
 
   /**
    * Only reviews where `data.subject_id` matches one of the array values are returned.
    */
-  subject_ids?: number[];
+  subject_ids?: Integer[];
 }
 export const ReviewParameters = v.object(
   v.entriesFromObjects([
     CollectionParameters,
     v.object({
-      assignment_ids: v.optional(v.array(v.number())),
-      subject_ids: v.optional(v.array(v.number())),
+      assignment_ids: v.optional(v.array(Integer)),
+      subject_ids: v.optional(v.array(Integer)),
     }),
   ]),
 );
@@ -179,13 +179,13 @@ export interface ReviewPayload {
     /**
      * Must be zero or a positive number. This is the number of times the meaning was answered incorrectly.
      */
-    incorrect_meaning_answers: number;
+    incorrect_meaning_answers: Integer;
 
     /**
      * Must be zero or a positive number. This is the number of times the reading was answered incorrectly. Note that
      * subjects with a type of `radical` do not quiz on readings. Thus, set this value to `0`.
      */
-    incorrect_reading_answers: number;
+    incorrect_reading_answers: Integer;
 
     /**
      * Timestamp when the review was completed. Defaults to the time of the request if omitted from the request body.
@@ -197,7 +197,7 @@ export interface ReviewPayload {
         /**
          * Unique identifier of the assignment. This or `subject_id` must be set.
          */
-        assignment_id: number;
+        assignment_id: Integer;
 
         /**
          * The `subject_id` should not be set at the same time as `assignment_id`.
@@ -208,7 +208,7 @@ export interface ReviewPayload {
         /**
          * Unique identifier of the subject. This or `assignment_id` must be set.
          */
-        subject_id: number;
+        subject_id: Integer;
 
         /**
          * The `assignment_id` should never be set at the same time as `subject_id`.
@@ -221,18 +221,18 @@ export const ReviewPayload = v.object({
   review: v.intersect(
     [
       v.object({
-        incorrect_meaning_answers: v.number(),
-        incorrect_reading_answers: v.number(),
+        incorrect_meaning_answers: Integer,
+        incorrect_reading_answers: Integer,
         created_at: v.optional(v.union([DatableString, v.date()], m.dateUnion)),
       }),
       v.union(
         [
           v.object({
-            assignment_id: v.number(),
+            assignment_id: Integer,
             subject_id: v.optional(v.never()),
           }),
           v.object({
-            subject_id: v.number(),
+            subject_id: Integer,
             assignment_id: v.optional(v.never()),
           }),
         ],

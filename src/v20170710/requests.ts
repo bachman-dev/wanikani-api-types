@@ -1,5 +1,5 @@
 import * as v from "valibot";
-import { ApiRevision, stringifyParameters } from "./base.js";
+import { ApiRevision, Integer, stringifyParameters } from "./base.js";
 import { AssignmentParameters, AssignmentPayload } from "./assignments.js";
 import { ReviewParameters, ReviewPayload } from "./reviews.js";
 import { StudyMaterialCreatePayload, StudyMaterialParameters, StudyMaterialUpdatePayload } from "./study-materials.js";
@@ -45,7 +45,7 @@ export class ApiRequestFactory {
      * @param options Options for making GET requests to the API.
      * @returns A Get Assignment(s) Request usabile in any HTTP API/Library.
      */
-    get: (idOrParams?: AssignmentParameters | number, options?: ApiRequestOptions): ApiRequest => {
+    get: (idOrParams?: AssignmentParameters | Integer, options?: ApiRequestOptions): ApiRequest => {
       const headers = { ...this._getHeaders };
       if (typeof options?.customHeaders !== "undefined") {
         for (const [key, value] of Object.entries(options.customHeaders)) {
@@ -60,6 +60,7 @@ export class ApiRequestFactory {
         url: `${this.baseUrl}/assignments`,
       };
       if (typeof idOrParams === "number") {
+        v.assert(Integer, idOrParams);
         request.url += `/${idOrParams}`;
       } else if (typeof idOrParams !== "undefined") {
         v.assert(AssignmentParameters, idOrParams);
@@ -75,7 +76,8 @@ export class ApiRequestFactory {
      * @param options Options for making PUT requests to the API.
      * @returns A Start Assignment Request usable in any HTTP API/Library.
      */
-    start: (assignmentId: number, payload: AssignmentPayload, options?: ApiRequestOptions): ApiRequest => {
+    start: (assignmentId: Integer, payload: AssignmentPayload, options?: ApiRequestOptions): ApiRequest => {
+      v.assert(Integer, assignmentId);
       v.assert(AssignmentPayload, payload);
       const headers = { ...this._postPutHeaders };
       if (typeof options?.customHeaders !== "undefined") {
@@ -108,7 +110,7 @@ export class ApiRequestFactory {
      * @param options Options for making GET requests to the API.
      * @returns A Get Level Progression(s) Request usabile in any HTTP API/Library.
      */
-    get: (idOrParams?: LevelProgressionParameters | number, options?: ApiRequestOptions): ApiRequest => {
+    get: (idOrParams?: Integer | LevelProgressionParameters, options?: ApiRequestOptions): ApiRequest => {
       const headers = { ...this._getHeaders };
       if (typeof options?.customHeaders !== "undefined") {
         for (const [key, value] of Object.entries(options.customHeaders)) {
@@ -123,6 +125,7 @@ export class ApiRequestFactory {
         url: `${this.baseUrl}/level_progressions`,
       };
       if (typeof idOrParams === "number") {
+        v.assert(Integer, idOrParams);
         request.url += `/${idOrParams}`;
       } else if (typeof idOrParams !== "undefined") {
         v.assert(LevelProgressionParameters, idOrParams);
@@ -142,7 +145,7 @@ export class ApiRequestFactory {
      * @param options Options for making GET requests to the API.
      * @returns A Get Reset(s) Request usabile in any HTTP API/Library.
      */
-    get: (idOrParams?: ResetParameters | number, options?: ApiRequestOptions): ApiRequest => {
+    get: (idOrParams?: Integer | ResetParameters, options?: ApiRequestOptions): ApiRequest => {
       const headers = { ...this._getHeaders };
       if (typeof options?.customHeaders !== "undefined") {
         for (const [key, value] of Object.entries(options.customHeaders)) {
@@ -157,6 +160,7 @@ export class ApiRequestFactory {
         url: `${this.baseUrl}/resets`,
       };
       if (typeof idOrParams === "number") {
+        v.assert(Integer, idOrParams);
         request.url += `/${idOrParams}`;
       } else if (typeof idOrParams !== "undefined") {
         v.assert(ResetParameters, idOrParams);
@@ -177,7 +181,7 @@ export class ApiRequestFactory {
      * @param options Options for making GET requests to the API.
      * @returns A Get Review Statistic(s) Request usabile in any HTTP API/Library.
      */
-    get: (idOrParams?: ReviewStatisticParameters | number, options?: ApiRequestOptions): ApiRequest => {
+    get: (idOrParams?: Integer | ReviewStatisticParameters, options?: ApiRequestOptions): ApiRequest => {
       const headers = { ...this._getHeaders };
       if (typeof options?.customHeaders !== "undefined") {
         for (const [key, value] of Object.entries(options.customHeaders)) {
@@ -192,6 +196,7 @@ export class ApiRequestFactory {
         url: `${this.baseUrl}/review_statistics`,
       };
       if (typeof idOrParams === "number") {
+        v.assert(Integer, idOrParams);
         request.url += `/${idOrParams}`;
       } else if (typeof idOrParams !== "undefined") {
         v.assert(ReviewStatisticParameters, idOrParams);
@@ -237,7 +242,7 @@ export class ApiRequestFactory {
      * @param options Options for making GET requests to the API.
      * @returns A Get Review(s) Request usabile in any HTTP API/Library.
      */
-    get: (idOrParams?: ReviewParameters | number, options?: ApiRequestOptions): ApiRequest => {
+    get: (idOrParams?: Integer | ReviewParameters, options?: ApiRequestOptions): ApiRequest => {
       const headers = { ...this._getHeaders };
       if (typeof options?.customHeaders !== "undefined") {
         for (const [key, value] of Object.entries(options.customHeaders)) {
@@ -252,6 +257,7 @@ export class ApiRequestFactory {
         url: `${this.baseUrl}/reviews`,
       };
       if (typeof idOrParams === "number") {
+        v.assert(Integer, idOrParams);
         request.url += `/${idOrParams}`;
       } else if (typeof idOrParams !== "undefined") {
         v.assert(ReviewParameters, idOrParams);
@@ -272,7 +278,7 @@ export class ApiRequestFactory {
      * @param options Options for making GET requests to the API.
      * @returns A Get Spaced Repetition System(s) (SRS) Request usabile in any HTTP API/Library.
      */
-    get: (idOrParams?: SpacedRepetitionSystemParameters | number, options?: ApiRequestOptions): ApiRequest => {
+    get: (idOrParams?: Integer | SpacedRepetitionSystemParameters, options?: ApiRequestOptions): ApiRequest => {
       const headers = { ...this._getHeaders };
       if (typeof options?.customHeaders !== "undefined") {
         for (const [key, value] of Object.entries(options.customHeaders)) {
@@ -287,6 +293,7 @@ export class ApiRequestFactory {
         url: `${this.baseUrl}/spaced_repetition_systems`,
       };
       if (typeof idOrParams === "number") {
+        v.assert(Integer, idOrParams);
         request.url += `/${idOrParams}`;
       } else if (typeof idOrParams !== "undefined") {
         v.assert(SpacedRepetitionSystemParameters, idOrParams);
@@ -307,7 +314,7 @@ export class ApiRequestFactory {
      * @param options Options for making GET requests to the API.
      * @returns A Get Study Material(s) Request usabile in any HTTP API/Library.
      */
-    get: (idOrParams?: StudyMaterialParameters | number, options?: ApiRequestOptions): ApiRequest => {
+    get: (idOrParams?: Integer | StudyMaterialParameters, options?: ApiRequestOptions): ApiRequest => {
       const headers = { ...this._getHeaders };
       if (typeof options?.customHeaders !== "undefined") {
         for (const [key, value] of Object.entries(options.customHeaders)) {
@@ -322,6 +329,7 @@ export class ApiRequestFactory {
         url: `${this.baseUrl}/study_materials`,
       };
       if (typeof idOrParams === "number") {
+        v.assert(Integer, idOrParams);
         request.url += `/${idOrParams}`;
       } else if (typeof idOrParams !== "undefined") {
         v.assert(StudyMaterialParameters, idOrParams);
@@ -363,7 +371,12 @@ export class ApiRequestFactory {
      * @param options Options for making PUT requests to the API.
      * @returns An Update Study Material Request usabile in any HTTP API/Library.
      */
-    update: (studyMaterialId: number, payload: StudyMaterialUpdatePayload, options?: ApiRequestOptions): ApiRequest => {
+    update: (
+      studyMaterialId: Integer,
+      payload: StudyMaterialUpdatePayload,
+      options?: ApiRequestOptions,
+    ): ApiRequest => {
+      v.assert(Integer, studyMaterialId);
       v.assert(StudyMaterialUpdatePayload, payload);
       const headers = { ...this._postPutHeaders };
       if (typeof options !== "undefined") {
@@ -394,7 +407,7 @@ export class ApiRequestFactory {
      * @param options Options for making GET requests to the API.
      * @returns A Get Subject(s) Request usabile in any HTTP API/Library.
      */
-    get: (idOrParams?: SubjectParameters | number, options?: ApiRequestOptions): ApiRequest => {
+    get: (idOrParams?: Integer | SubjectParameters, options?: ApiRequestOptions): ApiRequest => {
       const headers = { ...this._getHeaders };
       if (typeof options?.customHeaders !== "undefined") {
         for (const [key, value] of Object.entries(options.customHeaders)) {
@@ -409,6 +422,7 @@ export class ApiRequestFactory {
         url: `${this.baseUrl}/subjects`,
       };
       if (typeof idOrParams === "number") {
+        v.assert(Integer, idOrParams);
         request.url += `/${idOrParams}`;
       } else if (typeof idOrParams !== "undefined") {
         v.assert(SubjectParameters, idOrParams);
@@ -511,7 +525,7 @@ export class ApiRequestFactory {
      * @param options Options for making GET requests to the API.
      * @returns A Get Voice Actor(s) Request usabile in any HTTP API/Library.
      */
-    get: (idOrParams?: VoiceActorParameters | number, options?: ApiRequestOptions): ApiRequest => {
+    get: (idOrParams?: Integer | VoiceActorParameters, options?: ApiRequestOptions): ApiRequest => {
       const headers = { ...this._getHeaders };
       if (typeof options?.customHeaders !== "undefined") {
         for (const [key, value] of Object.entries(options.customHeaders)) {
@@ -526,6 +540,7 @@ export class ApiRequestFactory {
         url: `${this.baseUrl}/voice_actors`,
       };
       if (typeof idOrParams === "number") {
+        v.assert(Integer, idOrParams);
         request.url += `/${idOrParams}`;
       } else if (typeof idOrParams !== "undefined") {
         v.assert(VoiceActorParameters, idOrParams);
