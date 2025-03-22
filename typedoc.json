@@ -5,6 +5,11 @@
   "plugin": ["./typedoc/plugin.js"],
   "router": "cloudflare",
   "sourceLinkTemplate": "https://github.com/bachman-dev/wanikani-api-types/blob/{gitRevision}/{path}#L{line}",
+  "externalSymbolLinkMappings": {
+    "valibot": {
+      "ValiError": "https://valibot.dev/api/ValiError/"
+    }
+  },
   "cleanOutputDir": true,
   "includeVersion": true,
   "categorizeByGroup": false,
