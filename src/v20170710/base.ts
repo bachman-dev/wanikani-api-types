@@ -8,7 +8,7 @@ import * as v from "valibot";
  * @category Base
  */
 export type ApiRevision = "20170710";
-export const ApiRevision = v.literal("20170710", m.apiRevision);
+export const ApiRevision = v.literal("20170710");
 
 /**
  * A constant representing the WaniKani API revision. This will match the revision module being imported from, or the
