@@ -1,3 +1,4 @@
+import * as m from "./lang/index.js";
 import * as v from "valibot";
 
 /**
@@ -207,7 +208,7 @@ export const CollectionParameters = v.object({
   ids: v.optional(v.array(v.number())),
   page_after_id: v.optional(v.number()),
   page_before_id: v.optional(v.number()),
-  updated_after: v.optional(v.union([DatableString, v.date()])),
+  updated_after: v.optional(v.union([DatableString, v.date()], m.dateUnion)),
 });
 
 /**
