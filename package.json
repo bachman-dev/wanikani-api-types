@@ -1,6 +1,6 @@
 {
   "name": "@bachman-dev/wanikani-api-types",
-  "version": "2.0.0-beta.0",
+  "version": "2.0.0-beta.1",
   "description": "Regularly updated type definitions for the WaniKani API",
   "keywords": [
     "wanikani",
@@ -40,7 +40,7 @@
     "url": "https://github.com/bachman-dev/wanikani-api-types"
   },
   "dependencies": {
-    "valibot": "1.0.0-rc.4"
+    "valibot": "^1.0.0"
   },
   "devDependencies": {
     "@bachman-dev/eslint-config": "2.2.0",
