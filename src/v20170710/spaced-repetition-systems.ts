@@ -1,5 +1,5 @@
 import * as v from "valibot";
-import { BaseCollection, BaseResource, CollectionParameters, DatableString, Integer } from "./base.js";
+import { BaseCollection, BaseResource, CollectionParameters, DatableString, SafeInteger } from "./base.js";
 
 /**
  * The minimum SRS Stage Number used in WaniKani's SRS; exported for use in lieu of a Magic Number.
@@ -28,7 +28,11 @@ export const MAX_SRS_STAGE = 9;
  * @category Spaced Repetition Systems
  */
 export type SpacedRepetitionSystemStageNumber = number & {};
-export const SpacedRepetitionSystemStageNumber = v.pipe(Integer, v.minValue(MIN_SRS_STAGE), v.maxValue(MAX_SRS_STAGE));
+export const SpacedRepetitionSystemStageNumber = v.pipe(
+  SafeInteger,
+  v.minValue(MIN_SRS_STAGE),
+  v.maxValue(MAX_SRS_STAGE),
+);
 
 /**
  * A type guard that checks if the given value matches the type predicate.

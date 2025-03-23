@@ -1,5 +1,5 @@
 import * as v from "valibot";
-import { ApiRevision, Integer, stringifyParameters } from "./base.js";
+import { ApiRevision, SafeInteger, stringifyParameters } from "./base.js";
 import { AssignmentParameters, AssignmentPayload } from "./assignments.js";
 import { ReviewParameters, ReviewPayload } from "./reviews.js";
 import { StudyMaterialCreatePayload, StudyMaterialParameters, StudyMaterialUpdatePayload } from "./study-materials.js";
@@ -47,7 +47,7 @@ export class ApiRequestFactory {
      * @throws A `TypeError` if trying to set type-checked request headers.
      * @throws A {@link valibot!ValiError} if ID or parameters are invalid.
      */
-    get: (idOrParams?: AssignmentParameters | Integer, options?: ApiRequestOptions): ApiRequest => {
+    get: (idOrParams?: AssignmentParameters | SafeInteger, options?: ApiRequestOptions): ApiRequest => {
       const headers = { ...this._getHeaders };
       if (typeof options?.customHeaders !== "undefined") {
         for (const [key, value] of Object.entries(options.customHeaders)) {
@@ -62,7 +62,7 @@ export class ApiRequestFactory {
         url: `${this.baseUrl}/assignments`,
       };
       if (typeof idOrParams === "number") {
-        v.assert(Integer, idOrParams);
+        v.assert(SafeInteger, idOrParams);
         request.url += `/${idOrParams}`;
       } else if (typeof idOrParams !== "undefined") {
         v.assert(AssignmentParameters, idOrParams);
@@ -80,8 +80,8 @@ export class ApiRequestFactory {
      * @throws A `TypeError` if trying to set type-checked request headers.
      * @throws A {@link valibot!ValiError} if ID or payload is invalid.
      */
-    start: (assignmentId: Integer, payload: AssignmentPayload, options?: ApiRequestOptions): ApiRequest => {
-      v.assert(Integer, assignmentId);
+    start: (assignmentId: SafeInteger, payload: AssignmentPayload, options?: ApiRequestOptions): ApiRequest => {
+      v.assert(SafeInteger, assignmentId);
       v.assert(AssignmentPayload, payload);
       const headers = { ...this._postPutHeaders };
       if (typeof options?.customHeaders !== "undefined") {
@@ -116,7 +116,7 @@ export class ApiRequestFactory {
      * @throws A `TypeError` if trying to set type-checked request headers.
      * @throws A {@link valibot!ValiError} if ID or parameters are invalid.
      */
-    get: (idOrParams?: Integer | LevelProgressionParameters, options?: ApiRequestOptions): ApiRequest => {
+    get: (idOrParams?: LevelProgressionParameters | SafeInteger, options?: ApiRequestOptions): ApiRequest => {
       const headers = { ...this._getHeaders };
       if (typeof options?.customHeaders !== "undefined") {
         for (const [key, value] of Object.entries(options.customHeaders)) {
@@ -131,7 +131,7 @@ export class ApiRequestFactory {
         url: `${this.baseUrl}/level_progressions`,
       };
       if (typeof idOrParams === "number") {
-        v.assert(Integer, idOrParams);
+        v.assert(SafeInteger, idOrParams);
         request.url += `/${idOrParams}`;
       } else if (typeof idOrParams !== "undefined") {
         v.assert(LevelProgressionParameters, idOrParams);
@@ -153,7 +153,7 @@ export class ApiRequestFactory {
      * @throws A `TypeError` if trying to set type-checked request headers.
      * @throws A {@link valibot!ValiError} if ID or parameters are invalid.
      */
-    get: (idOrParams?: Integer | ResetParameters, options?: ApiRequestOptions): ApiRequest => {
+    get: (idOrParams?: ResetParameters | SafeInteger, options?: ApiRequestOptions): ApiRequest => {
       const headers = { ...this._getHeaders };
       if (typeof options?.customHeaders !== "undefined") {
         for (const [key, value] of Object.entries(options.customHeaders)) {
@@ -168,7 +168,7 @@ export class ApiRequestFactory {
         url: `${this.baseUrl}/resets`,
       };
       if (typeof idOrParams === "number") {
-        v.assert(Integer, idOrParams);
+        v.assert(SafeInteger, idOrParams);
         request.url += `/${idOrParams}`;
       } else if (typeof idOrParams !== "undefined") {
         v.assert(ResetParameters, idOrParams);
@@ -191,7 +191,7 @@ export class ApiRequestFactory {
      * @throws A `TypeError` if trying to set type-checked request headers.
      * @throws A {@link valibot!ValiError} if ID or parameters are invalid.
      */
-    get: (idOrParams?: Integer | ReviewStatisticParameters, options?: ApiRequestOptions): ApiRequest => {
+    get: (idOrParams?: ReviewStatisticParameters | SafeInteger, options?: ApiRequestOptions): ApiRequest => {
       const headers = { ...this._getHeaders };
       if (typeof options?.customHeaders !== "undefined") {
         for (const [key, value] of Object.entries(options.customHeaders)) {
@@ -206,7 +206,7 @@ export class ApiRequestFactory {
         url: `${this.baseUrl}/review_statistics`,
       };
       if (typeof idOrParams === "number") {
-        v.assert(Integer, idOrParams);
+        v.assert(SafeInteger, idOrParams);
         request.url += `/${idOrParams}`;
       } else if (typeof idOrParams !== "undefined") {
         v.assert(ReviewStatisticParameters, idOrParams);
@@ -256,7 +256,7 @@ export class ApiRequestFactory {
      * @throws A `TypeError` if trying to set type-checked request headers.
      * @throws A {@link valibot!ValiError} if ID or parameters are invalid.
      */
-    get: (idOrParams?: Integer | ReviewParameters, options?: ApiRequestOptions): ApiRequest => {
+    get: (idOrParams?: ReviewParameters | SafeInteger, options?: ApiRequestOptions): ApiRequest => {
       const headers = { ...this._getHeaders };
       if (typeof options?.customHeaders !== "undefined") {
         for (const [key, value] of Object.entries(options.customHeaders)) {
@@ -271,7 +271,7 @@ export class ApiRequestFactory {
         url: `${this.baseUrl}/reviews`,
       };
       if (typeof idOrParams === "number") {
-        v.assert(Integer, idOrParams);
+        v.assert(SafeInteger, idOrParams);
         request.url += `/${idOrParams}`;
       } else if (typeof idOrParams !== "undefined") {
         v.assert(ReviewParameters, idOrParams);
@@ -294,7 +294,7 @@ export class ApiRequestFactory {
      * @throws A `TypeError` if trying to set type-checked request headers.
      * @throws A {@link valibot!ValiError} if ID or parameters are invalid.
      */
-    get: (idOrParams?: Integer | SpacedRepetitionSystemParameters, options?: ApiRequestOptions): ApiRequest => {
+    get: (idOrParams?: SafeInteger | SpacedRepetitionSystemParameters, options?: ApiRequestOptions): ApiRequest => {
       const headers = { ...this._getHeaders };
       if (typeof options?.customHeaders !== "undefined") {
         for (const [key, value] of Object.entries(options.customHeaders)) {
@@ -309,7 +309,7 @@ export class ApiRequestFactory {
         url: `${this.baseUrl}/spaced_repetition_systems`,
       };
       if (typeof idOrParams === "number") {
-        v.assert(Integer, idOrParams);
+        v.assert(SafeInteger, idOrParams);
         request.url += `/${idOrParams}`;
       } else if (typeof idOrParams !== "undefined") {
         v.assert(SpacedRepetitionSystemParameters, idOrParams);
@@ -332,7 +332,7 @@ export class ApiRequestFactory {
      * @throws A `TypeError` if trying to set type-checked request headers.
      * @throws A {@link valibot!ValiError} if ID or parameters are invalid.
      */
-    get: (idOrParams?: Integer | StudyMaterialParameters, options?: ApiRequestOptions): ApiRequest => {
+    get: (idOrParams?: SafeInteger | StudyMaterialParameters, options?: ApiRequestOptions): ApiRequest => {
       const headers = { ...this._getHeaders };
       if (typeof options?.customHeaders !== "undefined") {
         for (const [key, value] of Object.entries(options.customHeaders)) {
@@ -347,7 +347,7 @@ export class ApiRequestFactory {
         url: `${this.baseUrl}/study_materials`,
       };
       if (typeof idOrParams === "number") {
-        v.assert(Integer, idOrParams);
+        v.assert(SafeInteger, idOrParams);
         request.url += `/${idOrParams}`;
       } else if (typeof idOrParams !== "undefined") {
         v.assert(StudyMaterialParameters, idOrParams);
@@ -394,11 +394,11 @@ export class ApiRequestFactory {
      * @throws A {@link valibot!ValiError} if ID or payload is invalid.
      */
     update: (
-      studyMaterialId: Integer,
+      studyMaterialId: SafeInteger,
       payload: StudyMaterialUpdatePayload,
       options?: ApiRequestOptions,
     ): ApiRequest => {
-      v.assert(Integer, studyMaterialId);
+      v.assert(SafeInteger, studyMaterialId);
       v.assert(StudyMaterialUpdatePayload, payload);
       const headers = { ...this._postPutHeaders };
       if (typeof options !== "undefined") {
@@ -431,7 +431,7 @@ export class ApiRequestFactory {
      * @throws A `TypeError` if trying to set type-checked request headers.
      * @throws A {@link valibot!ValiError} if ID or parameters are invalid.
      */
-    get: (idOrParams?: Integer | SubjectParameters, options?: ApiRequestOptions): ApiRequest => {
+    get: (idOrParams?: SafeInteger | SubjectParameters, options?: ApiRequestOptions): ApiRequest => {
       const headers = { ...this._getHeaders };
       if (typeof options?.customHeaders !== "undefined") {
         for (const [key, value] of Object.entries(options.customHeaders)) {
@@ -446,7 +446,7 @@ export class ApiRequestFactory {
         url: `${this.baseUrl}/subjects`,
       };
       if (typeof idOrParams === "number") {
-        v.assert(Integer, idOrParams);
+        v.assert(SafeInteger, idOrParams);
         request.url += `/${idOrParams}`;
       } else if (typeof idOrParams !== "undefined") {
         v.assert(SubjectParameters, idOrParams);
@@ -554,7 +554,7 @@ export class ApiRequestFactory {
      * @returns A Get Voice Actor(s) Request usabile in any HTTP API/Library.
      * @throws A {@link valibot!ValiError} if ID or parameters are invalid.
      */
-    get: (idOrParams?: Integer | VoiceActorParameters, options?: ApiRequestOptions): ApiRequest => {
+    get: (idOrParams?: SafeInteger | VoiceActorParameters, options?: ApiRequestOptions): ApiRequest => {
       const headers = { ...this._getHeaders };
       if (typeof options?.customHeaders !== "undefined") {
         for (const [key, value] of Object.entries(options.customHeaders)) {
@@ -569,7 +569,7 @@ export class ApiRequestFactory {
         url: `${this.baseUrl}/voice_actors`,
       };
       if (typeof idOrParams === "number") {
-        v.assert(Integer, idOrParams);
+        v.assert(SafeInteger, idOrParams);
         request.url += `/${idOrParams}`;
       } else if (typeof idOrParams !== "undefined") {
         v.assert(VoiceActorParameters, idOrParams);
