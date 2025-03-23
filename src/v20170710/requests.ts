@@ -226,7 +226,7 @@ export class ApiRequestFactory {
      * @param options Options for making POST requests to the API.
      * @returns A Create Review Request usabile in any HTTP API/Library.
      * @throws A `TypeError` if trying to set type-checked request headers.
-     * @throws A {@link valibot!ValiError} if ID or payload is invalid.
+     * @throws A {@link valibot!ValiError} if payload is invalid.
      */
     create: (payload: ReviewPayload, options?: ApiRequestOptions): ApiRequest => {
       v.assert(ReviewPayload, payload);
