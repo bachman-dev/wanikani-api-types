@@ -1,5 +1,5 @@
 import * as v from "valibot";
-import { BaseResource, DatableString, Level } from "./base.js";
+import { BaseResource, DatableString, Level, SafeInteger } from "./base.js";
 
 /**
  * The minimum batch size for lessons in the WaniKani app; exported for use in lieu of a Magic Number.
@@ -22,8 +22,7 @@ export const MAX_LESSON_BATCH_SIZE = 10;
  */
 export type LessonBatchSizeNumber = number & {};
 export const LessonBatchSizeNumber = v.pipe(
-  v.number(),
-  v.integer(),
+  SafeInteger,
   v.minValue(MIN_LESSON_BATCH_SIZE),
   v.maxValue(MAX_LESSON_BATCH_SIZE),
 );
@@ -89,7 +88,7 @@ export interface UserPreferences {
   reviews_presentation_order: "lower_levels_first" | "shuffled";
 }
 export const UserPreferences = v.object({
-  default_voice_actor_id: v.number(),
+  default_voice_actor_id: SafeInteger,
   extra_study_autoplay_audio: v.boolean(),
   lessons_autoplay_audio: v.boolean(),
   lessons_batch_size: LessonBatchSizeNumber,

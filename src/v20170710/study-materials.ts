@@ -1,5 +1,5 @@
 import * as v from "valibot";
-import { BaseCollection, BaseResource, CollectionParameters, DatableString } from "./base.js";
+import { BaseCollection, BaseResource, CollectionParameters, DatableString, SafeInteger } from "./base.js";
 import { SubjectTuple, SubjectType } from "./subjects.js";
 
 /**
@@ -155,7 +155,7 @@ export interface StudyMaterialParameters extends CollectionParameters {
   /**
    * Only study material records where `data.subject_id` matches one of the array values are returned.
    */
-  subject_ids?: number[];
+  subject_ids?: SafeInteger[];
 
   /**
    * Only study material records where `data.subject_type` matches one of the array values are returned.
@@ -167,7 +167,7 @@ export const StudyMaterialParameters = v.object(
     CollectionParameters,
     v.object({
       hidden: v.optional(v.boolean()),
-      subject_ids: v.optional(v.array(v.number())),
+      subject_ids: v.optional(v.array(SafeInteger)),
       subject_types: v.optional(SubjectTuple),
     }),
   ]),
@@ -194,13 +194,13 @@ export interface StudyMaterialCreatePayload extends StudyMaterialUpdatePayload {
   /**
    * Unique identifier of the associated subject.
    */
-  subject_id: number;
+  subject_id: SafeInteger;
 }
 export const StudyMaterialCreatePayload = v.object(
   v.entriesFromObjects([
     StudyMaterialUpdatePayload,
     v.object({
-      subject_id: v.number(),
+      subject_id: SafeInteger,
     }),
   ]),
 );

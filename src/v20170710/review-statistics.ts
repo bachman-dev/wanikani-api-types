@@ -1,5 +1,5 @@
 import * as v from "valibot";
-import { BaseCollection, BaseResource, CollectionParameters, DatableString } from "./base.js";
+import { BaseCollection, BaseResource, CollectionParameters, DatableString, SafeInteger } from "./base.js";
 import { SubjectTuple, SubjectType } from "./subjects.js";
 
 /**
@@ -190,7 +190,7 @@ export interface ReviewStatisticParameters extends CollectionParameters {
   /**
    * Only review statistics where `data.subject_id` matches one of the array values are returned.
    */
-  subject_ids?: number[];
+  subject_ids?: SafeInteger[];
 
   /**
    * Only review statistics where `data.subject_type` matches one of the array values are returned.
@@ -204,7 +204,7 @@ export const ReviewStatisticParameters = v.object(
       hidden: v.optional(v.boolean()),
       percentages_greater_than: v.optional(v.number()),
       percentages_less_than: v.optional(v.number()),
-      subject_ids: v.optional(v.array(v.number())),
+      subject_ids: v.optional(v.array(SafeInteger)),
       subject_types: v.optional(SubjectTuple),
     }),
   ]),

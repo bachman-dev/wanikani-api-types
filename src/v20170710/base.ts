@@ -31,6 +31,14 @@ export function isApiRevision(value: unknown): value is ApiRevision {
 }
 
 /**
+ * Items with this type will have their number validated as a safe integer >= 0.
+ *
+ * @category Base
+ */
+export type SafeInteger = number & {};
+export const SafeInteger = v.pipe(v.number(), v.safeInteger(), v.minValue(0));
+
+/**
  * A `string` sent to/returned from the WaniKani API that can be converted into a JavaScript `Date` object.
  *
  * @category Base
@@ -69,7 +77,7 @@ export const MAX_LEVEL = 60;
  * @category Base
  */
 export type Level = number & {};
-export const Level = v.pipe(v.number(), v.integer(), v.minValue(MIN_LEVEL), v.maxValue(MAX_LEVEL));
+export const Level = v.pipe(SafeInteger, v.minValue(MIN_LEVEL), v.maxValue(MAX_LEVEL));
 
 /**
  * A type guard that checks if the given value matches the type predicate.
@@ -183,21 +191,21 @@ export interface CollectionParameters {
   /**
    * Only resources where `data.id` matches one of the array values are returned.
    */
-  ids?: number[];
+  ids?: SafeInteger[];
 
   /**
    * Get a collection's next page containing `pages.per_page` resources after the given ID.
    *
    * This will take precedence over `page_before_id` if both are specified.
    */
-  page_after_id?: number;
+  page_after_id?: SafeInteger;
 
   /**
    * Get a collection's previous page containing `pages.per_page` resources before the given ID.
    *
    * The `page_after_id` parameter takes precedence over this if it is specified alongside this parameter.
    */
-  page_before_id?: number;
+  page_before_id?: SafeInteger;
 
   /**
    * Only resources updated after this time are returned.
@@ -205,9 +213,9 @@ export interface CollectionParameters {
   updated_after?: DatableString | Date;
 }
 export const CollectionParameters = v.object({
-  ids: v.optional(v.array(v.number())),
-  page_after_id: v.optional(v.number()),
-  page_before_id: v.optional(v.number()),
+  ids: v.optional(v.array(SafeInteger)),
+  page_after_id: v.optional(SafeInteger),
+  page_before_id: v.optional(SafeInteger),
   updated_after: v.optional(v.union([DatableString, v.date()], m.dateUnion)),
 });
 
