@@ -5,6 +5,7 @@
   "plugin": ["./typedoc/plugin.js"],
   "router": "cloudflare",
   "sourceLinkTemplate": "https://github.com/bachman-dev/wanikani-api-types/blob/{gitRevision}/{path}#L{line}",
+  "projectDocuments": ["./EXAMPLES.md", "./UPGRADE.md"],
   "externalSymbolLinkMappings": {
     "valibot": {
       "ValiError": "https://valibot.dev/api/ValiError/"

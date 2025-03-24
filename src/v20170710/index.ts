@@ -1,3 +1,7 @@
+/**
+ * @module
+ * @category API Reference
+ */
 export * from "./assignments.js";
 export * from "./base.js";
 export * from "./level-progressions.js";
