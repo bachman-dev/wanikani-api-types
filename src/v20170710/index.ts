@@ -1,5 +1,5 @@
 /**
- * @module
+ * @packageDocumentation
  * @category API Reference
  */
 export * from "./assignments.js";

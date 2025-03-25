@@ -4,7 +4,7 @@ Try sticking to imports from a specific revision.
 */
 
 /**
- * @module
+ * @packageDocumentation
  * @category API Reference
  */
 export * from "./v20170710/index.js";
