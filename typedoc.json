@@ -1,6 +1,6 @@
 {
   "$schema": "https://typedoc.org/schema.json",
-  "entryPoints": ["./src/v20170710/index.ts", "./src/index.ts"],
+  "entryPoints": ["./src/v20170710/index.ts"],
   "out": "docs",
   "plugin": ["./typedoc/plugin.js"],
   "router": "cloudflare",
