@@ -1,3 +1,8 @@
+---
+title: Examples
+category: Guides
+---
+
 # Examples
 
 Below are some code examples to illustrate the various types, constants, and functions available in the library.
