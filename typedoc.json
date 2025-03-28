@@ -11,6 +11,7 @@
       "ValiError": "https://valibot.dev/api/ValiError/"
     }
   },
+  "highlightLanguages": ["bash", "console", "diff", "javascript", "json", "jsonc", "typescript"],
   "cleanOutputDir": true,
   "includeVersion": true,
   "categorizeByGroup": false,
