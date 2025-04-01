@@ -88,6 +88,7 @@ The following items were renamed in Version 2 beyond just having a `WK` prefix r
 | `WKRequestHeaders`            | `ApiRequestHeaders`                     |
 | `WKRequestGetOptions`         | `ApiRequestOptions`                     |
 | `WKResource`                  | `BaseResource`                          |
+| `WKSubjectData`               | `SubjectBaseData`                       |
 | `WK_MAX_LEVELS`               | `MAX_LEVEL`                             |
 | `WK_MIN_LEVELS`               | `MIN_LEVEL`                             |
 | `isWKDatableString()`         | `isDatableString()`                     |
@@ -105,8 +106,10 @@ The following items were removed from Version 2:
 - `WKResourceType`, as it's unlikely that code would need to use this union when working with the WaniKani API, ie these resources aren't gathered at once from the API
 - `WKRequestPostPutOptions` in favor of using `ApiRequestOptions` (formerly `WKRequestGetOptions`) for all request types, as all requests now only accept a `customHeaders` option instead of dedicated header options for `ifModifiedSince` and/or `ifNoneMatch` (see below)
 - `WKAssignmentRequests`, `WKLevelProgressionRequests`, `WKResetRequests`, `WKReviewRequests`, `WKReviewStatisticRequests`, `WKSpacedRepetitionSystemRequests`, `WKStudyMaterialRequests`, `WKSubjectRequests`, `WKSummaryRequests`, `WKUserRequests`, and `WKVoiceActorRequests` were all removed when the request factory was rewritten to use `public readonly` objects instead of accessors; these types were likely only used by the library itself
+- `WKReviewObjectdBase`, `WKReviewObjectWithAssignmentId`, and `WKReviewObjectWithSubjectId` in favor of directly expressing the union of allowed IDs under `ReviewPayload` (formerly `WKReviewPayload`)
+- `WKRadicalCharacterImagePngMetadata` and `WKRadicalCharacterImageSvgMetadata` in favor of having the `metadata` field of `RadicalCharacterImage` (formerly `WKRadicalCharacterImage`) be formed using a discriminated union on the `content_type` field
 - `isWKLevelArray()` and `isWKSrsStageNumberArray()`, as the underlying types being guarded are now wide enough (e.g. for dynamically generated numbers) that they became redundant
-- `validateParameters()` and `validatePayload()` were removed in favor of using the request factory to construct a request to the API, now named {@link ApiRequestFactory}
+- `validateParameters()` and `validatePayload()` were removed in favor of using either schema validation or the request factory to construct a request to the API, now named {@link ApiRequestFactory}
 
 #### `data` Property Removed from `BaseCollection`, `BaseReport`, and `BaseResource`
 
@@ -144,6 +147,18 @@ The methods for creating requests in the `ApiRequestFactory` (formerly `WKReques
 #### `ApiRequestFactory` Uses `public readonly` Objects Instead of Accessors
 
 This change is mostly internal, but is mentioned in case it causes breaking changes. As mentioned with the removed type aliases above, the factory now uses `public readonly` objects containing the methods to construct an `ApiRequest` (formerly `WKRequest`). This has helped reduce redundant code and make the library smaller.
+
+#### `characters` Property No Longer in Subject Base
+
+`WKSubjectData` included a `characters` property that was extended on `WKRadicalData` to be `string | null`, and `string` on other subject types. This was removed on the base interface, and is now only present on the subject data types themselves. This does not affect code that was using the intefaces that extended the base interface.
+
+#### `Subject` is Now a Discriminated Union
+
+Formerly `WKSubject`, this type now uses the `object` field as a variant to create a discriminated union for the `data` field. This is a cleaner way of unionizing the subject types when retrieving them from the WaniKani API. This should not produce breaking changes in most cases, but may affect type checking depending on how the type is used, e.g. as a type parameter.
+
+#### `WK_SUBJECT_MARKUP_MATCHERS` Combined into `SUBJECT_MARKUP_MATCHER`
+
+In Version 1, this was an object with separate regex matchers for each individual subject markup tag found in mnemonics and hints in the WaniKani API. These have been combined into one matcher that matches on all the tags. In new `tag` capture group has been added to check the tag name, alongside the existing `innerText` group. The matcher also makes use of the `d` flag to provide start and end indices for matches and groups.
 
 ### Other Enhancements to Consider
 
@@ -200,8 +215,12 @@ if (isAssignment(assignment)) {
 
 #### Number Types Widened
 
-Both constants and type aliases for numbers (e.g. `Level`, `MIN_LEVEL`, `LessonBatchSizeNumber`, etc.) have had their types widened. Constants are now plain number literals with type `number` instead of their corresponding type alias, and type aliases were widened to `number & {}` so they show up in documentation. This allows for easier use of dynamically figured numbers in code. Type guards and schema should be used to validate these numbers; they are validated when used in `ApiRequestFactory`, e.g. when creating a request with `CollectionParameters`.
+Both constants and type aliases for numbers (e.g. `Level`, `MIN_LEVEL`, `LessonBatchSizeNumber`, the `starting_srs_stage` and `ending_srs_stage` on reviews, etc.) have had their types widened. Constants are now plain number literals with type `number` instead of their corresponding type alias, and type aliases / interface properties were widened to `number & {}` typed type aliases so they show up in documentation. This allows for easier use of dynamically figured numbers in code. Type guards and schema should be used to validate these numbers; they are validated when used in `ApiRequestFactory`, e.g. when creating a request with `CollectionParameters`.
 
-### `SafeInteger` Type for Validated Numbers
+#### `SafeInteger` Type for Validated Numbers
 
 Some numbers, such as resource IDs, are validated to make sure they are a safe integer, to help catch impossible values before actually sending them to the WaniKani API. This is typed as `number & {}` so that it shows up as documentation; any number can be used from TypeScript's perspective, but they are subject to a runtime validation and may throw an error.
+
+#### Subject Markup Parser
+
+A new method, `parseSubjectMarkup()`, can be used to parse a WaniKani subject mnemonic/hint with subject markup tags into an array of `ParsedSubjectMarkup` nodes, which can be traversed to construct HTML, JSX, and other UI components based on the markup for rendering.
