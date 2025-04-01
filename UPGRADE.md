@@ -77,15 +77,23 @@ Items can be imported using a namespaced / wildcard import with a prefix (`WK` o
 
 The following items were renamed in Version 2 beyond just having a `WK` prefix removed:
 
-| Old Name            | New Name          |
-| ------------------- | ----------------- |
-| `WKCollection`      | `BaseCollection`  |
-| `WKError`           | `ApiError`        |
-| `WKReport`          | `BaseReport`      |
-| `WKResource`        | `BaseResource`    |
-| `WK_MAX_LEVELS`     | `MAX_LEVEL`       |
-| `WK_MIN_LEVELS`     | `MIN_LEVEL`       |
-| `isWKDatableString` | `isDatableString` |
+| Old Name                      | New Name                                |
+| ----------------------------- | --------------------------------------- |
+| `WKCollection`                | `BaseCollection`                        |
+| `WKError`                     | `ApiError`                              |
+| `WKReport`                    | `BaseReport`                            |
+| `WKRequest`                   | `ApiRequest`                            |
+| `WKRequestFactory`            | `ApiRequestFactory`                     |
+| `WKRequestFactoryInit`        | `ApiRequestFactoryInit`                 |
+| `WKRequestHeaders`            | `ApiRequestHeaders`                     |
+| `WKRequestGetOptions`         | `ApiRequestOptions`                     |
+| `WKResource`                  | `BaseResource`                          |
+| `WK_MAX_LEVELS`               | `MAX_LEVEL`                             |
+| `WK_MIN_LEVELS`               | `MIN_LEVEL`                             |
+| `isWKDatableString()`         | `isDatableString()`                     |
+| `isWKLevel()`                 | `isLevel()`                             |
+| `isWKLessonBatchSizeNumber()` | `isLessonBatchSizeNumber()`             |
+| `isWKSrsStageNumber()`        | `isSpacedRepetitionSystemStageNumber()` |
 
 #### Removed Items
 
@@ -94,6 +102,10 @@ The following items were removed from Version 2:
 - All data types (e.g. `WKUserData`, `WKAssignmentData`, etc.), with the exception of subjects (see renamed items above), as they made testing type and schema validation more difficult, and were less likely to be used vs the entire object they were a part of; subject data types were kept as they are part of a discriminated union for mixed subjects returned from WaniKani.
 - `WKCollectionParametersMap` and `WKPayloadMap`, which were only used by `validateParameters()` and `validatePayload()` respectively which were also removed (see below)
 - The type aliases `WKMaxLessonBatchSize`, `WKMaxLevels`, `WKMaxSrsReviewStages`, `WKMaxSrsStages`, `WKMinLessonBatchSize`, and `WKMinLevels` were all removed in favor of using their constant equivalents.
+- `WKResourceType`, as it's unlikely that code would need to use this union when working with the WaniKani API, ie these resources aren't gathered at once from the API
+- `WKRequestPostPutOptions` in favor of using `ApiRequestOptions` (formerly `WKRequestGetOptions`) for all request types, as all requests now only accept a `customHeaders` option instead of dedicated header options for `ifModifiedSince` and/or `ifNoneMatch` (see below)
+- `WKAssignmentRequests`, `WKLevelProgressionRequests`, `WKResetRequests`, `WKReviewRequests`, `WKReviewStatisticRequests`, `WKSpacedRepetitionSystemRequests`, `WKStudyMaterialRequests`, `WKSubjectRequests`, `WKSummaryRequests`, `WKUserRequests`, and `WKVoiceActorRequests` were all removed when the request factory was rewritten to use `public readonly` objects instead of accessors; these types were likely only used by the library itself
+- `isWKLevelArray()` and `isWKSrsStageNumberArray()`, as the underlying types being guarded are now wide enough (e.g. for dynamically generated numbers) that they became redundant
 - `validateParameters()` and `validatePayload()` were removed in favor of using the request factory to construct a request to the API, now named {@link ApiRequestFactory}
 
 #### `data` Property Removed from `BaseCollection`, `BaseReport`, and `BaseResource`
@@ -107,6 +119,31 @@ In Version 1, we used our own `Brand` internal type to prevent creating `WKDatab
 #### `MIN_LEVEL` Now Lowest WaniKani Level
 
 Formerly `WK_MIN_LEVELS` this constant now represents the smallest level, `1`, available in WaniKani, rather than the lowest level given to free-tier users without a subscription.
+
+#### `ApiRequestFactory` Now Prefers Lowercase HTTP Header Names
+
+In Version 2, `ApiRequestFactory`, formerly `WKRequestFactory`, now works with headers after converting their values to lowercase. This allows the factory to conform with multiple HTTP versions. The WaniKani API recognizes these lowercase header names. The factory will only send known API headers in lowercase; all other header names (e.g. those provided as custom headers) will be converted to lowercase only during validation against type-checked headers.
+
+#### Removed Dedicated `ifModifiedSince` and `ifNoneMatch` Request Options
+
+These options were removed to make the code simpler when constructing headers for a returned `ApiRequest` (formerly `WKRequest`). They should be set using the `customHeaders` property instead.
+
+```diff
+- options.ifModifiedSince = date;
+- options.ifNoneMatch = etag;
++ options.customHeaders = {
++   "if-modified-since": date,
++   "if-none-match": etag,
++ };
+```
+
+#### `ApiRequestFactory` Methods Now Throw `ValiError`
+
+The methods for creating requests in the `ApiRequestFactory` (formerly `WKRequestFactory`) now perform additional validation on IDs when requesting individual resources, such as safe integer validation, and therefore may throw a `ValiError` in addition to a `TypeError`. This is reflected by the parameter being a `SafeInteger` instead of a plain `number`. More info on this new type is further down in the next parent section.
+
+#### `ApiRequestFactory` Uses `public readonly` Objects Instead of Accessors
+
+This change is mostly internal, but is mentioned in case it causes breaking changes. As mentioned with the removed type aliases above, the factory now uses `public readonly` objects containing the methods to construct an `ApiRequest` (formerly `WKRequest`). This has helped reduce redundant code and make the library smaller.
 
 ### Other Enhancements to Consider
 
@@ -164,3 +201,7 @@ if (isAssignment(assignment)) {
 #### Number Types Widened
 
 Both constants and type aliases for numbers (e.g. `Level`, `MIN_LEVEL`, `LessonBatchSizeNumber`, etc.) have had their types widened. Constants are now plain number literals with type `number` instead of their corresponding type alias, and type aliases were widened to `number & {}` so they show up in documentation. This allows for easier use of dynamically figured numbers in code. Type guards and schema should be used to validate these numbers; they are validated when used in `ApiRequestFactory`, e.g. when creating a request with `CollectionParameters`.
+
+### `SafeInteger` Type for Validated Numbers
+
+Some numbers, such as resource IDs, are validated to make sure they are a safe integer, to help catch impossible values before actually sending them to the WaniKani API. This is typed as `number & {}` so that it shows up as documentation; any number can be used from TypeScript's perspective, but they are subject to a runtime validation and may throw an error.
