@@ -81,6 +81,8 @@ The following items were renamed in Version 2 beyond just having a `WK` prefix r
 | ------------------- | ----------------- |
 | `WKCollection`      | `BaseCollection`  |
 | `WKError`           | `ApiError`        |
+| `WKReport`          | `BaseReport`      |
+| `WKResource`        | `BaseResource`    |
 | `WK_MAX_LEVELS`     | `MAX_LEVEL`       |
 | `WK_MIN_LEVELS`     | `MIN_LEVEL`       |
 | `isWKDatableString` | `isDatableString` |
@@ -90,12 +92,13 @@ The following items were renamed in Version 2 beyond just having a `WK` prefix r
 The following items were removed from Version 2:
 
 - All data types (e.g. `WKUserData`, `WKAssignmentData`, etc.), with the exception of subjects (see renamed items above), as they made testing type and schema validation more difficult, and were less likely to be used vs the entire object they were a part of; subject data types were kept as they are part of a discriminated union for mixed subjects returned from WaniKani.
-- `WKCollectionParametersMap` which was only used by `validateParameters()` which was also removed (see below)
+- `WKCollectionParametersMap` and `WKPayloadMap`, which were only used by `validateParameters()` and `validatePayload()` respectively which were also removed (see below)
 - The type aliases `WKMaxLessonBatchSize`, `WKMaxLevels`, `WKMaxSrsReviewStages`, `WKMaxSrsStages`, `WKMinLessonBatchSize`, and `WKMinLevels` were all removed in favor of using their constant equivalents.
+- `validateParameters()` and `validatePayload()` were removed in favor of using the request factory to construct a request to the API, now named {@link ApiRequestFactory}
 
-#### `data` Union Removed from `BaseCollection`
+#### `data` Property Removed from `BaseCollection`, `BaseReport`, and `BaseResource`
 
-Formerly `WKCollection`, this type had a `data` property that was a union of different typed arrays of WaniKani resources. This was removed, as there isn't a way to get multiple resource collections at once from WaniKani, nor would it be at all common to merge them together under this type like this in code.
+Formerly `WKCollection`, `WKReport`, and `WKResource` respectively, these types had a `data` property that was a union of different typed arrays of data for items that extended these types. This was removed, as it didn't align well with how the data was actually presented by the WaniKani API, ie there isn't a way to get different collections, reports, or resources in one go via the API.
 
 #### `DatableString` Now Uses Valibot Brand
 
