@@ -158,7 +158,7 @@ Formerly `WKSubject`, this type now uses the `object` field as a variant to crea
 
 #### `WK_SUBJECT_MARKUP_MATCHERS` Combined into `SUBJECT_MARKUP_MATCHER`
 
-In Version 1, this was an object with separate regex matchers for each individual subject markup tag found in mnemonics and hints in the WaniKani API. These have been combined into one matcher that matches on all the tags. In new `tag` capture group has been added to check the tag name, alongside the existing `innerText` group. The matcher also makes use of the `d` flag to provide start and end indices for matches and groups.
+In Version 1, this was an object with separate regex matchers for each individual subject markup tag found in mnemonics and hints in the WaniKani API. These have been combined into one matcher that matches on all the tags. A new `tag` capture group has been added to check the tag name, alongside the existing `innerText` group. The matcher also makes use of the `d` flag to provide start and end indices for matches and groups.
 
 ### Other Enhancements to Consider
 
@@ -223,4 +223,4 @@ Some numbers, such as resource IDs, are validated to make sure they are a safe i
 
 #### Subject Markup Parser
 
-A new method, `parseSubjectMarkup()`, can be used to parse a WaniKani subject mnemonic/hint with subject markup tags into an array of `ParsedSubjectMarkup` nodes, which can be traversed to construct HTML, JSX, and other UI components based on the markup for rendering.
+A new method, {@link parseSubjectMarkup}, can be used to parse a WaniKani subject mnemonic/hint with subject markup tags into an array of `ParsedSubjectMarkup` nodes, which can be traversed to construct HTML, JSX, and other UI components based on the markup for rendering.
