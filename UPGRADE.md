@@ -45,7 +45,7 @@ Due to our introducing Valibot schema (see further down), importing items withou
 
 #### Unionizing `never` Properties Removed
 
-Some types in Version 1 had `never` interfaces in an attempt to make them easier to unionize with a WaniKani API Error; these properties have been removed in favor of using type guards / schema validation.
+Some types in Version 1 had `never` typed properties in an attempt to make them easier to unionize with a WaniKani API Error; these properties have been removed in favor of using type guards / schema validation.
 
 #### `WK` Prefix Removed from Items
 
@@ -100,10 +100,10 @@ The following items were renamed in Version 2 beyond just having a `WK` prefix r
 
 The following items were removed from Version 2:
 
-- All data types (e.g. `WKUserData`, `WKAssignmentData`, etc.), with the exception of subjects (see renamed items above), as they made testing type and schema validation more difficult, and were less likely to be used vs the entire object they were a part of; subject data types were kept as they are part of a discriminated union for mixed subjects returned from WaniKani.
+- All data types (e.g. `WKUserData`, `WKAssignmentData`, etc.), with the exception of subjects (`RadicalData`, `KanjiData`, etc.), as they made testing type and schema validation more difficult, and were less likely to be used vs the entire object they were a part of; subject data types were kept as they are part of a discriminated union for mixed subjects returned from WaniKani.
 - `WKCollectionParametersMap` and `WKPayloadMap`, which were only used by `validateParameters()` and `validatePayload()` respectively which were also removed (see below)
 - The type aliases `WKMaxLessonBatchSize`, `WKMaxLevels`, `WKMaxSrsReviewStages`, `WKMaxSrsStages`, `WKMinLessonBatchSize`, and `WKMinLevels` were all removed in favor of using their constant equivalents.
-- `WKResourceType`, as it's unlikely that code would need to use this union when working with the WaniKani API, ie these resources aren't gathered at once from the API
+- `WKResourceType`, as it's unlikely that code would need to use this union when working with the WaniKani API, ie these resources aren't gathered at the same time from the API
 - `WKRequestPostPutOptions` in favor of using `ApiRequestOptions` (formerly `WKRequestGetOptions`) for all request types, as all requests now only accept a `customHeaders` option instead of dedicated header options for `ifModifiedSince` and/or `ifNoneMatch` (see below)
 - `WKAssignmentRequests`, `WKLevelProgressionRequests`, `WKResetRequests`, `WKReviewRequests`, `WKReviewStatisticRequests`, `WKSpacedRepetitionSystemRequests`, `WKStudyMaterialRequests`, `WKSubjectRequests`, `WKSummaryRequests`, `WKUserRequests`, and `WKVoiceActorRequests` were all removed when the request factory was rewritten to use `public readonly` objects instead of accessors; these types were likely only used by the library itself
 - `WKReviewObjectdBase`, `WKReviewObjectWithAssignmentId`, and `WKReviewObjectWithSubjectId` in favor of directly expressing the union of allowed IDs under `ReviewPayload` (formerly `WKReviewPayload`)
@@ -113,11 +113,11 @@ The following items were removed from Version 2:
 
 #### `data` Property Removed from `BaseCollection`, `BaseReport`, and `BaseResource`
 
-Formerly `WKCollection`, `WKReport`, and `WKResource` respectively, these types had a `data` property that was a union of different typed arrays of data for items that extended these types. This was removed, as it didn't align well with how the data was actually presented by the WaniKani API, ie there isn't a way to get different collections, reports, or resources in one go via the API.
+Formerly `WKCollection`, `WKReport`, and `WKResource` respectively, these types had a `data` property that was a union of different typed data for items that extended these types. These were removed, as they didn't align well with how the data was actually presented by the WaniKani API, ie there isn't a way to get different collections, reports, or resources in one go via the API.
 
 #### `DatableString` Now Uses Valibot Brand
 
-In Version 1, we used our own `Brand` internal type to prevent creating `WKDatableString`s, and further assert they were for dates returned by WaniKani. Now that we use Valibot to parse them, the type now uses Valibot's built-in brand type instead.
+In Version 1, we used our own `Brand` internal type to prevent creating a `WKDatableString`, and further assert they were for dates returned by WaniKani. Now that we use Valibot to parse them (and thus optionally create them outside of the WaniKani API), the type now uses Valibot's built-in brand type instead.
 
 #### `MIN_LEVEL` Now Lowest WaniKani Level
 
@@ -142,7 +142,7 @@ These options were removed to make the code simpler when constructing headers fo
 
 #### `ApiRequestFactory` Methods Now Throw `ValiError`
 
-The methods for creating requests in the `ApiRequestFactory` (formerly `WKRequestFactory`) now perform additional validation on IDs when requesting individual resources, such as safe integer validation, and therefore may throw a `ValiError` in addition to a `TypeError`. This is reflected by the parameter being a `SafeInteger` instead of a plain `number`. More info on this new type is further down in the next parent section.
+The methods for creating requests in the `ApiRequestFactory` (formerly `WKRequestFactory`) now perform additional validation on IDs when requesting individual resources, such as safe integer validation, and therefore may throw a `ValiError` in addition to a `TypeError`, which is throw when type-checked headers are invalid. This is reflected by the parameter being a `SafeInteger` instead of a plain `number`. More info on this new type is further down in the next parent section.
 
 #### `ApiRequestFactory` Uses `public readonly` Objects Instead of Accessors
 
@@ -150,7 +150,7 @@ This change is mostly internal, but is mentioned in case it causes breaking chan
 
 #### `characters` Property No Longer in Subject Base
 
-`WKSubjectData` included a `characters` property that was extended on `WKRadicalData` to be `string | null`, and `string` on other subject types. This was removed on the base interface, and is now only present on the subject data types themselves. This does not affect code that was using the intefaces that extended the base interface.
+`WKSubjectData` included a `characters` property that was extended on `WKRadicalData` to be `string | null`, and `string` on other subject type in Version 1. This was removed on the base interface, and is now only present on the subject data types themselves. This does not affect code that was using the intefaces that extended the base interface.
 
 #### `Subject` is Now a Discriminated Union
 
@@ -215,7 +215,7 @@ if (isAssignment(assignment)) {
 
 #### Number Types Widened
 
-Both constants and type aliases for numbers (e.g. `Level`, `MIN_LEVEL`, `LessonBatchSizeNumber`, the `starting_srs_stage` and `ending_srs_stage` on reviews, etc.) have had their types widened. Constants are now plain number literals with type `number` instead of their corresponding type alias, and type aliases / interface properties were widened to `number & {}` typed type aliases so they show up in documentation. This allows for easier use of dynamically figured numbers in code. Type guards and schema should be used to validate these numbers; they are validated when used in `ApiRequestFactory`, e.g. when creating a request with `CollectionParameters`.
+Both constants and type aliases for numbers (e.g. `Level`, `MIN_LEVEL`, `LessonBatchSizeNumber`, the `starting_srs_stage` and `ending_srs_stage` on reviews, etc.) have had their types widened. Constants are now plain number literals with type `number` instead of their corresponding type alias, and type aliases / interface properties were widened to `number & {}` type aliases so they show up in documentation. This allows for easier use of dynamically calculated numbers in code. Type guards and schema should be used to validate these numbers; they are validated when used in `ApiRequestFactory`, e.g. when creating a request with `CollectionParameters`.
 
 #### `SafeInteger` Type for Validated Numbers
 
@@ -223,4 +223,4 @@ Some numbers, such as resource IDs, are validated to make sure they are a safe i
 
 #### Subject Markup Parser
 
-A new method, {@link parseSubjectMarkup}, can be used to parse a WaniKani subject mnemonic/hint with subject markup tags into an array of `ParsedSubjectMarkup` nodes, which can be traversed to construct HTML, JSX, and other UI components based on the markup for rendering.
+A new method, {@link parseSubjectMarkup}, can be used to parse a WaniKani subject mnemonic/hint with subject markup tags into an array of {@link ParsedSubjectMarkup} nodes, which can be traversed to construct HTML, JSX, and other UI components based on the markup for rendering.
