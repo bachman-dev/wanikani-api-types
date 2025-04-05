@@ -321,7 +321,6 @@ export class ApiRequestFactory {
 
   /**
    * An alias for Spaced Repetition System requests.
-   * @see {@link ApiRequestFactory.spacedRepetitionSystems}
    */
   public readonly srs = this.spacedRepetitionSystems;
 
