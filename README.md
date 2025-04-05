@@ -1,7 +1,7 @@
 # @bachman-dev/wanikani-api-types
 
 [![Tests (Main)](https://github.com/bachman-dev/wanikani-api-types/actions/workflows/push.yml/badge.svg)](https://github.com/bachman-dev/wanikani-api-types/actions/workflows/push.yml)
-[![codecov](https://codecov.io/gh/bachman-dev/wanikani-api-types/branch/main/graph/badge.svg?token=CCVBE1UM9M)](https://codecov.io/gh/bachman-dev/wanikani-api-types)
+[![codecov](https://codecov.io/gh/bachman-dev/wanikani-api-types/graph/badge.svg?token=CCVBE1UM9M)](https://codecov.io/gh/bachman-dev/wanikani-api-types)
 
 Regularly updated type definitions for the [WaniKani API](https://docs.api.wanikani.com/20170710/)
 
@@ -21,8 +21,8 @@ A new Major Version x includes backwards-incompatible changes such as removing p
 
 | Package Version | TypeScript Versions | WaniKani API Version | Latest API Revision |
 | --------------- | ------------------- | -------------------- | ------------------- |
-| 2.x             | 5.0 - 5.7           | 2                    | 20170710            |
-| 1.x             | 4.5 - 5.7           | 2                    | 20170710            |
+| 2.x             | 5.0 - 5.8           | 2                    | 20170710            |
+| 1.x             | >= 4.5              | 2                    | 20170710            |
 
 ## Install
 
@@ -60,11 +60,7 @@ Then, import using one of two methods.
 The module you import from matches a [WaniKani API Revision](https://docs.api.wanikani.com/20170710/#revisions-aka-versioning); you shouldn't expect any breaking changes from the package.
 
 ```typescript
-import {
-  type WKAssignmentParameters,
-  type WKDatableString,
-  stringifyParameters,
-} from "@bachman-dev/wanikani-api-types/v20170710";
+import * as WK from "@bachman-dev/wanikani-api-types/v20170710";
 ```
 
 #### Latest API Revision (Not Recommended)
@@ -72,11 +68,7 @@ import {
 Importing from the index module will always provide types, methods, etc. for use with the latest and greatest API Revision.
 
 ```typescript
-import {
-  type WKAssignmentParameters,
-  type WKDatableString,
-  stringifyParameters,
-} from "@bachman-dev/wanikani-api-types";
+import * as WK from "@bachman-dev/wanikani-api-types";
 ```
 
 </details>
@@ -96,11 +88,11 @@ You can import the modules directly with `esm.sh`.
 The module you import from matches a [WaniKani API Revision](https://docs.api.wanikani.com/20170710/#revisions-aka-versioning); you shouldn't expect any breaking changes from the package.
 
 ```typescript
-import type {
-  WKAssignmentParameters,
-  WKDatableString,
+import {
+  type AssignmentParameters,
+  DatableString,
 } from "https://esm.sh/@bachman-dev/wanikani-api-types@x.y.z/v20170710";
-import { stringifyParameters } from "https://esm.sh/@bachman-dev/wanikani-api-types@x.y.z/v20170710";
+import { ApiRequestFactory } from "https://esm.sh/@bachman-dev/wanikani-api-types@x.y.z/v20170710";
 ```
 
 #### Latest API Revision (Not Recommended)
@@ -108,8 +100,8 @@ import { stringifyParameters } from "https://esm.sh/@bachman-dev/wanikani-api-ty
 Importing from the index module will always provide types, methods, etc. for use with the latest and greatest API Revision.
 
 ```typescript
-import type { WKAssignmentParameters, WKDatableString } from "https://esm.sh/@bachman-dev/wanikani-api-types@x.y.z";
-import { stringifyParameters } from "https://esm.sh/@bachman-dev/wanikani-api-types@x.y.z";
+import { type AssignmentParameters, DatableString } from "https://esm.sh/@bachman-dev/wanikani-api-types@x.y.z";
+import { ApiRequestFactory } from "https://esm.sh/@bachman-dev/wanikani-api-types@x.y.z";
 ```
 
 </details>
@@ -122,31 +114,24 @@ We provide various type definitions to help with sending/receiving type-safe ele
 
 - **Base Types** that define essential WaniKani API building blocks
 - **Collections/Reports/Resources** that represent whole responses from the API
-- **Data** that represents only the actual returned data from the API (i.e. the `data` field on most responses)
 - **Parameter Types** that can be broken down into a query string to append to a URI for the API (especially when fetching Collections) -- see below.
 - **Payloads** that represent JSON bodies sent to the API when creating/updating certain resources
 
-We also export various subtypes that fall underneath these main types, in case they're needed to work with partial data.
+## Schema Validation
+
+If you need to validate data going to/from the WaniKani API at runtime, you can use matching [Valibot](https://valibot.dev) schema provided for every exported type to do so; these schema are also compatible with any [Standard Schema](https://standardschema.dev/) compatible application/library.
 
 ### Type Guards
 
-Most of the types defined here are object types with straightforward structure. Sometimes, however, you may have a string or number that needs to meet specific criteria to be narrowed down to an exact type. So we provide some [type guards](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates) to verify if a variable is of a given type; these will usually begin with `is` in their name (e.g. `isWKDatableString`). See the documentation for more info.
+For all the types representing items coming from the WaniKani API, we provide type guards to quickly validate if the data matches a type (e.g. a WaniKani resource, or an API error if something went wrong), without producing any side-effects to keep your application's bundle size small.
 
 ## Request Factory
 
-We provide a special class, `WKRequestFactory`, that returns Request objects with all the information you need to make a request to the WaniKani API. That means the request's method (`GET`, `POST`, `PUT`), the URL (with parameters for Collections or an ID for individual Resources), headers (Authorization, conditional headers, etc.), and a body if you are sending data. You can use these objects in your preferred HTTP API/Library such as the Fetch API, Axios, Needle, Node's `https` Module, etc.
+We provide a special class, `ApiRequestFactory`, that returns Request objects with all the information you need to make a request to the WaniKani API. That means the request's method (`GET`, `POST`, `PUT`), the URL (with parameters for Collections or an ID for individual Resources), headers (Authorization, conditional headers, etc.), and a body if you are sending data. You can use these objects in your preferred HTTP API/Library such as the Fetch API, Axios, Needle, Node's `https` Module, etc.
 
-### Helper Functions
+### Markup Matcher
 
-There are also multiple helper functions that can assist with formatting and/or validating data sent to the WaniKani API, outside of and in addition to the Request Factory.
-
-- `stringifyParameters` converts a Parameters object (e.g. `WKAssignmentParameters`) into a URL query string to use when filtering a Collection
-- `validateParameters` does runtime validation on a Parameters object, allowing for more strict validation than TypeScript's type narrowing behavior (i.e. not allowing widening to `WKCollectionParameters`); it's a good function for those who must be absolutely sure their parameters are of the exact type.
-- `validatePayload` does runtime validation of Payload objects; while most TypeScript and editor-assisted projects likely won't need this function, it can be useful for pure JavaScript applications.
-
-### Markup Matchers
-
-When working with WaniKani's Subjects, you may want to stylize/highlight the markup that's inside the reading/meaning mnemonics and hints. We provide some Regex Literals that can be used to extract one or more of these sorts of markup in `WK_SUBJECT_MARKUP_MATCHERS`.
+When working with WaniKani's Subjects, you may want to stylize/highlight the markup that's inside the reading/meaning mnemonics and hints. We provide a Regex literal that can be used to extract one or more of these sorts of markup in `SUBJECT_MARKUP_MATCHER`.
 
 ### Examples
 
@@ -160,7 +145,7 @@ That said, if you have any questions or encounter any problems with this package
 
 We welcome any contributions to help improve this library. Please see the following documents:
 
-- [CONTRIBUTING.md](CONTRIBUTING.md)
-- [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)
+- [https://github.com/bachman-dev/wanikani-api-types/blob/main/CONTRIBUTING.md](CONTRIBUTING.md)
+- [https://github.com/bachman-dev/wanikani-api-types/blob/main/CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)
 
 Thank you in advance for your contribution(s)!

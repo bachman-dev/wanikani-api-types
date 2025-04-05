@@ -1,3 +1,8 @@
+---
+title: Examples
+category: Guides
+---
+
 # Examples
 
 Below are some code examples to illustrate the various types, constants, and functions available in the library.
@@ -9,13 +14,9 @@ Keep in mind these are very simple examples, and you might want to make addition
 These examples all assume you've set an environment variable, `WANIKANI_API_TOKEN`, for API authorization. Add the following code before using these examples pertaining to your JavaScript runtime.
 
 ```typescript
-// NodeJS: run node with --env-file option
+// NodeJS / Deno: Run with --env-file option
 // Bun: Reads .env automatically, else use --env-file option
 const WANIKANI_API_TOKEN = process.env("WANIKANI_API_TOKEN");
-
-// Deno -- deno add jsr:@std/dotenv/load
-import "@std/dotenv/load";
-const WANIKANI_API_TOKEN = Deno.env.get("WANIKANI_API_TOKEN");
 ```
 
 ## Get a 24-Hour Review Forecast
@@ -23,12 +24,7 @@ const WANIKANI_API_TOKEN = Deno.env.get("WANIKANI_API_TOKEN");
 Maybe you want a bar/line graph of your review workload for the day...
 
 ```typescript
-import {
-  type WKError,
-  WKRequestFactory,
-  type WKSummary,
-  WK_API_REVISION,
-} from "@bachman-dev/wanikani-api-types/v20170710";
+import * as WK from "@bachman-dev/wanikani-api-types/v20170710";
 
 interface WaniKaniReviewForecast {
   date: Date;
@@ -36,30 +32,38 @@ interface WaniKaniReviewForecast {
 }
 
 async function reviewForecast(): Promise<WaniKaniReviewForecast[]> {
-  const request = new WKRequestFactory({ apiToken: WANIKANI_API_TOKEN, revision: WK_API_REVISION }).summary.get();
+  const request = new ApiRequestFactory({ apiToken: WANIKANI_API_TOKEN, revision: WK_API_REVISION }).summary.get();
   const { method, url, headers } = request;
   const init = { method, headers };
   const response = await fetch(url, init);
   if (response.ok) {
-    const summary = (await response.json()) as WKSummary;
-    const initialForecast: WaniKaniReviewForecast[] = [];
-    summary.data.reviews.forEach((review) => {
-      initialForecast.push({
-        date: new Date(review.available_at),
-        reviews: review.subject_ids.length,
+    const summary = await response.json();
+    if (WK.isSummary(summary)) {
+      const initialForecast: WaniKaniReviewForecast[] = [];
+      summary.data.reviews.forEach((review) => {
+        initialForecast.push({
+          date: new Date(review.available_at),
+          reviews: review.subject_ids.length,
+        });
       });
-    });
-    const forecast = initialForecast.filter((item) => {
-      return item.reviews > 0;
-    });
-    return forecast;
-    /*
+      const forecast = initialForecast.filter((item) => {
+        return item.reviews > 0;
+      });
+      return forecast;
+      /*
       Or if you wanna include zeroes...
       return initialForecast;
-    */
+      */
+    } else {
+      throw new Error("Unexpected returned data from WaniKani API");
+    }
   } else {
-    const error = (await response.json()) as WKError;
-    throw new Error(error.error);
+    const error = await response.json();
+    if (WK.isApiError(error)) {
+      throw new Error(error.error);
+    } else {
+      throw new Error("Unknown WaniKani API Error");
+    }
   }
 }
 ```
@@ -69,187 +73,158 @@ async function reviewForecast(): Promise<WaniKaniReviewForecast[]> {
 A very wide collection of subjects, but can be limited by level.
 
 ```typescript
-import {
-  type WKError,
-  WKRequestFactory,
-  type WKSubjectCollection,
-  type WKSubjectData,
-  type WKSubjectParameters,
-  WK_API_REVISION,
-  isWKLevel,
-} from "@bachman-dev/wanikani-api-types/v20170710";
+import * as WK from "@bachman-dev/wanikani-api-types/v20170710";
 
-async function getSubjects(level?: number): Promise<WKSubjectData[]> {
-  if (typeof level !== "undefined" && !isWKLevel(level)) {
-    throw new TypeError("Invalid WaniKani Level! It must be a whole number between 1 and 60");
-  }
-  const params: WKSubjectParameters = {
+async function getSubjects(level?: WK.Level): Promise<WK.Subject[]> {
+  const params: WK.SubjectParameters = {
     hidden: false,
   };
-  if (typeof level !== "undefined") {
+  if (typeof level === "number") {
     params.levels = [level];
   }
-  const request = new WKRequestFactory({ apiToken: WANIKANI_API_TOKEN, revision: WK_API_REVISION }).subjects.get(
+  const request = new ApiRequestFactory({ apiToken: WANIKANI_API_TOKEN, revision: WK_API_REVISION }).subjects.get(
     params,
   );
   const { headers, method } = request;
   let { url } = request;
   const init = { headers, method };
   let response = await fetch(url, init);
-  let subjects = (await response.json()) as WKSubjectCollection | WKError;
-  const subjectData: WKSubjectData[] = [];
+  let json = await response.json();
+  const subjects: WK.Subject[] = [];
   let moreSubjects = true;
   while (moreSubjects) {
-    if (typeof subjects.data === "undefined" || typeof subjects.pages === "undefined") {
-      throw new Error(subjects.error);
-    }
-    subjects.data.forEach((subject) => {
-      subjectData.push(subject.data);
-    });
-    if (typeof subjects.pages !== "undefined" && subjects.pages.next_url !== null) {
-      url = subjects.pages.next_url;
-      response = await fetch(url, init);
-      subjects = (await response.json()) as WKSubjectCollection | WKError;
+    if (WK.isSubjectCollection(json)) {
+      json.data.forEach((subject) => {
+        subjects.push(subject);
+      });
+      if (json.pages.next_url !== null) {
+        url = json.pages.next_url;
+        response = await fetch(url, init);
+        json = await response.json();
+      } else {
+        moreSubjects = false;
+      }
+    } else if (WK.isApiError(json)) {
+      throw new Error(json.error);
     } else {
-      moreSubjects = false;
+      throw new Error("Unknown WaniKani API Error");
     }
   }
-  return subjectData;
+  return subjects;
 }
 ```
 
 ## Get Lessons
 
-Fetches all the info you need to display the lessons, hear pronunciation audio, and which assignments to start after the quiz. It also respects the user's lesson presentation and batch size preferences.
+Fetches all the info you need to display the lessons, hear pronunciation audio, and which assignments to start after the quiz. It also respects the user's lesson batch size preferences.
 
 ```typescript
-import {
-  type WKAssignmentCollection,
-  type WKAssignmentData,
-  type WKAssignmentParameters,
-  type WKError,
-  type WKLevel,
-  WKRequestFactory,
-  type WKSubjectCollection,
-  type WKSubjectData,
-  type WKSubjectParameters,
-  type WKUser,
-  WK_API_REVISION,
-} from "@bachman-dev/wanikani-api-types/v20170710";
+import * as WK from "@bachman-dev/wanikani-api-types/v20170710";
 
 interface WaniKaniLesson {
-  subject: WKSubjectData;
-  assignment: WKAssignmentData;
+  subject: WK.Subject;
+  assignment: WK.Assignment;
 }
 
-type WaniKaniLessonLevels = Partial<Record<WKLevel, WaniKaniLesson[]>>;
+type WaniKaniLessonLevels = Partial<Record<WK.Level, WaniKaniLesson[]>>;
 
 async function getLessons(): Promise<WaniKaniLesson[]> {
-  const wk = new WKRequestFactory({ apiToken: WANIKANI_API_TOKEN, revision: WK_API_REVISION });
-  const userRequest = wk.user.get();
+  const factory = new WK.ApiRequestFactory({ apiToken: WANIKANI_API_TOKEN, revision: WK_API_REVISION });
+  const userRequest = factory.user.get();
   const { method, headers } = userRequest;
   let { url } = userRequest;
   const init = { headers };
   let response = await fetch(url, init);
-  const user = (await response.json()) as WKError | WKUser;
-  if (typeof user.data === "undefined") {
-    throw new Error(user.error);
-  }
-  const batchSize = user.data.preferences.lessons_batch_size;
-  const ordering = user.data.preferences.lessons_presentation_order;
-
-  const assignmentParams: WKAssignmentParameters = {
-    immediately_available_for_lessons: true,
-  };
-
-  const assignmentRequest = wk.assignments.get(assignmentParams);
-
-  url = assignmentRequest.url;
-  response = await fetch(url, init);
-  let assignments = (await response.json()) as WKAssignmentCollection | WKError;
-  if (typeof assignments.data === "undefined" || typeof assignments.pages === "undefined") {
-    throw new Error(assignments.error);
-  }
-  const lessonData: WaniKaniLesson[] = [];
-  let moreAssignments = true;
-  while (moreAssignments) {
-    const ids: number[] = [];
-    assignments.data.forEach((assignment) => {
-      ids.push(assignment.data.subject_id);
-    });
-    const subjectParams: WKSubjectParameters = {
-      ids,
+  const user = await response.json();
+  if (WK.isUser(user)) {
+    const lessonData: WaniKaniLesson[] = [];
+    const batchSize = user.data.preferences.lessons_batch_size;
+    const assignmentParams: WK.AssignmentParameters = {
+      immediately_available_for_lessons: true,
     };
-    url = wk.subjects.get(subjectParams);
+    const assignmentRequest = factory.assignments.get(assignmentParams);
+    url = assignmentRequest.url;
     response = await fetch(url, init);
-    const subjects = (await response.json()) as WKSubjectCollection | WKError;
-    if (typeof subjects.data === "undefined") {
-      throw new Error(subjects.error);
-    } else {
-      if (ordering === "shuffled") {
-        // Durstenfeld shuffle
-        for (let i = assignments.data.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [assignments.data[i], assignments.data[j]] = [assignments.data[j], assignments.data[i]];
-        }
+    let assignments = await response.json();
+    let moreAssignments = true;
+    while (moreAssignments) {
+      if (WK.isAssignmentCollection(assignments)) {
+        const ids: number[] = [];
         assignments.data.forEach((assignment) => {
-          const subject = subjects.data.find((subject) => {
-            return subject.id === assignment.data.subject_id;
-          });
-          if (typeof subject === "undefined") {
-            throw new Error("Unexpected missing subject from collection!");
-          }
-          lessonData.push({
-            assignment: assignment.data,
-            subject: subject.data,
-          });
+          ids.push(assignment.data.subject_id);
         });
-      } else {
-        const levels: WaniKaniLessonLevels = {};
-        assignments.data.forEach((assignment) => {
-          const subject = subjects.data.find((subject) => {
-            return subject.id === assignment.data.subject_id;
-          });
-          if (typeof subject === "undefined") {
-            throw new Error("Unexpected missing subject from collection!");
-          }
-          if (typeof levels[subject.data.level] === "undefined") {
-            levels[subject.data.level] = [];
-          }
-          levels[subject.data.level]?.push({
-            assignment: assignment.data,
-            subject: subject.data,
-          });
-        });
-        for (const [_key, value] of Object.entries(levels)) {
-          if (ordering === "ascending_level_then_shuffled") {
-            for (let i = value.length - 1; i > 0; i--) {
-              const j = Math.floor(Math.random() * (i + 1));
-              [value[i], value[j]] = [value[j], value[i]];
+        const subjectParams: WK.SubjectParameters = {
+          ids,
+        };
+        url = factory.subjects.get(subjectParams);
+        response = await fetch(url, init);
+        const subjects = await response.json();
+        if (WK.isSubjectCollection(subjects)) {
+          const levels: WaniKaniLessonLevels = {};
+          assignments.data.forEach((assignment) => {
+            const subject = subjects.data.find((subject) => subject.id === assignment.data.subject_id);
+            if (typeof subject === "undefined") {
+              throw new Error("Unexpected missing subject from collection!");
             }
-          } else if (ordering === "ascending_level_then_subject") {
-            value.sort((lessonA, lessonB) => {
-              return lessonA.subject.lesson_position - lessonB.subject.lesson_position;
+            if (typeof levels[subject.data.level] === "undefined") {
+              levels[subject.data.level] = [];
+            }
+            levels[subject.data.level]?.push({
+              assignment,
+              subject,
             });
-          }
-          value.forEach((lesson) => {
-            lessonData.push(lesson);
           });
+          for (const [_key, value] of Object.entries(levels)) {
+            value
+              .sort((lessonA, lessonB) => {
+                return lessonA.subject.lesson_position - lessonB.subject.lesson_position;
+              })
+              .forEach((lesson) => {
+                lessonData.push(lesson);
+              });
+          }
+        } else if (WK.isApiError(subjects)) {
+          throw new Error(subjects.error);
+        } else {
+          throw new Error("Unknown WaniKani API Error when Getting Subjects");
         }
-      }
-    }
-    if (typeof assignments.pages !== "undefined" && assignments.pages.next_url !== null) {
-      url = assignments.pages.next_url;
-      response = await fetch(url, init);
-      assignments = (await response.json()) as WKAssignmentCollection | WKError;
-      if (typeof assignments.data === "undefined") {
+        if (typeof assignments.pages !== "undefined" && assignments.pages.next_url !== null) {
+          url = assignments.pages.next_url;
+          response = await fetch(url, init);
+          assignments = await response.json();
+        } else {
+          moreAssignments = false;
+        }
+      } else if (WK.isApiError(assignments)) {
         throw new Error(assignments.error);
+      } else {
+        throw new Error("Unknown WaniKani API Error when Getting Assignments");
       }
-    } else {
-      moreAssignments = false;
     }
+    return lessonData.slice(0, batchSize);
+  } else if (WK.isApiError(user)) {
+    throw new Error(user.error);
+  } else {
+    throw new Error("Unknown WaniKani API Error when Getting User");
   }
-  return lessonData.slice(0, batchSize);
+}
+```
+
+## Parse and Render Subject Markup
+
+Create a subject markup renderer that works with our markup parser, for displaying the lesson mnemonics...
+
+```tsx
+import * as WK from "@bachman-dev/wanikani-api-types/v20170710";
+
+function renderSubjectMarkup(markup: WK.ParsedSubjectMarkup[]): JSX.Element {
+  return markup.map((item) => {
+    if (typeof item.text === "string") {
+      return <p>{item.text}</p>;
+    } else {
+      return <div className={item.tag}>{renderSubjectMarkup(item.children)}</div>;
+    }
+  });
 }
 ```
 
@@ -258,29 +233,21 @@ async function getLessons(): Promise<WaniKaniLesson[]> {
 For instance, the aforementioned assignments you quizzed after getting the lessons above...
 
 ```typescript
-import {
-  type WKAssignment,
-  type WKAssignmentPayload,
-  type WKDatableString,
-  type WKError,
-  WKRequestFactory,
-  WK_API_REVISION,
-  isWKDatableString,
-} from "@bachman-dev/wanikani-api-types/v20170710";
+import * as WK from "@bachman-dev/wanikani-api-types/v20170710";
 
-async function startAssignment(id: number, started_at?: WKDatableString | Date): Promise<WKAssignment> {
-  let payload: WKAssignmentPayload = {};
-  if (typeof started_at !== "undefined" && (isWKDatableString(started_at) || started_at instanceof Date)) {
+async function startAssignment(id: number, started_at?: Date): Promise<WK.Assignment> {
+  let payload: WK.AssignmentPayload = { assignment: {} };
+  if (typeof started_at !== "undefined") {
     payload = {
       assignment: {
         started_at,
       },
     };
   }
-  const request = new WKRequestFactory({ apiToken: WANIKANI_API_TOKEN, revision: WK_API_REVISION }).assignments.start(
-    id,
-    payload,
-  );
+  const request = new WK.ApiRequestFactory({
+    apiToken: WANIKANI_API_TOKEN,
+    revision: WK_API_REVISION,
+  }).assignments.start(id, payload);
   const { method, url, headers, body } = request;
   const init: RequestInit = {
     method,
@@ -288,12 +255,13 @@ async function startAssignment(id: number, started_at?: WKDatableString | Date):
     body,
   };
   const response = await fetch(url, init);
-  if (response.ok) {
-    const assignment = (await response.json()) as WKAssignment;
-    return assignment;
+  const json = await response.json();
+  if (WK.isAssignment(json)) {
+    return json;
+  } else if (WK.isApiError(json)) {
+    throw new Error(json.error);
   } else {
-    const error = (await response.json()) as WKError;
-    throw new Error(error.error);
+    throw new Error("Unknown WaniKani API Error");
   }
 }
 ```
@@ -303,27 +271,19 @@ async function startAssignment(id: number, started_at?: WKDatableString | Date):
 Later that day, when a review is available, create it against the started assignment(s)...
 
 ```typescript
-import {
-  type WKCreatedReview,
-  type WKDatableString,
-  type WKError,
-  WKRequestFactory,
-  type WKReviewPayload,
-  WK_API_REVISION,
-  isWKDatableString,
-} from "@bachman-dev/wanikani-api-types/v20170710";
+import * as WK from "@bachman-dev/wanikani-api-types/v20170710";
 
 async function createReview(
   id: number,
   incorrect_meaning_answers = 0,
   incorrect_reading_answers = 0,
   idType: "assignment" | "subject" = "assignment",
-  created_at?: WKDatableString | Date,
-): Promise<WKCreatedReview> {
+  created_at?: Date,
+): Promise<WK.CreatedReview> {
   // HTTP Status Code 201 - Accepted
   const accepted = 201;
 
-  let payload: WKReviewPayload = {
+  let payload: WK.ReviewPayload = {
     review: {
       assignment_id: id,
       incorrect_meaning_answers,
@@ -339,11 +299,11 @@ async function createReview(
       },
     };
   }
-  if (typeof created_at !== "undefined" && (isWKDatableString(created_at) || created_at instanceof Date)) {
+  if (typeof created_at !== "undefined") {
     payload.review.created_at = created_at;
   }
 
-  const request = new WKRequestFactory({ apiToken: WANIKANI_API_TOKEN, revision: WK_API_REVISION }).reviews.create(
+  const request = new WK.ApiRequestFactory({ apiToken: WANIKANI_API_TOKEN, revision: WK_API_REVISION }).reviews.create(
     payload,
   );
 
@@ -354,12 +314,13 @@ async function createReview(
     body,
   };
   const response = await fetch(url, init);
-  if (response.status === accepted) {
-    const createdReview = (await response.json()) as WKCreatedReview;
-    return createdReview;
+  const json = await response.json();
+  if (response.status === accepted && WK.isCreatedReview(json)) {
+    return json;
+  } else if (isApiError(json)) {
+    throw new Error(json.error);
   } else {
-    const error = (await response.json()) as WKError;
-    throw new Error(error.error);
+    throw new Error("Unknown WaniKani API Error");
   }
 }
 ```
