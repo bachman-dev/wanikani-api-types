@@ -31,7 +31,7 @@ Fork and then clone the repo from GitHub into a location of your choosing. It's 
 Install the dependencies.
 
 ```shell
-npm install
+pnpm install
 ```
 
 After checking out a new branch, make any needed changes, and run all scripts defined in the `package.json`.
