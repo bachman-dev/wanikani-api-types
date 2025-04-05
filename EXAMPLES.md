@@ -210,34 +210,44 @@ async function getLessons(): Promise<WaniKaniLesson[]> {
 }
 ```
 
+## Parse and Render Subject Markup
+
+Create a subject markup renderer that works with our markup parser, for displaying the lesson mnemonics...
+
+```tsx
+import * as WK from "@bachman-dev/wanikani-api-types/v20170710";
+
+function renderSubjectMarkup(markup: WK.ParsedSubjectMarkup[]): JSX.Element {
+  return markup.map((item) => {
+    if (typeof item.text === "string") {
+      return <p>{item.text}</p>;
+    } else {
+      return <div className={item.tag}>{renderSubjectMarkup(item.children)}</div>;
+    }
+  });
+}
+```
+
 ## Start an Assignment
 
 For instance, the aforementioned assignments you quizzed after getting the lessons above...
 
 ```typescript
-import {
-  type WKAssignment,
-  type WKAssignmentPayload,
-  type WKDatableString,
-  type ApiError,
-  ApiRequestFactory,
-  WK_API_REVISION,
-  isWKDatableString,
-} from "@bachman-dev/wanikani-api-types/v20170710";
+import * as WK from "@bachman-dev/wanikani-api-types/v20170710";
 
-async function startAssignment(id: number, started_at?: WKDatableString | Date): Promise<WKAssignment> {
-  let payload: WKAssignmentPayload = {};
-  if (typeof started_at !== "undefined" && (isWKDatableString(started_at) || started_at instanceof Date)) {
+async function startAssignment(id: number, started_at?: Date): Promise<WK.Assignment> {
+  let payload: WK.AssignmentPayload = { assignment: {} };
+  if (typeof started_at !== "undefined") {
     payload = {
       assignment: {
         started_at,
       },
     };
   }
-  const request = new ApiRequestFactory({ apiToken: WANIKANI_API_TOKEN, revision: WK_API_REVISION }).assignments.start(
-    id,
-    payload,
-  );
+  const request = new WK.ApiRequestFactory({
+    apiToken: WANIKANI_API_TOKEN,
+    revision: WK_API_REVISION,
+  }).assignments.start(id, payload);
   const { method, url, headers, body } = request;
   const init: RequestInit = {
     method,
@@ -245,12 +255,13 @@ async function startAssignment(id: number, started_at?: WKDatableString | Date):
     body,
   };
   const response = await fetch(url, init);
-  if (response.ok) {
-    const assignment = (await response.json()) as WKAssignment;
-    return assignment;
+  const json = await response.json();
+  if (WK.isAssignment(json)) {
+    return json;
+  } else if (WK.isApiError(json)) {
+    throw new Error(json.error);
   } else {
-    const error = (await response.json()) as ApiError;
-    throw new Error(error.error);
+    throw new Error("Unknown WaniKani API Error");
   }
 }
 ```
@@ -260,27 +271,19 @@ async function startAssignment(id: number, started_at?: WKDatableString | Date):
 Later that day, when a review is available, create it against the started assignment(s)...
 
 ```typescript
-import {
-  type WKCreatedReview,
-  type WKDatableString,
-  type ApiError,
-  ApiRequestFactory,
-  type WKReviewPayload,
-  WK_API_REVISION,
-  isWKDatableString,
-} from "@bachman-dev/wanikani-api-types/v20170710";
+import * as WK from "@bachman-dev/wanikani-api-types/v20170710";
 
 async function createReview(
   id: number,
   incorrect_meaning_answers = 0,
   incorrect_reading_answers = 0,
   idType: "assignment" | "subject" = "assignment",
-  created_at?: WKDatableString | Date,
-): Promise<WKCreatedReview> {
+  created_at?: Date,
+): Promise<WK.CreatedReview> {
   // HTTP Status Code 201 - Accepted
   const accepted = 201;
 
-  let payload: WKReviewPayload = {
+  let payload: WK.ReviewPayload = {
     review: {
       assignment_id: id,
       incorrect_meaning_answers,
@@ -296,11 +299,11 @@ async function createReview(
       },
     };
   }
-  if (typeof created_at !== "undefined" && (isWKDatableString(created_at) || created_at instanceof Date)) {
+  if (typeof created_at !== "undefined") {
     payload.review.created_at = created_at;
   }
 
-  const request = new ApiRequestFactory({ apiToken: WANIKANI_API_TOKEN, revision: WK_API_REVISION }).reviews.create(
+  const request = new WK.ApiRequestFactory({ apiToken: WANIKANI_API_TOKEN, revision: WK_API_REVISION }).reviews.create(
     payload,
   );
 
@@ -311,12 +314,13 @@ async function createReview(
     body,
   };
   const response = await fetch(url, init);
-  if (response.status === accepted) {
-    const createdReview = (await response.json()) as WKCreatedReview;
-    return createdReview;
+  const json = await response.json();
+  if (response.status === accepted && WK.isCreatedReview(json)) {
+    return json;
+  } else if (isApiError(json)) {
+    throw new Error(json.error);
   } else {
-    const error = (await response.json()) as ApiError;
-    throw new Error(error.error);
+    throw new Error("Unknown WaniKani API Error");
   }
 }
 ```
