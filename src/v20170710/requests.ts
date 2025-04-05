@@ -320,6 +320,11 @@ export class ApiRequestFactory {
   };
 
   /**
+   * An alias for Spaced Repetition System requests.
+   */
+  public readonly srs = this.spacedRepetitionSystems;
+
+  /**
    * Types of Study Material Requests available in the WaniKani API.
    */
   public readonly studyMaterials = {
