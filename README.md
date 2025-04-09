@@ -125,7 +125,7 @@ If you need to validate data going to/from the WaniKani API at runtime, you can 
 
 For all the types representing items coming from the WaniKani API, we provide type guards to quickly validate if the data matches a type (e.g. a WaniKani resource, or an API error if something went wrong), without producing any side-effects to keep your application's bundle size small.
 
-## Request Factory
+## Request Factor
 
 We provide a special class, `ApiRequestFactory`, that returns Request objects with all the information you need to make a request to the WaniKani API. That means the request's method (`GET`, `POST`, `PUT`), the URL (with parameters for Collections or an ID for individual Resources), headers (Authorization, conditional headers, etc.), and a body if you are sending data. You can use these objects in your preferred HTTP API/Library such as the Fetch API, Axios, Needle, Node's `https` Module, etc.
 
