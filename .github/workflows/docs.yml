@@ -1,5 +1,4 @@
 name: Docs
-name: Docs
 on: workflow_dispatch
 jobs:
   test:
