@@ -46,19 +46,19 @@ body:
     id: ts-version
     attributes:
       label: TypeScript Version
-      description: The version of TypeScript you have installed in your dependencies
+      description: The version of TypeScript you have installed in your dependencies, if applicable
       placeholder: "e.g. 4.8.4 or 5.2.3"
     validations:
-      required: true
+      required: false
   - type: textarea
     id: tsconfig-json
     attributes:
       label: Your tsconfig.json File
-      description: Copy and paste the contents of the tsconfig.json file used to build your project.
+      description: Copy and paste the contents of the tsconfig.json file used to build your project, if applicable
       placeholder: "Your tsconfig.json file contents here..."
       render: "JSON"
     validations:
-      required: true
+      required: false
   - type: input
     id: using-module
     attributes:
