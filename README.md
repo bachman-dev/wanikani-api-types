@@ -1,5 +1,7 @@
 # @bachman-dev/wanikani-api-types
 
+# @bachman-dev/wanikani-api-types
+
 [![Tests (Main)](https://github.com/bachman-dev/wanikani-api-types/actions/workflows/push.yml/badge.svg)](https://github.com/bachman-dev/wanikani-api-types/actions/workflows/push.yml)
 [![codecov](https://codecov.io/gh/bachman-dev/wanikani-api-types/graph/badge.svg?token=CCVBE1UM9M)](https://codecov.io/gh/bachman-dev/wanikani-api-types)
 
@@ -135,6 +137,7 @@ When working with WaniKani's Subjects, you may want to stylize/highlight the mar
 
 ### Examples
 
+See [EXAMPLES.md](EXAMPLES.md) for examples using this library.
 See [EXAMPLES.md](EXAMPLES.md) for examples using this library.
 
 ## Need Help? Want to Contribute?
