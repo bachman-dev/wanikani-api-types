@@ -4,6 +4,7 @@ on:
   pull_request:
     branches:
       - main
+      - v1
       - v2
     types:
       - opened
@@ -37,26 +38,6 @@ jobs:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       - name: Build Documentation
         run: pnpm build:docs
-      - name: Install TypeScript 4.5
-        run: 'pnpm add --save-dev typescript@"~4.5"'
-      - name: Build Library on TypeScript 4.5
-        run: pnpm build:ts4
-      - name: Install TypeScript 4.6
-        run: 'pnpm add --save-dev typescript@"~4.6"'
-      - name: Build Library on TypeScript 4.6
-        run: pnpm build:ts4
-      - name: Install TypeScript 4.7
-        run: 'pnpm add --save-dev typescript@"~4.7"'
-      - name: Build Library on TypeScript 4.7
-        run: pnpm build:ts4
-      - name: Install TypeScript 4.8
-        run: 'pnpm add --save-dev typescript@"~4.8"'
-      - name: Build Library on TypeScript 4.8
-        run: pnpm build:ts4
-      - name: Install TypeScript 4.9
-        run: 'pnpm add --save-dev typescript@"~4.9"'
-      - name: Build Library on TypeScript 4.9
-        run: pnpm build:ts4
       - name: Install TypeScript 5.0
         run: 'pnpm add --save-dev typescript@"~5.0"'
       - name: Build Library on TypeScript 5.0

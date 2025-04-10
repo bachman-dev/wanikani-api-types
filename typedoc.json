@@ -1,14 +1,31 @@
 {
   "$schema": "https://typedoc.org/schema.json",
-  "entryPoints": ["./src/v20170710.ts", "./src/index.ts"],
+  "entryPoints": ["./src/v20170710/index.ts"],
   "out": "docs",
   "plugin": ["./typedoc/plugin.js"],
   "router": "cloudflare",
   "sourceLinkTemplate": "https://github.com/bachman-dev/wanikani-api-types/blob/{gitRevision}/{path}#L{line}",
+  "projectDocuments": ["./EXAMPLES.md", "./UPGRADE.md"],
+  "externalSymbolLinkMappings": {
+    "valibot": {
+      "ValiError": "https://valibot.dev/api/ValiError/"
+    }
+  },
+  "highlightLanguages": ["bash", "console", "diff", "javascript", "json", "jsonc", "typescript", "tsx"],
   "cleanOutputDir": true,
   "includeVersion": true,
   "categorizeByGroup": false,
-  "categoryOrder": ["Base", "Collections", "Data", "Parameters", "Payloads", "Reports", "Requests", "Resources", "*"],
+  "categoryOrder": [
+    "Base",
+    "Collections",
+    "Parameters",
+    "Payloads",
+    "Reports",
+    "Requests",
+    "Resources",
+    "Type Guards",
+    "*"
+  ],
   "navigation": {
     "includeCategories": true
   },
@@ -31,6 +48,5 @@
     "notDocumented": true,
     "invalidLink": true,
     "notExported": true
-  },
-  "intentionallyNotExported": ["Brand", "NumberRange"]
+  }
 }

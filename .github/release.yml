@@ -3,9 +3,6 @@ changelog:
     - title: ⚠️ BREAKING CHANGES
       labels:
         - "breaking change"
-    - title: 🏚️ Deprecated Items
-      labels:
-        - deprecated
     - title: 🎉 New Features
       labels:
         - enhancement

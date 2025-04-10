@@ -16,9 +16,8 @@ body:
       description: Select one of the options below indicating the type of feature requested.
       multiple: false
       options:
-        - "New/Missing WaniKani API Type for Item in API Docs"
-        - "New Type Provided by This Package"
-        - "New Constant or Other Variable"
+        - "New/Missing WaniKani API Type/Schema for Item in API Docs"
+        - "New Type/Schema Provided by This Package"
         - "New Helper Function/Type Guard"
         - "Other (specify below)"
     validations:

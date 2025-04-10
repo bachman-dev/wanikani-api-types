@@ -6,4 +6,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Trigger Cloudflare Deploy Hook
-        run: "curl -X POST ${{ secrets.CLOUDFLARE_V1_DEPLOY_HOOK }}"
+        run: "curl -X POST ${{ secrets.CLOUDFLARE_DEPLOY_HOOK }}"
