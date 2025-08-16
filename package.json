@@ -26,7 +26,7 @@
     }
   },
   "scripts": {
-    "build": "rimraf dist && tsup --entry src/index.ts --entry src/v20170710/index.ts --dts --format esm --treeshake",
+    "build": "tsdown --entry src/index.ts --entry src/v20170710/index.ts --dts --format esm --treeshake",
     "build:docs": "typedoc",
     "lint": "eslint . && prettier --check .",
     "lint:fix": "eslint --fix . && prettier --write .",
@@ -49,8 +49,7 @@
     "eslint": "9.32.0",
     "eslint-config-prettier": "10.1.8",
     "prettier": "3.6.2",
-    "rimraf": "6.0.1",
-    "tsup": "8.5.0",
+    "tsdown": "0.14.1",
     "typedoc": "0.28.9",
     "typescript": "5.8.3",
     "typescript-eslint": "8.39.0",
