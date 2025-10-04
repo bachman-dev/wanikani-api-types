@@ -1,9 +1,10 @@
 import bachmanDev from "@bachman-dev/eslint-config";
+import { defineConfig } from "eslint/config";
 import eslint from "@eslint/js";
 import eslintConfigPrettier from "eslint-config-prettier";
 import tseslint from "typescript-eslint";
 
-export default tseslint.config(
+export default defineConfig(
   {
     // Replace output folder if needed, e.g. "dist"
     ignores: ["{coverage,docs,dist}/**"],
