@@ -21,7 +21,7 @@ A new Major Version x includes backwards-incompatible changes such as removing p
 
 | Package Version | TypeScript Versions | WaniKani API Version | Latest API Revision |
 | --------------- | ------------------- | -------------------- | ------------------- |
-| 2.x             | 5.0 - 5.8           | 2                    | 20170710            |
+| 2.x             | 5.0 - 5.9           | 2                    | 20170710            |
 | 1.x             | >= 4.5              | 2                    | 20170710            |
 
 ## Install
