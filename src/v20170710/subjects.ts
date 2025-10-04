@@ -27,7 +27,7 @@ export function isSubjectType(value: unknown): value is SubjectType {
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
  */
-export type SubjectTuple = [SubjectType, ...SubjectType[]];
+export type SubjectTuple = [first: SubjectType, ...rest: SubjectType[]];
 export const SubjectTuple = v.pipe(
   v.tupleWithRest([SubjectType], SubjectType),
   v.nonEmpty(),
