@@ -72,3 +72,7 @@ jobs:
         run: 'pnpm add --save-dev typescript@"~5.8"'
       - name: Build Library on TypeScript 5.8
         run: pnpm build
+      - name: Install TypeScript 5.9
+        run: 'pnpm add --save-dev typescript@"~5.9"'
+      - name: Build Library on TypeScript 5.9
+        run: pnpm build
