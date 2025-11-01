@@ -1,6 +1,6 @@
 {
   "name": "@bachman-dev/wanikani-api-types",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Regularly updated type definitions for the WaniKani API",
   "keywords": [
     "wanikani",
