@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       id-token: write
+      contents: read
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -35,13 +36,11 @@ jobs:
         if: ${{ github.event.release.prerelease }}
         run: pnpm publish --access=public --tag=next --no-git-checks
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
       - name: Publish Library (Latest)
         if: ${{ !github.event.release.prerelease }}
         run: pnpm publish --access=public --no-git-checks
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
       - name: Publish Documentation
         run: "curl -X POST ${{ secrets.CLOUDFLARE_DEPLOY_HOOK }}"
