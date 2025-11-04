@@ -13,8 +13,8 @@ importers:
         version: 1.0.0(typescript@5.9.3)
     devDependencies:
       '@bachman-dev/eslint-config':
-        specifier: 3.0.0
-        version: 3.0.0(jiti@2.5.1)(typescript-eslint@8.46.2(eslint@9.38.0(jiti@2.5.1))(typescript@5.9.3))
+        specifier: 3.0.1
+        version: 3.0.1(jiti@2.5.1)(typescript-eslint@8.46.2(eslint@9.38.0(jiti@2.5.1))(typescript@5.9.3))
       '@eslint/js':
         specifier: 9.38.0
         version: 9.38.0
@@ -82,8 +82,8 @@ packages:
     resolution: {integrity: sha512-qQ5m48eI/MFLQ5PxQj4PFaprjyCTLI37ElWMmNs0K8Lk3dVeOdNpB3ks8jc7yM5CDmVC73eMVk/trk3fgmrUpA==}
     engines: {node: '>=6.9.0'}
 
-  '@bachman-dev/eslint-config@3.0.0':
-    resolution: {integrity: sha512-hC4tGVb91jLKWp7EfEMor75sJja8FsuSrwsWJff8whuIep+kn1ibJ/OnWYJrKTJkDQGilHHoqPpXoZNHuf8FAg==}
+  '@bachman-dev/eslint-config@3.0.1':
+    resolution: {integrity: sha512-DUGq2vTcvf0bP7zq9hjr9Om1VavW+CvRqQs/9/I3XmLdli2uZ5bmmqiLA1LdpFzJhwLRZKg6ERPCxKHDl0f0Kg==}
     peerDependencies:
       typescript-eslint: ^8.45.0
 
@@ -1467,7 +1467,7 @@ snapshots:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.28.5
 
-  '@bachman-dev/eslint-config@3.0.0(jiti@2.5.1)(typescript-eslint@8.46.2(eslint@9.38.0(jiti@2.5.1))(typescript@5.9.3))':
+  '@bachman-dev/eslint-config@3.0.1(jiti@2.5.1)(typescript-eslint@8.46.2(eslint@9.38.0(jiti@2.5.1))(typescript@5.9.3))':
     dependencies:
       eslint: 9.38.0(jiti@2.5.1)
       typescript-eslint: 8.46.2(eslint@9.38.0(jiti@2.5.1))(typescript@5.9.3)
