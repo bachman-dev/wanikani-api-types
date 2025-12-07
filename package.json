@@ -45,7 +45,7 @@
   "devDependencies": {
     "@bachman-dev/eslint-config": "3.0.1",
     "@eslint/js": "9.38.0",
-    "@vitest/coverage-v8": "4.0.5",
+    "@vitest/coverage-v8": "4.0.15",
     "eslint": "9.38.0",
     "eslint-config-prettier": "10.1.8",
     "prettier": "3.6.2",
@@ -53,7 +53,7 @@
     "typedoc": "0.28.14",
     "typescript": "5.9.3",
     "typescript-eslint": "8.46.2",
-    "vitest": "4.0.5"
+    "vitest": "4.0.15"
   },
   "peerDependencies": {
     "typescript": "5.0.x - 5.9.x"
