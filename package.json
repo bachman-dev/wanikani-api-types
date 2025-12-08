@@ -10,34 +10,34 @@
   "author": "Collin Bachman <collin.r68zdn9d@bachman.dev>",
   "license": "MIT",
   "homepage": "https://wanikani-api-types.bachman.dev",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bachman-dev/wanikani-api-types"
+  },
   "type": "module",
+  "files": [
+    "dist/**/*.{mjs,d.mts}"
+  ],
   "exports": {
     ".": {
       "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
       }
     },
     "./v20170710": {
       "import": {
-        "types": "./dist/v20170710/index.d.ts",
-        "default": "./dist/v20170710/index.js"
+        "types": "./dist/v20170710/index.d.mts",
+        "default": "./dist/v20170710/index.mjs"
       }
     }
   },
   "scripts": {
-    "build": "tsdown --entry src/index.ts --entry src/v20170710/index.ts --dts --format esm --treeshake",
+    "build": "tsdown --entry src/index.ts --entry src/v20170710/index.ts --dts --format esm",
     "build:docs": "typedoc",
     "lint": "eslint . && prettier --check .",
     "lint:fix": "eslint --fix . && prettier --write .",
     "test": "vitest run"
-  },
-  "files": [
-    "dist/**/*.{js,d.ts}"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/bachman-dev/wanikani-api-types"
   },
   "dependencies": {
     "valibot": "^1.0.0"
@@ -63,8 +63,5 @@
       "optional": true
     }
   },
-  "packageManager": "pnpm@10.24.0+sha512.01ff8ae71b4419903b65c60fb2dc9d34cf8bb6e06d03bde112ef38f7a34d6904c424ba66bea5cdcf12890230bf39f9580473140ed9c946fef328b6e5238a345a",
-  "pnpm": {
-    "neverBuiltDependencies": []
-  }
+  "packageManager": "pnpm@10.24.0+sha512.01ff8ae71b4419903b65c60fb2dc9d34cf8bb6e06d03bde112ef38f7a34d6904c424ba66bea5cdcf12890230bf39f9580473140ed9c946fef328b6e5238a345a"
 }
