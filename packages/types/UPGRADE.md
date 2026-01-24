@@ -223,4 +223,4 @@ Some numbers, such as resource IDs, are validated to make sure they are a safe i
 
 #### Subject Markup Parser
 
-A new method, parseSubjectMarkup, can be used to parse a WaniKani subject mnemonic/hint with subject markup tags into an array of ParsedSubjectMarkup nodes, which can be traversed to construct HTML, JSX, and other UI components based on the markup for rendering.
+A new method, {@link @bachmacintosh/wanikani-api-types/v20170710!parseSubjectMarkup | parseSubjectMarkup}, can be used to parse a WaniKani subject mnemonic/hint with subject markup tags into an array of {@link @bachmacintosh/wanikani-api-types/v20170710!ParsedSubjectMarkup | ParsedSubjectMarkup} nodes, which can be traversed to construct HTML, JSX, and other UI components based on the markup for rendering.
