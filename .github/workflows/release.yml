@@ -34,12 +34,12 @@ jobs:
         run: pnpm build
       - name: Publish Library (Prerelease)
         if: ${{ github.event.release.prerelease }}
-        run: pnpm publish --access=public --tag=next --no-git-checks
+        run: pnpm publish --tag=next --access=public --recursive --no-git-checks
         env:
           NPM_CONFIG_PROVENANCE: true
       - name: Publish Library (Latest)
         if: ${{ !github.event.release.prerelease }}
-        run: pnpm publish --access=public --no-git-checks
+        run: pnpm publish --access=public --recursive --no-git-checks
         env:
           NPM_CONFIG_PROVENANCE: true
       - name: Publish Documentation

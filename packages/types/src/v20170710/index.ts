@@ -1,5 +1,5 @@
 /**
- * @module v20170710
+ * @module @bachmacintosh/wanikani-api-types/v20170710
  * @category API Reference
  */
 

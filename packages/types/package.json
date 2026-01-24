@@ -1,0 +1,75 @@
+{
+  "name": "@bachman-dev/wanikani-api-types",
+  "version": "2.1.1",
+  "description": "Regularly updated type definitions for the WaniKani API",
+  "keywords": [
+    "wanikani",
+    "wanikani api",
+    "types"
+  ],
+  "author": "Collin Bachman <collin.r68zdn9d@bachman.dev>",
+  "license": "MIT",
+  "homepage": "https://wanikani-api-types.bachman.dev",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bachman-dev/wanikani-api-types"
+  },
+  "type": "module",
+  "files": [
+    "dist/**/*.{mjs,d.mts}"
+  ],
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      }
+    },
+    "./v20170710": {
+      "import": {
+        "types": "./dist/v20170710/index.d.mts",
+        "default": "./dist/v20170710/index.mjs"
+      }
+    }
+  },
+  "typedocOptions": {
+    "projectDocuments": [
+      "./EXAMPLES.md",
+      "./UPGRADE.md"
+    ],
+    "includeVersion": true,
+    "sourceLinkTemplate": "https://github.com/bachman-dev/wanikani-api-types/blob/{gitRevision}/{path}#L{line}",
+    "categorizeByGroup": false,
+    "categoryOrder": [
+      "Base",
+      "Collections",
+      "Parameters",
+      "Payloads",
+      "Reports",
+      "Requests",
+      "Resources",
+      "Type Guards",
+      "*"
+    ],
+    "sort": [
+      "required-first",
+      "alphabetical"
+    ]
+  },
+  "scripts": {
+    "build": "tsdown --entry src/index.ts --entry src/v20170710/index.ts --dts --format esm",
+    "lint": "eslint . && prettier --check .",
+    "lint:fix": "eslint --fix . && prettier --write ."
+  },
+  "dependencies": {
+    "valibot": "^1.0.0"
+  },
+  "peerDependencies": {
+    "typescript": "5.0.x - 5.9.x"
+  },
+  "peerDependenciesMeta": {
+    "typescript": {
+      "optional": true
+    }
+  }
+}

@@ -109,7 +109,7 @@ The following items were removed from Version 2:
 - `WKReviewObjectdBase`, `WKReviewObjectWithAssignmentId`, and `WKReviewObjectWithSubjectId` in favor of directly expressing the union of allowed IDs under `ReviewPayload` (formerly `WKReviewPayload`)
 - `WKRadicalCharacterImagePngMetadata` and `WKRadicalCharacterImageSvgMetadata` in favor of having the `metadata` field of `RadicalCharacterImage` (formerly `WKRadicalCharacterImage`) be formed using a discriminated union on the `content_type` field
 - `isWKLevelArray()` and `isWKSrsStageNumberArray()`, as the underlying types being guarded are now wide enough (e.g. for dynamically generated numbers) that they became redundant
-- `validateParameters()` and `validatePayload()` were removed in favor of using either schema validation or the request factory to construct a request to the API, now named {@link ApiRequestFactory}
+- `validateParameters()` and `validatePayload()` were removed in favor of using either schema validation or the request factory to construct a request to the API, now named {@link @bachmacintosh/wanikani-api-types/v20170710!ApiRequestFactory | ApiRequestFactory}
 
 #### `data` Property Removed from `BaseCollection`, `BaseReport`, and `BaseResource`
 
@@ -223,4 +223,4 @@ Some numbers, such as resource IDs, are validated to make sure they are a safe i
 
 #### Subject Markup Parser
 
-A new method, {@link parseSubjectMarkup}, can be used to parse a WaniKani subject mnemonic/hint with subject markup tags into an array of {@link ParsedSubjectMarkup} nodes, which can be traversed to construct HTML, JSX, and other UI components based on the markup for rendering.
+A new method, parseSubjectMarkup, can be used to parse a WaniKani subject mnemonic/hint with subject markup tags into an array of ParsedSubjectMarkup nodes, which can be traversed to construct HTML, JSX, and other UI components based on the markup for rendering.
