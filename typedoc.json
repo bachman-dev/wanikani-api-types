@@ -1,11 +1,15 @@
 {
-  "$schema": "https://typedoc.org/schema.json",
-  "entryPoints": ["./src/v20170710/index.ts"],
+  "$schema": "./node_modules/typedoc/typedoc-config.schema.json",
+  "name": "WaniKani API Types",
+  "entryPoints": ["packages/*"],
+  "entryPointStrategy": "packages",
+  "packageOptions": {
+    "entryPoints": ["src/v20170710/index.ts", "src/index.ts"]
+  },
+  "readme": "./packages/types/README.md",
   "out": "docs",
   "plugin": ["./typedoc/plugin.js"],
   "router": "cloudflare",
-  "sourceLinkTemplate": "https://github.com/bachman-dev/wanikani-api-types/blob/{gitRevision}/{path}#L{line}",
-  "projectDocuments": ["./EXAMPLES.md", "./UPGRADE.md"],
   "externalSymbolLinkMappings": {
     "valibot": {
       "ValiError": "https://valibot.dev/api/ValiError/"
@@ -14,22 +18,10 @@
   "highlightLanguages": ["bash", "console", "diff", "javascript", "json", "jsonc", "typescript", "tsx"],
   "cleanOutputDir": true,
   "includeVersion": true,
-  "categorizeByGroup": false,
-  "categoryOrder": [
-    "Base",
-    "Collections",
-    "Parameters",
-    "Payloads",
-    "Reports",
-    "Requests",
-    "Resources",
-    "Type Guards",
-    "*"
-  ],
   "navigation": {
     "includeCategories": true
   },
-  "sort": ["required-first", "alphabetical"],
+  "sort": ["alphabetical"],
   "visibilityFilters": { "private": false },
   "treatWarningsAsErrors": true,
   "requiredToBeDocumented": [

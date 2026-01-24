@@ -1,10 +1,2 @@
-# Node modules
-node_modules/
-coverage
-
-# Generated data
-dist/
-docs/
-
 # Lockfile
 pnpm-lock.yaml

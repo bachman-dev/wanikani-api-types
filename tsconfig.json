@@ -12,7 +12,5 @@
     "verbatimModuleSyntax": true,
     "exactOptionalPropertyTypes": false,
     "noUncheckedIndexedAccess": true
-  },
-  "include": ["src/**/*.ts", "tests", "vitest.config.ts"],
-  "exclude": ["dist/**", "node_modules/**"]
+  }
 }

@@ -1,12 +1,7 @@
 {
-  "name": "@bachman-dev/wanikani-api-types",
-  "version": "2.1.1",
-  "description": "Regularly updated type definitions for the WaniKani API",
-  "keywords": [
-    "wanikani",
-    "wanikani api",
-    "types"
-  ],
+  "name": "wanikani-api-types",
+  "private": true,
+  "type": "module",
   "author": "Collin Bachman <collin.r68zdn9d@bachman.dev>",
   "license": "MIT",
   "homepage": "https://wanikani-api-types.bachman.dev",
@@ -14,33 +9,12 @@
     "type": "git",
     "url": "https://github.com/bachman-dev/wanikani-api-types"
   },
-  "type": "module",
-  "files": [
-    "dist/**/*.{mjs,d.mts}"
-  ],
-  "exports": {
-    ".": {
-      "import": {
-        "types": "./dist/index.d.mts",
-        "default": "./dist/index.mjs"
-      }
-    },
-    "./v20170710": {
-      "import": {
-        "types": "./dist/v20170710/index.d.mts",
-        "default": "./dist/v20170710/index.mjs"
-      }
-    }
-  },
   "scripts": {
-    "build": "tsdown --entry src/index.ts --entry src/v20170710/index.ts --dts --format esm",
+    "build": "turbo run build",
     "build:docs": "typedoc",
-    "lint": "eslint . && prettier --check .",
-    "lint:fix": "eslint --fix . && prettier --write .",
+    "lint": "turbo run lint",
+    "lint:fix": "turbo run lint:fix",
     "test": "vitest run"
-  },
-  "dependencies": {
-    "valibot": "^1.0.0"
   },
   "devDependencies": {
     "@bachman-dev/eslint-config": "3.0.1",
@@ -50,18 +24,11 @@
     "eslint-config-prettier": "10.1.8",
     "prettier": "3.8.1",
     "tsdown": "0.20.1",
+    "turbo": "2.7.5",
     "typedoc": "0.28.16",
     "typescript": "5.9.3",
     "typescript-eslint": "8.53.1",
     "vitest": "4.0.18"
-  },
-  "peerDependencies": {
-    "typescript": "5.0.x - 5.9.x"
-  },
-  "peerDependenciesMeta": {
-    "typescript": {
-      "optional": true
-    }
   },
   "packageManager": "pnpm@10.28.1+sha512.7d7dbbca9e99447b7c3bf7a73286afaaf6be99251eb9498baefa7d406892f67b879adb3a1d7e687fc4ccc1a388c7175fbaae567a26ab44d1067b54fcb0d6a316"
 }

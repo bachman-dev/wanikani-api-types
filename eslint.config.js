@@ -7,7 +7,7 @@ import tseslint from "typescript-eslint";
 export default defineConfig(
   {
     // Replace output folder if needed, e.g. "dist"
-    ignores: ["{coverage,docs,dist}/**"],
+    ignores: ["packages/**/{coverage,docs,dist,tests}/**"],
   },
   eslint.configs.recommended,
   ...tseslint.configs.strictTypeChecked,
