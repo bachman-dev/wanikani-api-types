@@ -28,6 +28,7 @@ The following items have been moved to these respective packages:
   - `ApiRequestFactoryInit`
   - `ApiRequestOptions`
   - `ApiRequestHeaders`
+  - `stringifyParameters`
 - `@bachman-dev/wanikani-api-utils`
   - `SUBJECT_MARKUP_MATCHER`
   - `ParsedSubjectMarkup`
