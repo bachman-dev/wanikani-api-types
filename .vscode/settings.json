@@ -1,0 +1,23 @@
+{
+  "workbench.editor.customLabels.patterns": {
+    // Root patterns
+    "**/.*.?*": "Root - ${filename}.${extname}",
+    "**/.[!.]*": "Root - ${filename}",
+    "**/*.*": "Root - ${filename}.${extname}",
+
+    // Requests
+    "**/packages/requests/**/.*.?*": "Requests - ${filename}.${extname}",
+    "**/packages/requests/**/.[!.]*": "Requests - ${filename}",
+    "**/packages/requests/**/*.*": "Requests - ${filename}.${extname}",
+
+    // Types
+    "**/packages/types/**/.*.?*": "Types - ${filename}.${extname}",
+    "**/packages/types/**/.[!.]*": "Types - ${filename}",
+    "**/packages/types/**/*.*": "Types - ${filename}.${extname}",
+
+    // Utils
+    "**/packages/utils/**/.*.?*": "Utils - ${filename}.${extname}",
+    "**/packages/utils/**/.[!.]*": "Utils - ${filename}",
+    "**/packages/utils/**/*.*": "Utils - ${filename}.${extname}"
+  }
+}

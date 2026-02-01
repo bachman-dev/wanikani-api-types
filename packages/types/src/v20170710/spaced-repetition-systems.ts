@@ -205,7 +205,7 @@ export function isSpacedRepetitionSystemCollection(value: unknown): value is Spa
  * Parameters that can be passed to the WaniKani API to filter a request for a Spaced Repetition System Collection.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-spaced-repetition-systems}
- * @see {@link stringifyParameters}
+ * @see {@link @bachman-dev/wanikani-api-requests!v20170710.stringifyParameters}
  * @category Parameters
  * @category Spaced Repetition Systems
  */

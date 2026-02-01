@@ -44,9 +44,3 @@ describe("CollectionParameters", () => {
     assertType<WK.CollectionParameters>(collectionParamsWithDatableStrings);
   });
 });
-
-describe("stringifyParameters", () => {
-  testFor("Return type is a string", ({ collectionParamsWithManyOptions }) => {
-    expectTypeOf(WK.stringifyParameters(collectionParamsWithManyOptions)).toBeString();
-  });
-});

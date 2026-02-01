@@ -134,7 +134,7 @@ export function isLevelProgressionCollection(value: unknown): value is LevelProg
  * Parameters that can be passed to the WaniKani API to filter a request for a Level Progression Collection.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-level-progressions}
- * @see {@link stringifyParameters}
+ * @see {@link @bachman-dev/wanikani-api-requests!v20170710.stringifyParameters}
  * @category Level Progressions
  * @category Parameters
  */
