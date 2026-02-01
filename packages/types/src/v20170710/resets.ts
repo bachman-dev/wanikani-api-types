@@ -111,7 +111,7 @@ export function isResetCollection(value: unknown): value is ResetCollection {
  * Parameters that can be passed to the WaniKani API to filter a request for a Reset Collection.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-resets}
- * @see {@link stringifyParameters}
+ * @see {@link @bachman-dev/wanikani-api-requests!v20170710.stringifyParameters}
  * @category Parameters
  * @category Resets
  */

@@ -1,21 +1,27 @@
-import * as v from "valibot";
-import { ApiRevision, SafeInteger, stringifyParameters } from "./base.js";
-import { AssignmentParameters, AssignmentPayload } from "./assignments.js";
-import { ReviewParameters, ReviewPayload } from "./reviews.js";
-import { StudyMaterialCreatePayload, StudyMaterialParameters, StudyMaterialUpdatePayload } from "./study-materials.js";
-import { LevelProgressionParameters } from "./level-progressions.js";
-import { ResetParameters } from "./resets.js";
-import { ReviewStatisticParameters } from "./review-statistics.js";
-import { SpacedRepetitionSystemParameters } from "./spaced-repetition-systems.js";
-import { SubjectParameters } from "./subjects.js";
-import { UserPreferencesPayload } from "./user.js";
-import { VoiceActorParameters } from "./voice-actors.js";
+import type {
+  ApiRevision,
+  AssignmentParameters,
+  AssignmentPayload,
+  LevelProgressionParameters,
+  ResetParameters,
+  ReviewParameters,
+  ReviewPayload,
+  ReviewStatisticParameters,
+  SafeInteger,
+  SpacedRepetitionSystemParameters,
+  StudyMaterialCreatePayload,
+  StudyMaterialParameters,
+  StudyMaterialUpdatePayload,
+  SubjectParameters,
+  UserPreferencesPayload,
+  VoiceActorParameters,
+} from "@bachman-dev/wanikani-api-types/v20170710";
+import { stringifyParameters } from "./parameters.js";
 
 /**
  * An object containing all information needed to make a request to the WaniKani API using any HTTP API/Library.
  *
  * @see {@link ApiRequestFactory}
- * @category Requests
  */
 export interface ApiRequest {
   /** The request body, either `null` for GET requests, or a `string` for POST and PUT requests. */
@@ -31,8 +37,6 @@ export interface ApiRequest {
 /**
  * A factory for preparing requests to the WaniKani API, with methods that return an {@link ApiRequest} that can be used
  * in any HTTP library/package to make the request.
- *
- * @category Requests
  */
 export class ApiRequestFactory {
   /**
@@ -62,10 +66,8 @@ export class ApiRequestFactory {
         url: `${this.baseUrl}/assignments`,
       };
       if (typeof idOrParams === "number") {
-        v.assert(SafeInteger, idOrParams);
         request.url += `/${idOrParams}`;
       } else if (typeof idOrParams !== "undefined") {
-        v.assert(AssignmentParameters, idOrParams);
         request.url += stringifyParameters(idOrParams);
       }
       return request;
@@ -81,8 +83,6 @@ export class ApiRequestFactory {
      * @throws A {@link valibot!ValiError} if ID or payload is invalid.
      */
     start: (assignmentId: SafeInteger, payload: AssignmentPayload, options?: ApiRequestOptions): ApiRequest => {
-      v.assert(SafeInteger, assignmentId);
-      v.assert(AssignmentPayload, payload);
       const headers = { ...this._postPutHeaders };
       if (typeof options?.customHeaders !== "undefined") {
         for (const [key, value] of Object.entries(options.customHeaders)) {
@@ -131,10 +131,8 @@ export class ApiRequestFactory {
         url: `${this.baseUrl}/level_progressions`,
       };
       if (typeof idOrParams === "number") {
-        v.assert(SafeInteger, idOrParams);
         request.url += `/${idOrParams}`;
       } else if (typeof idOrParams !== "undefined") {
-        v.assert(LevelProgressionParameters, idOrParams);
         request.url += stringifyParameters(idOrParams);
       }
       return request;
@@ -168,10 +166,8 @@ export class ApiRequestFactory {
         url: `${this.baseUrl}/resets`,
       };
       if (typeof idOrParams === "number") {
-        v.assert(SafeInteger, idOrParams);
         request.url += `/${idOrParams}`;
       } else if (typeof idOrParams !== "undefined") {
-        v.assert(ResetParameters, idOrParams);
         request.url += stringifyParameters(idOrParams);
       }
       return request;
@@ -206,10 +202,8 @@ export class ApiRequestFactory {
         url: `${this.baseUrl}/review_statistics`,
       };
       if (typeof idOrParams === "number") {
-        v.assert(SafeInteger, idOrParams);
         request.url += `/${idOrParams}`;
       } else if (typeof idOrParams !== "undefined") {
-        v.assert(ReviewStatisticParameters, idOrParams);
         request.url += stringifyParameters(idOrParams);
       }
       return request;
@@ -229,7 +223,6 @@ export class ApiRequestFactory {
      * @throws A {@link valibot!ValiError} if payload is invalid.
      */
     create: (payload: ReviewPayload, options?: ApiRequestOptions): ApiRequest => {
-      v.assert(ReviewPayload, payload);
       const headers = { ...this._postPutHeaders };
       if (typeof options !== "undefined") {
         if (typeof options.customHeaders !== "undefined") {
@@ -271,10 +264,8 @@ export class ApiRequestFactory {
         url: `${this.baseUrl}/reviews`,
       };
       if (typeof idOrParams === "number") {
-        v.assert(SafeInteger, idOrParams);
         request.url += `/${idOrParams}`;
       } else if (typeof idOrParams !== "undefined") {
-        v.assert(ReviewParameters, idOrParams);
         request.url += stringifyParameters(idOrParams);
       }
       return request;
@@ -309,10 +300,8 @@ export class ApiRequestFactory {
         url: `${this.baseUrl}/spaced_repetition_systems`,
       };
       if (typeof idOrParams === "number") {
-        v.assert(SafeInteger, idOrParams);
         request.url += `/${idOrParams}`;
       } else if (typeof idOrParams !== "undefined") {
-        v.assert(SpacedRepetitionSystemParameters, idOrParams);
         request.url += stringifyParameters(idOrParams);
       }
       return request;
@@ -352,10 +341,8 @@ export class ApiRequestFactory {
         url: `${this.baseUrl}/study_materials`,
       };
       if (typeof idOrParams === "number") {
-        v.assert(SafeInteger, idOrParams);
         request.url += `/${idOrParams}`;
       } else if (typeof idOrParams !== "undefined") {
-        v.assert(StudyMaterialParameters, idOrParams);
         request.url += stringifyParameters(idOrParams);
       }
       return request;
@@ -370,7 +357,6 @@ export class ApiRequestFactory {
      * @throws A {@link valibot!ValiError} if payload is invalid.
      */
     create: (payload: StudyMaterialCreatePayload, options?: ApiRequestOptions): ApiRequest => {
-      v.assert(StudyMaterialCreatePayload, payload);
       const headers = { ...this._postPutHeaders };
       if (typeof options !== "undefined") {
         if (typeof options.customHeaders !== "undefined") {
@@ -403,8 +389,6 @@ export class ApiRequestFactory {
       payload: StudyMaterialUpdatePayload,
       options?: ApiRequestOptions,
     ): ApiRequest => {
-      v.assert(SafeInteger, studyMaterialId);
-      v.assert(StudyMaterialUpdatePayload, payload);
       const headers = { ...this._postPutHeaders };
       if (typeof options !== "undefined") {
         if (typeof options.customHeaders !== "undefined") {
@@ -451,10 +435,8 @@ export class ApiRequestFactory {
         url: `${this.baseUrl}/subjects`,
       };
       if (typeof idOrParams === "number") {
-        v.assert(SafeInteger, idOrParams);
         request.url += `/${idOrParams}`;
       } else if (typeof idOrParams !== "undefined") {
-        v.assert(SubjectParameters, idOrParams);
         request.url += stringifyParameters(idOrParams);
       }
       return request;
@@ -528,7 +510,6 @@ export class ApiRequestFactory {
      * @throws A {@link valibot!ValiError} if payload is invalid.
      */
     updatePreferences: (payload: UserPreferencesPayload, options?: ApiRequestOptions): ApiRequest => {
-      v.assert(UserPreferencesPayload, payload);
       const headers = { ...this._postPutHeaders };
       if (typeof options !== "undefined") {
         if (typeof options.customHeaders !== "undefined") {
@@ -574,10 +555,8 @@ export class ApiRequestFactory {
         url: `${this.baseUrl}/voice_actors`,
       };
       if (typeof idOrParams === "number") {
-        v.assert(SafeInteger, idOrParams);
         request.url += `/${idOrParams}`;
       } else if (typeof idOrParams !== "undefined") {
-        v.assert(VoiceActorParameters, idOrParams);
         request.url += stringifyParameters(idOrParams);
       }
       return request;
@@ -664,10 +643,13 @@ export class ApiRequestFactory {
    * @throws A {@link valibot!ValiError} if the WaniKani API Revision is invalid.
    */
   public setApiRevision(revision: ApiRevision): this {
-    const validRevision = v.parse(ApiRevision, revision);
-    this._initHeaders["wanikani-revision"] = validRevision;
-    this._getHeaders["wanikani-revision"] = validRevision;
-    this._postPutHeaders["wanikani-revision"] = validRevision;
+    const validRevisions: ApiRevision[] = ["20170710"];
+    if (!validRevisions.includes(revision)) {
+      throw new Error();
+    }
+    this._initHeaders["wanikani-revision"] = revision;
+    this._getHeaders["wanikani-revision"] = revision;
+    this._postPutHeaders["wanikani-revision"] = revision;
     return this;
   }
 
@@ -705,8 +687,6 @@ export class ApiRequestFactory {
 
 /**
  * Initialization options for a {@link ApiRequestFactory}.
- *
- * @category Requests
  */
 export interface ApiRequestFactoryInit {
   /** The WaniKani API Token to use in the requests. */
@@ -721,8 +701,6 @@ export interface ApiRequestFactoryInit {
 
 /**
  * Options for making GET Requests to the WaniKani API.
- *
- * @category Requests
  */
 export interface ApiRequestOptions {
   /** Custom headers to add to this request only. */
@@ -731,8 +709,6 @@ export interface ApiRequestOptions {
 
 /**
  * Generally expected HTTP headers when making requests to the WaniKani API.
- *
- * @category Requests
  */
 export interface ApiRequestHeaders {
   /** HTTP Authorization header, using a Bearer Token. */

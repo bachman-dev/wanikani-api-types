@@ -1,11 +1,12 @@
 {
-  "name": "@bachman-dev/wanikani-api-types",
+  "name": "@bachman-dev/wanikani-api-requests",
   "version": "3.0.0-alpha.0",
-  "description": "Regularly updated type definitions for the WaniKani API",
+  "description": "Create structured HTTP request data for the WaniKani API",
   "keywords": [
     "wanikani",
     "wanikani api",
-    "types"
+    "http",
+    "requests"
   ],
   "author": "Collin Bachman <collin.r68zdn9d@bachman.dev>",
   "license": "MIT",
@@ -33,23 +34,8 @@
     }
   },
   "typedocOptions": {
-    "projectDocuments": [
-      "./EXAMPLES.md",
-      "./UPGRADE.md"
-    ],
     "includeVersion": true,
     "sourceLinkTemplate": "https://github.com/bachman-dev/wanikani-api-types/blob/{gitRevision}/{path}#L{line}",
-    "categorizeByGroup": false,
-    "categoryOrder": [
-      "Base",
-      "Collections",
-      "Parameters",
-      "Payloads",
-      "Reports",
-      "Resources",
-      "Type Guards",
-      "*"
-    ],
     "sort": [
       "required-first",
       "alphabetical"
@@ -61,14 +47,6 @@
     "lint:fix": "eslint --fix . && prettier --write ."
   },
   "dependencies": {
-    "valibot": "^1.0.0"
-  },
-  "peerDependencies": {
-    "typescript": "5.0.x - 5.9.x"
-  },
-  "peerDependenciesMeta": {
-    "typescript": {
-      "optional": true
-    }
+    "@bachman-dev/wanikani-api-types": "workspace:*"
   }
 }

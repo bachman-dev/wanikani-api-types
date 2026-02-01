@@ -161,7 +161,7 @@ export function isAssignmentCollection(value: unknown): value is AssignmentColle
  * Assignment Collection.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-assignments}
- * @see {@link stringifyParameters}
+ * @see {@link @bachman-dev/wanikani-api-requests!v20170710.stringifyParameters}
  * @category Assignments
  * @category Parameters
  */

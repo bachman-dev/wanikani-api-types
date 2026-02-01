@@ -139,7 +139,7 @@ export function isReviewCollection(value: unknown): value is ReviewCollection {
  * Parameters that can be passed to the WaniKani API to filter a request for a Review Collection.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-reviews}
- * @see {@link stringifyParameters}
+ * @see {@link @bachman-dev/wanikani-api-requests!v20170710.stringifyParameters}
  * @category Parameters
  * @category Reviews
  */

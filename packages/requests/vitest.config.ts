@@ -2,7 +2,7 @@ import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   test: {
-    name: { label: "types", color: "blue" },
+    name: { label: "requests", color: "green" },
     include: ["tests/**/*.{test,spec}.ts"],
     typecheck: {
       enabled: true,

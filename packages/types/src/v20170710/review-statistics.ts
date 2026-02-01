@@ -167,7 +167,7 @@ export function isReviewStatisticCollection(value: unknown): value is ReviewStat
  * Parameters that can be passed to the WaniKani API to filter a request for a Review Statistic Collection.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-review-statistics}
- * @see {@link stringifyParameters}
+ * @see {@link @bachman-dev/wanikani-api-requests!v20170710.stringifyParameters}
  * @category Parameters
  * @category Review Statistics
  */

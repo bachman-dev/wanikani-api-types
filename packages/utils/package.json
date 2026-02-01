@@ -1,11 +1,11 @@
 {
-  "name": "@bachman-dev/wanikani-api-types",
+  "name": "@bachman-dev/wanikani-api-utils",
   "version": "3.0.0-alpha.0",
-  "description": "Regularly updated type definitions for the WaniKani API",
+  "description": "Utilities for working with the WaniKani API",
   "keywords": [
     "wanikani",
     "wanikani api",
-    "types"
+    "utilities"
   ],
   "author": "Collin Bachman <collin.r68zdn9d@bachman.dev>",
   "license": "MIT",
@@ -33,21 +33,11 @@
     }
   },
   "typedocOptions": {
-    "projectDocuments": [
-      "./EXAMPLES.md",
-      "./UPGRADE.md"
-    ],
     "includeVersion": true,
     "sourceLinkTemplate": "https://github.com/bachman-dev/wanikani-api-types/blob/{gitRevision}/{path}#L{line}",
     "categorizeByGroup": false,
     "categoryOrder": [
-      "Base",
-      "Collections",
-      "Parameters",
-      "Payloads",
-      "Reports",
-      "Resources",
-      "Type Guards",
+      "Subjects",
       "*"
     ],
     "sort": [
@@ -59,16 +49,5 @@
     "build": "tsdown --entry src/index.ts --entry src/v20170710/index.ts --dts --format esm",
     "lint": "eslint . && prettier --check .",
     "lint:fix": "eslint --fix . && prettier --write ."
-  },
-  "dependencies": {
-    "valibot": "^1.0.0"
-  },
-  "peerDependencies": {
-    "typescript": "5.0.x - 5.9.x"
-  },
-  "peerDependenciesMeta": {
-    "typescript": {
-      "optional": true
-    }
   }
 }

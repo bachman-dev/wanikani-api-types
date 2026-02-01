@@ -142,7 +142,7 @@ export function isStudyMaterialCollection(value: unknown): value is StudyMateria
  * Parameters that can be passed to the WaniKani API to filter a request for a Study Material Collection.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-study-materials}
- * @see {@link stringifyParameters}
+ * @see {@link @bachman-dev/wanikani-api-requests!v20170710.stringifyParameters}
  * @category Parameters
  * @category Study Materials
  */

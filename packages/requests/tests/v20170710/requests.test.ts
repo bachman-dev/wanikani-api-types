@@ -1,9 +1,10 @@
-import * as WK from "../../src/v20170710/index.js";
+import * as Types from "@bachman-dev/wanikani-api-types/v20170710";
+import * as Requests from "../../src/v20170710/index.js";
 import { describe, expect } from "vitest";
 import { testFor } from "./fixtures.js";
 
 describe("ApiRequestFactory", () => {
-  const getOptions: WK.ApiRequestOptions = {
+  const getOptions: Requests.ApiRequestOptions = {
     customHeaders: {
       "x-forwarded-for": "192.168.1.1",
       "if-modified-since": "Tue, 14 Mar 2023, 12:00:00 GMT",
@@ -11,7 +12,7 @@ describe("ApiRequestFactory", () => {
     },
   };
 
-  const putPostOptions: WK.ApiRequestOptions = {
+  const putPostOptions: Requests.ApiRequestOptions = {
     customHeaders: {
       "x-forwarded-for": "192.168.1.1",
     },
@@ -34,7 +35,7 @@ describe("ApiRequestFactory", () => {
     };
     const expectedBody = null;
 
-    const params: WK.AssignmentParameters = {
+    const params: Types.AssignmentParameters = {
       unlocked: true,
       hidden: false,
     };
@@ -81,7 +82,7 @@ describe("ApiRequestFactory", () => {
     };
     const expectedBody = `{"assignment":{"started_at":"2023-02-04T15:30:00.000Z"}}`;
 
-    const payload: WK.AssignmentPayload = {
+    const payload: Types.AssignmentPayload = {
       assignment: {
         started_at: new Date("2023-02-04T15:30:00.000Z"),
       },
@@ -113,7 +114,7 @@ describe("ApiRequestFactory", () => {
     };
     const expectedBody = null;
 
-    const params: WK.LevelProgressionParameters = {
+    const params: Types.LevelProgressionParameters = {
       ids: [1, 2, 3],
       updated_after: new Date("2023-03-01T12:00:00.000Z"),
     };
@@ -166,7 +167,7 @@ describe("ApiRequestFactory", () => {
     };
     const expectedBody = null;
 
-    const params: WK.ResetParameters = {
+    const params: Types.ResetParameters = {
       ids: [1, 2, 3],
       updated_after: new Date("2023-03-01T12:00:00.000Z"),
     };
@@ -219,7 +220,7 @@ describe("ApiRequestFactory", () => {
     };
     const expectedBody = null;
 
-    const params: WK.ReviewParameters = {
+    const params: Types.ReviewParameters = {
       assignment_ids: [1, 2, 3],
       subject_ids: [4, 5, 6],
     };
@@ -266,7 +267,7 @@ describe("ApiRequestFactory", () => {
     };
     const expectedBody = `{"review":{"subject_id":123,"incorrect_meaning_answers":0,"incorrect_reading_answers":0}}`;
 
-    const payload: WK.ReviewPayload = {
+    const payload: Types.ReviewPayload = {
       review: {
         subject_id: 123,
         incorrect_meaning_answers: 0,
@@ -299,7 +300,7 @@ describe("ApiRequestFactory", () => {
     };
     const expectedBody = null;
 
-    const params: WK.ReviewStatisticParameters = {
+    const params: Types.ReviewStatisticParameters = {
       subject_ids: [1, 2, 3],
       percentages_greater_than: 90,
     };
@@ -353,7 +354,7 @@ describe("ApiRequestFactory", () => {
     };
     const expectedBody = null;
 
-    const params: WK.SpacedRepetitionSystemParameters = {
+    const params: Types.SpacedRepetitionSystemParameters = {
       ids: [1, 2, 3],
       updated_after: new Date("2023-03-01T12:00:00.000Z"),
     };
@@ -406,7 +407,7 @@ describe("ApiRequestFactory", () => {
     };
     const expectedBody = null;
 
-    const params: WK.StudyMaterialParameters = {
+    const params: Types.StudyMaterialParameters = {
       subject_ids: [1, 2, 3],
       subject_types: ["kanji"],
     };
@@ -453,7 +454,7 @@ describe("ApiRequestFactory", () => {
     };
     const expectedBody = `{"subject_id":123,"meaning_note":"A note","reading_note":"B note","meaning_synonyms":["one","two","three"]}`;
 
-    const payload: WK.StudyMaterialCreatePayload = {
+    const payload: Types.StudyMaterialCreatePayload = {
       subject_id: 123,
       meaning_note: "A note",
       reading_note: "B note",
@@ -479,7 +480,7 @@ describe("ApiRequestFactory", () => {
     };
     const expectedBody = `{"meaning_note":"A note","reading_note":"B note","meaning_synonyms":["one","two","three"]}`;
 
-    const payload: WK.StudyMaterialUpdatePayload = {
+    const payload: Types.StudyMaterialUpdatePayload = {
       meaning_note: "A note",
       reading_note: "B note",
       meaning_synonyms: ["one", "two", "three"],
@@ -510,7 +511,7 @@ describe("ApiRequestFactory", () => {
     };
     const expectedBody = null;
 
-    const params: WK.SubjectParameters = {
+    const params: Types.SubjectParameters = {
       types: ["radical", "kanji"],
       levels: [1, 2, 3],
     };
@@ -597,7 +598,7 @@ describe("ApiRequestFactory", () => {
     };
     const expectedBody = `{"user":{"preferences":{"default_voice_actor_id":1,"lessons_autoplay_audio":true,"lessons_batch_size":10}}}`;
 
-    const payload: WK.UserPreferencesPayload = {
+    const payload: Types.UserPreferencesPayload = {
       user: {
         preferences: {
           default_voice_actor_id: 1,
@@ -632,7 +633,7 @@ describe("ApiRequestFactory", () => {
     };
     const expectedBody = null;
 
-    const params: WK.VoiceActorParameters = {
+    const params: Types.VoiceActorParameters = {
       ids: [1, 2, 3],
       updated_after: new Date("2023-03-01T12:00:00.000Z"),
     };
@@ -674,18 +675,18 @@ describe("ApiRequestFactory", () => {
       "wanikani-revision": "20170710",
     };
 
-    const factory = new WK.ApiRequestFactory({ apiToken: "abc" });
+    const factory = new Requests.ApiRequestFactory({ apiToken: "abc" });
     const request = factory.setApiToken("def").assignments.get(123);
     expect(request.headers).toStrictEqual(expectedHeaders);
   });
 
   testFor("Changes API Revision with setApiRevision()", () => {
-    const factory = new WK.ApiRequestFactory({ apiToken: "abc" });
+    const factory = new Requests.ApiRequestFactory({ apiToken: "abc" });
     expect(() => factory.setApiRevision("20170710")).not.toThrow();
   });
 
   testFor("Throws when trying to set invalid API Revision", () => {
-    const factory = new WK.ApiRequestFactory({ apiToken: "abc" });
+    const factory = new Requests.ApiRequestFactory({ apiToken: "abc" });
     // @ts-expect-error -- Setting an invalid API Revision
     expect(() => factory.setApiRevision("20990909")).toThrow();
   });
@@ -703,7 +704,7 @@ describe("ApiRequestFactory", () => {
       "x-forwarded-for": "192.168.1.1",
       "X-Proxy-Token": "def",
     };
-    const factory = new WK.ApiRequestFactory({ apiToken: "abc", customHeaders: customHeaders1 });
+    const factory = new Requests.ApiRequestFactory({ apiToken: "abc", customHeaders: customHeaders1 });
     const request = factory.addCustomHeaders(customHeaders2).assignments.get(123);
     expect(request.headers).toStrictEqual(expectedHeaders);
   });
@@ -720,13 +721,13 @@ describe("ApiRequestFactory", () => {
       "wanikani-revision": "20170710",
       "X-Proxy-Token": "def",
     };
-    const factory = new WK.ApiRequestFactory({ apiToken: "abc", customHeaders: customHeaders1 });
+    const factory = new Requests.ApiRequestFactory({ apiToken: "abc", customHeaders: customHeaders1 });
     const request = factory.setCustomHeaders(customHeaders2).assignments.get(123);
     expect(request.headers).toStrictEqual(expectedHeaders);
   });
 
   testFor("Throws when trying to set type-checked headers", () => {
-    const factory = new WK.ApiRequestFactory({ apiToken: "abc" });
+    const factory = new Requests.ApiRequestFactory({ apiToken: "abc" });
     expect(() => factory.addCustomHeaders({ authorization: "Cheese" })).toThrow(
       "WaniKani API Token should be set via setApiToken() method.",
     );

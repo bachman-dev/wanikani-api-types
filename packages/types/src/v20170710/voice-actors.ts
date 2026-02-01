@@ -108,7 +108,7 @@ export function isVoiceActorCollection(value: unknown): value is VoiceActorColle
  * Parameters that can be passed to the WaniKani API to filter a request for a Voice Actor Collection.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-voice-actors}
- * @see {@link stringifyParameters}
+ * @see {@link @bachman-dev/wanikani-api-requests!v20170710.stringifyParameters}
  * @category Parameters
  * @category Voice Actors
  */

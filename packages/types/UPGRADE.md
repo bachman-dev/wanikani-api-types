@@ -7,6 +7,33 @@ category: Guides
 
 This guide contains advice and considerations when upgrading this library between major versions.
 
+## Version 2.x to 3.0
+
+> [!WARNING]
+> This section of the Upgrade Guide is a work in progress, and some changes may not land in the final major version.
+
+Version 3.0 of the library mostly separates the main `types` package into smaller, more modular packages, alongside introducing new schema library specific packages.
+
+All of these packages share the same version number, such that all of them can be updated in a similar fashion without having to worry about compatibility issues.
+
+### ⚠️ Breaking Changes
+
+#### Items Moved to Other Packages
+
+The following items have been moved to these respective packages:
+
+- `@bachman-dev/wanikani-api-requests`
+  - `ApiRequest`
+  - `ApiRequestFactory`
+  - `ApiRequestFactoryInit`
+  - `ApiRequestOptions`
+  - `ApiRequestHeaders`
+  - `stringifyParameters`
+- `@bachman-dev/wanikani-api-utils`
+  - `SUBJECT_MARKUP_MATCHER`
+  - `ParsedSubjectMarkup`
+  - `parseSubjectMarkup`
+
 ## Version 1.x to 2.0
 
 Version 2.0 of the library introduced several breaking changes including renamed and removed items, but also introduced some new features that are especially helpful for runtime validation of data going to/from the WaniKani API.
@@ -109,7 +136,7 @@ The following items were removed from Version 2:
 - `WKReviewObjectdBase`, `WKReviewObjectWithAssignmentId`, and `WKReviewObjectWithSubjectId` in favor of directly expressing the union of allowed IDs under `ReviewPayload` (formerly `WKReviewPayload`)
 - `WKRadicalCharacterImagePngMetadata` and `WKRadicalCharacterImageSvgMetadata` in favor of having the `metadata` field of `RadicalCharacterImage` (formerly `WKRadicalCharacterImage`) be formed using a discriminated union on the `content_type` field
 - `isWKLevelArray()` and `isWKSrsStageNumberArray()`, as the underlying types being guarded are now wide enough (e.g. for dynamically generated numbers) that they became redundant
-- `validateParameters()` and `validatePayload()` were removed in favor of using either schema validation or the request factory to construct a request to the API, now named {@link @bachmacintosh/wanikani-api-types/v20170710!ApiRequestFactory | ApiRequestFactory}
+- `validateParameters()` and `validatePayload()` were removed in favor of using either schema validation or the request factory to construct a request to the API, now named {@link @bachman-dev/wanikani-api-requests!v20170710.ApiRequestFactory | ApiRequestFactory}
 
 #### `data` Property Removed from `BaseCollection`, `BaseReport`, and `BaseResource`
 
@@ -223,4 +250,4 @@ Some numbers, such as resource IDs, are validated to make sure they are a safe i
 
 #### Subject Markup Parser
 
-A new method, {@link @bachmacintosh/wanikani-api-types/v20170710!parseSubjectMarkup | parseSubjectMarkup}, can be used to parse a WaniKani subject mnemonic/hint with subject markup tags into an array of {@link @bachmacintosh/wanikani-api-types/v20170710!ParsedSubjectMarkup | ParsedSubjectMarkup} nodes, which can be traversed to construct HTML, JSX, and other UI components based on the markup for rendering.
+A new method, {@link @bachman-dev/wanikani-api-utils!v20170710.parseSubjectMarkup | parseSubjectMarkup}, can be used to parse a WaniKani subject mnemonic/hint with subject markup tags into an array of {@link @bachman-dev/wanikani-api-utils!v20170710.ParsedSubjectMarkup | ParsedSubjectMarkup} nodes, which can be traversed to construct HTML, JSX, and other UI components based on the markup for rendering.

@@ -6,7 +6,6 @@
   "packageOptions": {
     "entryPoints": ["src/v20170710/index.ts", "src/index.ts"]
   },
-  "readme": "./packages/types/README.md",
   "out": "docs",
   "plugin": ["./typedoc/plugin.js"],
   "router": "cloudflare",
