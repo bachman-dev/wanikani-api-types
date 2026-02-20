@@ -17,7 +17,7 @@
     "test": "vitest run"
   },
   "devDependencies": {
-    "@bachman-dev/eslint-config": "3.0.1",
+    "@bachman-dev/eslint-config": "4.0.0",
     "@eslint/js": "10.0.1",
     "@vitest/coverage-v8": "4.0.18",
     "eslint": "10.0.0",
