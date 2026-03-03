@@ -1,6 +1,6 @@
 {
   "name": "@bachman-dev/wanikani-api-requests",
-  "version": "3.0.0-alpha.0",
+  "version": "1.0.0-alpha.0",
   "description": "Create structured HTTP request data for the WaniKani API",
   "keywords": [
     "wanikani",
@@ -13,7 +13,8 @@
   "homepage": "https://wanikani-api-types.bachman.dev",
   "repository": {
     "type": "git",
-    "url": "https://github.com/bachman-dev/wanikani-api-types"
+    "url": "https://github.com/bachman-dev/wanikani-api-types.git",
+    "directory": "packages/requests"
   },
   "type": "module",
   "files": [

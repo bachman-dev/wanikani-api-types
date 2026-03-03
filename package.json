@@ -5,10 +5,6 @@
   "author": "Collin Bachman <collin.r68zdn9d@bachman.dev>",
   "license": "MIT",
   "homepage": "https://wanikani-api-types.bachman.dev",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/bachman-dev/wanikani-api-types"
-  },
   "scripts": {
     "build": "turbo run build",
     "build:docs": "pnpm build && typedoc",
