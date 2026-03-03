@@ -54,7 +54,7 @@ importers:
   packages/types:
     dependencies:
       typescript:
-        specifier: 5.0.x - 5.9.x
+        specifier: 5.4.x - 5.9.x
         version: 5.9.3
       valibot:
         specifier: ^1.0.0
