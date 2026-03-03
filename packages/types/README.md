@@ -53,6 +53,22 @@ import * as WK from "@bachman-dev/wanikani-api-types";
 
 See [UPGRADE.md](UPGRADE.md) for info on upgrading from previous versions of the package.
 
+## Package Versioning
+
+This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html), with versions formatted as x.y.z.
+
+A new Patch Version z includes backwards-compatible bug fixes, corrections to documentation, and other relatively insignificant changes.
+
+A new Minor Version y includes new backwards-compatible library features, new backwards-compatible WaniKani API changes (e.g. new revision, new fields on a resource, etc.), widened TypeScript version support, and deprecatiung (but not removing) existing features to be removed in the next major version.
+
+A new Major Version x includes backwards-incompatible changes such as removing previously deprecated items, backwards-incompatible WaniKani API changes (e.g. removing a field on a resource), or a [breaking change in TypeScript](https://github.com/microsoft/TypeScript/wiki/Breaking-Changes) that's introduced into the library (we'll try to avoid these as much as possible).
+
+| Package Version | TypeScript Versions | WaniKani API Version | Latest API Revision |
+| --------------- | ------------------- | -------------------- | ------------------- |
+| 3.x             | 5.4 - 5.9           | 2                    | 20170710            |
+| 2.x             | 5.0 - 5.9           | 2                    | 20170710            |
+| 1.x             | >= 4.5              | 2                    | 20170710            |
+
 ## Usage
 
 ### Type Definitions
