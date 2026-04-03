@@ -65,7 +65,7 @@
     "valibot": "^1.0.0"
   },
   "peerDependencies": {
-    "typescript": "5.4.x - 5.9.x"
+    "typescript": "5.4.x - 6.0.x"
   },
   "peerDependenciesMeta": {
     "typescript": {
