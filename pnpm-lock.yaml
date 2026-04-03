@@ -30,8 +30,8 @@ importers:
         specifier: 0.21.7
         version: 0.21.7(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.1)(typescript@5.9.3)
       turbo:
-        specifier: 2.8.12
-        version: 2.8.12
+        specifier: 2.9.2
+        version: 2.9.2
       typedoc:
         specifier: 0.28.18
         version: 0.28.18(typescript@5.9.3)
@@ -612,6 +612,36 @@ packages:
 
   '@standard-schema/spec@1.1.0':
     resolution: {integrity: sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w==}
+
+  '@turbo/darwin-64@2.9.2':
+    resolution: {integrity: sha512-yg0qdthTUuV/K0oJB9t8YGweW1hOefQ+NTiSA6gw/mwAqqifCvAXH/kDkvVj/fFP9+wzoQ4WjyAF5/syDbCIHA==}
+    cpu: [x64]
+    os: [darwin]
+
+  '@turbo/darwin-arm64@2.9.2':
+    resolution: {integrity: sha512-x4H9U8cXZob3oqTleKOEdY89OCWwLX3qVRpW0NeZg+CHDXemYD+PhACjwjvh7orIlhmmq2Lk+7iO7b34kphFig==}
+    cpu: [arm64]
+    os: [darwin]
+
+  '@turbo/linux-64@2.9.2':
+    resolution: {integrity: sha512-fxbpor8zvRtaf75sfloNTaBkl487JECSVDrXXMGlwR3+Qmq7yStUE+ccQddPu+nKqYD46QxDspk8KZvT78SBSg==}
+    cpu: [x64]
+    os: [linux]
+
+  '@turbo/linux-arm64@2.9.2':
+    resolution: {integrity: sha512-ufMQcCQMi8kzHbEA+FihPaRdrPQC1vUO0LQ9oU/LGWlnc+RVyDlvH9l9x0BWoS7HLyHK8hbqLf3O2ml/ZLMEIw==}
+    cpu: [arm64]
+    os: [linux]
+
+  '@turbo/windows-64@2.9.2':
+    resolution: {integrity: sha512-SOELKum/pjdJWKQb+RU/OEAlNtWJKfjjYUA9QhYxBvIT26SyfWgY+ecZ7QlVWt+xnEdQyC6BkYlWR546KxPO5w==}
+    cpu: [x64]
+    os: [win32]
+
+  '@turbo/windows-arm64@2.9.2':
+    resolution: {integrity: sha512-qPFjErR4MrKo71lNfqgUNaajftZN2nyaOsSxMSb2NI+5r/zlB26yjXUKYvADGg4EWvaLTJPIzgZDT9ZX+WN9bw==}
+    cpu: [arm64]
+    os: [win32]
 
   '@tybys/wasm-util@0.10.1':
     resolution: {integrity: sha512-9tTaPJLSiejZKx+Bmog4uSubteqTvFrVrURwkmHixBo0G4seD0zUxp98E1DzUBJxLQ3NPwXrGKDiVjwx/DpPsg==}
@@ -1225,38 +1255,8 @@ packages:
   tslib@2.8.1:
     resolution: {integrity: sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==}
 
-  turbo-darwin-64@2.8.12:
-    resolution: {integrity: sha512-EiHJmW2MeQQx+21x8hjMHw/uPhXt9PIxvDrxzOtyVwrXzL0tQmsxtO4qHf2l7uA+K6PUJ4+TjY1MHZDuCvWXrw==}
-    cpu: [x64]
-    os: [darwin]
-
-  turbo-darwin-arm64@2.8.12:
-    resolution: {integrity: sha512-cbqqGN0vd7ly2TeuaM8k9AK9u1CABO4kBA5KPSqovTiLL3sORccn/mZzJSbvQf0EsYRfU34MgW5FotfwW3kx8Q==}
-    cpu: [arm64]
-    os: [darwin]
-
-  turbo-linux-64@2.8.12:
-    resolution: {integrity: sha512-jXKw9j4r4q6s0goSXuKI3aKbQK2qiNeP25lGGEnq018TM6SWRW1CCpPMxyG91aCKrub7wDm/K45sGNT4ZFBcFQ==}
-    cpu: [x64]
-    os: [linux]
-
-  turbo-linux-arm64@2.8.12:
-    resolution: {integrity: sha512-BRJCMdyXjyBoL0GYpvj9d2WNfMHwc3tKmJG5ATn2Efvil9LsiOsd/93/NxDqW0jACtHFNVOPnd/CBwXRPiRbwA==}
-    cpu: [arm64]
-    os: [linux]
-
-  turbo-windows-64@2.8.12:
-    resolution: {integrity: sha512-vyFOlpFFzQFkikvSVhVkESEfzIopgs2J7J1rYvtSwSHQ4zmHxkC95Q8Kjkus8gg+8X2mZyP1GS5jirmaypGiPw==}
-    cpu: [x64]
-    os: [win32]
-
-  turbo-windows-arm64@2.8.12:
-    resolution: {integrity: sha512-9nRnlw5DF0LkJClkIws1evaIF36dmmMEO84J5Uj4oQ8C0QTHwlH7DNe5Kq2Jdmu8GXESCNDNuUYG8Cx6W/vm3g==}
-    cpu: [arm64]
-    os: [win32]
-
-  turbo@2.8.12:
-    resolution: {integrity: sha512-auUAMLmi0eJhxDhQrxzvuhfEbICnVt0CTiYQYY8WyRJ5nwCDZxD0JG8bCSxT4nusI2CwJzmZAay5BfF6LmK7Hw==}
+  turbo@2.9.2:
+    resolution: {integrity: sha512-DUUWysctg/vax8W05UJcyrHm4LvxtX0umAT4bZB5lab4inNXTbwoYSFpdgqzBxON23j8ls3xGxvx0kwQz6Q8wQ==}
     hasBin: true
 
   type-check@0.4.0:
@@ -1775,6 +1775,24 @@ snapshots:
   '@shikijs/vscode-textmate@10.0.2': {}
 
   '@standard-schema/spec@1.1.0': {}
+
+  '@turbo/darwin-64@2.9.2':
+    optional: true
+
+  '@turbo/darwin-arm64@2.9.2':
+    optional: true
+
+  '@turbo/linux-64@2.9.2':
+    optional: true
+
+  '@turbo/linux-arm64@2.9.2':
+    optional: true
+
+  '@turbo/windows-64@2.9.2':
+    optional: true
+
+  '@turbo/windows-arm64@2.9.2':
+    optional: true
 
   '@tybys/wasm-util@0.10.1':
     dependencies:
@@ -2441,32 +2459,14 @@ snapshots:
   tslib@2.8.1:
     optional: true
 
-  turbo-darwin-64@2.8.12:
-    optional: true
-
-  turbo-darwin-arm64@2.8.12:
-    optional: true
-
-  turbo-linux-64@2.8.12:
-    optional: true
-
-  turbo-linux-arm64@2.8.12:
-    optional: true
-
-  turbo-windows-64@2.8.12:
-    optional: true
-
-  turbo-windows-arm64@2.8.12:
-    optional: true
-
-  turbo@2.8.12:
+  turbo@2.9.2:
     optionalDependencies:
-      turbo-darwin-64: 2.8.12
-      turbo-darwin-arm64: 2.8.12
-      turbo-linux-64: 2.8.12
-      turbo-linux-arm64: 2.8.12
-      turbo-windows-64: 2.8.12
-      turbo-windows-arm64: 2.8.12
+      '@turbo/darwin-64': 2.9.2
+      '@turbo/darwin-arm64': 2.9.2
+      '@turbo/linux-64': 2.9.2
+      '@turbo/linux-arm64': 2.9.2
+      '@turbo/windows-64': 2.9.2
+      '@turbo/windows-arm64': 2.9.2
 
   type-check@0.4.0:
     dependencies:
