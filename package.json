@@ -19,7 +19,7 @@
     "eslint": "10.1.0",
     "eslint-config-prettier": "10.1.8",
     "prettier": "3.8.1",
-    "tsdown": "0.20.3",
+    "tsdown": "0.21.7",
     "turbo": "2.8.12",
     "typedoc": "0.28.18",
     "typescript": "5.9.3",
