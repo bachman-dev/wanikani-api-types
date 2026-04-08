@@ -12,7 +12,7 @@ on:
       - ready_for_review
 jobs:
   test:
-    name: "Test Pull Request"
+    name: "Lint, Test & Docs"
     runs-on: ubuntu-latest
     if: ${{ !github.event.pull_request.draft }}
     steps:
@@ -37,31 +37,35 @@ jobs:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       - name: Build Documentation
         run: pnpm build:docs
-      - name: Install TypeScript 5.4
-        run: 'pnpm add --save-dev typescript@"~5.4"'
-      - name: Build Library on TypeScript 5.4
+  check-ts-versions:
+    name: "Build (TypeScript ${{ matrix.typescript-version }})"
+    runs-on: ubuntu-latest
+    if: ${{ !github.event.pull_request.draft }}
+    needs: test
+    strategy:
+      fail-fast: false
+      matrix:
+        typescript-version: ["5.4", "5.5", "5.6", "5.7", "5.8", "5.9", "6.0"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      - name: Setup pnpm
+        uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v5
+      - name: Setup Node.js
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6
+        with:
+          node-version-file: ".nvmrc"
+          cache: "pnpm"
+      - name: Install Dependencies
+        run: pnpm install
+      - name: Install TypeScript ${{ matrix.typescript-version }}
+        run: 'pnpm add --save-dev typescript@"~${{ matrix.typescript-version }}"'
+      - name: Build Library
         run: pnpm build
-      - name: Install TypeScript 5.5
-        run: 'pnpm add --save-dev typescript@"~5.5"'
-      - name: Build Library on TypeScript 5.5
-        run: pnpm build
-      - name: Install TypeScript 5.6
-        run: 'pnpm add --save-dev typescript@"~5.6"'
-      - name: Build Library on TypeScript 5.6
-        run: pnpm build
-      - name: Install TypeScript 5.7
-        run: 'pnpm add --save-dev typescript@"~5.7"'
-      - name: Build Library on TypeScript 5.7
-        run: pnpm build
-      - name: Install TypeScript 5.8
-        run: 'pnpm add --save-dev typescript@"~5.8"'
-      - name: Build Library on TypeScript 5.8
-        run: pnpm build
-      - name: Install TypeScript 5.9
-        run: 'pnpm add --save-dev typescript@"~5.9"'
-      - name: Build Library on TypeScript 5.9
-        run: pnpm build
-      - name: Install TypeScript 6.0
-        run: 'pnpm add --save-dev typescript@"~6.0"'
-      - name: Build Library on TypeScript 6.0
-        run: pnpm build
+  gate:
+    name: "All PR Checks Passed"
+    runs-on: ubuntu-latest
+    if: ${{ !github.event.pull_request.draft }}
+    needs: [test, check-ts-versions]
+    steps:
+      - run: exit 0
