@@ -15,7 +15,7 @@
   "devDependencies": {
     "@bachman-dev/eslint-config": "4.0.0",
     "@eslint/js": "10.0.1",
-    "@vitest/coverage-v8": "4.1.8",
+    "@vitest/coverage-v8": "4.1.9",
     "eslint": "10.4.1",
     "eslint-config-prettier": "10.1.8",
     "prettier": "3.8.3",
@@ -24,7 +24,7 @@
     "typedoc": "0.28.19",
     "typescript": "6.0.3",
     "typescript-eslint": "8.60.1",
-    "vitest": "4.1.8"
+    "vitest": "4.1.9"
   },
   "packageManager": "pnpm@10.34.1"
 }
