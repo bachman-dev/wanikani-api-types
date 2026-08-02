@@ -16,7 +16,7 @@
     "@bachman-dev/eslint-config": "4.0.0",
     "@eslint/js": "10.0.1",
     "@vitest/coverage-v8": "4.1.10",
-    "eslint": "10.6.0",
+    "eslint": "10.8.0",
     "eslint-config-prettier": "10.1.8",
     "prettier": "3.9.6",
     "tsdown": "0.22.14",
