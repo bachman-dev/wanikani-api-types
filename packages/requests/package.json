@@ -30,13 +30,5 @@
   },
   "dependencies": {
     "@bachman-dev/wanikani-api-types": "workspace:*"
-  },
-  "typedocOptions": {
-    "includeVersion": true,
-    "sourceLinkTemplate": "https://github.com/bachman-dev/wanikani-api-types/blob/{gitRevision}/{path}#L{line}",
-    "sort": [
-      "required-first",
-      "alphabetical"
-    ]
   }
 }
