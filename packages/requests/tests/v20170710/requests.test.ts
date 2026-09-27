@@ -1,6 +1,7 @@
 import * as Types from "@bachman-dev/wanikani-api-types/v20170710";
-import * as Requests from "../../src/v20170710/index.js";
 import { describe, expect } from "vitest";
+
+import * as Requests from "../../src/v20170710/index.js";
 import { testFor } from "./fixtures.js";
 
 describe("ApiRequestFactory", () => {

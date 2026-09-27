@@ -1,5 +1,6 @@
-import * as Utils from "../../src/v20170710/index.js";
 import { describe, expectTypeOf } from "vitest";
+
+import * as Utils from "../../src/v20170710/index.js";
 import { testFor } from "./fixtures.js";
 
 describe("stringifyParameters", () => {

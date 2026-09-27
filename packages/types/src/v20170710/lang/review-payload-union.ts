@@ -1,4 +1,5 @@
 import type * as v from "valibot";
+
 import { getLocale } from "./_internal.js";
 
 type Message = v.ErrorMessage<

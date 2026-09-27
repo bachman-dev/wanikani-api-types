@@ -1,6 +1,7 @@
-import * as Utils from "../../src/v20170710/index.js";
 import * as WK from "@bachman-dev/wanikani-api-types/v20170710";
 import { describe, expect } from "vitest";
+
+import * as Utils from "../../src/v20170710/index.js";
 import { testFor } from "./fixtures.js";
 
 describe("stringifyParameters", () => {

@@ -1,6 +1,7 @@
-import * as WK from "../../src/v20170710/index.js";
 import * as v from "valibot";
 import { test } from "vitest";
+
+import * as WK from "../../src/v20170710/index.js";
 
 // Base
 

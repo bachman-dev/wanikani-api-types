@@ -1,6 +1,7 @@
-import * as WK from "../../src/v20170710/index.js";
 import type * as v from "valibot";
 import { assertType, describe, expectTypeOf } from "vitest";
+
+import * as WK from "../../src/v20170710/index.js";
 import { testFor } from "./fixtures.js";
 
 describe("ApiRevision", () => {

@@ -16,6 +16,7 @@ import type {
   UserPreferencesPayload,
   VoiceActorParameters,
 } from "@bachman-dev/wanikani-api-types/v20170710";
+
 import { stringifyParameters } from "./parameters.js";
 
 /**
@@ -39,12 +40,11 @@ export interface ApiRequest {
  * in any HTTP library/package to make the request.
  */
 export class ApiRequestFactory {
-  /**
-   * Types of Assignment Requests available in the WaniKani API.
-   */
+  /** Types of Assignment Requests available in the WaniKani API. */
   public readonly assignments = {
     /**
      * Get an Assignment or Assignment Collection from the WaniKani API.
+     *
      * @param idOrParams The Assignment ID for individual Assignments, or parameters for Assignment Collections.
      * @param options Options for making GET requests to the API.
      * @returns A Get Assignment(s) Request usabile in any HTTP API/Library.
@@ -75,6 +75,7 @@ export class ApiRequestFactory {
 
     /**
      * Start an Assignment (i.e. move from Lessons to Reviews) via the WaniKani API.
+     *
      * @param assignmentId The Assignment ID to start.
      * @param payload The payload to send when starting the Assignment.
      * @param options Options for making PUT requests to the API.
@@ -103,14 +104,13 @@ export class ApiRequestFactory {
   /** The base URL of the WaniKani API */
   public readonly baseUrl = "https://api.wanikani.com/v2";
 
-  /**
-   * Types of Level Progression Requests available in the WaniKani API.
-   */
+  /** Types of Level Progression Requests available in the WaniKani API. */
   public readonly levelProgressions = {
     /**
      * Get a Level Progression or Level Progression Collection from the WaniKani API.
-     * @param idOrParams The Level Progression ID for individual Level Progressions, or parameters for Level
-     * Progression Collections.
+     *
+     * @param idOrParams The Level Progression ID for individual Level Progressions, or parameters for Level Progression
+     *   Collections.
      * @param options Options for making GET requests to the API.
      * @returns A Get Level Progression(s) Request usabile in any HTTP API/Library.
      * @throws A `TypeError` if trying to set type-checked request headers.
@@ -139,12 +139,11 @@ export class ApiRequestFactory {
     },
   };
 
-  /**
-   * Types of Reset Requests available in the WaniKani API.
-   */
+  /** Types of Reset Requests available in the WaniKani API. */
   public readonly resets = {
     /**
      * Get a Reset or Reset Collection from the WaniKani API.
+     *
      * @param idOrParams The Reset ID for individual Resets, or parameters for Reset Collections.
      * @param options Options for making GET requests to the API.
      * @returns A Get Reset(s) Request usabile in any HTTP API/Library.
@@ -174,14 +173,13 @@ export class ApiRequestFactory {
     },
   };
 
-  /**
-   * Types of Review Statistic Requests available in the WaniKani API.
-   */
+  /** Types of Review Statistic Requests available in the WaniKani API. */
   public readonly reviewStatistics = {
     /**
      * Get a Review Statistic or Review Statistic Collection from the WaniKani API.
+     *
      * @param idOrParams The Review Statistic ID for individual Review Statistics, or parameters for Review Statistic
-     * Collections.
+     *   Collections.
      * @param options Options for making GET requests to the API.
      * @returns A Get Review Statistic(s) Request usabile in any HTTP API/Library.
      * @throws A `TypeError` if trying to set type-checked request headers.
@@ -210,12 +208,11 @@ export class ApiRequestFactory {
     },
   };
 
-  /**
-   * Types of Review Requests available in the WaniKani API.
-   */
+  /** Types of Review Requests available in the WaniKani API. */
   public readonly reviews = {
     /**
      * Create a new Review via the WaniKani API.
+     *
      * @param payload The payload to send when creating the Review.
      * @param options Options for making POST requests to the API.
      * @returns A Create Review Request usabile in any HTTP API/Library.
@@ -243,6 +240,7 @@ export class ApiRequestFactory {
 
     /**
      * Get a Review or Review Collection from the WaniKani API.
+     *
      * @param idOrParams The Review ID for individual Reviews, or parameters for Review Collections.
      * @param options Options for making GET requests to the API.
      * @returns A Get Review(s) Request usabile in any HTTP API/Library.
@@ -272,14 +270,13 @@ export class ApiRequestFactory {
     },
   };
 
-  /**
-   * Types of Spaced Repetition System (SRS) Requests available in the WaniKani API.
-   */
+  /** Types of Spaced Repetition System (SRS) Requests available in the WaniKani API. */
   public readonly spacedRepetitionSystems = {
     /**
      * Get a Spaced Repetition System (SRS) or Spaced Repetition System (SRS) Collection from the WaniKani API.
+     *
      * @param idOrParams The Spaced Repetition System (SRS) ID for individual Spaced Repetition Systems (SRS), or
-     * parameters for Spaced Repetition System (SRS) Collections.
+     *   parameters for Spaced Repetition System (SRS) Collections.
      * @param options Options for making GET requests to the API.
      * @returns A Get Spaced Repetition System(s) (SRS) Request usabile in any HTTP API/Library.
      * @throws A `TypeError` if trying to set type-checked request headers.
@@ -308,19 +305,16 @@ export class ApiRequestFactory {
     },
   };
 
-  /**
-   * An alias for Spaced Repetition System requests.
-   */
+  /** An alias for Spaced Repetition System requests. */
   public readonly srs = this.spacedRepetitionSystems;
 
-  /**
-   * Types of Study Material Requests available in the WaniKani API.
-   */
+  /** Types of Study Material Requests available in the WaniKani API. */
   public readonly studyMaterials = {
     /**
      * Get a Study Material or Study Material Collection from the WaniKani API.
+     *
      * @param idOrParams The Study Material ID for individual Study Materials, or parameters for Study Material
-     * Collections.
+     *   Collections.
      * @param options Options for making GET requests to the API.
      * @returns A Get Study Material(s) Request usabile in any HTTP API/Library.
      * @throws A `TypeError` if trying to set type-checked request headers.
@@ -350,6 +344,7 @@ export class ApiRequestFactory {
 
     /**
      * Create a new Study Material for a given Subject via the WaniKani API.
+     *
      * @param payload The payload to send when creating the new Study Material.
      * @param options Options for making POST requests to the API.
      * @returns A Create Study Material Request usabile in any HTTP API/Library.
@@ -377,6 +372,7 @@ export class ApiRequestFactory {
 
     /**
      * Update a Study Material for a given Subject.
+     *
      * @param studyMaterialId The Study Material ID to update.
      * @param payload The payload to send when updating the Study Material.
      * @param options Options for making PUT requests to the API.
@@ -408,12 +404,11 @@ export class ApiRequestFactory {
     },
   };
 
-  /**
-   * Types of Subject Requests available in the WaniKani API.
-   */
+  /** Types of Subject Requests available in the WaniKani API. */
   public readonly subjects = {
     /**
      * Get a Subject or Subject Collection from the WaniKani API.
+     *
      * @param idOrParams The Subject ID for individual Subjects, or parameters for Subject Collections.
      * @param options Options for making GET requests to the API.
      * @returns A Get Subject(s) Request usabile in any HTTP API/Library.
@@ -443,9 +438,7 @@ export class ApiRequestFactory {
     },
   };
 
-  /**
-   * Types of Summary Requests available in the WaniKani API.
-   */
+  /** Types of Summary Requests available in the WaniKani API. */
   public readonly summary = {
     /**
      * Get a summary of a user's available and upcoming lessons/reviews from the WaniKani API.
@@ -472,9 +465,7 @@ export class ApiRequestFactory {
     },
   };
 
-  /**
-   * Types of User Requests available in the WaniKani API.
-   */
+  /** Types of User Requests available in the WaniKani API. */
   public readonly user = {
     /**
      * Get a user's information from the WaniKani API.
@@ -529,12 +520,11 @@ export class ApiRequestFactory {
     },
   };
 
-  /**
-   * Types of Voice Actor Requests available in the WaniKani API.
-   */
+  /** Types of Voice Actor Requests available in the WaniKani API. */
   public readonly voiceActors = {
     /**
      * Get a Voice Actor or Voice Actor Collection from the WaniKani API.
+     *
      * @param idOrParams The Voice Actor ID for individual Voice Actors, or parameters for Voice Actor Collections.
      * @param options Options for making GET requests to the API.
      * @returns A Get Voice Actor(s) Request usabile in any HTTP API/Library.
@@ -569,18 +559,15 @@ export class ApiRequestFactory {
    */
   private readonly _initHeaders: ApiRequestHeaders;
 
-  /**
-   * The headers that will be added to any GET requests returned by the factory.
-   */
+  /** The headers that will be added to any GET requests returned by the factory. */
   private _getHeaders: ApiRequestHeaders;
 
-  /**
-   * The headers that will be added to any POST and PUT requests returned by the factory.
-   */
+  /** The headers that will be added to any POST and PUT requests returned by the factory. */
   private _postPutHeaders: ApiRequestHeaders;
 
   /**
    * Initialize the Request Factory.
+   *
    * @param init Initialization options for the factory.
    * @throws A `TypeError` if trying to set type-checked request headers.
    */
@@ -603,6 +590,7 @@ export class ApiRequestFactory {
 
   /**
    * Validates custom-set headers to make sure type checking isn't circumvented.
+   *
    * @param key The header key, e.g. `Accpet` or `X-Forwarded-For`
    * @param value The header value, e.g. `application/json` or `192.168.1.1`
    * @throws A `TypeError` if trying to set type-checked request headers.
@@ -623,6 +611,7 @@ export class ApiRequestFactory {
 
   /**
    * Add additional custom headers to be used in all requests generated by the factory.
+   *
    * @param headers An object containing HTTP headers and their values.
    * @returns The factory, with the added custom headers.
    * @throws A `TypeError` if trying to set type-checked request headers.
@@ -638,6 +627,7 @@ export class ApiRequestFactory {
 
   /**
    * Sets a new WaniKani API Revision to use in requests returned by the factory.
+   *
    * @param revision The WaniKani API Revision to use.
    * @returns The factory, with the newly set WaniKani API Revision.
    * @throws A {@link valibot!ValiError} if the WaniKani API Revision is invalid.
@@ -655,6 +645,7 @@ export class ApiRequestFactory {
 
   /**
    * Sets a new WaniKani API Token to use in requests returned by the factory.
+   *
    * @param token The new WaniKani API Token to use.
    * @returns The factory, with the newly set WaniKani API Token.
    */
@@ -668,6 +659,7 @@ export class ApiRequestFactory {
   /**
    * Sets the custom headers for all requests gerated by the factory to those passed to this function, removing any
    * previously set custom headers, and keeping API Revision and Token settings.
+   *
    * @param headers An object containing HTTP headers and their values.
    * @returns The factory, with the only custom headers being those passed to this function.
    * @throws A `TypeError` if trying to set type-checked request headers.
@@ -685,31 +677,23 @@ export class ApiRequestFactory {
   }
 }
 
-/**
- * Initialization options for a {@link ApiRequestFactory}.
- */
+/** Initialization options for a {@link ApiRequestFactory}. */
 export interface ApiRequestFactoryInit {
   /** The WaniKani API Token to use in the requests. */
   apiToken: string;
   /** Any additional headers to be added to all requests. */
   customHeaders?: Record<string, string>;
-  /**
-   * The WaniKani API Revision to use in the requests; if not set, the factory will default to the current API Revision.
-   */
+  /** The WaniKani API Revision to use in the requests; if not set, the factory will default to the current API Revision. */
   revision?: ApiRevision;
 }
 
-/**
- * Options for making GET Requests to the WaniKani API.
- */
+/** Options for making GET Requests to the WaniKani API. */
 export interface ApiRequestOptions {
   /** Custom headers to add to this request only. */
   customHeaders?: Record<string, string>;
 }
 
-/**
- * Generally expected HTTP headers when making requests to the WaniKani API.
- */
+/** Generally expected HTTP headers when making requests to the WaniKani API. */
 export interface ApiRequestHeaders {
   /** HTTP Authorization header, using a Bearer Token. */
   authorization: `Bearer ${string}`;

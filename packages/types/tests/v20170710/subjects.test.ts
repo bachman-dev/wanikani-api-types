@@ -1,6 +1,7 @@
-import * as WK from "../../src/v20170710/index.js";
 import * as v from "valibot";
 import { describe, expect } from "vitest";
+
+import * as WK from "../../src/v20170710/index.js";
 import { testFor } from "./fixtures.js";
 
 describe("SubjectType", () => {

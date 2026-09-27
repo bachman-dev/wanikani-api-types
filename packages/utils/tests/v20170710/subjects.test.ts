@@ -1,5 +1,6 @@
-import * as Utils from "../../src/v20170710/index.js";
 import { describe, expect } from "vitest";
+
+import * as Utils from "../../src/v20170710/index.js";
 import { testFor } from "./fixtures.js";
 describe("SUBJECT_MARKUP_MATCHER", () => {
   testFor("Matches Japanese text highlighting in <ja> tags", ({ subjectMarkupWithJaTag }) => {

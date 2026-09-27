@@ -1,4 +1,5 @@
 import { test } from "vitest";
+
 import { ApiRequestFactory } from "../../src/v20170710/requests.js";
 
 export const testFor = test.extend({

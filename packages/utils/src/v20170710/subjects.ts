@@ -26,9 +26,9 @@ export type ParsedSubjectMarkup =
 /**
  * Parses WaniKani subject markup (mnemonics, hints, etc) for easier display/formatting.
  *
+ * @category Subjects
  * @param text The subject markup to parse
  * @returns A structured array of objects that can be traversed and displayed
- * @category Subjects
  */
 export function parseSubjectMarkup(text: string): ParsedSubjectMarkup[] {
   if (!text) {

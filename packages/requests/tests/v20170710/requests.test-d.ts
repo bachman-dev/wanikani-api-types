@@ -1,5 +1,6 @@
-import * as Requests from "../../src/v20170710/index.js";
 import { describe, expectTypeOf } from "vitest";
+
+import * as Requests from "../../src/v20170710/index.js";
 import { testFor } from "./fixtures.js";
 
 describe("ApiRequestFactory", () => {

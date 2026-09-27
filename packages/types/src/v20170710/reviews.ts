@@ -1,7 +1,8 @@
-import * as m from "./lang/index.js";
 import * as v from "valibot";
-import { BaseCollection, BaseResource, CollectionParameters, DatableString, SafeInteger } from "./base.js";
+
+import * as m from "./lang/index.js";
 import { Assignment } from "./assignments.js";
+import { BaseCollection, BaseResource, CollectionParameters, DatableString, SafeInteger } from "./base.js";
 import { ReviewStatistic } from "./review-statistics.js";
 import { SpacedRepetitionSystemStageNumber } from "./spaced-repetition-systems.js";
 
@@ -10,23 +11,17 @@ import { SpacedRepetitionSystemStageNumber } from "./spaced-repetition-systems.j
  * are created when a user answers all the parts of a subject correctly once; some subjects have both meaning or reading
  * parts, and some only have one or the other. Note that reviews are not created for the quizzes in lessons.
  *
- * @see {@link https://docs.api.wanikani.com/20170710/#reviews}
  * @category Resources
  * @category Reviews
+ * @see {@link https://docs.api.wanikani.com/20170710/#reviews}
  */
 export interface Review extends BaseResource {
-  /**
-   * Data for the returned review.
-   */
+  /** Data for the returned review. */
   data: {
-    /**
-     * Unique identifier of the associated assignment.
-     */
+    /** Unique identifier of the associated assignment. */
     assignment_id: number;
 
-    /**
-     * Timestamp when the review was created.
-     */
+    /** Timestamp when the review was created. */
     created_at: DatableString;
 
     /**
@@ -35,40 +30,26 @@ export interface Review extends BaseResource {
      */
     ending_srs_stage: SpacedRepetitionSystemStageNumber;
 
-    /**
-     * The number of times the user has answered the meaning incorrectly.
-     */
+    /** The number of times the user has answered the meaning incorrectly. */
     incorrect_meaning_answers: number;
 
-    /**
-     * The number of times the user has answered the reading incorrectly.
-     */
+    /** The number of times the user has answered the reading incorrectly. */
     incorrect_reading_answers: number;
 
-    /**
-     * Unique identifier of the associated `spaced_repetition_system`.
-     */
+    /** Unique identifier of the associated `spaced_repetition_system`. */
     spaced_repetition_system_id: number;
 
-    /**
-     * The starting SRS stage interval, with valid values ranging from `1` to `8`.
-     */
+    /** The starting SRS stage interval, with valid values ranging from `1` to `8`. */
     starting_srs_stage: SpacedRepetitionSystemStageNumber;
 
-    /**
-     * Unique identifier of the associated subject.
-     */
+    /** Unique identifier of the associated subject. */
     subject_id: number;
   };
 
-  /**
-   * A unique number identifying the review.
-   */
+  /** A unique number identifying the review. */
   id: number;
 
-  /**
-   * The kind of object returned.
-   */
+  /** The kind of object returned. */
   object: "review";
 }
 export const Review = v.object(
@@ -105,14 +86,12 @@ export function isReview(value: unknown): value is Review {
 /**
  * A collection of reviews returned from the WaniKani API.
  *
- * @see {@link https://docs.api.wanikani.com/20170710/#get-all-reviews}
  * @category Collections
  * @category Reviews
+ * @see {@link https://docs.api.wanikani.com/20170710/#get-all-reviews}
  */
 export interface ReviewCollection extends BaseCollection {
-  /**
-   * An array of returned reviews.
-   */
+  /** An array of returned reviews. */
   data: Review[];
 }
 export const ReviewCollection = v.object(
@@ -138,20 +117,16 @@ export function isReviewCollection(value: unknown): value is ReviewCollection {
 /**
  * Parameters that can be passed to the WaniKani API to filter a request for a Review Collection.
  *
- * @see {@link https://docs.api.wanikani.com/20170710/#get-all-reviews}
- * @see {@link @bachman-dev/wanikani-api-requests!v20170710.stringifyParameters}
  * @category Parameters
  * @category Reviews
+ * @see {@link https://docs.api.wanikani.com/20170710/#get-all-reviews}
+ * @see {@link @bachman-dev/wanikani-api-requests!v20170710.stringifyParameters}
  */
 export interface ReviewParameters extends CollectionParameters {
-  /**
-   * Only reviews where `data.assignment_id` matches one of the array values are returned.
-   */
+  /** Only reviews where `data.assignment_id` matches one of the array values are returned. */
   assignment_ids?: SafeInteger[];
 
-  /**
-   * Only reviews where `data.subject_id` matches one of the array values are returned.
-   */
+  /** Only reviews where `data.subject_id` matches one of the array values are returned. */
   subject_ids?: SafeInteger[];
 }
 export const ReviewParameters = v.object(
@@ -167,18 +142,14 @@ export const ReviewParameters = v.object(
 /**
  * The payload used in the request to create a new review via the WaniKani API.
  *
- * @see {@link https://docs.api.wanikani.com/20170710/#create-a-review}
  * @category Payloads
  * @category Reviews
+ * @see {@link https://docs.api.wanikani.com/20170710/#create-a-review}
  */
 export interface ReviewPayload {
-  /**
-   * A review object with either the `assignment_id` or `subject_id` specified.
-   */
+  /** A review object with either the `assignment_id` or `subject_id` specified. */
   review: {
-    /**
-     * Must be zero or a positive number. This is the number of times the meaning was answered incorrectly.
-     */
+    /** Must be zero or a positive number. This is the number of times the meaning was answered incorrectly. */
     incorrect_meaning_answers: SafeInteger;
 
     /**
@@ -194,25 +165,17 @@ export interface ReviewPayload {
     created_at?: DatableString | Date;
   } & (
     | {
-        /**
-         * Unique identifier of the assignment. This or `subject_id` must be set.
-         */
+        /** Unique identifier of the assignment. This or `subject_id` must be set. */
         assignment_id: SafeInteger;
 
-        /**
-         * The `subject_id` should not be set at the same time as `assignment_id`.
-         */
+        /** The `subject_id` should not be set at the same time as `assignment_id`. */
         subject_id?: never;
       }
     | {
-        /**
-         * Unique identifier of the subject. This or `assignment_id` must be set.
-         */
+        /** Unique identifier of the subject. This or `assignment_id` must be set. */
         subject_id: SafeInteger;
 
-        /**
-         * The `assignment_id` should never be set at the same time as `subject_id`.
-         */
+        /** The `assignment_id` should never be set at the same time as `subject_id`. */
         assignment_id?: never;
       }
   );
@@ -246,23 +209,23 @@ export const ReviewPayload = v.object({
 /**
  * A created review returned from the WaniKani API.
  *
- * @see {@link https://docs.api.wanikani.com/20170710/#create-a-review}
  * @category Resources
  * @category Reviews
+ * @see {@link https://docs.api.wanikani.com/20170710/#create-a-review}
  */
 export interface CreatedReview extends Review {
-  /**
-   * The resources updated alongside creating the review.
-   */
+  /** The resources updated alongside creating the review. */
   resources_updated: {
     /**
      * The updated assignment upon creating the review.
+     *
      * @see {@link https://docs.api.wanikani.com/20170710/#assignments}
      */
     assignment: Assignment;
 
     /**
      * The updated review statistic upon creating the review.
+     *
      * @see {@link https://docs.api.wanikani.com/20170710/#review-statistics}
      */
     review_statistic: ReviewStatistic;
