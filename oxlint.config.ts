@@ -8,6 +8,10 @@ export default bachmanDevConfig(
       "id-length": ["error", { exceptions: ["m", "v"] }],
       "jsdoc/require-param-type": "off",
       "jsdoc/require-returns-type": "off",
+      "typescript/no-confusing-void-expression": [
+        "error",
+        { ignoreArrowShorthand: true, ignoreVoidOperator: false, ignoreVoidReturningFunctions: false },
+      ],
       "unicorn/no-instanceof-builtins": [
         "error",
         { exclude: [], include: [], strategy: "loose", useErrorIsError: true },
