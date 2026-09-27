@@ -1,0 +1,11 @@
+import { defineConfig } from "tsdown";
+
+export default defineConfig({
+  clean: true,
+  dts: { generator: "tsgo", sourcemap: true },
+  entry: ["src/index.ts", "src/v20170710/index.ts"],
+  format: "esm",
+  target: "es2025",
+  platform: "neutral",
+  exports: true,
+});
