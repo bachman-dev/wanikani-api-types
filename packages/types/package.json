@@ -16,7 +16,7 @@
     "directory": "packages/types"
   },
   "files": [
-    "dist/**/*.{mjs,d.mts}"
+    "dist"
   ],
   "type": "module",
   "exports": {

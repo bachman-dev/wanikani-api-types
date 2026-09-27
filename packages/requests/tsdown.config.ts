@@ -8,4 +8,11 @@ export default defineConfig({
   target: "es2025",
   platform: "neutral",
   exports: true,
+  publint: {
+    level: "error",
+  },
+  attw: {
+    profile: "esm-only",
+    level: "error",
+  },
 });
