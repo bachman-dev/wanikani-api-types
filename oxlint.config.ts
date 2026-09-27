@@ -13,6 +13,14 @@ export default bachmanDevConfig(
         { exclude: [], include: [], strategy: "loose", useErrorIsError: true },
       ],
     },
+    overrides: [
+      {
+        files: ["**/*.test.{ts,tsx,mts,cts}", "**/*.test-d.{ts,tsx,mts,cts}"],
+        rules: {
+          "vitest/max-expects": ["error", { max: 20 }],
+        },
+      },
+    ],
     settings: {
       jsdoc: {
         tagNamePreference: {

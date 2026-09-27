@@ -1,17 +1,18 @@
 import { describe, expect } from "vitest";
 
 import * as Utils from "../../src/v20170710/index.js";
-import { testFor } from "./fixtures.js";
+import testFor from "./fixtures.js";
+
 describe("SUBJECT_MARKUP_MATCHER", () => {
   testFor("Matches Japanese text highlighting in <ja> tags", ({ subjectMarkupWithJaTag }) => {
     const matchedText = [...subjectMarkupWithJaTag.matchAll(Utils.SUBJECT_MARKUP_MATCHER)];
     expect(matchedText).toHaveLength(2);
     expect(matchedText[0]?.[0]).toBe("<ja>か</ja>");
     expect(matchedText[0]?.groups?.tag).toBe("ja");
-    expect(matchedText[0]?.groups?.innerText).toBe("か");
+    expect(matchedText[0]?.groups?.textContent).toBe("か");
     expect(matchedText[1]?.[0]).toBe("<ja>せつ</ja>");
     expect(matchedText[1]?.groups?.tag).toBe("ja");
-    expect(matchedText[1]?.groups?.innerText).toBe("せつ");
+    expect(matchedText[1]?.groups?.textContent).toBe("せつ");
   });
 
   testFor("Matches Kanji highlighting in <kanji> tags", ({ subjectMarkupWithKanjiTag }) => {
@@ -19,10 +20,10 @@ describe("SUBJECT_MARKUP_MATCHER", () => {
     expect(matchedText).toHaveLength(2);
     expect(matchedText[0]?.[0]).toBe("<kanji>山</kanji>");
     expect(matchedText[0]?.groups?.tag).toBe("kanji");
-    expect(matchedText[0]?.groups?.innerText).toBe("山");
+    expect(matchedText[0]?.groups?.textContent).toBe("山");
     expect(matchedText[1]?.[0]).toBe("<kanji>人</kanji>");
     expect(matchedText[1]?.groups?.tag).toBe("kanji");
-    expect(matchedText[1]?.groups?.innerText).toBe("人");
+    expect(matchedText[1]?.groups?.textContent).toBe("人");
   });
 
   testFor("Matches Meaning highlighting in <meaning> tags", ({ subjectMarkupWithMeaningTag }) => {
@@ -30,10 +31,10 @@ describe("SUBJECT_MARKUP_MATCHER", () => {
     expect(matchedText).toHaveLength(2);
     expect(matchedText[0]?.[0]).toBe("<meaning>one</meaning>");
     expect(matchedText[0]?.groups?.tag).toBe("meaning");
-    expect(matchedText[0]?.groups?.innerText).toBe("one");
+    expect(matchedText[0]?.groups?.textContent).toBe("one");
     expect(matchedText[1]?.[0]).toBe("<meaning>two</meaning>");
     expect(matchedText[1]?.groups?.tag).toBe("meaning");
-    expect(matchedText[1]?.groups?.innerText).toBe("two");
+    expect(matchedText[1]?.groups?.textContent).toBe("two");
   });
 
   testFor("Matches Radical highlighting in <radical> tags", ({ subjectMarkupWithRadicalTag }) => {
@@ -41,10 +42,10 @@ describe("SUBJECT_MARKUP_MATCHER", () => {
     expect(matchedText).toHaveLength(2);
     expect(matchedText[0]?.[0]).toBe("<radical>ground</radical>");
     expect(matchedText[0]?.groups?.tag).toBe("radical");
-    expect(matchedText[0]?.groups?.innerText).toBe("ground");
+    expect(matchedText[0]?.groups?.textContent).toBe("ground");
     expect(matchedText[1]?.[0]).toBe("<radical>coat rack</radical>");
     expect(matchedText[1]?.groups?.tag).toBe("radical");
-    expect(matchedText[1]?.groups?.innerText).toBe("coat rack");
+    expect(matchedText[1]?.groups?.textContent).toBe("coat rack");
   });
 
   testFor("Matches Reading highlighting in <reading> tags", ({ subjectMarkupWithReadingTag }) => {
@@ -52,10 +53,10 @@ describe("SUBJECT_MARKUP_MATCHER", () => {
     expect(matchedText).toHaveLength(2);
     expect(matchedText[0]?.[0]).toBe("<reading>ha</reading>");
     expect(matchedText[0]?.groups?.tag).toBe("reading");
-    expect(matchedText[0]?.groups?.innerText).toBe("ha");
+    expect(matchedText[0]?.groups?.textContent).toBe("ha");
     expect(matchedText[1]?.[0]).toBe("<reading>wa</reading>");
     expect(matchedText[1]?.groups?.tag).toBe("reading");
-    expect(matchedText[1]?.groups?.innerText).toBe("wa");
+    expect(matchedText[1]?.groups?.textContent).toBe("wa");
   });
 
   testFor("Matches Vocabulary highlighting in <vocabulary> tags", ({ subjectMarkupWithVocabularyTag }) => {
@@ -63,10 +64,10 @@ describe("SUBJECT_MARKUP_MATCHER", () => {
     expect(matchedText).toHaveLength(2);
     expect(matchedText[0]?.[0]).toBe("<vocabulary>one thing</vocabulary>");
     expect(matchedText[0]?.groups?.tag).toBe("vocabulary");
-    expect(matchedText[0]?.groups?.innerText).toBe("one thing");
+    expect(matchedText[0]?.groups?.textContent).toBe("one thing");
     expect(matchedText[1]?.[0]).toBe("<vocabulary>first floor</vocabulary>");
     expect(matchedText[1]?.groups?.tag).toBe("vocabulary");
-    expect(matchedText[1]?.groups?.innerText).toBe("first floor");
+    expect(matchedText[1]?.groups?.textContent).toBe("first floor");
   });
 
   testFor(
@@ -76,13 +77,13 @@ describe("SUBJECT_MARKUP_MATCHER", () => {
       expect(matchedText).toHaveLength(3);
       expect(matchedText[0]?.[0]).toBe("<kanji>three</kanji>");
       expect(matchedText[0]?.groups?.tag).toBe("kanji");
-      expect(matchedText[0]?.groups?.innerText).toBe("three");
+      expect(matchedText[0]?.groups?.textContent).toBe("three");
       expect(matchedText[1]?.[0]).toBe("<radical>one</radical>");
       expect(matchedText[1]?.groups?.tag).toBe("radical");
-      expect(matchedText[1]?.groups?.innerText).toBe("one");
+      expect(matchedText[1]?.groups?.textContent).toBe("one");
       expect(matchedText[2]?.[0]).toBe("<radical>two</radical>");
       expect(matchedText[2]?.groups?.tag).toBe("radical");
-      expect(matchedText[2]?.groups?.innerText).toBe("two");
+      expect(matchedText[2]?.groups?.textContent).toBe("two");
     },
   );
 
@@ -93,13 +94,13 @@ describe("SUBJECT_MARKUP_MATCHER", () => {
       expect(matchedText).toHaveLength(3);
       expect(matchedText[0]?.[0]).toBe("<kanji>mud</kanji>");
       expect(matchedText[0]?.groups?.tag).toBe("kanji");
-      expect(matchedText[0]?.groups?.innerText).toBe("mud");
+      expect(matchedText[0]?.groups?.textContent).toBe("mud");
       expect(matchedText[1]?.[0]).toBe("<reading>doro</reading>");
       expect(matchedText[1]?.groups?.tag).toBe("reading");
-      expect(matchedText[1]?.groups?.innerText).toBe("doro");
+      expect(matchedText[1]?.groups?.textContent).toBe("doro");
       expect(matchedText[2]?.[0]).toBe("<ja>どろ</ja>");
       expect(matchedText[2]?.groups?.tag).toBe("ja");
-      expect(matchedText[2]?.groups?.innerText).toBe("どろ");
+      expect(matchedText[2]?.groups?.textContent).toBe("どろ");
     },
   );
 
@@ -110,13 +111,13 @@ describe("SUBJECT_MARKUP_MATCHER", () => {
       expect(matchedText).toHaveLength(3);
       expect(matchedText[0]?.[0]).toBe("<vocabulary>oil painting</vocabulary>");
       expect(matchedText[0]?.groups?.tag).toBe("vocabulary");
-      expect(matchedText[0]?.groups?.innerText).toBe("oil painting");
+      expect(matchedText[0]?.groups?.textContent).toBe("oil painting");
       expect(matchedText[1]?.[0]).toBe("<kanji>oil</kanji>");
       expect(matchedText[1]?.groups?.tag).toBe("kanji");
-      expect(matchedText[1]?.groups?.innerText).toBe("oil");
+      expect(matchedText[1]?.groups?.textContent).toBe("oil");
       expect(matchedText[2]?.[0]).toBe("<kanji>drawing</kanji>");
       expect(matchedText[2]?.groups?.tag).toBe("kanji");
-      expect(matchedText[2]?.groups?.innerText).toBe("drawing");
+      expect(matchedText[2]?.groups?.textContent).toBe("drawing");
     },
   );
 
@@ -129,16 +130,16 @@ describe("SUBJECT_MARKUP_MATCHER", () => {
       expect(matchedText).toHaveLength(4);
       expect(matchedText[0]?.[0]).toBe("<vocabulary>girl</vocabulary>");
       expect(matchedText[0]?.groups?.tag).toBe("vocabulary");
-      expect(matchedText[0]?.groups?.innerText).toBe("girl");
+      expect(matchedText[0]?.groups?.textContent).toBe("girl");
       expect(matchedText[1]?.[0]).toBe("<meaning>maiden</meaning>");
       expect(matchedText[1]?.groups?.tag).toBe("meaning");
-      expect(matchedText[1]?.groups?.innerText).toBe("maiden");
+      expect(matchedText[1]?.groups?.textContent).toBe("maiden");
       expect(matchedText[2]?.[0]).toBe("<reading>shoujo</reading>");
       expect(matchedText[2]?.groups?.tag).toBe("reading");
-      expect(matchedText[2]?.groups?.innerText).toBe("shoujo");
+      expect(matchedText[2]?.groups?.textContent).toBe("shoujo");
       expect(matchedText[3]?.[0]).toBe("<ja>しょうじょ</ja>");
       expect(matchedText[3]?.groups?.tag).toBe("ja");
-      expect(matchedText[3]?.groups?.innerText).toBe("しょうじょ");
+      expect(matchedText[3]?.groups?.textContent).toBe("しょうじょ");
     },
   );
 });
