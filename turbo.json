@@ -4,12 +4,6 @@
     "build": {
       "dependsOn": ["^build"],
       "outputs": ["dist/**"]
-    },
-    "lint": {
-      "dependsOn": ["^build", "^lint"]
-    },
-    "lint:fix": {
-      "dependsOn": ["^build", "^lint:fix"]
     }
   }
 }

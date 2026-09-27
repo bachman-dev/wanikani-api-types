@@ -3,22 +3,22 @@
   "version": "1.0.0-alpha.0",
   "description": "Utilities for working with the WaniKani API",
   "keywords": [
+    "utilities",
     "wanikani",
-    "wanikani api",
-    "utilities"
+    "wanikani api"
   ],
-  "author": "Collin Bachman <collin.r68zdn9d@bachman.dev>",
-  "license": "MIT",
   "homepage": "https://wanikani-api-types.bachman.dev",
+  "license": "MIT",
+  "author": "Collin Bachman <collin.r68zdn9d@bachman.dev>",
   "repository": {
     "type": "git",
     "url": "https://github.com/bachman-dev/wanikani-api-types.git",
     "directory": "packages/utils"
   },
-  "type": "module",
   "files": [
     "dist/**/*.{mjs,d.mts}"
   ],
+  "type": "module",
   "exports": {
     ".": {
       "import": {
@@ -33,6 +33,9 @@
       }
     }
   },
+  "scripts": {
+    "build": "tsdown --entry src/index.ts --entry src/v20170710/index.ts --dts --format esm"
+  },
   "typedocOptions": {
     "includeVersion": true,
     "sourceLinkTemplate": "https://github.com/bachman-dev/wanikani-api-types/blob/{gitRevision}/{path}#L{line}",
@@ -45,10 +48,5 @@
       "required-first",
       "alphabetical"
     ]
-  },
-  "scripts": {
-    "build": "tsdown --entry src/index.ts --entry src/v20170710/index.ts --dts --format esm",
-    "lint": "eslint . && prettier --check .",
-    "lint:fix": "eslint --fix . && prettier --write ."
   }
 }
