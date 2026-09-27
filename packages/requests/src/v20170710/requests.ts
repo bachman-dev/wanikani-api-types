@@ -17,7 +17,7 @@ import type {
   VoiceActorParameters,
 } from "@bachman-dev/wanikani-api-types/v20170710";
 
-import { stringifyParameters } from "./parameters.js";
+import stringifyParameters from "./parameters.js";
 
 /**
  * An object containing all information needed to make a request to the WaniKani API using any HTTP API/Library.
@@ -48,8 +48,7 @@ export class ApiRequestFactory {
      * @param idOrParams The Assignment ID for individual Assignments, or parameters for Assignment Collections.
      * @param options Options for making GET requests to the API.
      * @returns A Get Assignment(s) Request usabile in any HTTP API/Library.
-     * @throws A `TypeError` if trying to set type-checked request headers.
-     * @throws A {@link valibot!ValiError} if ID or parameters are invalid.
+     * @throws {TypeError} If trying to set type-checked request headers.
      */
     get: (idOrParams?: AssignmentParameters | SafeInteger, options?: ApiRequestOptions): ApiRequest => {
       const headers = { ...this._getHeaders };
@@ -80,8 +79,7 @@ export class ApiRequestFactory {
      * @param payload The payload to send when starting the Assignment.
      * @param options Options for making PUT requests to the API.
      * @returns A Start Assignment Request usable in any HTTP API/Library.
-     * @throws A `TypeError` if trying to set type-checked request headers.
-     * @throws A {@link valibot!ValiError} if ID or payload is invalid.
+     * @throws {TypeError} If trying to set type-checked request headers.
      */
     start: (assignmentId: SafeInteger, payload: AssignmentPayload, options?: ApiRequestOptions): ApiRequest => {
       const headers = { ...this._postPutHeaders };
@@ -113,8 +111,7 @@ export class ApiRequestFactory {
      *   Collections.
      * @param options Options for making GET requests to the API.
      * @returns A Get Level Progression(s) Request usabile in any HTTP API/Library.
-     * @throws A `TypeError` if trying to set type-checked request headers.
-     * @throws A {@link valibot!ValiError} if ID or parameters are invalid.
+     * @throws {TypeError} If trying to set type-checked request headers.
      */
     get: (idOrParams?: LevelProgressionParameters | SafeInteger, options?: ApiRequestOptions): ApiRequest => {
       const headers = { ...this._getHeaders };
@@ -147,8 +144,7 @@ export class ApiRequestFactory {
      * @param idOrParams The Reset ID for individual Resets, or parameters for Reset Collections.
      * @param options Options for making GET requests to the API.
      * @returns A Get Reset(s) Request usabile in any HTTP API/Library.
-     * @throws A `TypeError` if trying to set type-checked request headers.
-     * @throws A {@link valibot!ValiError} if ID or parameters are invalid.
+     * @throws {TypeError} If trying to set type-checked request headers.
      */
     get: (idOrParams?: ResetParameters | SafeInteger, options?: ApiRequestOptions): ApiRequest => {
       const headers = { ...this._getHeaders };
@@ -182,8 +178,7 @@ export class ApiRequestFactory {
      *   Collections.
      * @param options Options for making GET requests to the API.
      * @returns A Get Review Statistic(s) Request usabile in any HTTP API/Library.
-     * @throws A `TypeError` if trying to set type-checked request headers.
-     * @throws A {@link valibot!ValiError} if ID or parameters are invalid.
+     * @throws {TypeError} If trying to set type-checked request headers.
      */
     get: (idOrParams?: ReviewStatisticParameters | SafeInteger, options?: ApiRequestOptions): ApiRequest => {
       const headers = { ...this._getHeaders };
@@ -216,17 +211,14 @@ export class ApiRequestFactory {
      * @param payload The payload to send when creating the Review.
      * @param options Options for making POST requests to the API.
      * @returns A Create Review Request usabile in any HTTP API/Library.
-     * @throws A `TypeError` if trying to set type-checked request headers.
-     * @throws A {@link valibot!ValiError} if payload is invalid.
+     * @throws {TypeError} If trying to set type-checked request headers.
      */
     create: (payload: ReviewPayload, options?: ApiRequestOptions): ApiRequest => {
       const headers = { ...this._postPutHeaders };
-      if (typeof options !== "undefined") {
-        if (typeof options.customHeaders !== "undefined") {
-          for (const [key, value] of Object.entries(options.customHeaders)) {
-            ApiRequestFactory._validateHeader(key, value);
-            headers[key] = value;
-          }
+      if (typeof options?.customHeaders !== "undefined") {
+        for (const [key, value] of Object.entries(options.customHeaders)) {
+          ApiRequestFactory._validateHeader(key, value);
+          headers[key] = value;
         }
       }
       const request: ApiRequest = {
@@ -244,8 +236,7 @@ export class ApiRequestFactory {
      * @param idOrParams The Review ID for individual Reviews, or parameters for Review Collections.
      * @param options Options for making GET requests to the API.
      * @returns A Get Review(s) Request usabile in any HTTP API/Library.
-     * @throws A `TypeError` if trying to set type-checked request headers.
-     * @throws A {@link valibot!ValiError} if ID or parameters are invalid.
+     * @throws {TypeError} If trying to set type-checked request headers.
      */
     get: (idOrParams?: ReviewParameters | SafeInteger, options?: ApiRequestOptions): ApiRequest => {
       const headers = { ...this._getHeaders };
@@ -279,8 +270,7 @@ export class ApiRequestFactory {
      *   parameters for Spaced Repetition System (SRS) Collections.
      * @param options Options for making GET requests to the API.
      * @returns A Get Spaced Repetition System(s) (SRS) Request usabile in any HTTP API/Library.
-     * @throws A `TypeError` if trying to set type-checked request headers.
-     * @throws A {@link valibot!ValiError} if ID or parameters are invalid.
+     * @throws {TypeError} If trying to set type-checked request headers.
      */
     get: (idOrParams?: SafeInteger | SpacedRepetitionSystemParameters, options?: ApiRequestOptions): ApiRequest => {
       const headers = { ...this._getHeaders };
@@ -317,8 +307,7 @@ export class ApiRequestFactory {
      *   Collections.
      * @param options Options for making GET requests to the API.
      * @returns A Get Study Material(s) Request usabile in any HTTP API/Library.
-     * @throws A `TypeError` if trying to set type-checked request headers.
-     * @throws A {@link valibot!ValiError} if ID or parameters are invalid.
+     * @throws {TypeError} If trying to set type-checked request headers.
      */
     get: (idOrParams?: SafeInteger | StudyMaterialParameters, options?: ApiRequestOptions): ApiRequest => {
       const headers = { ...this._getHeaders };
@@ -348,17 +337,14 @@ export class ApiRequestFactory {
      * @param payload The payload to send when creating the new Study Material.
      * @param options Options for making POST requests to the API.
      * @returns A Create Study Material Request usabile in any HTTP API/Library.
-     * @throws A `TypeError` if trying to set type-checked request headers.
-     * @throws A {@link valibot!ValiError} if payload is invalid.
+     * @throws {TypeError} If trying to set type-checked request headers.
      */
     create: (payload: StudyMaterialCreatePayload, options?: ApiRequestOptions): ApiRequest => {
       const headers = { ...this._postPutHeaders };
-      if (typeof options !== "undefined") {
-        if (typeof options.customHeaders !== "undefined") {
-          for (const [key, value] of Object.entries(options.customHeaders)) {
-            ApiRequestFactory._validateHeader(key, value);
-            headers[key] = value;
-          }
+      if (typeof options?.customHeaders !== "undefined") {
+        for (const [key, value] of Object.entries(options.customHeaders)) {
+          ApiRequestFactory._validateHeader(key, value);
+          headers[key] = value;
         }
       }
       const request: ApiRequest = {
@@ -377,8 +363,7 @@ export class ApiRequestFactory {
      * @param payload The payload to send when updating the Study Material.
      * @param options Options for making PUT requests to the API.
      * @returns An Update Study Material Request usabile in any HTTP API/Library.
-     * @throws A `TypeError` if trying to set type-checked request headers.
-     * @throws A {@link valibot!ValiError} if ID or payload is invalid.
+     * @throws {TypeError} If trying to set type-checked request headers.
      */
     update: (
       studyMaterialId: SafeInteger,
@@ -386,12 +371,10 @@ export class ApiRequestFactory {
       options?: ApiRequestOptions,
     ): ApiRequest => {
       const headers = { ...this._postPutHeaders };
-      if (typeof options !== "undefined") {
-        if (typeof options.customHeaders !== "undefined") {
-          for (const [key, value] of Object.entries(options.customHeaders)) {
-            ApiRequestFactory._validateHeader(key, value);
-            headers[key] = value;
-          }
+      if (typeof options?.customHeaders !== "undefined") {
+        for (const [key, value] of Object.entries(options.customHeaders)) {
+          ApiRequestFactory._validateHeader(key, value);
+          headers[key] = value;
         }
       }
       const request: ApiRequest = {
@@ -412,8 +395,7 @@ export class ApiRequestFactory {
      * @param idOrParams The Subject ID for individual Subjects, or parameters for Subject Collections.
      * @param options Options for making GET requests to the API.
      * @returns A Get Subject(s) Request usabile in any HTTP API/Library.
-     * @throws A `TypeError` if trying to set type-checked request headers.
-     * @throws A {@link valibot!ValiError} if ID or parameters are invalid.
+     * @throws {TypeError} If trying to set type-checked request headers.
      */
     get: (idOrParams?: SafeInteger | SubjectParameters, options?: ApiRequestOptions): ApiRequest => {
       const headers = { ...this._getHeaders };
@@ -445,7 +427,7 @@ export class ApiRequestFactory {
      *
      * @param options Options for making GET requests to the API.
      * @returns A Get Summary Request usabile in any HTTP API/Library.
-     * @throws A `TypeError` if trying to set type-checked request headers.
+     * @throws {TypeError} If trying to set type-checked request headers.
      */
     get: (options?: ApiRequestOptions): ApiRequest => {
       const headers = { ...this._getHeaders };
@@ -472,7 +454,7 @@ export class ApiRequestFactory {
      *
      * @param options Options for making GET requests to the API.
      * @returns A Get User Request usabile in any HTTP API/Library.
-     * @throws A `TypeError` if trying to set type-checked request headers.
+     * @throws {TypeError} If trying to set type-checked request headers.
      */
     get: (options?: ApiRequestOptions): ApiRequest => {
       const headers = { ...this._getHeaders };
@@ -497,17 +479,14 @@ export class ApiRequestFactory {
      * @param payload The payload containing changed Preferences to send for the update.
      * @param options Options for making PUT requests to the API.
      * @returns An Update User Preferences Request usabile in any HTTP API/Library.
-     * @throws A `TypeError` if trying to set type-checked request headers.
-     * @throws A {@link valibot!ValiError} if payload is invalid.
+     * @throws {TypeError} If trying to set type-checked request headers.
      */
     updatePreferences: (payload: UserPreferencesPayload, options?: ApiRequestOptions): ApiRequest => {
       const headers = { ...this._postPutHeaders };
-      if (typeof options !== "undefined") {
-        if (typeof options.customHeaders !== "undefined") {
-          for (const [key, value] of Object.entries(options.customHeaders)) {
-            ApiRequestFactory._validateHeader(key, value);
-            headers[key] = value;
-          }
+      if (typeof options?.customHeaders !== "undefined") {
+        for (const [key, value] of Object.entries(options.customHeaders)) {
+          ApiRequestFactory._validateHeader(key, value);
+          headers[key] = value;
         }
       }
       const request: ApiRequest = {
@@ -528,7 +507,6 @@ export class ApiRequestFactory {
      * @param idOrParams The Voice Actor ID for individual Voice Actors, or parameters for Voice Actor Collections.
      * @param options Options for making GET requests to the API.
      * @returns A Get Voice Actor(s) Request usabile in any HTTP API/Library.
-     * @throws A {@link valibot!ValiError} if ID or parameters are invalid.
      */
     get: (idOrParams?: SafeInteger | VoiceActorParameters, options?: ApiRequestOptions): ApiRequest => {
       const headers = { ...this._getHeaders };
@@ -569,7 +547,7 @@ export class ApiRequestFactory {
    * Initialize the Request Factory.
    *
    * @param init Initialization options for the factory.
-   * @throws A `TypeError` if trying to set type-checked request headers.
+   * @throws {TypeError} If trying to set type-checked request headers.
    */
   public constructor(init: ApiRequestFactoryInit) {
     this._initHeaders = {
@@ -593,7 +571,7 @@ export class ApiRequestFactory {
    *
    * @param key The header key, e.g. `Accpet` or `X-Forwarded-For`
    * @param value The header value, e.g. `application/json` or `192.168.1.1`
-   * @throws A `TypeError` if trying to set type-checked request headers.
+   * @throws {TypeError} If trying to set type-checked request headers.
    * @internal
    */
   private static _validateHeader(key: string, value: string): void {
@@ -614,7 +592,7 @@ export class ApiRequestFactory {
    *
    * @param headers An object containing HTTP headers and their values.
    * @returns The factory, with the added custom headers.
-   * @throws A `TypeError` if trying to set type-checked request headers.
+   * @throws {TypeError} If trying to set type-checked request headers.
    */
   public addCustomHeaders(headers: Record<string, string>): this {
     for (const [key, value] of Object.entries(headers)) {
@@ -630,12 +608,12 @@ export class ApiRequestFactory {
    *
    * @param revision The WaniKani API Revision to use.
    * @returns The factory, with the newly set WaniKani API Revision.
-   * @throws A {@link valibot!ValiError} if the WaniKani API Revision is invalid.
+   * @throws {TypeError} If attempting to set an invalid API revision
    */
   public setApiRevision(revision: ApiRevision): this {
     const validRevisions: ApiRevision[] = ["20170710"];
     if (!validRevisions.includes(revision)) {
-      throw new Error();
+      throw new TypeError(`Invalid API Revision ${revision}`);
     }
     this._initHeaders["wanikani-revision"] = revision;
     this._getHeaders["wanikani-revision"] = revision;
@@ -662,7 +640,7 @@ export class ApiRequestFactory {
    *
    * @param headers An object containing HTTP headers and their values.
    * @returns The factory, with the only custom headers being those passed to this function.
-   * @throws A `TypeError` if trying to set type-checked request headers.
+   * @throws {TypeError} If trying to set type-checked request headers.
    */
   public setCustomHeaders(headers: Record<string, string>): this {
     this._getHeaders = { ...this._initHeaders };
