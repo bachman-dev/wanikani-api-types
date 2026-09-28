@@ -2,6 +2,7 @@ import { defineConfig } from "tsdown";
 
 export default defineConfig({
   clean: true,
+  copy: "../../LICENSE",
   dts: { generator: "tsgo", sourcemap: true },
   entry: ["src/index.ts", "src/v20170710/index.ts"],
   format: "esm",
