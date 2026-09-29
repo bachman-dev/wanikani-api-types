@@ -62,6 +62,8 @@ export const Summary = v.object(
  *
  * @category Summary
  * @category Type Guards
+ * @param value An unknown value
+ * @returns A type predicate
  */
 // @__NO_SIDE_EFFECTS__
 export function isSummary(value: unknown): value is Summary {

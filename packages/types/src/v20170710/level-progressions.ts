@@ -1,6 +1,6 @@
 import * as v from "valibot";
 
-import { BaseCollection, BaseResource, CollectionParameters, DatableString, Level } from "./base.js";
+import { BaseCollection, BaseResource, DatableString, Level } from "./base.js";
 
 /**
  * Level progressions contain information about a user's progress through the WaniKani levels.
@@ -74,6 +74,8 @@ export const LevelProgression = v.object(
  *
  * @category Level Progressions
  * @category Type Guards
+ * @param value An unknown value
+ * @returns A type predicate
  */
 // @__NO_SIDE_EFFECTS__
 export function isLevelProgression(value: unknown): value is LevelProgression {
@@ -105,6 +107,8 @@ export const LevelProgressionCollection = v.object(
  *
  * @category Level Progressions
  * @category Type Guards
+ * @param value An unknown value
+ * @returns A type predicate
  */
 // @__NO_SIDE_EFFECTS__
 export function isLevelProgressionCollection(value: unknown): value is LevelProgressionCollection {
@@ -119,5 +123,4 @@ export function isLevelProgressionCollection(value: unknown): value is LevelProg
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-level-progressions}
  * @see {@link @bachman-dev/wanikani-api-requests!v20170710.stringifyParameters}
  */
-export type LevelProgressionParameters = CollectionParameters;
-export const LevelProgressionParameters = CollectionParameters;
+export { CollectionParameters as LevelProgressionParameters } from "./base.ts";

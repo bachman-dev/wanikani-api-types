@@ -93,6 +93,8 @@ export const ReviewStatistic = v.object(
  *
  * @category Review Statistics
  * @category Type Guards
+ * @param value An unknown value
+ * @returns A type predicate
  */
 // @__NO_SIDE_EFFECTS__
 export function isReviewStatistic(value: unknown): value is ReviewStatistic {
@@ -124,6 +126,8 @@ export const ReviewStatisticCollection = v.object(
  *
  * @category Review Statistics
  * @category Type Guards
+ * @param value An unknown value
+ * @returns A type predicate
  */
 // @__NO_SIDE_EFFECTS__
 export function isReviewStatisticCollection(value: unknown): value is ReviewStatisticCollection {

@@ -1,6 +1,6 @@
 import * as v from "valibot";
 
-import { BaseCollection, BaseResource, CollectionParameters, DatableString, Level } from "./base.js";
+import { BaseCollection, BaseResource, DatableString, Level } from "./base.js";
 
 /**
  * Users can reset their progress back to any level at or below their current level. When they reset to a particular
@@ -55,6 +55,8 @@ export const Reset = v.object(
  *
  * @category Resets
  * @category Type Guards
+ * @param value An unknown value
+ * @returns A type predicate
  */
 // @__NO_SIDE_EFFECTS__
 export function isReset(value: unknown): value is Reset {
@@ -86,6 +88,8 @@ export const ResetCollection = v.object(
  *
  * @category Resets
  * @category Type Guards
+ * @param value An unknown value
+ * @returns A type predicate
  */
 // @__NO_SIDE_EFFECTS__
 export function isResetCollection(value: unknown): value is ResetCollection {
@@ -100,5 +104,4 @@ export function isResetCollection(value: unknown): value is ResetCollection {
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-resets}
  * @see {@link @bachman-dev/wanikani-api-requests!v20170710.stringifyParameters}
  */
-export type ResetParameters = CollectionParameters;
-export const ResetParameters = CollectionParameters;
+export { CollectionParameters as ResetParameters } from "./base.ts";

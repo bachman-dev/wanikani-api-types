@@ -1,7 +1,5 @@
-/**
- * @module v20170710
- * @category API Reference
- */
+// oxlint-disable oxc/no-barrel-file -- This is an entrypoint for the v20170710 API revision
+/** @category API Reference */
 
 export * from "./assignments.js";
 export * from "./base.js";

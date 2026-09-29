@@ -1,6 +1,6 @@
 import * as v from "valibot";
 
-import { BaseCollection, BaseResource, CollectionParameters, DatableString, SafeInteger } from "./base.js";
+import { BaseCollection, BaseResource, DatableString, SafeInteger } from "./base.js";
 
 /**
  * The minimum SRS Stage Number used in WaniKani's SRS; exported for use in lieu of a Magic Number.
@@ -40,6 +40,8 @@ export const SpacedRepetitionSystemStageNumber = v.pipe(
  *
  * @category Spaced Repetition Systems
  * @category Type Guards
+ * @param value An unknown value
+ * @returns A type predicate
  */
 // @__NO_SIDE_EFFECTS__
 export function isSpacedRepetitionSystemStageNumber(value: unknown): value is SpacedRepetitionSystemStageNumber {
@@ -135,6 +137,8 @@ export const SpacedRepetitionSystem = v.object(
  *
  * @category Spaced Repetition Systems
  * @category Type Guards
+ * @param value An unknown value
+ * @returns A type predicate
  */
 // @__NO_SIDE_EFFECTS__
 export function isSpacedRepetitionSystem(value: unknown): value is SpacedRepetitionSystem {
@@ -166,6 +170,8 @@ export const SpacedRepetitionSystemCollection = v.object(
  *
  * @category Spaced Repetition Systems
  * @category Type Guards
+ * @param value An unknown value
+ * @returns A type predicate
  */
 // @__NO_SIDE_EFFECTS__
 export function isSpacedRepetitionSystemCollection(value: unknown): value is SpacedRepetitionSystemCollection {
@@ -180,5 +186,4 @@ export function isSpacedRepetitionSystemCollection(value: unknown): value is Spa
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-spaced-repetition-systems}
  * @see {@link @bachman-dev/wanikani-api-requests!v20170710.stringifyParameters}
  */
-export type SpacedRepetitionSystemParameters = CollectionParameters;
-export const SpacedRepetitionSystemParameters = CollectionParameters;
+export { CollectionParameters as SpacedRepetitionSystemParameters } from "./base.ts";

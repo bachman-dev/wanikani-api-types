@@ -12,6 +12,7 @@ export default bachmanDevConfig(
         "error",
         { ignoreArrowShorthand: true, ignoreVoidOperator: false, ignoreVoidReturningFunctions: false },
       ],
+      "unicorn/max-nested-calls": "off",
       "unicorn/no-instanceof-builtins": [
         "error",
         { exclude: [], include: [], strategy: "loose", useErrorIsError: true },
@@ -29,6 +30,7 @@ export default bachmanDevConfig(
       jsdoc: {
         tagNamePreference: {
           category: "category",
+          remarks: "remarks",
         },
       },
     },

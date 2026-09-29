@@ -81,6 +81,8 @@ export const StudyMaterial = v.object(
  *
  * @category Study Materials
  * @category Type Guards
+ * @param value An unknown value
+ * @returns A type predicate
  */
 // @__NO_SIDE_EFFECTS__
 export function isStudyMaterial(value: unknown): value is StudyMaterial {
@@ -112,6 +114,8 @@ export const StudyMaterialCollection = v.object(
  *
  * @category Study Materials
  * @category Type Guards
+ * @param value An unknown value
+ * @returns A type predicate
  */
 // @__NO_SIDE_EFFECTS__
 export function isStudyMaterialCollection(value: unknown): value is StudyMaterialCollection {

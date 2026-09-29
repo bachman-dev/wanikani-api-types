@@ -7,10 +7,12 @@ type Message = v.ErrorMessage<v.UnionIssue<v.DateIssue | v.IsoTimestampIssue<str
 const en: Message = "Expected either a valid ISO-8601 timestamp string or a JavaScript Date";
 
 // @__NO_SIDE_EFFECTS__
-export const dateUnion: Message = (issue) => {
+const dateUnion: Message = (issue) => {
   const locale = getLocale(issue);
   switch (locale) {
     default:
       return en;
   }
 };
+
+export default dateUnion;

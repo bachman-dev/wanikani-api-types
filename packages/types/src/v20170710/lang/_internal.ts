@@ -7,11 +7,9 @@ export type Locale = "en";
 
 // @__NO_SIDE_EFFECTS__
 export function getLocale(issue: v.GenericIssue): Locale {
-  if (typeof issue.lang === "string") {
+  if (typeof issue.lang === "string" && (issue.lang === "en" || issue.lang.startsWith("en-"))) {
     // English
-    if (issue.lang === "en" || issue.lang.startsWith("en-")) {
-      return "en";
-    }
+    return "en";
   }
 
   // Default: English

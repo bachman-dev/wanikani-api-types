@@ -16,6 +16,8 @@ export const SubjectType = v.picklist(["kana_vocabulary", "kanji", "radical", "v
  *
  * @category Subjects
  * @category Type Guards
+ * @param value An unknown value
+ * @returns A type predicate
  */
 // @__NO_SIDE_EFFECTS__
 export function isSubjectType(value: unknown): value is SubjectType {
@@ -43,6 +45,8 @@ export const SubjectTuple = v.pipe(
  *
  * @category Subjects
  * @category Type Guards
+ * @param value An unknown value
+ * @returns A type predicate
  */
 // @__NO_SIDE_EFFECTS__
 export function isSubjectTuple(value: unknown): value is SubjectTuple {
@@ -554,6 +558,8 @@ export const Subject = v.intersect([
  *
  * @category Subjects
  * @category Type Guards
+ * @param value An unknown value
+ * @returns A type predicate
  */
 // @__NO_SIDE_EFFECTS__
 export function isSubject(value: unknown): value is Subject {
@@ -585,6 +591,8 @@ export const SubjectCollection = v.object(
  *
  * @category Subjects
  * @category Type Guards
+ * @param value An unknown value
+ * @returns A type predicate
  */
 // @__NO_SIDE_EFFECTS__
 export function isSubjectCollection(value: unknown): value is SubjectCollection {

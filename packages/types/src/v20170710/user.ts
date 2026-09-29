@@ -33,6 +33,8 @@ export const LessonBatchSizeNumber = v.pipe(
  *
  * @category User
  * @category Type Guards
+ * @param value An unknown value
+ * @returns A type predicate
  */
 // @__NO_SIDE_EFFECTS__
 export function isLessonBatchSizeNumber(value: unknown): value is LessonBatchSizeNumber {
@@ -181,6 +183,8 @@ export const User = v.object(
  *
  * @category User
  * @category Type Guards
+ * @param value An unknown value
+ * @returns A type predicate
  */
 // @__NO_SIDE_EFFECTS__
 export function isUser(value: unknown): value is User {

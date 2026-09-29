@@ -77,6 +77,8 @@ export const Review = v.object(
  *
  * @category Reviews
  * @category Type Guards
+ * @param value An unknown value
+ * @returns A type predicate
  */
 // @__NO_SIDE_EFFECTS__
 export function isReview(value: unknown): value is Review {
@@ -108,6 +110,8 @@ export const ReviewCollection = v.object(
  *
  * @category Reviews
  * @category Type Guards
+ * @param value An unknown value
+ * @returns A type predicate
  */
 // @__NO_SIDE_EFFECTS__
 export function isReviewCollection(value: unknown): value is ReviewCollection {
@@ -248,6 +252,8 @@ export const CreatedReview = v.object(
  *
  * @category Reviews
  * @category Type Guards
+ * @param value An unknown value
+ * @returns A type predicate
  */
 // @__NO_SIDE_EFFECTS__
 export function isCreatedReview(value: unknown): value is CreatedReview {

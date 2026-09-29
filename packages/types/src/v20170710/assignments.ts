@@ -95,6 +95,8 @@ export const Assignment = v.object(
  *
  * @category Assignments
  * @category Type Guards
+ * @param value An unknown value
+ * @returns A type predicate
  */
 // @__NO_SIDE_EFFECTS__
 export function isAssignment(value: unknown): value is Assignment {
@@ -126,6 +128,8 @@ export const AssignmentCollection = v.object(
  *
  * @category Assignments
  * @category Type Guards
+ * @param value An unknown value
+ * @returns A type predicate
  */
 // @__NO_SIDE_EFFECTS__
 export function isAssignmentCollection(value: unknown): value is AssignmentCollection {

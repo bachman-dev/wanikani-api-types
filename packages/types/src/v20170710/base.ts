@@ -25,6 +25,8 @@ export const API_REVISION: ApiRevision = "20170710";
  *
  * @category Base
  * @category Type Guards
+ * @param value An unknown value
+ * @returns A type predicate
  */
 // @__NO_SIDE_EFFECTS__
 export function isApiRevision(value: unknown): value is ApiRevision {
@@ -52,6 +54,8 @@ export const DatableString = v.pipe(v.string(), v.trim(), v.isoTimestamp(), v.br
  *
  * @category Base
  * @category Type Guards
+ * @param value An unknown value
+ * @returns A type predicate
  */
 // @__NO_SIDE_EFFECTS__
 export function isDatableString(value: unknown): value is DatableString {
@@ -85,6 +89,8 @@ export const Level = v.pipe(SafeInteger, v.minValue(MIN_LEVEL), v.maxValue(MAX_L
  *
  * @category Base
  * @category Type Guards
+ * @param value An unknown value
+ * @returns A type predicate
  */
 // @__NO_SIDE_EFFECTS__
 export function isLevel(value: unknown): value is Level {
@@ -246,6 +252,8 @@ export const ApiError = v.object({
  *
  * @category Base
  * @category Type Guards
+ * @param value An unknown value
+ * @returns A type predicate
  */
 // @__NO_SIDE_EFFECTS__
 export function isApiError(value: unknown): value is ApiError {

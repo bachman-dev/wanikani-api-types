@@ -10,10 +10,12 @@ const en: Message =
   "Review Payload must have one and only one of either an assignment_id or subject_id positive integer";
 
 // @__NO_SIDE_EFFECTS__
-export const reviewPayloadUnion: Message = (issue) => {
+const reviewPayloadUnion: Message = (issue) => {
   const locale = getLocale(issue);
   switch (locale) {
     default:
       return en;
   }
 };
+
+export default reviewPayloadUnion;
