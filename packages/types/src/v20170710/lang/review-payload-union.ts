@@ -6,6 +6,7 @@ type Message = v.ErrorMessage<
   v.UnionIssue<v.MinValueIssue<number, 0> | v.NeverIssue | v.NumberIssue | v.ObjectIssue | v.SafeIntegerIssue<number>>
 >;
 
+// oxlint-disable-next-line id-length -- RFC-5646 compliant language code
 const en: Message =
   "Review Payload must have one and only one of either an assignment_id or subject_id positive integer";
 

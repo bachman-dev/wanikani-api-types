@@ -4,6 +4,7 @@ import { getLocale } from "./_internal.js";
 
 type Message = v.ErrorMessage<v.UnionIssue<v.DateIssue | v.IsoTimestampIssue<string> | v.StringIssue>>;
 
+// oxlint-disable-next-line id-length -- RFC-5646 compliant language code
 const en: Message = "Expected either a valid ISO-8601 timestamp string or a JavaScript Date";
 
 // @__NO_SIDE_EFFECTS__

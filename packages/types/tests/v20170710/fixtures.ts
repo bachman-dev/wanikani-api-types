@@ -2,11 +2,11 @@
 import * as v from "valibot";
 import { test } from "vitest";
 
-import * as WK from "../../src/v20170710/index.js";
+import * as WaniKani from "../../src/v20170710/index.js";
 
 // Base
 
-const emptyParams: WK.CollectionParameters = {};
+const emptyParams: WaniKani.CollectionParameters = {};
 
 // Assignments
 
@@ -14,16 +14,16 @@ const assignment = {
   id: 85_041_695,
   object: "assignment" as const,
   url: "https://api.wanikani.com/v2/assignments/85041695",
-  data_updated_at: v.parse(WK.DatableString, "2025-01-22T18:06:08.895692Z"),
+  data_updated_at: v.parse(WaniKani.DatableString, "2025-01-22T18:06:08.895692Z"),
   data: {
-    created_at: v.parse(WK.DatableString, "2017-10-22T15:41:43.861883Z"),
+    created_at: v.parse(WaniKani.DatableString, "2017-10-22T15:41:43.861883Z"),
     subject_id: 8761,
     subject_type: "radical" as const,
     srs_stage: 9,
-    unlocked_at: v.parse(WK.DatableString, "2021-07-22T21:03:22.905689Z"),
-    started_at: v.parse(WK.DatableString, "2021-07-30T15:11:42.594913Z"),
-    passed_at: v.parse(WK.DatableString, "2021-08-01T04:32:27.017606Z"),
-    burned_at: v.parse(WK.DatableString, "2022-01-20T20:03:37.269028Z"),
+    unlocked_at: v.parse(WaniKani.DatableString, "2021-07-22T21:03:22.905689Z"),
+    started_at: v.parse(WaniKani.DatableString, "2021-07-30T15:11:42.594913Z"),
+    passed_at: v.parse(WaniKani.DatableString, "2021-08-01T04:32:27.017606Z"),
+    burned_at: v.parse(WaniKani.DatableString, "2022-01-20T20:03:37.269028Z"),
     available_at: null,
     resurrected_at: null,
     hidden: false,
@@ -36,13 +36,13 @@ const levelProgression = {
   id: 188_765,
   object: "level_progression" as const,
   url: "https://api.wanikani.com/v2/level_progressions/188765",
-  data_updated_at: v.parse(WK.DatableString, "2017-10-31T11:18:33.036424Z"),
+  data_updated_at: v.parse(WaniKani.DatableString, "2017-10-31T11:18:33.036424Z"),
   data: {
-    created_at: v.parse(WK.DatableString, "2017-10-22T15:41:43.832193Z"),
+    created_at: v.parse(WaniKani.DatableString, "2017-10-22T15:41:43.832193Z"),
     level: 1,
-    unlocked_at: v.parse(WK.DatableString, "2017-10-22T15:41:43.830826Z"),
-    started_at: v.parse(WK.DatableString, "2017-10-22T16:01:12.321365Z"),
-    passed_at: v.parse(WK.DatableString, "2017-10-31T11:18:33.026476Z"),
+    unlocked_at: v.parse(WaniKani.DatableString, "2017-10-22T15:41:43.830826Z"),
+    started_at: v.parse(WaniKani.DatableString, "2017-10-22T16:01:12.321365Z"),
+    passed_at: v.parse(WaniKani.DatableString, "2017-10-31T11:18:33.026476Z"),
     completed_at: null,
     abandoned_at: null,
   },
@@ -54,12 +54,12 @@ const reset = {
   id: 5006,
   object: "reset" as const,
   url: "https://api.wanikani.com/v2/resets/5006",
-  data_updated_at: v.parse(WK.DatableString, "2018-01-08T13:39:38.304561Z"),
+  data_updated_at: v.parse(WaniKani.DatableString, "2018-01-08T13:39:38.304561Z"),
   data: {
-    created_at: v.parse(WK.DatableString, "2018-01-08T13:37:58.223692Z"),
+    created_at: v.parse(WaniKani.DatableString, "2018-01-08T13:37:58.223692Z"),
     original_level: 5,
     target_level: 4,
-    confirmed_at: v.parse(WK.DatableString, "2018-01-08T13:39:28.083543Z"),
+    confirmed_at: v.parse(WaniKani.DatableString, "2018-01-08T13:39:28.083543Z"),
   },
 };
 
@@ -69,9 +69,9 @@ const reviewStatistic = {
   id: 85_040_524,
   object: "review_statistic" as const,
   url: "https://api.wanikani.com/v2/review_statistics/85040524",
-  data_updated_at: v.parse(WK.DatableString, "2025-01-22T18:06:07.048082Z"),
+  data_updated_at: v.parse(WaniKani.DatableString, "2025-01-22T18:06:07.048082Z"),
   data: {
-    created_at: v.parse(WK.DatableString, "2017-10-22T15:41:43.876100Z"),
+    created_at: v.parse(WaniKani.DatableString, "2017-10-22T15:41:43.876100Z"),
     subject_id: 8761,
     subject_type: "radical" as const,
     meaning_correct: 8,
@@ -98,9 +98,9 @@ const review = {
   id: 534_342,
   object: "review" as const,
   url: "https://api.wanikani.com/v2/reviews/534342",
-  data_updated_at: v.parse(WK.DatableString, "2017-12-20T01:00:59.255427Z"),
+  data_updated_at: v.parse(WaniKani.DatableString, "2017-12-20T01:00:59.255427Z"),
   data: {
-    created_at: v.parse(WK.DatableString, "2017-12-20T01:00:59.255427Z"),
+    created_at: v.parse(WaniKani.DatableString, "2017-12-20T01:00:59.255427Z"),
     assignment_id: 32_132,
     spaced_repetition_system_id: 1,
     subject_id: 8,
@@ -117,9 +117,9 @@ const spacedRepetitionSystem = {
   id: 1,
   object: "spaced_repetition_system" as const,
   url: "https://api.wanikani.com/v2/spaced_repetition_systems/1",
-  data_updated_at: v.parse(WK.DatableString, "2020-06-09T03:36:51.134752Z"),
+  data_updated_at: v.parse(WaniKani.DatableString, "2020-06-09T03:36:51.134752Z"),
   data: {
-    created_at: v.parse(WK.DatableString, "2020-05-21T20:46:06.464460Z"),
+    created_at: v.parse(WaniKani.DatableString, "2020-05-21T20:46:06.464460Z"),
     name: "Default system for dictionary subjects",
     description: "The original spaced repetition system",
     unlocking_stage_position: 0,
@@ -187,9 +187,9 @@ const studyMaterial = {
   id: 10_089_088,
   object: "study_material" as const,
   url: "https://api.wanikani.com/v2/study_materials/10089088",
-  data_updated_at: v.parse(WK.DatableString, "2022-10-31T15:56:51.781056Z"),
+  data_updated_at: v.parse(WaniKani.DatableString, "2022-10-31T15:56:51.781056Z"),
   data: {
-    created_at: v.parse(WK.DatableString, "2022-10-31T15:49:19.637077Z"),
+    created_at: v.parse(WaniKani.DatableString, "2022-10-31T15:49:19.637077Z"),
     subject_id: 1,
     subject_type: "radical" as const,
     meaning_note: "It's one of a kind! Get it?",
@@ -199,24 +199,24 @@ const studyMaterial = {
   },
 };
 
-const emptyStudyMaterialUpdatePayload: WK.StudyMaterialUpdatePayload = {};
+const emptyStudyMaterialUpdatePayload: WaniKani.StudyMaterialUpdatePayload = {};
 
 // Subjects
 
 // @ts-expect-error -- Intentionally empty tuple needed a type and can't use unknown[] with vitest fixtures
-const emptySubjectTuple: WK.SubjectTuple = [];
+const emptySubjectTuple: WaniKani.SubjectTuple = [];
 
-const partialSubjectTuple: WK.SubjectTuple = ["kanji"];
+const partialSubjectTuple: WaniKani.SubjectTuple = ["kanji"];
 
-const fullSubjectTuple: WK.SubjectTuple = ["kana_vocabulary", "kanji", "radical", "vocabulary"];
+const fullSubjectTuple: WaniKani.SubjectTuple = ["kana_vocabulary", "kanji", "radical", "vocabulary"];
 
 const radical = {
   id: 1,
   object: "radical" as const,
   url: "https://api.wanikani.com/v2/subjects/1",
-  data_updated_at: v.parse(WK.DatableString, "2025-01-16T17:11:09.063973Z"),
+  data_updated_at: v.parse(WaniKani.DatableString, "2025-01-16T17:11:09.063973Z"),
   data: {
-    created_at: v.parse(WK.DatableString, "2012-02-27T18:08:16.000000Z"),
+    created_at: v.parse(WaniKani.DatableString, "2012-02-27T18:08:16.000000Z"),
     level: 1,
     slug: "ground",
     hidden_at: null,
@@ -318,9 +318,9 @@ const kanji = {
   id: 440,
   object: "kanji" as const,
   url: "https://api.wanikani.com/v2/subjects/440",
-  data_updated_at: v.parse(WK.DatableString, "2025-01-21T15:25:03.362576Z"),
+  data_updated_at: v.parse(WaniKani.DatableString, "2025-01-21T15:25:03.362576Z"),
   data: {
-    created_at: v.parse(WK.DatableString, "2012-02-27T19:55:19.000000Z"),
+    created_at: v.parse(WaniKani.DatableString, "2012-02-27T19:55:19.000000Z"),
     level: 1,
     slug: "一",
     hidden_at: null,
@@ -387,9 +387,9 @@ const vocabulary = {
   id: 2467,
   object: "vocabulary" as const,
   url: "https://api.wanikani.com/v2/subjects/2467",
-  data_updated_at: v.parse(WK.DatableString, "2024-10-15T22:13:34.087679Z"),
+  data_updated_at: v.parse(WaniKani.DatableString, "2024-10-15T22:13:34.087679Z"),
   data: {
-    created_at: v.parse(WK.DatableString, "2012-02-28T08:04:47.000000Z"),
+    created_at: v.parse(WaniKani.DatableString, "2012-02-28T08:04:47.000000Z"),
     level: 1,
     slug: "一",
     hidden_at: null,
@@ -484,9 +484,9 @@ const kanaVocabulary = {
   id: 9176,
   object: "kana_vocabulary" as const,
   url: "https://api.wanikani.com/v2/subjects/9176",
-  data_updated_at: v.parse(WK.DatableString, "2024-10-15T22:19:11.286457Z"),
+  data_updated_at: v.parse(WaniKani.DatableString, "2024-10-15T22:19:11.286457Z"),
   data: {
-    created_at: v.parse(WK.DatableString, "2022-09-14T11:39:10.684981Z"),
+    created_at: v.parse(WaniKani.DatableString, "2022-09-14T11:39:10.684981Z"),
     level: 10,
     slug: "ちょっと",
     hidden_at: null,
@@ -599,9 +599,9 @@ const voiceActor = {
   id: 1,
   object: "voice_actor" as const,
   url: "https://api.wanikani.com/v2/voice_actors/1",
-  data_updated_at: v.parse(WK.DatableString, "2024-11-25T00:39:22.591103Z"),
+  data_updated_at: v.parse(WaniKani.DatableString, "2024-11-25T00:39:22.591103Z"),
   data: {
-    created_at: v.parse(WK.DatableString, "2018-09-11T18:30:27.096474Z"),
+    created_at: v.parse(WaniKani.DatableString, "2018-09-11T18:30:27.096474Z"),
     name: "Kyoko",
     gender: "female" as const,
     description: "Tokyo accent",
@@ -614,8 +614,8 @@ const testFor = test.extend({
   dateTimeUtcString: "2022-10-23T15:17:38.828455Z",
   dateTimeOffsetString: "2022-10-23T15:17:38.828455+09:00",
   dateIsoString: new Date().toISOString(),
-  levels: Array.from<number>({ length: WK.MAX_LEVEL })
-    .fill(WK.MIN_LEVEL)
+  levels: Array.from<number>({ length: WaniKani.MAX_LEVEL })
+    .fill(WaniKani.MIN_LEVEL)
     .map((item, itemIdx) => item + itemIdx),
   emptyParams,
   collectionParamsWithEmptyArrays: {
@@ -630,7 +630,7 @@ const testFor = test.extend({
     updated_after: new Date(),
   },
   collectionParamsWithDatableStrings: {
-    updated_after: v.parse(WK.DatableString, new Date().toISOString()),
+    updated_after: v.parse(WaniKani.DatableString, new Date().toISOString()),
   },
   apiError: {
     error: "Not found",
@@ -648,7 +648,7 @@ const testFor = test.extend({
       previous_url: null,
     },
     total_count: 6055,
-    data_updated_at: v.parse(WK.DatableString, "2025-02-15T22:19:50.167435Z"),
+    data_updated_at: v.parse(WaniKani.DatableString, "2025-02-15T22:19:50.167435Z"),
     data: [assignment],
   },
   assignmentParamsWithEmptyArrays: {
@@ -670,7 +670,7 @@ const testFor = test.extend({
     srs_stages: [1, 2, 3],
     started: true,
     subject_ids: [1, 2, 3],
-    subject_types: v.parse(WK.SubjectTuple, ["kana_vocabulary", "vocabulary"]),
+    subject_types: v.parse(WaniKani.SubjectTuple, ["kana_vocabulary", "vocabulary"]),
     unlocked: true,
   },
   assignmentParamsWithDates: {
@@ -679,9 +679,9 @@ const testFor = test.extend({
     updated_after: new Date(),
   },
   assignmentParamsWithDatableStrings: {
-    available_after: v.parse(WK.DatableString, new Date().toISOString()),
-    available_before: v.parse(WK.DatableString, new Date().toISOString()),
-    updated_after: v.parse(WK.DatableString, new Date().toISOString()),
+    available_after: v.parse(WaniKani.DatableString, new Date().toISOString()),
+    available_before: v.parse(WaniKani.DatableString, new Date().toISOString()),
+    updated_after: v.parse(WaniKani.DatableString, new Date().toISOString()),
   },
   assignmentPayloadWithNoTime: {
     assignment: {},
@@ -693,7 +693,7 @@ const testFor = test.extend({
   },
   assignmentPayloadWithDatableString: {
     assignment: {
-      started_at: v.parse(WK.DatableString, "2024-12-27T15:32:23.000Z"),
+      started_at: v.parse(WaniKani.DatableString, "2024-12-27T15:32:23.000Z"),
     },
   },
 
@@ -708,7 +708,7 @@ const testFor = test.extend({
       previous_url: null,
     },
     total_count: 50,
-    data_updated_at: v.parse(WK.DatableString, "2025-02-20T02:00:33.397409Z"),
+    data_updated_at: v.parse(WaniKani.DatableString, "2025-02-20T02:00:33.397409Z"),
     data: [levelProgression],
   },
 
@@ -723,7 +723,7 @@ const testFor = test.extend({
       previous_url: null,
     },
     total_count: 4,
-    data_updated_at: v.parse(WK.DatableString, "2021-09-06T19:05:52.132672Z"),
+    data_updated_at: v.parse(WaniKani.DatableString, "2021-09-06T19:05:52.132672Z"),
     data: [reset],
   },
 
@@ -738,7 +738,7 @@ const testFor = test.extend({
       previous_url: null,
     },
     total_count: 5984,
-    data_updated_at: v.parse(WK.DatableString, "2025-01-22T18:06:07.048082Z"),
+    data_updated_at: v.parse(WaniKani.DatableString, "2025-01-22T18:06:07.048082Z"),
     data: [reviewStatistic],
   },
   reviewStatisticParamsWithEmptyArrays: {
@@ -753,13 +753,13 @@ const testFor = test.extend({
     percentages_greater_than: 90,
     percentages_less_than: 100,
     subject_ids: [1, 2, 3],
-    subject_types: v.parse(WK.SubjectTuple, ["kana_vocabulary", "vocabulary"]),
+    subject_types: v.parse(WaniKani.SubjectTuple, ["kana_vocabulary", "vocabulary"]),
   },
   reviewStatisticParamsWithDates: {
     updated_after: new Date(),
   },
   reviewStatisticParamsWithDatableStrings: {
-    updated_after: v.parse(WK.DatableString, new Date().toISOString()),
+    updated_after: v.parse(WaniKani.DatableString, new Date().toISOString()),
   },
 
   // Reviews
@@ -773,7 +773,7 @@ const testFor = test.extend({
       previous_url: null,
     },
     total_count: 1,
-    data_updated_at: v.parse(WK.DatableString, "2017-12-20T01:10:17.578705Z"),
+    data_updated_at: v.parse(WaniKani.DatableString, "2017-12-20T01:10:17.578705Z"),
     data: [review],
   },
   reviewParamsWithEmptyArrays: {
@@ -792,7 +792,7 @@ const testFor = test.extend({
     updated_after: new Date(),
   },
   reviewParamsWithDatableStrings: {
-    updated_after: v.parse(WK.DatableString, new Date().toISOString()),
+    updated_after: v.parse(WaniKani.DatableString, new Date().toISOString()),
   },
   reviewPayloadWithAssignmentAndDate: {
     review: {
@@ -805,7 +805,7 @@ const testFor = test.extend({
   reviewPayloadWithAssignmentAndDatableStrings: {
     review: {
       assignment_id: 1,
-      created_at: v.parse(WK.DatableString, new Date().toISOString()),
+      created_at: v.parse(WaniKani.DatableString, new Date().toISOString()),
       incorrect_meaning_answers: 0,
       incorrect_reading_answers: 0,
     },
@@ -821,7 +821,7 @@ const testFor = test.extend({
   reviewPayloadWithSubjectAndDatableStrings: {
     review: {
       subject_id: 1,
-      created_at: v.parse(WK.DatableString, new Date().toISOString()),
+      created_at: v.parse(WaniKani.DatableString, new Date().toISOString()),
       incorrect_meaning_answers: 0,
       incorrect_reading_answers: 0,
     },
@@ -835,8 +835,8 @@ const testFor = test.extend({
   },
 
   // Spaced Repetition Systems
-  spacedRepetitionSystemStageNumbers: Array.from<number>({ length: WK.MAX_SRS_STAGE })
-    .fill(WK.MIN_SRS_STAGE)
+  spacedRepetitionSystemStageNumbers: Array.from<number>({ length: WaniKani.MAX_SRS_STAGE })
+    .fill(WaniKani.MIN_SRS_STAGE)
     .map((stage, stageIdx) => stage + stageIdx),
   spacedRepetitionSystem,
   spacedRepetitionSystemCollection: {
@@ -848,7 +848,7 @@ const testFor = test.extend({
       previous_url: null,
     },
     total_count: 2,
-    data_updated_at: v.parse(WK.DatableString, "2020-06-09T03:38:01.007395Z"),
+    data_updated_at: v.parse(WaniKani.DatableString, "2020-06-09T03:38:01.007395Z"),
     data: [spacedRepetitionSystem],
   },
 
@@ -863,7 +863,7 @@ const testFor = test.extend({
       previous_url: null,
     },
     total_count: 3,
-    data_updated_at: v.parse(WK.DatableString, "2025-01-16T17:05:46.992219Z"),
+    data_updated_at: v.parse(WaniKani.DatableString, "2025-01-16T17:05:46.992219Z"),
     data: [studyMaterial],
   },
   studyMaterialParamsWithEmptyArrays: {
@@ -873,7 +873,7 @@ const testFor = test.extend({
   studyMaterialParamsWithManyOptions: {
     ids: [1, 2, 3],
     subject_ids: [1, 2, 3],
-    subject_types: v.parse(WK.SubjectTuple, ["kana_vocabulary", "vocabulary"]),
+    subject_types: v.parse(WaniKani.SubjectTuple, ["kana_vocabulary", "vocabulary"]),
     hidden: false,
     page_after_id: 1,
     page_before_id: 1,
@@ -882,7 +882,7 @@ const testFor = test.extend({
     updated_after: new Date(),
   },
   studyMaterialParamsWithDatableStrings: {
-    updated_after: v.parse(WK.DatableString, new Date().toISOString()),
+    updated_after: v.parse(WaniKani.DatableString, new Date().toISOString()),
   },
   emptyStudyMaterialUpdatePayload,
   fullStudyMaterialUpdatePayload: {
@@ -919,7 +919,7 @@ const testFor = test.extend({
       previous_url: null,
     },
     total_count: 499,
-    data_updated_at: v.parse(WK.DatableString, "2025-02-21T20:51:23.378189Z"),
+    data_updated_at: v.parse(WaniKani.DatableString, "2025-02-21T20:51:23.378189Z"),
     data: [radical],
   },
   kanjiCollection: {
@@ -931,7 +931,7 @@ const testFor = test.extend({
       previous_url: null,
     },
     total_count: 2080,
-    data_updated_at: v.parse(WK.DatableString, "2025-02-23T04:24:12.403083Z"),
+    data_updated_at: v.parse(WaniKani.DatableString, "2025-02-23T04:24:12.403083Z"),
     data: [kanji],
   },
   vocabularyCollection: {
@@ -943,7 +943,7 @@ const testFor = test.extend({
       previous_url: null,
     },
     total_count: 6630,
-    data_updated_at: v.parse(WK.DatableString, "2025-02-23T04:24:12.372546Z"),
+    data_updated_at: v.parse(WaniKani.DatableString, "2025-02-23T04:24:12.372546Z"),
     data: [vocabulary],
   },
   kanaVocabularyCollection: {
@@ -955,7 +955,7 @@ const testFor = test.extend({
       previous_url: null,
     },
     total_count: 60,
-    data_updated_at: v.parse(WK.DatableString, "2025-01-31T00:42:02.755193Z"),
+    data_updated_at: v.parse(WaniKani.DatableString, "2025-01-31T00:42:02.755193Z"),
     data: [kanaVocabulary],
   },
   subjectCollection: {
@@ -967,7 +967,7 @@ const testFor = test.extend({
       previous_url: null,
     },
     total_count: 9269,
-    data_updated_at: v.parse(WK.DatableString, "2025-02-23T04:24:12.403083Z"),
+    data_updated_at: v.parse(WaniKani.DatableString, "2025-02-23T04:24:12.403083Z"),
     data: [radical, kanji, vocabulary, kanaVocabulary],
   },
   subjectParamsWithEmptyArrays: {
@@ -979,7 +979,7 @@ const testFor = test.extend({
     ids: [1, 2, 3],
     levels: [1, 2, 3],
     slugs: ["one", "two", "three"],
-    types: v.parse(WK.SubjectTuple, ["radical", "kanji"]),
+    types: v.parse(WaniKani.SubjectTuple, ["radical", "kanji"]),
     hidden: false,
     page_after_id: 1,
     page_before_id: 1,
@@ -988,18 +988,18 @@ const testFor = test.extend({
     updated_after: new Date(),
   },
   subjectParamsWithDatableStrings: {
-    updated_after: v.parse(WK.DatableString, new Date().toISOString()),
+    updated_after: v.parse(WaniKani.DatableString, new Date().toISOString()),
   },
 
   // Summary
   summary: {
     object: "report" as const,
     url: "https://api.wanikani.com/v2/summary",
-    data_updated_at: v.parse(WK.DatableString, "2025-02-23T11:00:00.000000Z"),
+    data_updated_at: v.parse(WaniKani.DatableString, "2025-02-23T11:00:00.000000Z"),
     data: {
       lessons: [
         {
-          available_at: v.parse(WK.DatableString, "2025-02-23T11:00:00.000000Z"),
+          available_at: v.parse(WaniKani.DatableString, "2025-02-23T11:00:00.000000Z"),
           subject_ids: [
             1672, 5998, 5999, 5971, 5972, 5973, 6001, 6002, 5970, 5992, 5993, 5994, 9266, 6003, 6004, 6010, 5986, 5987,
             5988, 6027, 5980, 5981, 6005, 6006, 6007, 6008, 7663, 5963, 5964, 5965, 364, 1657, 1664, 6048, 1665, 6047,
@@ -1010,14 +1010,14 @@ const testFor = test.extend({
           ],
         },
       ],
-      next_reviews_at: v.parse(WK.DatableString, "2025-02-23T12:00:00.000000Z"),
+      next_reviews_at: v.parse(WaniKani.DatableString, "2025-02-23T12:00:00.000000Z"),
       reviews: [
         {
-          available_at: v.parse(WK.DatableString, "2025-02-23T11:00:00.000000Z"),
+          available_at: v.parse(WaniKani.DatableString, "2025-02-23T11:00:00.000000Z"),
           subject_ids: [],
         },
         {
-          available_at: v.parse(WK.DatableString, "2025-02-23T12:00:00.000000Z"),
+          available_at: v.parse(WaniKani.DatableString, "2025-02-23T12:00:00.000000Z"),
           subject_ids: [6026, 5959, 5961, 5989, 5979, 5990, 7609, 5960, 5962, 5991],
         },
       ],
@@ -1025,19 +1025,19 @@ const testFor = test.extend({
   },
 
   // User
-  lessonBatchSizeNumbers: Array.from<number>({ length: WK.MAX_LESSON_BATCH_SIZE - 2 })
-    .fill(WK.MIN_LESSON_BATCH_SIZE)
+  lessonBatchSizeNumbers: Array.from<number>({ length: WaniKani.MAX_LESSON_BATCH_SIZE - 2 })
+    .fill(WaniKani.MIN_LESSON_BATCH_SIZE)
     .map((batchSize, batchSizeIdx) => batchSize + batchSizeIdx),
   user: {
     object: "user" as const,
     url: "https://api.wanikani.com/v2/user",
-    data_updated_at: v.parse(WK.DatableString, "2025-02-20T02:00:33.354445Z"),
+    data_updated_at: v.parse(WaniKani.DatableString, "2025-02-20T02:00:33.354445Z"),
     data: {
       id: "d5809441-e17f-4e57-acb0-6a232b714538",
       username: "BachMac",
       level: 37,
       profile_url: "https://www.wanikani.com/users/BachMac",
-      started_at: v.parse(WK.DatableString, "2017-10-22T15:41:43.815029Z"),
+      started_at: v.parse(WaniKani.DatableString, "2017-10-22T15:41:43.815029Z"),
       subscription: {
         active: true,
         type: "lifetime" as const,
@@ -1088,7 +1088,7 @@ const testFor = test.extend({
       previous_url: null,
     },
     total_count: 3,
-    data_updated_at: v.parse(WK.DatableString, "2024-11-25T00:39:22.591103Z"),
+    data_updated_at: v.parse(WaniKani.DatableString, "2024-11-25T00:39:22.591103Z"),
     data: [voiceActor],
   },
 });

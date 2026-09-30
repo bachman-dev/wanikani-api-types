@@ -1,48 +1,50 @@
 import * as v from "valibot";
 import { describe, expect } from "vitest";
 
-import * as WK from "../../src/v20170710/index.js";
+import * as WaniKani from "../../src/v20170710/index.js";
 import testFor from "./fixtures.js";
 
 describe("SpacedRepetitionSystemStageNumber", () => {
   testFor("Invalid SRS Stage Number: -1", () => {
-    expect(() => v.assert(WK.SpacedRepetitionSystemStageNumber, -1)).toThrow(
+    expect(() => v.assert(WaniKani.SpacedRepetitionSystemStageNumber, -1)).toThrow(
       "Invalid value: Expected >=0 but received -1",
     );
-    expect(WK.isSpacedRepetitionSystemStageNumber(-1)).toBe(false);
+    expect(WaniKani.isSpacedRepetitionSystemStageNumber(-1)).toBe(false);
   });
   testFor("Valid SRS Stage Numbers", ({ spacedRepetitionSystemStageNumbers }) => {
     if (Array.isArray(spacedRepetitionSystemStageNumbers)) {
       for (const stage of spacedRepetitionSystemStageNumbers) {
-        expect(() => v.assert(WK.SpacedRepetitionSystemStageNumber, stage)).not.toThrow();
-        expect(WK.isSpacedRepetitionSystemStageNumber(stage)).toBe(true);
+        expect(() => v.assert(WaniKani.SpacedRepetitionSystemStageNumber, stage)).not.toThrow();
+        expect(WaniKani.isSpacedRepetitionSystemStageNumber(stage)).toBe(true);
       }
     } else {
       throw new TypeError("Expected spacedRepetitionSystemStageNumbers to be an array");
     }
   });
-  testFor(`Invalid SRS Stage Number: ${WK.MAX_SRS_STAGE + 1}`, () => {
-    expect(() => v.assert(WK.SpacedRepetitionSystemStageNumber, WK.MAX_SRS_STAGE + 1)).toThrow(
+  testFor(`Invalid SRS Stage Number: ${WaniKani.MAX_SRS_STAGE + 1}`, () => {
+    expect(() => v.assert(WaniKani.SpacedRepetitionSystemStageNumber, WaniKani.MAX_SRS_STAGE + 1)).toThrow(
       "Invalid value: Expected <=9 but received 10",
     );
-    expect(WK.isSpacedRepetitionSystemStageNumber(WK.MAX_SRS_STAGE + 1)).toBe(false);
+    expect(WaniKani.isSpacedRepetitionSystemStageNumber(WaniKani.MAX_SRS_STAGE + 1)).toBe(false);
   });
   testFor("Invalid SRS Stage: Non-Integer", () => {
-    expect(() => v.assert(WK.SpacedRepetitionSystemStageNumber, 1.23)).toThrow("Invalid safe integer: Received 1.23");
-    expect(WK.isSpacedRepetitionSystemStageNumber(1.23)).toBe(false);
+    expect(() => v.assert(WaniKani.SpacedRepetitionSystemStageNumber, 1.23)).toThrow(
+      "Invalid safe integer: Received 1.23",
+    );
+    expect(WaniKani.isSpacedRepetitionSystemStageNumber(1.23)).toBe(false);
   });
 });
 
 describe("SpacedRepetitionSystem", () => {
   testFor("Real SpacedRepetitionSystem", ({ spacedRepetitionSystem }) => {
-    expect(() => v.assert(WK.SpacedRepetitionSystem, spacedRepetitionSystem)).not.toThrow();
-    expect(WK.isSpacedRepetitionSystem(spacedRepetitionSystem)).toBe(true);
+    expect(() => v.assert(WaniKani.SpacedRepetitionSystem, spacedRepetitionSystem)).not.toThrow();
+    expect(WaniKani.isSpacedRepetitionSystem(spacedRepetitionSystem)).toBe(true);
   });
 });
 
 describe("SpacedRepetitionSystemCollection", () => {
   testFor("Real SpacedRepetitionSystemCollection", ({ spacedRepetitionSystemCollection }) => {
-    expect(() => v.assert(WK.SpacedRepetitionSystemCollection, spacedRepetitionSystemCollection)).not.toThrow();
-    expect(WK.isSpacedRepetitionSystemCollection(spacedRepetitionSystemCollection)).toBe(true);
+    expect(() => v.assert(WaniKani.SpacedRepetitionSystemCollection, spacedRepetitionSystemCollection)).not.toThrow();
+    expect(WaniKani.isSpacedRepetitionSystemCollection(spacedRepetitionSystemCollection)).toBe(true);
   });
 });

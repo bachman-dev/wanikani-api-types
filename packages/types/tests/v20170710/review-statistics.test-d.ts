@@ -1,34 +1,34 @@
 import { assertType, describe } from "vitest";
 
-import type * as WK from "../../src/v20170710/index.js";
+import type * as WaniKani from "../../src/v20170710/index.js";
 import testFor from "./fixtures.js";
 
 describe("ReviewStatistic", () => {
   testFor("Real ReviewStatistic", ({ reviewStatistic }) => {
-    assertType<WK.ReviewStatistic>(reviewStatistic);
+    assertType<WaniKani.ReviewStatistic>(reviewStatistic);
   });
 });
 
 describe("ReviewStatisticCollection", () => {
   testFor("Real ReviewStatisticCollection", ({ reviewStatisticCollection }) => {
-    assertType<WK.ReviewStatisticCollection>(reviewStatisticCollection);
+    assertType<WaniKani.ReviewStatisticCollection>(reviewStatisticCollection);
   });
 });
 
 describe("ReviewStatisticParameters", () => {
   testFor("Empty ReviewStatisticParameters", ({ emptyParams }) => {
-    assertType<WK.ReviewStatisticParameters>(emptyParams);
+    assertType<WaniKani.ReviewStatisticParameters>(emptyParams);
   });
   testFor("ReviewStatisticParameters with empty arrays", ({ reviewStatisticParamsWithEmptyArrays }) => {
-    assertType<WK.ReviewStatisticParameters>(reviewStatisticParamsWithEmptyArrays);
+    assertType<WaniKani.ReviewStatisticParameters>(reviewStatisticParamsWithEmptyArrays);
   });
   testFor("ReviewStatisticParameters with many options filled", ({ reviewStatisticParamsWithManyOptions }) => {
-    assertType<WK.ReviewStatisticParameters>(reviewStatisticParamsWithManyOptions);
+    assertType<WaniKani.ReviewStatisticParameters>(reviewStatisticParamsWithManyOptions);
   });
   testFor("ReviewStatisticParameters with Date objects", ({ reviewStatisticParamsWithDates }) => {
-    assertType<WK.ReviewStatisticParameters>(reviewStatisticParamsWithDates);
+    assertType<WaniKani.ReviewStatisticParameters>(reviewStatisticParamsWithDates);
   });
   testFor("ReviewStatisticParameters with DatableString properties", ({ reviewStatisticParamsWithDatableStrings }) => {
-    assertType<WK.ReviewStatisticParameters>(reviewStatisticParamsWithDatableStrings);
+    assertType<WaniKani.ReviewStatisticParameters>(reviewStatisticParamsWithDatableStrings);
   });
 });

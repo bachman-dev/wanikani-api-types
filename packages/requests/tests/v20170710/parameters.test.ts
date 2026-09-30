@@ -1,4 +1,4 @@
-import type * as WK from "@bachman-dev/wanikani-api-types/v20170710";
+import type * as WaniKani from "@bachman-dev/wanikani-api-types/v20170710";
 import { describe, expect } from "vitest";
 
 import stringifyParameters from "../../src/v20170710/parameters.ts";
@@ -6,12 +6,12 @@ import testFor from "./fixtures.js";
 
 describe("stringifyParameters", () => {
   testFor("Properly stringifies empty objects", () => {
-    const params: WK.AssignmentParameters = {};
+    const params: WaniKani.AssignmentParameters = {};
     expect(stringifyParameters(params)).toBe("");
   });
 
   testFor("Properly stringifies booleans", () => {
-    const params: WK.AssignmentParameters = {
+    const params: WaniKani.AssignmentParameters = {
       hidden: false,
       burned: true,
     };
@@ -20,7 +20,7 @@ describe("stringifyParameters", () => {
   });
 
   testFor("Properly stringifies WaniKani API empty query parameters", () => {
-    const params: WK.AssignmentParameters = {
+    const params: WaniKani.AssignmentParameters = {
       immediately_available_for_lessons: true,
       immediately_available_for_review: true,
       in_review: true,
@@ -30,7 +30,7 @@ describe("stringifyParameters", () => {
   });
 
   testFor("Properly stringifies arrays", () => {
-    const params: WK.SubjectParameters = {
+    const params: WaniKani.SubjectParameters = {
       ids: [1, 2, 3, 4],
       types: ["radical", "kanji"],
     };
@@ -40,7 +40,7 @@ describe("stringifyParameters", () => {
 
   testFor("Properly stringifies dates", () => {
     const dateString = "2022-10-31T12:00:00.000Z";
-    const params: WK.AssignmentParameters = {
+    const params: WaniKani.AssignmentParameters = {
       // @ts-expect-error -- This should ideally be a parsed DatableString, but should be okay for this test
       available_after: dateString,
       available_before: new Date("2021-10-31T12:00:00.000000Z"),

@@ -1,4 +1,6 @@
 packages:
   - packages/*
+minimumReleaseAgeExclude:
+  - "@bachman-dev/oxc-config@0.3.0"
 onlyBuiltDependencies:
   - esbuild
