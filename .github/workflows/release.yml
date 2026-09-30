@@ -3,12 +3,15 @@ on:
   release:
     types: [published]
 jobs:
-  publish:
-    name: "Publish Release (${{ github.event.release.tag_name }})"
+  resolve:
+    name: "Resolve Package (${{ github.event.release.tag_name }})"
     runs-on: ubuntu-latest
     permissions:
-      id-token: write
       contents: read
+    outputs:
+      directory: ${{ steps.package.outputs.directory }}
+      name: ${{ steps.package.outputs.name }}
+      dist-tag: ${{ steps.package.outputs.dist-tag }}
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
@@ -57,11 +60,26 @@ jobs:
           fi
 
           {
+            echo "directory=$directory"
             echo "name=$name"
-            echo "version=$version"
             echo "dist-tag=$dist_tag"
           } >> "$GITHUB_OUTPUT"
           echo "Publishing **$name@$version** under the \`$dist_tag\` dist-tag." >> "$GITHUB_STEP_SUMMARY"
+  publish:
+    name: "Publish ${{ needs.resolve.outputs.name }}"
+    runs-on: ubuntu-latest
+    needs: resolve
+    permissions:
+      id-token: write
+      contents: read
+    env:
+      PACKAGE_NAME: ${{ needs.resolve.outputs.name }}
+      DIST_TAG: ${{ needs.resolve.outputs.dist-tag }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: ${{ github.event.release.tag_name }}
       - name: Setup pnpm
         uses: pnpm/setup@fbda4c85fc2e1e08721cd8763afea8f48d60f024 # v3.0.0
         with:
@@ -73,11 +91,77 @@ jobs:
         run: pnpm test
       - name: Build Package
         run: pnpm exec turbo run build --filter="$PACKAGE_NAME"
-        env:
-          PACKAGE_NAME: ${{ steps.package.outputs.name }}
       - name: Publish Package
         run: pnpm stage publish --filter="$PACKAGE_NAME" --fail-if-no-match --tag="$DIST_TAG" --access=public --no-git-checks
         env:
-          PACKAGE_NAME: ${{ steps.package.outputs.name }}
-          DIST_TAG: ${{ steps.package.outputs.dist-tag }}
           NPM_CONFIG_PROVENANCE: true
+  # GitHub's generated release notes (categorized by .github/release.yml) cover every pull request
+  # since the previous tag, regardless of package. When a release is published with empty notes, this
+  # generates them from the package's own previous release tag and keeps only the pull requests
+  # labeled with the package's directory name (e.g. `types`).
+  release-notes:
+    name: "Generate Release Notes"
+    runs-on: ubuntu-latest
+    needs: resolve
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: ${{ github.event.release.tag_name }}
+          fetch-depth: 0
+      - name: Fill In Empty Release Notes
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PACKAGE_LABEL: ${{ needs.resolve.outputs.directory }}
+          RELEASE_ID: ${{ github.event.release.id }}
+          TAG_NAME: ${{ github.event.release.tag_name }}
+        run: |
+          release="repos/$GITHUB_REPOSITORY/releases/$RELEASE_ID"
+          if [[ -n "$(gh api "$release" --jq '.body // ""' | tr -d '[:space:]')" ]]; then
+            echo "The release already has notes; leaving them as they are."
+            exit 0
+          fi
+
+          args=(-f "tag_name=$TAG_NAME")
+          if previous_tag="$(git describe --tags --abbrev=0 --match "$PACKAGE_LABEL@*" HEAD^ 2>/dev/null)"; then
+            args+=(-f "previous_tag_name=$previous_tag")
+          fi
+          notes="$(gh api "repos/$GITHUB_REPOSITORY/releases/generate-notes" "${args[@]}" --jq '.body')"
+
+          labeled=""
+          for pull in $(grep -oP '^\* .*/pull/\K[0-9]+(?=\s*$)' <<< "$notes" | sort -u || true); do
+            if [[ "$(gh api "repos/$GITHUB_REPOSITORY/issues/$pull" --jq 'any(.labels[]; .name == env.PACKAGE_LABEL)')" == "true" ]]; then
+              labeled+="$pull "
+            fi
+          done
+
+          # Drop pull requests without the package label, then any headings left with nothing under them.
+          notes="$(awk -v labeled="$labeled" '
+            BEGIN { split(labeled, pulls, " "); for (i in pulls) keep[pulls[i]] = 1 }
+            /^\* .*\/pull\/[0-9]+[[:space:]]*$/ {
+              pull = $0; sub(/[[:space:]]*$/, "", pull); sub(/.*\/pull\//, "", pull)
+              if (!(pull in keep)) next
+            }
+            { lines[++count] = $0 }
+            END {
+              for (i = 1; i <= count; i++) {
+                if (match(lines[i], /^#+ /)) {
+                  level = RLENGTH; has_pulls = 0
+                  for (j = i + 1; j <= count; j++) {
+                    if (match(lines[j], /^#+ /) && RLENGTH <= level) break
+                    if (lines[j] ~ /^\* .*\/pull\/[0-9]+[[:space:]]*$/) { has_pulls = 1; break }
+                  }
+                  if (!has_pulls) continue
+                }
+                print lines[i]
+              }
+            }
+          ' <<< "$notes" | cat -s | sed '/./,$!d')"
+          if [[ -z "$labeled" ]]; then
+            notes="$(printf 'No pull requests labeled `%s` were found for this release.\n\n%s' "$PACKAGE_LABEL" "$notes")"
+          fi
+
+          gh api --method PATCH "$release" -f "body=$notes" --silent
+          echo "$notes" >> "$GITHUB_STEP_SUMMARY"
