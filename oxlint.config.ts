@@ -4,13 +4,5 @@ export default bachmanDevConfig(
   {},
   {
     ignorePatterns: ["packages/**/{coverage,docs,dist}/**"],
-    settings: {
-      jsdoc: {
-        tagNamePreference: {
-          category: "category",
-          remarks: "remarks",
-        },
-      },
-    },
   },
 );
