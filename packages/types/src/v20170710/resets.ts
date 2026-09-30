@@ -1,5 +1,6 @@
 import * as v from "valibot";
-import { BaseCollection, BaseResource, CollectionParameters, DatableString, Level } from "./base.js";
+
+import { BaseCollection, BaseResource, DatableString, Level } from "./base.js";
 
 /**
  * Users can reset their progress back to any level at or below their current level. When they reset to a particular
@@ -7,44 +8,30 @@ import { BaseCollection, BaseResource, CollectionParameters, DatableString, Leve
  *
  * Resets contain information about when those resets happen, the starting level, and the target level.
  *
- * @see {@link https://docs.api.wanikani.com/20170710/#resets}
  * @category Resets
  * @category Resources
+ * @see {@link https://docs.api.wanikani.com/20170710/#resets}
  */
 export interface Reset extends BaseResource {
-  /**
-   * Data for the returned reset.
-   */
+  /** Data for the returned reset. */
   data: {
-    /**
-     * Timestamp when the user confirmed the reset.
-     */
+    /** Timestamp when the user confirmed the reset. */
     confirmed_at: DatableString | null;
 
-    /**
-     * Timestamp when the reset was created.
-     */
+    /** Timestamp when the reset was created. */
     created_at: DatableString;
 
-    /**
-     * The user's level before the reset, from `1` to `60`.
-     */
+    /** The user's level before the reset, from `1` to `60`. */
     original_level: Level;
 
-    /**
-     * The user's level after the reset, from `1` to `60`. It must be less than or equal to `original_level`.
-     */
+    /** The user's level after the reset, from `1` to `60`. It must be less than or equal to `original_level`. */
     target_level: Level;
   };
 
-  /**
-   * A unique number identifying the reset.
-   */
+  /** A unique number identifying the reset. */
   id: number;
 
-  /**
-   * The kind of object returned.
-   */
+  /** The kind of object returned. */
   object: "reset";
 }
 export const Reset = v.object(
@@ -68,6 +55,8 @@ export const Reset = v.object(
  *
  * @category Resets
  * @category Type Guards
+ * @param value An unknown value
+ * @returns A type predicate
  */
 // @__NO_SIDE_EFFECTS__
 export function isReset(value: unknown): value is Reset {
@@ -77,14 +66,12 @@ export function isReset(value: unknown): value is Reset {
 /**
  * A collection of resets returned from the WaniKani API.
  *
- * @see {@link https://docs.api.wanikani.com/20170710/#get-all-resets}
  * @category Collections
  * @category Resets
+ * @see {@link https://docs.api.wanikani.com/20170710/#get-all-resets}
  */
 export interface ResetCollection extends BaseCollection {
-  /**
-   * An array of returned resets.
-   */
+  /** An array of returned resets. */
   data: Reset[];
 }
 export const ResetCollection = v.object(
@@ -101,6 +88,8 @@ export const ResetCollection = v.object(
  *
  * @category Resets
  * @category Type Guards
+ * @param value An unknown value
+ * @returns A type predicate
  */
 // @__NO_SIDE_EFFECTS__
 export function isResetCollection(value: unknown): value is ResetCollection {
@@ -110,10 +99,9 @@ export function isResetCollection(value: unknown): value is ResetCollection {
 /**
  * Parameters that can be passed to the WaniKani API to filter a request for a Reset Collection.
  *
- * @see {@link https://docs.api.wanikani.com/20170710/#get-all-resets}
- * @see {@link @bachman-dev/wanikani-api-requests!v20170710.stringifyParameters}
  * @category Parameters
  * @category Resets
+ * @see {@link https://docs.api.wanikani.com/20170710/#get-all-resets}
+ * @see {@link @bachman-dev/wanikani-api-requests!v20170710.stringifyParameters}
  */
-export type ResetParameters = CollectionParameters;
-export const ResetParameters = CollectionParameters;
+export { CollectionParameters as ResetParameters } from "./base.ts";

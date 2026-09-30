@@ -1,5 +1,5 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["github>bachman-dev/renovate-config:jslib"],
+  "extends": ["github>bachman-dev/renovate-config:jslib", "github>bachman-dev/renovate-config:oxlint-tsgolint"],
   "baseBranchPatterns": ["main", "v3"]
 }

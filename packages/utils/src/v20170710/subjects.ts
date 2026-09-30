@@ -4,7 +4,8 @@
  *
  * @category Subjects
  */
-export const SUBJECT_MARKUP_MATCHER = /<(?<tag>ja|kanji|meaning|radical|reading|vocabulary)>(?<innerText>.*?)<\/\1>/dgu;
+export const SUBJECT_MARKUP_MATCHER =
+  /<(?<tag>ja|kanji|meaning|radical|reading|vocabulary)>(?<textContent>.*?)<\/\1>/dgv;
 
 /**
  * An object representing parsed subject markup.
@@ -26,9 +27,9 @@ export type ParsedSubjectMarkup =
 /**
  * Parses WaniKani subject markup (mnemonics, hints, etc) for easier display/formatting.
  *
+ * @category Subjects
  * @param text The subject markup to parse
  * @returns A structured array of objects that can be traversed and displayed
- * @category Subjects
  */
 export function parseSubjectMarkup(text: string): ParsedSubjectMarkup[] {
   if (!text) {
@@ -39,14 +40,14 @@ export function parseSubjectMarkup(text: string): ParsedSubjectMarkup[] {
 
   for (const match of text.matchAll(SUBJECT_MARKUP_MATCHER)) {
     if (typeof match.indices?.[0] !== "undefined") {
-      const beforeText = text.substring(lastIdx, match.indices[0][0]);
+      const beforeText = text.slice(lastIdx, match.indices[0][0]);
       if (beforeText) {
         markupArray.push({
           text: beforeText,
         });
       }
       if (
-        typeof match.groups?.innerText === "string" &&
+        typeof match.groups?.textContent === "string" &&
         (match.groups.tag === "ja" ||
           match.groups.tag === "kanji" ||
           match.groups.tag === "meaning" ||
@@ -56,14 +57,14 @@ export function parseSubjectMarkup(text: string): ParsedSubjectMarkup[] {
       ) {
         const tagNode: ParsedSubjectMarkup = {
           tag: match.groups.tag,
-          children: parseSubjectMarkup(match.groups.innerText),
+          children: parseSubjectMarkup(match.groups.textContent),
         };
         markupArray.push(tagNode);
       }
       lastIdx = match.indices[0][1];
     }
   }
-  const afterText = text.substring(lastIdx, text.length);
+  const afterText = text.slice(lastIdx);
   if (afterText) {
     markupArray.push({
       text: afterText,

@@ -1,11 +1,12 @@
-import * as m from "./lang/index.js";
 import * as v from "valibot";
+
+import * as m from "./lang/index.js";
 
 /**
  * All known WaniKani API revisions, created when breaking changes are introduced to the WaniKani API.
  *
- * @see {@link https://docs.api.wanikani.com/20170710/#revisions-aka-versioning}
  * @category Base
+ * @see {@link https://docs.api.wanikani.com/20170710/#revisions-aka-versioning}
  */
 export type ApiRevision = "20170710";
 export const ApiRevision = v.literal("20170710");
@@ -14,8 +15,8 @@ export const ApiRevision = v.literal("20170710");
  * A constant representing the WaniKani API revision. This will match the revision module being imported from, or the
  * latest revision when importing from the root module.
  *
- * @see {@link https://docs.api.wanikani.com/20170710/#revisions-aka-versioning}
  * @category Base
+ * @see {@link https://docs.api.wanikani.com/20170710/#revisions-aka-versioning}
  */
 export const API_REVISION: ApiRevision = "20170710";
 
@@ -24,6 +25,8 @@ export const API_REVISION: ApiRevision = "20170710";
  *
  * @category Base
  * @category Type Guards
+ * @param value An unknown value
+ * @returns A type predicate
  */
 // @__NO_SIDE_EFFECTS__
 export function isApiRevision(value: unknown): value is ApiRevision {
@@ -51,6 +54,8 @@ export const DatableString = v.pipe(v.string(), v.trim(), v.isoTimestamp(), v.br
  *
  * @category Base
  * @category Type Guards
+ * @param value An unknown value
+ * @returns A type predicate
  */
 // @__NO_SIDE_EFFECTS__
 export function isDatableString(value: unknown): value is DatableString {
@@ -84,6 +89,8 @@ export const Level = v.pipe(SafeInteger, v.minValue(MIN_LEVEL), v.maxValue(MAX_L
  *
  * @category Base
  * @category Type Guards
+ * @param value An unknown value
+ * @returns A type predicate
  */
 // @__NO_SIDE_EFFECTS__
 export function isLevel(value: unknown): value is Level {
@@ -93,22 +100,17 @@ export function isLevel(value: unknown): value is Level {
 /**
  * The common properties across all Resources from the WaniKani API.
  *
- * @remarks This is a partial interface; most use cases involve using a reource that extends it.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#response-structure}
- *
+ * @remarks
+ *   This is a partial interface; most use cases involve using a reource that extends it.
  * @category Base
  * @category Resources
+ * @see {@link https://docs.api.wanikani.com/20170710/#response-structure}
  */
 export interface BaseResource {
-  /**
-   * For a resource, this is the last time that particular resource was updated.
-   */
+  /** For a resource, this is the last time that particular resource was updated. */
   data_updated_at: DatableString;
 
-  /**
-   * The URL of the requested resource.
-   */
+  /** The URL of the requested resource. */
   url: string;
 }
 export const BaseResource = v.object({
@@ -119,11 +121,11 @@ export const BaseResource = v.object({
 /**
  * The common properties across all Collection items from the WaniKani API.
  *
- * @remarks This is a partial interface; most use cases involve using a reource that extends it.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#response-structure}
+ * @remarks
+ *   This is a partial interface; most use cases involve using a reource that extends it.
  * @category Base
  * @category Collections
+ * @see {@link https://docs.api.wanikani.com/20170710/#response-structure}
  */
 export interface BaseCollection {
   /**
@@ -132,23 +134,15 @@ export interface BaseCollection {
    */
   data_updated_at: DatableString | null;
 
-  /**
-   * The kind of object returned.
-   */
+  /** The kind of object returned. */
   object: "collection";
 
-  /**
-   * Pagination Info for the collection.
-   */
+  /** Pagination Info for the collection. */
   pages: {
-    /**
-     * The URL of the next page of results. If there are no more results, the value is `null`.
-     */
+    /** The URL of the next page of results. If there are no more results, the value is `null`. */
     next_url: string | null;
 
-    /**
-     * Maximum number of items delivered per page for this collection.
-     */
+    /** Maximum number of items delivered per page for this collection. */
     per_page: number;
 
     /**
@@ -158,14 +152,10 @@ export interface BaseCollection {
     previous_url: string | null;
   };
 
-  /**
-   * The total number of items in the collection.
-   */
+  /** The total number of items in the collection. */
   total_count: number;
 
-  /**
-   * The URL of the request. For collections, that will contain all the filters and options you've passed to the API.
-   */
+  /** The URL of the request. For collections, that will contain all the filters and options you've passed to the API. */
   url: string;
 }
 export const BaseCollection = v.object({
@@ -183,14 +173,12 @@ export const BaseCollection = v.object({
 /**
  * Query string parameters that can be sent to any WaniKani API collection endpoint.
  *
- * @see {@link @bachman-dev/wanikani-api-requests!v20170710.stringifyParameters}
  * @category Base
  * @category Parameters
+ * @see {@link @bachman-dev/wanikani-api-requests!v20170710.stringifyParameters}
  */
 export interface CollectionParameters {
-  /**
-   * Only resources where `data.id` matches one of the array values are returned.
-   */
+  /** Only resources where `data.id` matches one of the array values are returned. */
   ids?: SafeInteger[];
 
   /**
@@ -207,9 +195,7 @@ export interface CollectionParameters {
    */
   page_before_id?: SafeInteger;
 
-  /**
-   * Only resources updated after this time are returned.
-   */
+  /** Only resources updated after this time are returned. */
   updated_after?: DatableString | Date;
 }
 export const CollectionParameters = v.object({
@@ -222,27 +208,20 @@ export const CollectionParameters = v.object({
 /**
  * The common properties across all Reports from the WaniKani API
  *
- * @remarks This is a partial interface; most use cases involve using a reource that extends it.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#response-structure}
- *
+ * @remarks
+ *   This is a partial interface; most use cases involve using a reource that extends it.
  * @category Base
  * @category Reports
+ * @see {@link https://docs.api.wanikani.com/20170710/#response-structure}
  */
 export interface BaseReport {
-  /**
-   * The last time the report was updated.
-   */
+  /** The last time the report was updated. */
   data_updated_at: DatableString;
 
-  /**
-   * The kind of object returned.
-   */
+  /** The kind of object returned. */
   object: "report";
 
-  /**
-   * The URL of the requested report.
-   */
+  /** The URL of the requested report. */
   url: string;
 }
 export const BaseReport = v.object({
@@ -257,14 +236,10 @@ export const BaseReport = v.object({
  * @category Base
  */
 export interface ApiError {
-  /**
-   * An HTTP status code indicating the type of error.
-   */
+  /** An HTTP status code indicating the type of error. */
   code: number;
 
-  /**
-   * A message string that describes the error.
-   */
+  /** A message string that describes the error. */
   error: string;
 }
 export const ApiError = v.object({
@@ -277,6 +252,8 @@ export const ApiError = v.object({
  *
  * @category Base
  * @category Type Guards
+ * @param value An unknown value
+ * @returns A type predicate
  */
 // @__NO_SIDE_EFFECTS__
 export function isApiError(value: unknown): value is ApiError {

@@ -1,7 +1,4 @@
-/**
- * @module index
- * @category API Reference
- */
+/** @category API Reference */
 
 /*
 This file exports all the types available in the recommended API revision. Thereby, things MAY break in the future.

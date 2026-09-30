@@ -1,3 +1,9 @@
+# Categories for generated release notes, based on each pull request's change-type label.
+#
+# Pull requests are also labeled with the package(s) they change (e.g. `types`, `requests`, `utils`).
+# GitHub can't limit generated notes to a single label, so when a package's release is published with
+# empty notes, the Release workflow (.github/workflows/release.yml) generates them using these
+# categories and keeps only the pull requests labeled with that package's name.
 changelog:
   categories:
     - title: ⚠️ BREAKING CHANGES

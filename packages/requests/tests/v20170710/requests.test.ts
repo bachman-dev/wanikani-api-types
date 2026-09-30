@@ -1,7 +1,8 @@
-import * as Types from "@bachman-dev/wanikani-api-types/v20170710";
-import * as Requests from "../../src/v20170710/index.js";
+import type * as Types from "@bachman-dev/wanikani-api-types/v20170710";
 import { describe, expect } from "vitest";
-import { testFor } from "./fixtures.js";
+
+import * as Requests from "../../src/v20170710/index.js";
+import testFor from "./fixtures.js";
 
 describe("ApiRequestFactory", () => {
   const getOptions: Requests.ApiRequestOptions = {
@@ -596,12 +597,11 @@ describe("ApiRequestFactory", () => {
       "content-type": "application/json",
       "x-forwarded-for": "192.168.1.1",
     };
-    const expectedBody = `{"user":{"preferences":{"default_voice_actor_id":1,"lessons_autoplay_audio":true,"lessons_batch_size":10}}}`;
+    const expectedBody = `{"user":{"preferences":{"lessons_autoplay_audio":true,"lessons_batch_size":10}}}`;
 
     const payload: Types.UserPreferencesPayload = {
       user: {
         preferences: {
-          default_voice_actor_id: 1,
           lessons_autoplay_audio: true,
           lessons_batch_size: 10,
         },
@@ -688,7 +688,7 @@ describe("ApiRequestFactory", () => {
   testFor("Throws when trying to set invalid API Revision", () => {
     const factory = new Requests.ApiRequestFactory({ apiToken: "abc" });
     // @ts-expect-error -- Setting an invalid API Revision
-    expect(() => factory.setApiRevision("20990909")).toThrow();
+    expect(() => factory.setApiRevision("20990909")).toThrow("Invalid API Revision 20990909");
   });
 
   testFor("Adds any new headers to requests using addCustomHeaders()", () => {

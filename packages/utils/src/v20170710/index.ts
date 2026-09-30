@@ -1,6 +1,3 @@
-/**
- * @module v20170710
- * @category API Reference
- */
+/** @category API Reference */
 
 export * from "./subjects.js";

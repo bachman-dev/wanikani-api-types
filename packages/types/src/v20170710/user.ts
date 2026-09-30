@@ -1,4 +1,5 @@
 import * as v from "valibot";
+
 import { BaseResource, DatableString, Level, SafeInteger } from "./base.js";
 
 /**
@@ -32,6 +33,8 @@ export const LessonBatchSizeNumber = v.pipe(
  *
  * @category User
  * @category Type Guards
+ * @param value An unknown value
+ * @returns A type predicate
  */
 // @__NO_SIDE_EFFECTS__
 export function isLessonBatchSizeNumber(value: unknown): value is LessonBatchSizeNumber {
@@ -41,8 +44,8 @@ export function isLessonBatchSizeNumber(value: unknown): value is LessonBatchSiz
 /**
  * User settings specific to the WaniKani application.
  *
- * @see {@link https://docs.api.wanikani.com/20170710/#user}
  * @category User
+ * @see {@link https://docs.api.wanikani.com/20170710/#user}
  */
 export interface UserPreferences {
   /**
@@ -51,19 +54,13 @@ export interface UserPreferences {
    */
   default_voice_actor_id: number;
 
-  /**
-   * Automatically play pronunciation audio for vocabulary during extra study.
-   */
+  /** Automatically play pronunciation audio for vocabulary during extra study. */
   extra_study_autoplay_audio: boolean;
 
-  /**
-   * Automatically play pronunciation audio for vocabulary during lessons.
-   */
+  /** Automatically play pronunciation audio for vocabulary during lessons. */
   lessons_autoplay_audio: boolean;
 
-  /**
-   * Number of subjects introduced to the user during lessons before quizzing.
-   */
+  /** Number of subjects introduced to the user during lessons before quizzing. */
   lessons_batch_size: LessonBatchSizeNumber;
 
   /**
@@ -72,19 +69,13 @@ export interface UserPreferences {
    */
   lessons_presentation_order: "ascending_level_then_shuffled" | "ascending_level_then_subject" | "shuffled";
 
-  /**
-   * Automatically play pronunciation audio for vocabulary during reviews.
-   */
+  /** Automatically play pronunciation audio for vocabulary during reviews. */
   reviews_autoplay_audio: boolean;
 
-  /**
-   * Toggle for display SRS change indicator after a subject has been completely answered during review.
-   */
+  /** Toggle for display SRS change indicator after a subject has been completely answered during review. */
   reviews_display_srs_indicator: boolean;
 
-  /**
-   * The order in which reviews are presented. The options are `lower_levels_first` and `shuffled`.
-   */
+  /** The order in which reviews are presented. The options are `lower_levels_first` and `shuffled`. */
   reviews_presentation_order: "lower_levels_first" | "shuffled";
 }
 export const UserPreferences = v.object({
@@ -101,14 +92,12 @@ export const UserPreferences = v.object({
 /**
  * A user and their status/information on WaniKani.
  *
- * @see {@link https://docs.api.wanikani.com/20170710/#user}
  * @category Resources
  * @category User
+ * @see {@link https://docs.api.wanikani.com/20170710/#user}
  */
 export interface User extends BaseResource {
-  /**
-   * Data for the returned user.
-   */
+  /** Data for the returned user. */
   data: {
     /**
      * If the user is on vacation, this will be the timestamp of when that vacation started. If the user is not on
@@ -116,51 +105,37 @@ export interface User extends BaseResource {
      */
     current_vacation_started_at: DatableString | null;
 
-    /**
-     * A user's unique ID string.
-     */
+    /** A user's unique ID string. */
     id: string;
 
-    /**
-     * The current level of the user. This ignores subscription status.
-     */
+    /** The current level of the user. This ignores subscription status. */
     level: Level;
 
-    /**
-     * User settings specific to the WaniKani application.
-     */
+    /** User settings specific to the WaniKani application. */
     preferences: UserPreferences;
 
-    /**
-     * The URL to the user's public facing profile page.
-     */
+    /** The URL to the user's public facing profile page. */
     profile_url: string;
 
-    /**
-     * The signup date for the user.
-     */
+    /** The signup date for the user. */
     started_at: DatableString;
 
-    /**
-     * Details about the user's subscription state.
-     */
+    /** Details about the user's subscription state. */
     subscription: {
-      /**
-       * Whether or not the user currently has a paid subscription.
-       */
+      /** Whether or not the user currently has a paid subscription. */
       active: boolean;
 
       /**
-       * The maximum level of content accessible to the user for lessons, reviews, and content review. For unsubscribed/free
-       * users, the maximum level is `3`. For subscribed users, this is `60`.
+       * The maximum level of content accessible to the user for lessons, reviews, and content review. For
+       * unsubscribed/free users, the maximum level is `3`. For subscribed users, this is `60`.
        *
        * **Any application that uses data from the WaniKani API must respect these access limits.**
        */
       max_level_granted: Level;
 
       /**
-       * The date when the user's subscription period ends. If the user has subscription type `lifetime` or `free` then the
-       * value is `null`.
+       * The date when the user's subscription period ends. If the user has subscription type `lifetime` or `free` then
+       * the value is `null`.
        */
       period_ends_at: DatableString | null;
 
@@ -172,15 +147,11 @@ export interface User extends BaseResource {
       type: "free" | "lifetime" | "recurring" | "unknown";
     };
 
-    /**
-     * The user's username.
-     */
+    /** The user's username. */
     username: string;
   };
 
-  /**
-   * The kind of object returned.
-   */
+  /** The kind of object returned. */
   object: "user";
 }
 export const User = v.object(
@@ -212,6 +183,8 @@ export const User = v.object(
  *
  * @category User
  * @category Type Guards
+ * @param value An unknown value
+ * @returns A type predicate
  */
 // @__NO_SIDE_EFFECTS__
 export function isUser(value: unknown): value is User {
@@ -221,18 +194,14 @@ export function isUser(value: unknown): value is User {
 /**
  * The payload sent to the WaniKani API to update a user's preferences.
  *
- * @see {@link https://docs.api.wanikani.com/20170710/#update-user-information}
  * @category Payloads
  * @category User
+ * @see {@link https://docs.api.wanikani.com/20170710/#update-user-information}
  */
 export interface UserPreferencesPayload {
-  /**
-   * The user object, as part of the payload.
-   */
+  /** The user object, as part of the payload. */
   user: {
-    /**
-     * The user preferences to be updated; only those specified in the object will be updated.
-     */
+    /** The user preferences to be updated; only those specified in the object will be updated. */
     preferences: Partial<UserPreferences>;
   };
 }

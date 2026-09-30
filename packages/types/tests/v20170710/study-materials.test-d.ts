@@ -1,51 +1,52 @@
-import type * as WK from "../../src/v20170710/index.js";
 import { assertType, describe } from "vitest";
-import { testFor } from "./fixtures.js";
+
+import type * as WaniKani from "../../src/v20170710/index.js";
+import testFor from "./fixtures.js";
 
 describe("StudyMaterial", () => {
   testFor("Real StudyMaterial", ({ studyMaterial }) => {
-    assertType<WK.StudyMaterial>(studyMaterial);
+    assertType<WaniKani.StudyMaterial>(studyMaterial);
   });
 });
 
 describe("StudyMaterialCollection", () => {
   testFor("Real StudyMaterialCollection", ({ studyMaterialCollection }) => {
-    assertType<WK.StudyMaterialCollection>(studyMaterialCollection);
+    assertType<WaniKani.StudyMaterialCollection>(studyMaterialCollection);
   });
 });
 
 describe("StudyMaterialParameters", () => {
   testFor("Empty StudyMaterialParameters", ({ emptyParams }) => {
-    assertType<WK.StudyMaterialParameters>(emptyParams);
+    assertType<WaniKani.StudyMaterialParameters>(emptyParams);
   });
   testFor("StudyMaterialParameters with empty arrays", ({ studyMaterialParamsWithEmptyArrays }) => {
-    assertType<WK.StudyMaterialParameters>(studyMaterialParamsWithEmptyArrays);
+    assertType<WaniKani.StudyMaterialParameters>(studyMaterialParamsWithEmptyArrays);
   });
   testFor("StudyMaterialParameters with many options filled", ({ studyMaterialParamsWithManyOptions }) => {
-    assertType<WK.StudyMaterialParameters>(studyMaterialParamsWithManyOptions);
+    assertType<WaniKani.StudyMaterialParameters>(studyMaterialParamsWithManyOptions);
   });
   testFor("StudyMaterialParameters with Date objects", ({ studyMaterialParamsWithDates }) => {
-    assertType<WK.StudyMaterialParameters>(studyMaterialParamsWithDates);
+    assertType<WaniKani.StudyMaterialParameters>(studyMaterialParamsWithDates);
   });
   testFor("StudyMaterialParameters with DatableString properties", ({ studyMaterialParamsWithDatableStrings }) => {
-    assertType<WK.StudyMaterialParameters>(studyMaterialParamsWithDatableStrings);
+    assertType<WaniKani.StudyMaterialParameters>(studyMaterialParamsWithDatableStrings);
   });
 });
 
 describe("StudyMaterialUpdatePayload", () => {
   testFor("Empty payload", ({ emptyStudyMaterialUpdatePayload }) => {
-    assertType<WK.StudyMaterialUpdatePayload>(emptyStudyMaterialUpdatePayload);
+    assertType<WaniKani.StudyMaterialUpdatePayload>(emptyStudyMaterialUpdatePayload);
   });
   testFor("Payload with all properties", ({ fullStudyMaterialUpdatePayload }) => {
-    assertType<WK.StudyMaterialUpdatePayload>(fullStudyMaterialUpdatePayload);
+    assertType<WaniKani.StudyMaterialUpdatePayload>(fullStudyMaterialUpdatePayload);
   });
 });
 
 describe("StudyMaterialCreatePayload", () => {
   testFor("Payload with required properties only", ({ minimalStudyMaterialCreatePayload }) => {
-    assertType<WK.StudyMaterialCreatePayload>(minimalStudyMaterialCreatePayload);
+    assertType<WaniKani.StudyMaterialCreatePayload>(minimalStudyMaterialCreatePayload);
   });
   testFor("Payload with all properties", ({ fullStudyMaterialCreatePayload }) => {
-    assertType<WK.StudyMaterialCreatePayload>(fullStudyMaterialCreatePayload);
+    assertType<WaniKani.StudyMaterialCreatePayload>(fullStudyMaterialCreatePayload);
   });
 });

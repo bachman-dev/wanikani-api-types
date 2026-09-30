@@ -1,13 +1,14 @@
-import type * as WK from "../../src/v20170710/index.js";
 import { assertType, describe } from "vitest";
-import { testFor } from "./fixtures.js";
+
+import type * as WaniKani from "../../src/v20170710/index.js";
+import testFor from "./fixtures.js";
 
 describe("SubjectType", () => {
   testFor("Valid Subject Types", ({ subjectTypes }) => {
     if (Array.isArray(subjectTypes)) {
-      subjectTypes.forEach((subject) => {
-        assertType<WK.SubjectType>(subject);
-      });
+      for (const subject of subjectTypes) {
+        assertType<WaniKani.SubjectType>(subject);
+      }
     } else {
       throw new TypeError("Expected subjectTypes to be an array");
     }
@@ -17,60 +18,60 @@ describe("SubjectType", () => {
 describe("SubjectTuple", () => {
   // These tests are kinda redundant, but we'll leave them here for completeness' sake
   testFor("Partial SubjectTuple is Valid", ({ partialSubjectTuple }) => {
-    assertType<WK.SubjectTuple>(partialSubjectTuple);
+    assertType<WaniKani.SubjectTuple>(partialSubjectTuple);
   });
   testFor("Full SubjectTuple is valid", ({ fullSubjectTuple }) => {
-    assertType<WK.SubjectTuple>(fullSubjectTuple);
+    assertType<WaniKani.SubjectTuple>(fullSubjectTuple);
   });
 });
 
 describe("Subjects", () => {
   testFor("Real Radical", ({ radical }) => {
-    assertType<WK.Subject>(radical);
+    assertType<WaniKani.Subject>(radical);
   });
   testFor("Real Kanji", ({ kanji }) => {
-    assertType<WK.Subject>(kanji);
+    assertType<WaniKani.Subject>(kanji);
   });
   testFor("Real Vocabulary", ({ vocabulary }) => {
-    assertType<WK.Subject>(vocabulary);
+    assertType<WaniKani.Subject>(vocabulary);
   });
   testFor("Real Kana-Only Vocabulary", ({ kanaVocabulary }) => {
-    assertType<WK.Subject>(kanaVocabulary);
+    assertType<WaniKani.Subject>(kanaVocabulary);
   });
 });
 
 describe("Subject Collections", () => {
   testFor("Collection of Radicals", ({ radicalCollection }) => {
-    assertType<WK.SubjectCollection>(radicalCollection);
+    assertType<WaniKani.SubjectCollection>(radicalCollection);
   });
   testFor("Collection of Kanji", ({ kanjiCollection }) => {
-    assertType<WK.SubjectCollection>(kanjiCollection);
+    assertType<WaniKani.SubjectCollection>(kanjiCollection);
   });
   testFor("Collection of Vocabulary", ({ vocabularyCollection }) => {
-    assertType<WK.SubjectCollection>(vocabularyCollection);
+    assertType<WaniKani.SubjectCollection>(vocabularyCollection);
   });
   testFor("Collection of Kana-Only Vocabulary", ({ kanaVocabularyCollection }) => {
-    assertType<WK.SubjectCollection>(kanaVocabularyCollection);
+    assertType<WaniKani.SubjectCollection>(kanaVocabularyCollection);
   });
   testFor("Collection of Mixed Subjects", ({ subjectCollection }) => {
-    assertType<WK.SubjectCollection>(subjectCollection);
+    assertType<WaniKani.SubjectCollection>(subjectCollection);
   });
 });
 
 describe("SubjectParameters", () => {
   testFor("Empty SubjectParameters", ({ emptyParams }) => {
-    assertType<WK.SubjectParameters>(emptyParams);
+    assertType<WaniKani.SubjectParameters>(emptyParams);
   });
   testFor("SubjectParameters with empty arrays", ({ subjectParamsWithEmptyArrays }) => {
-    assertType<WK.SubjectParameters>(subjectParamsWithEmptyArrays);
+    assertType<WaniKani.SubjectParameters>(subjectParamsWithEmptyArrays);
   });
   testFor("SubjectParameters with many options filled", ({ subjectParamsWithManyOptions }) => {
-    assertType<WK.SubjectParameters>(subjectParamsWithManyOptions);
+    assertType<WaniKani.SubjectParameters>(subjectParamsWithManyOptions);
   });
   testFor("SubjectParameters with Date objects", ({ subjectParamsWithDates }) => {
-    assertType<WK.SubjectParameters>(subjectParamsWithDates);
+    assertType<WaniKani.SubjectParameters>(subjectParamsWithDates);
   });
   testFor("SubjectParameters with DatableString properties", ({ subjectParamsWithDatableStrings }) => {
-    assertType<WK.SubjectParameters>(subjectParamsWithDatableStrings);
+    assertType<WaniKani.SubjectParameters>(subjectParamsWithDatableStrings);
   });
 });

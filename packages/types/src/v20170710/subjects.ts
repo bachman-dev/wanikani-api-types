@@ -1,11 +1,12 @@
 import * as v from "valibot";
+
 import { BaseCollection, BaseResource, CollectionParameters, DatableString, Level } from "./base.js";
 
 /**
  * The types of subjects used on WaniKani and its API.
  *
- * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
+ * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  */
 export type SubjectType = "kana_vocabulary" | "kanji" | "radical" | "vocabulary";
 export const SubjectType = v.picklist(["kana_vocabulary", "kanji", "radical", "vocabulary"]);
@@ -15,6 +16,8 @@ export const SubjectType = v.picklist(["kana_vocabulary", "kanji", "radical", "v
  *
  * @category Subjects
  * @category Type Guards
+ * @param value An unknown value
+ * @returns A type predicate
  */
 // @__NO_SIDE_EFFECTS__
 export function isSubjectType(value: unknown): value is SubjectType {
@@ -24,8 +27,8 @@ export function isSubjectType(value: unknown): value is SubjectType {
 /**
  * A non-empty array of WaniKani subject types.
  *
- * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
+ * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  */
 export type SubjectTuple = [first: SubjectType, ...rest: SubjectType[]];
 export const SubjectTuple = v.pipe(
@@ -42,6 +45,8 @@ export const SubjectTuple = v.pipe(
  *
  * @category Subjects
  * @category Type Guards
+ * @param value An unknown value
+ * @returns A type predicate
  */
 // @__NO_SIDE_EFFECTS__
 export function isSubjectTuple(value: unknown): value is SubjectTuple {
@@ -51,13 +56,11 @@ export function isSubjectTuple(value: unknown): value is SubjectTuple {
 /**
  * A subject's auxilliary meanings.
  *
- * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
+ * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  */
 export interface SubjectAuxiliaryMeaning {
-  /**
-   * A singular subject meaning.
-   */
+  /** A singular subject meaning. */
   meaning: string;
 
   /**
@@ -74,23 +77,17 @@ export const SubjectAuxiliaryMeaning = v.object({
 /**
  * Information pertaining to a subject's meaning.
  *
- * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
+ * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  */
 export interface SubjectMeaning {
-  /**
-   * Indicates if the meaning is used to evaluate user input for correctness.
-   */
+  /** Indicates if the meaning is used to evaluate user input for correctness. */
   accepted_answer: boolean;
 
-  /**
-   * A singular subject meaning.
-   */
+  /** A singular subject meaning. */
   meaning: string;
 
-  /**
-   * Indicates priority in the WaniKani system.
-   */
+  /** Indicates priority in the WaniKani system. */
   primary: boolean;
 }
 export const SubjectMeaning = v.object({
@@ -103,26 +100,19 @@ export const SubjectMeaning = v.object({
  * The common properties of all subjects on WaniKani.
  *
  * @remarks
- * This only represents a partial structure of a subject, and it's highly recommended to use one of the child type
- * definitions that extend this type definition.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
+ *   This only represents a partial structure of a subject, and it's highly recommended to use one of the child type
+ *   definitions that extend this type definition.
  * @category Subjects
+ * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  */
 export interface SubjectBaseData {
-  /**
-   * Collection of auxiliary meanings.
-   */
+  /** Collection of auxiliary meanings. */
   auxiliary_meanings: SubjectAuxiliaryMeaning[];
 
-  /**
-   * Timestamp when the subject was created.
-   */
+  /** Timestamp when the subject was created. */
   created_at: DatableString;
 
-  /**
-   * A URL pointing to the page on wanikani.com that provides detailed information about this subject.
-   */
+  /** A URL pointing to the page on wanikani.com that provides detailed information about this subject. */
   document_url: string;
 
   /**
@@ -137,19 +127,13 @@ export interface SubjectBaseData {
    */
   lesson_position: number;
 
-  /**
-   * The level of the subject, from `1` to `60`.
-   */
+  /** The level of the subject, from `1` to `60`. */
   level: Level;
 
-  /**
-   * The subject's meaning mnemonic.
-   */
+  /** The subject's meaning mnemonic. */
   meaning_mnemonic: string;
 
-  /**
-   * The subject meanings.
-   */
+  /** The subject meanings. */
   meanings: SubjectMeaning[];
 
   /**
@@ -158,9 +142,7 @@ export interface SubjectBaseData {
    */
   slug: string;
 
-  /**
-   * Unique identifier of the associated Spaced Repetition System.
-   */
+  /** Unique identifier of the associated Spaced Repetition System. */
   spaced_repetition_system_id: number;
 }
 export const SubjectBaseData = v.object({
@@ -179,51 +161,33 @@ export const SubjectBaseData = v.object({
 /**
  * An image representing a radical subject.
  *
- * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
+ * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  */
 export type RadicalCharacterImage = {
-  /**
-   * The location of the image.
-   */
+  /** The location of the image. */
   url: string;
 } & (
   | {
-      /**
-       * The content type of the image.
-       */
+      /** The content type of the image. */
       content_type: "image/png";
-      /**
-       * Details about the image. Each `content_type` returns a uniquely structured object.
-       */
+      /** Details about the image. Each `content_type` returns a uniquely structured object. */
       metadata: {
-        /**
-         * Color of the asset in hexadecimal
-         */
+        /** Color of the asset in hexadecimal */
         color: string;
-        /**
-         * Dimension of the asset in pixels
-         */
+        /** Dimension of the asset in pixels */
         dimensions: string;
-        /**
-         * A name descriptor
-         */
+        /** A name descriptor */
         style_name: string;
       };
     }
   | {
-      /**
-       * The content type of the image.
-       */
+      /** The content type of the image. */
       content_type: "image/svg+xml";
 
-      /**
-       * Details about the image. Each `content_type` returns a uniquely structured object.
-       */
+      /** Details about the image. Each `content_type` returns a uniquely structured object. */
       metadata: {
-        /**
-         * The SVG asset contains built-in CSS styling.
-         */
+        /** The SVG asset contains built-in CSS styling. */
         inline_styles: boolean;
       };
     }
@@ -253,18 +217,14 @@ export const RadicalCharacterImage = v.intersect([
 /**
  * Data returned only for radical subjects.
  *
- * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
+ * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  */
 export interface RadicalData extends SubjectBaseData {
-  /**
-   * An array of numeric identifiers for the kanji that have the radical as a component.
-   */
+  /** An array of numeric identifiers for the kanji that have the radical as a component. */
   amalgamation_subject_ids: number[];
 
-  /**
-   * A collection of images of the radical.
-   */
+  /** A collection of images of the radical. */
   character_images: RadicalCharacterImage[];
 
   /**
@@ -287,28 +247,20 @@ export const RadicalData = v.object(
 /**
  * Information pertaining to a reading of a kanji subject.
  *
- * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
+ * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  */
 export interface KanjiReading {
-  /**
-   * Indicates if the reading is used to evaluate user input for correctness.
-   */
+  /** Indicates if the reading is used to evaluate user input for correctness. */
   accepted_answer: boolean;
 
-  /**
-   * Indicates priority in the WaniKani system.
-   */
+  /** Indicates priority in the WaniKani system. */
   primary: boolean;
 
-  /**
-   * A singular subject reading.
-   */
+  /** A singular subject reading. */
   reading: string;
 
-  /**
-   * The kanji reading's classfication: `kunyomi`, `nanori`, or `onyomi`.
-   */
+  /** The kanji reading's classfication: `kunyomi`, `nanori`, or `onyomi`. */
   type: "kunyomi" | "nanori" | "onyomi";
 }
 export const KanjiReading = v.object({
@@ -321,18 +273,14 @@ export const KanjiReading = v.object({
 /**
  * Data returned only for kanji subjects.
  *
- * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
+ * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  */
 export interface KanjiData extends SubjectBaseData {
-  /**
-   * An array of numeric identifiers for the vocabulary that have the kanji as a component.
-   */
+  /** An array of numeric identifiers for the vocabulary that have the kanji as a component. */
   amalgamation_subject_ids: number[];
 
-  /**
-   * The UTF-8 characters for the subject, including kanji and hiragana.
-   */
+  /** The UTF-8 characters for the subject, including kanji and hiragana. */
   characters: string;
 
   /**
@@ -341,29 +289,19 @@ export interface KanjiData extends SubjectBaseData {
    */
   component_subject_ids: number[];
 
-  /**
-   * Meaning hint for the kanji.
-   */
+  /** Meaning hint for the kanji. */
   meaning_hint: string | null;
 
-  /**
-   * Reading hint for the kanji.
-   */
+  /** Reading hint for the kanji. */
   reading_hint: string | null;
 
-  /**
-   * The kanji's reading mnemonic.
-   */
+  /** The kanji's reading mnemonic. */
   reading_mnemonic: string;
 
-  /**
-   * Selected readings for the kanji.
-   */
+  /** Selected readings for the kanji. */
   readings: KanjiReading[];
 
-  /**
-   * An array of numeric identifiers for kanji which are visually similar to the kanji in question.
-   */
+  /** An array of numeric identifiers for kanji which are visually similar to the kanji in question. */
   visually_similar_subject_ids: number[];
 }
 export const KanjiData = v.object(
@@ -385,18 +323,14 @@ export const KanjiData = v.object(
 /**
  * Japanese context sentences for vocabulary, with a corresponding English translation.
  *
- * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
+ * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  */
 export interface VocabularyContextSentence {
-  /**
-   * English translation of the sentence.
-   */
+  /** English translation of the sentence. */
   en: string;
 
-  /**
-   * Japanese context sentence.
-   */
+  /** Japanese context sentence. */
   ja: string;
 }
 export const VocabularyContextSentence = v.object({
@@ -407,53 +341,35 @@ export const VocabularyContextSentence = v.object({
 /**
  * Information pertaining to pronunciation audio for a vocabulary subject.
  *
- * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
+ * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  */
 export interface VocabularyPronunciationAudio {
-  /**
-   * The content type of the audio. Currently the API delivers `audio/mpeg`, `audio/ogg`, and `audio/webm`.
-   */
+  /** The content type of the audio. Currently the API delivers `audio/mpeg`, `audio/ogg`, and `audio/webm`. */
   content_type: "audio/mpeg" | "audio/ogg" | "audio/webm";
 
-  /**
-   * Details about the pronunciation audio.
-   */
+  /** Details about the pronunciation audio. */
   metadata: {
-    /**
-     * The gender of the voice actor.
-     */
+    /** The gender of the voice actor. */
     gender: "female" | "male";
 
-    /**
-     * Vocabulary being pronounced in kana.
-     */
+    /** Vocabulary being pronounced in kana. */
     pronunciation: string;
 
-    /**
-     * A unique ID shared between same source pronunciation audio.
-     */
+    /** A unique ID shared between same source pronunciation audio. */
     source_id: number;
 
-    /**
-     * A unique ID belonging to the voice actor.
-     */
+    /** A unique ID belonging to the voice actor. */
     voice_actor_id: number;
 
-    /**
-     * Humanized name of the voice actor.
-     */
+    /** Humanized name of the voice actor. */
     voice_actor_name: string;
 
-    /**
-     * Description of the voice.
-     */
+    /** Description of the voice. */
     voice_description: string;
   };
 
-  /**
-   * The location of the audio.
-   */
+  /** The location of the audio. */
   url: string;
 }
 export const VocabularyPronunciationAudio = v.object({
@@ -472,23 +388,17 @@ export const VocabularyPronunciationAudio = v.object({
 /**
  * Information pertaining to a reading of a vocabulary subject..
  *
- * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
+ * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  */
 export interface VocabularyReading {
-  /**
-   * Indicates if the reading is used to evaluate user input for correctness.
-   */
+  /** Indicates if the reading is used to evaluate user input for correctness. */
   accepted_answer: boolean;
 
-  /**
-   * Indicates priority in the WaniKani system.
-   */
+  /** Indicates priority in the WaniKani system. */
   primary: boolean;
 
-  /**
-   * A singular subject reading.
-   */
+  /** A singular subject reading. */
   reading: string;
 }
 export const VocabularyReading = v.object({
@@ -500,13 +410,11 @@ export const VocabularyReading = v.object({
 /**
  * Data returned only for vocabulary subjects.
  *
- * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
+ * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  */
 export interface VocabularyData extends SubjectBaseData {
-  /**
-   * The UTF-8 characters for the subject, including kanji and hiragana.
-   */
+  /** The UTF-8 characters for the subject, including kanji and hiragana. */
   characters: string;
 
   /**
@@ -515,29 +423,19 @@ export interface VocabularyData extends SubjectBaseData {
    */
   component_subject_ids: number[];
 
-  /**
-   * A collection of context sentences.
-   */
+  /** A collection of context sentences. */
   context_sentences: VocabularyContextSentence[];
 
-  /**
-   * Parts of speech.
-   */
+  /** Parts of speech. */
   parts_of_speech: string[];
 
-  /**
-   * A collection of pronunciation audio.
-   */
+  /** A collection of pronunciation audio. */
   pronunciation_audios: VocabularyPronunciationAudio[];
 
-  /**
-   * The vocabulary's reading mnemonic.
-   */
+  /** The vocabulary's reading mnemonic. */
   reading_mnemonic: string;
 
-  /**
-   * Selected readings for the vocabulary.
-   */
+  /** Selected readings for the vocabulary. */
   readings: VocabularyReading[];
 }
 export const VocabularyData = v.object(
@@ -558,28 +456,20 @@ export const VocabularyData = v.object(
 /**
  * Data returned only for kana-only vocabulary subjects.
  *
- * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
+ * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  */
 export interface KanaVocabularyData extends SubjectBaseData {
-  /**
-   * The UTF-8 characters for the subject, including kanji and hiragana.
-   */
+  /** The UTF-8 characters for the subject, including kanji and hiragana. */
   characters: string;
 
-  /**
-   * A collection of context sentences.
-   */
+  /** A collection of context sentences. */
   context_sentences: VocabularyContextSentence[];
 
-  /**
-   * Parts of speech.
-   */
+  /** Parts of speech. */
   parts_of_speech: string[];
 
-  /**
-   * A collection of pronunciation audio.
-   */
+  /** A collection of pronunciation audio. */
   pronunciation_audios: VocabularyPronunciationAudio[];
 }
 export const KanaVocabularyData = v.object(
@@ -601,58 +491,40 @@ export const KanaVocabularyData = v.object(
  *
  * This type is for mixed or unknown subject types; it is a discriminated union based on the subject's `object` key.
  *
- * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Resources
  * @category Subjects
+ * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  */
 export type Subject = BaseResource & {
-  /**
-   * A unique number identifying the subject.
-   */
+  /** A unique number identifying the subject. */
   id: number;
 } & (
     | {
-        /**
-         * Data for the returned kana-only vocabulary.
-         */
+        /** Data for the returned kana-only vocabulary. */
         data: KanaVocabularyData;
 
-        /**
-         * The kind of object returned.
-         */
+        /** The kind of object returned. */
         object: "kana_vocabulary";
       }
     | {
-        /**
-         * Data for the returned kanji.
-         */
+        /** Data for the returned kanji. */
         data: KanjiData;
 
-        /**
-         * The kind of object returned.
-         */
+        /** The kind of object returned. */
         object: "kanji";
       }
     | {
-        /**
-         * Data for the returned radical.
-         */
+        /** Data for the returned radical. */
         data: RadicalData;
 
-        /**
-         * The kind of object returned.
-         */
+        /** The kind of object returned. */
         object: "radical";
       }
     | {
-        /**
-         * Data for the returned vocabulary.
-         */
+        /** Data for the returned vocabulary. */
         data: VocabularyData;
 
-        /**
-         * The kind of object returned.
-         */
+        /** The kind of object returned. */
         object: "vocabulary";
       }
   );
@@ -686,6 +558,8 @@ export const Subject = v.intersect([
  *
  * @category Subjects
  * @category Type Guards
+ * @param value An unknown value
+ * @returns A type predicate
  */
 // @__NO_SIDE_EFFECTS__
 export function isSubject(value: unknown): value is Subject {
@@ -695,14 +569,12 @@ export function isSubject(value: unknown): value is Subject {
 /**
  * A collection of subjects of mixed or unknown types returned from the WaniKani API.
  *
- * @see {@link https://docs.api.wanikani.com/20170710/#get-all-subjects}
  * @category Collections
  * @category Subjects
+ * @see {@link https://docs.api.wanikani.com/20170710/#get-all-subjects}
  */
 export interface SubjectCollection extends BaseCollection {
-  /**
-   * An array of returned subjects of mixed or unknown type.
-   */
+  /** An array of returned subjects of mixed or unknown type. */
   data: Subject[];
 }
 export const SubjectCollection = v.object(
@@ -719,6 +591,8 @@ export const SubjectCollection = v.object(
  *
  * @category Subjects
  * @category Type Guards
+ * @param value An unknown value
+ * @returns A type predicate
  */
 // @__NO_SIDE_EFFECTS__
 export function isSubjectCollection(value: unknown): value is SubjectCollection {
@@ -728,30 +602,22 @@ export function isSubjectCollection(value: unknown): value is SubjectCollection 
 /**
  * Parameters that can be passed to the WaniKani API to filter a request for a Subject Collection.
  *
- * @see {@link https://docs.api.wanikani.com/20170710/#get-all-subjects}
- * @see {@link @bachman-dev/wanikani-api-requests!v20170710.stringifyParameters}
  * @category Parameters
  * @category Subjects
+ * @see {@link https://docs.api.wanikani.com/20170710/#get-all-subjects}
+ * @see {@link @bachman-dev/wanikani-api-requests!v20170710.stringifyParameters}
  */
 export interface SubjectParameters extends CollectionParameters {
-  /**
-   * Return subjects which are or are not hidden from the user-facing application.
-   */
+  /** Return subjects which are or are not hidden from the user-facing application. */
   hidden?: boolean;
 
-  /**
-   * Return subjects at the specified levels.
-   */
+  /** Return subjects at the specified levels. */
   levels?: Level[];
 
-  /**
-   * Return subjects of the specified slug.
-   */
+  /** Return subjects of the specified slug. */
   slugs?: string[];
 
-  /**
-   * Return subjects of the specified types.
-   */
+  /** Return subjects of the specified types. */
   types?: SubjectTuple;
 }
 export const SubjectParameters = v.object(

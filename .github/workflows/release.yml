@@ -3,44 +3,165 @@ on:
   release:
     types: [published]
 jobs:
-  test:
-    name: "Publish Release"
+  resolve:
+    name: "Resolve Package (${{ github.event.release.tag_name }})"
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      directory: ${{ steps.package.outputs.directory }}
+      name: ${{ steps.package.outputs.name }}
+      dist-tag: ${{ steps.package.outputs.dist-tag }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: ${{ github.event.release.tag_name }}
+      # Release tags take the form `<package directory>@<version>`, e.g. `types@3.0.0` publishes
+      # `packages/types` at version 3.0.0. The tagged version must match the package's package.json.
+      - name: Resolve Package From Release Tag
+        id: package
+        env:
+          TAG_NAME: ${{ github.event.release.tag_name }}
+          IS_PRERELEASE: ${{ github.event.release.prerelease }}
+        run: |
+          if [[ ! "$TAG_NAME" =~ ^([a-z0-9-]+)@([0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?)$ ]]; then
+            echo "::error::Release tag '$TAG_NAME' must be in the form '<package directory>@<version>' (e.g. 'types@3.0.0')."
+            exit 1
+          fi
+          directory="${BASH_REMATCH[1]}"
+          tag_version="${BASH_REMATCH[2]}"
+          manifest="packages/$directory/package.json"
+
+          if [[ ! -f "$manifest" ]]; then
+            echo "::error::No package found at '$manifest'. Available packages: $(ls packages | paste -sd ',' - | sed 's/,/, /g')."
+            exit 1
+          fi
+          if [[ "$(jq -r '.private // false' "$manifest")" == "true" ]]; then
+            echo "::error::Package '$directory' is private and cannot be published."
+            exit 1
+          fi
+
+          name="$(jq -r '.name' "$manifest")"
+          version="$(jq -r '.version' "$manifest")"
+          if [[ "$version" != "$tag_version" ]]; then
+            echo "::error file=$manifest::Release tag version ($tag_version) does not match $name version ($version)."
+            exit 1
+          fi
+
+          if [[ "$version" == *-* ]]; then
+            if [[ "$IS_PRERELEASE" != "true" ]]; then
+              echo "::error::$name@$version is a prerelease version, but the GitHub release is not marked as a pre-release."
+              exit 1
+            fi
+            dist_tag="next"
+          else
+            dist_tag="latest"
+          fi
+
+          {
+            echo "directory=$directory"
+            echo "name=$name"
+            echo "dist-tag=$dist_tag"
+          } >> "$GITHUB_OUTPUT"
+          echo "Publishing **$name@$version** under the \`$dist_tag\` dist-tag." >> "$GITHUB_STEP_SUMMARY"
+  publish:
+    name: "Publish ${{ needs.resolve.outputs.name }}"
+    runs-on: ubuntu-latest
+    needs: resolve
     permissions:
       id-token: write
       contents: read
+    env:
+      PACKAGE_NAME: ${{ needs.resolve.outputs.name }}
+      DIST_TAG: ${{ needs.resolve.outputs.dist-tag }}
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           ref: ${{ github.event.release.tag_name }}
       - name: Setup pnpm
-        uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6
-      - name: Setup Node.js
-        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        uses: pnpm/setup@fbda4c85fc2e1e08721cd8763afea8f48d60f024 # v3.0.0
         with:
-          node-version-file: ".nvmrc"
-          cache: "pnpm"
-          registry-url: "https://registry.npmjs.org"
-      - name: Install Dependencies
-        run: pnpm install
+          cache: true
+          require-lockfile: true
+      - name: Build Package
+        run: pnpm exec turbo run build --filter="$PACKAGE_NAME"
       - name: Lint Code
         run: pnpm lint
       - name: Run Unit Tests
         run: pnpm test
-      - name: Build Documentation
-        run: pnpm build:docs
-      - name: Build Library
-        run: pnpm build
-      - name: Publish Library (Prerelease)
-        if: ${{ github.event.release.prerelease }}
-        run: pnpm publish --tag=next --access=public --recursive --no-git-checks
+      - name: Publish Package
+        run: pnpm stage publish --filter="$PACKAGE_NAME" --fail-if-no-match --tag="$DIST_TAG" --access=public --no-git-checks
         env:
           NPM_CONFIG_PROVENANCE: true
-      - name: Publish Library (Latest)
-        if: ${{ !github.event.release.prerelease }}
-        run: pnpm publish --access=public --recursive --no-git-checks
+  # GitHub's generated release notes (categorized by .github/release.yml) cover every pull request
+  # since the previous tag, regardless of package. When a release is published with empty notes, this
+  # generates them from the package's own previous release tag and keeps only the pull requests
+  # labeled with the package's directory name (e.g. `types`).
+  release-notes:
+    name: "Generate Release Notes"
+    runs-on: ubuntu-latest
+    needs: resolve
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: ${{ github.event.release.tag_name }}
+          fetch-depth: 0
+      - name: Fill In Empty Release Notes
         env:
-          NPM_CONFIG_PROVENANCE: true
-      - name: Publish Documentation
-        run: "curl -X POST ${{ secrets.CLOUDFLARE_DEPLOY_HOOK }}"
+          GH_TOKEN: ${{ github.token }}
+          PACKAGE_LABEL: ${{ needs.resolve.outputs.directory }}
+          RELEASE_ID: ${{ github.event.release.id }}
+          TAG_NAME: ${{ github.event.release.tag_name }}
+        run: |
+          release="repos/$GITHUB_REPOSITORY/releases/$RELEASE_ID"
+          if [[ -n "$(gh api "$release" --jq '.body // ""' | tr -d '[:space:]')" ]]; then
+            echo "The release already has notes; leaving them as they are."
+            exit 0
+          fi
+
+          args=(-f "tag_name=$TAG_NAME")
+          if previous_tag="$(git describe --tags --abbrev=0 --match "$PACKAGE_LABEL@*" HEAD^ 2>/dev/null)"; then
+            args+=(-f "previous_tag_name=$previous_tag")
+          fi
+          notes="$(gh api "repos/$GITHUB_REPOSITORY/releases/generate-notes" "${args[@]}" --jq '.body')"
+
+          labeled=""
+          for pull in $(grep -oP '^\* .*/pull/\K[0-9]+(?=\s*$)' <<< "$notes" | sort -u || true); do
+            if [[ "$(gh api "repos/$GITHUB_REPOSITORY/issues/$pull" --jq 'any(.labels[]; .name == env.PACKAGE_LABEL)')" == "true" ]]; then
+              labeled+="$pull "
+            fi
+          done
+
+          # Drop pull requests without the package label, then any headings left with nothing under them.
+          notes="$(awk -v labeled="$labeled" '
+            BEGIN { split(labeled, pulls, " "); for (i in pulls) keep[pulls[i]] = 1 }
+            /^\* .*\/pull\/[0-9]+[[:space:]]*$/ {
+              pull = $0; sub(/[[:space:]]*$/, "", pull); sub(/.*\/pull\//, "", pull)
+              if (!(pull in keep)) next
+            }
+            { lines[++count] = $0 }
+            END {
+              for (i = 1; i <= count; i++) {
+                if (match(lines[i], /^#+ /)) {
+                  level = RLENGTH; has_pulls = 0
+                  for (j = i + 1; j <= count; j++) {
+                    if (match(lines[j], /^#+ /) && RLENGTH <= level) break
+                    if (lines[j] ~ /^\* .*\/pull\/[0-9]+[[:space:]]*$/) { has_pulls = 1; break }
+                  }
+                  if (!has_pulls) continue
+                }
+                print lines[i]
+              }
+            }
+          ' <<< "$notes" | cat -s | sed '/./,$!d')"
+          if [[ -z "$labeled" ]]; then
+            notes="$(printf 'No pull requests labeled `%s` were found for this release.\n\n%s' "$PACKAGE_LABEL" "$notes")"
+          fi
+
+          gh api --method PATCH "$release" -f "body=$notes" --silent
+          echo "$notes" >> "$GITHUB_STEP_SUMMARY"

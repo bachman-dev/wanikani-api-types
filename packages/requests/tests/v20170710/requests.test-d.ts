@@ -1,6 +1,7 @@
-import * as Requests from "../../src/v20170710/index.js";
 import { describe, expectTypeOf } from "vitest";
-import { testFor } from "./fixtures.js";
+
+import type * as Requests from "../../src/v20170710/index.js";
+import testFor from "./fixtures.js";
 
 describe("ApiRequestFactory", () => {
   testFor("Return Type for Get Assignment Collection", ({ requestFactory }) => {
@@ -104,7 +105,6 @@ describe("ApiRequestFactory", () => {
       requestFactory.user.updatePreferences({
         user: {
           preferences: {
-            default_voice_actor_id: 1,
             lessons_autoplay_audio: true,
             lessons_batch_size: 10,
           },

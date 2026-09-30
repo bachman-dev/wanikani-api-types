@@ -3,13 +3,8 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/LICENSE"],
       "outputs": ["dist/**"]
-    },
-    "lint": {
-      "dependsOn": ["^build", "^lint"]
-    },
-    "lint:fix": {
-      "dependsOn": ["^build", "^lint:fix"]
     }
   }
 }

@@ -1,16 +1,23 @@
 {
   "compilerOptions": {
-    "strict": true,
-    "lib": ["ESNext", "dom"],
-    "skipLibCheck": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "declaration": true,
+    "erasableSyntaxOnly": true,
+    "exactOptionalPropertyTypes": true,
+    "lib": ["es2025"],
     "module": "NodeNext",
     "moduleResolution": "nodenext",
-    "esModuleInterop": true,
-    "declaration": true,
-    "removeComments": false,
-    "target": "ES2022",
-    "verbatimModuleSyntax": true,
-    "exactOptionalPropertyTypes": false,
-    "noUncheckedIndexedAccess": true
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "rewriteRelativeImportExtensions": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "es2025",
+    "useUnknownInCatchVariables": true,
+    "verbatimModuleSyntax": true
   }
 }
