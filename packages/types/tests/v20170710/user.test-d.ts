@@ -1,14 +1,14 @@
 import { assertType, describe } from "vitest";
 
 import type * as WK from "../../src/v20170710/index.js";
-import { testFor } from "./fixtures.js";
+import testFor from "./fixtures.js";
 
 describe("LessonBatchSizeNumber", () => {
   testFor("Valid Lesson Batch Sizes", ({ lessonBatchSizeNumbers }) => {
     if (Array.isArray(lessonBatchSizeNumbers)) {
-      lessonBatchSizeNumbers.forEach((batchSize) => {
+      for (const batchSize of lessonBatchSizeNumbers) {
         assertType<WK.LessonBatchSizeNumber>(batchSize);
-      });
+      }
     } else {
       throw new TypeError("Expected lessonBatchSizeNumbers to be an array");
     }

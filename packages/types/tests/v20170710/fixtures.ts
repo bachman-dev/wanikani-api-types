@@ -1,3 +1,4 @@
+// oxlint-disable no-magic-numbers -- Mostly WaniKani subject IDs
 import * as v from "valibot";
 import { test } from "vitest";
 
@@ -10,7 +11,7 @@ const emptyParams: WK.CollectionParameters = {};
 // Assignments
 
 const assignment = {
-  id: 85041695,
+  id: 85_041_695,
   object: "assignment" as const,
   url: "https://api.wanikani.com/v2/assignments/85041695",
   data_updated_at: v.parse(WK.DatableString, "2025-01-22T18:06:08.895692Z"),
@@ -32,7 +33,7 @@ const assignment = {
 // Level Progressions
 
 const levelProgression = {
-  id: 188765,
+  id: 188_765,
   object: "level_progression" as const,
   url: "https://api.wanikani.com/v2/level_progressions/188765",
   data_updated_at: v.parse(WK.DatableString, "2017-10-31T11:18:33.036424Z"),
@@ -65,7 +66,7 @@ const reset = {
 // Review Statistics
 
 const reviewStatistic = {
-  id: 85040524,
+  id: 85_040_524,
   object: "review_statistic" as const,
   url: "https://api.wanikani.com/v2/review_statistics/85040524",
   data_updated_at: v.parse(WK.DatableString, "2025-01-22T18:06:07.048082Z"),
@@ -94,13 +95,13 @@ const reviewStatistic = {
  */
 
 const review = {
-  id: 534342,
+  id: 534_342,
   object: "review" as const,
   url: "https://api.wanikani.com/v2/reviews/534342",
   data_updated_at: v.parse(WK.DatableString, "2017-12-20T01:00:59.255427Z"),
   data: {
     created_at: v.parse(WK.DatableString, "2017-12-20T01:00:59.255427Z"),
-    assignment_id: 32132,
+    assignment_id: 32_132,
     spaced_repetition_system_id: 1,
     subject_id: 8,
     starting_srs_stage: 4,
@@ -133,42 +134,42 @@ const spacedRepetitionSystem = {
       },
       {
         position: 1,
-        interval: 14400,
+        interval: 14_400,
         interval_unit: "seconds" as const,
       },
       {
         position: 2,
-        interval: 28800,
+        interval: 28_800,
         interval_unit: "seconds" as const,
       },
       {
         position: 3,
-        interval: 82800,
+        interval: 82_800,
         interval_unit: "seconds" as const,
       },
       {
         position: 4,
-        interval: 169200,
+        interval: 169_200,
         interval_unit: "seconds" as const,
       },
       {
         position: 5,
-        interval: 601200,
+        interval: 601_200,
         interval_unit: "seconds" as const,
       },
       {
         position: 6,
-        interval: 1206000,
+        interval: 1_206_000,
         interval_unit: "seconds" as const,
       },
       {
         position: 7,
-        interval: 2588400,
+        interval: 2_588_400,
         interval_unit: "seconds" as const,
       },
       {
         position: 8,
-        interval: 10364400,
+        interval: 10_364_400,
         interval_unit: "seconds" as const,
       },
       {
@@ -183,7 +184,7 @@ const spacedRepetitionSystem = {
 // Study Materials
 
 const studyMaterial = {
-  id: 10089088,
+  id: 10_089_088,
   object: "study_material" as const,
   url: "https://api.wanikani.com/v2/study_materials/10089088",
   data_updated_at: v.parse(WK.DatableString, "2022-10-31T15:56:51.781056Z"),
@@ -441,7 +442,7 @@ const vocabulary = {
         url: "https://example.com",
         metadata: {
           gender: "female" as const,
-          source_id: 21630,
+          source_id: 21_630,
           pronunciation: "いち",
           voice_actor_id: 1,
           voice_actor_name: "Kyoko",
@@ -453,7 +454,7 @@ const vocabulary = {
         url: "https://example.com",
         metadata: {
           gender: "female" as const,
-          source_id: 21630,
+          source_id: 21_630,
           pronunciation: "いち",
           voice_actor_id: 1,
           voice_actor_name: "Kyoko",
@@ -542,7 +543,7 @@ const kanaVocabulary = {
         url: "https://example.com",
         metadata: {
           gender: "female" as const,
-          source_id: 44712,
+          source_id: 44_712,
           pronunciation: "ちょっと",
           voice_actor_id: 1,
           voice_actor_name: "Kyoko",
@@ -554,7 +555,7 @@ const kanaVocabulary = {
         url: "https://example.com",
         metadata: {
           gender: "female" as const,
-          source_id: 44712,
+          source_id: 44_712,
           pronunciation: "ちょっと",
           voice_actor_id: 1,
           voice_actor_name: "Kyoko",
@@ -566,7 +567,7 @@ const kanaVocabulary = {
         url: "https://example.com",
         metadata: {
           gender: "male" as const,
-          source_id: 44771,
+          source_id: 44_771,
           pronunciation: "ちょっと",
           voice_actor_id: 2,
           voice_actor_name: "Kenichi",
@@ -578,7 +579,7 @@ const kanaVocabulary = {
         url: "https://example.com",
         metadata: {
           gender: "male" as const,
-          source_id: 44771,
+          source_id: 44_771,
           pronunciation: "ちょっと",
           voice_actor_id: 2,
           voice_actor_name: "Kenichi",
@@ -607,13 +608,13 @@ const voiceActor = {
   },
 };
 
-export const testFor = test.extend({
+const testFor = test.extend({
   // Base
   apiRevision: "20170710" as const,
   dateTimeUtcString: "2022-10-23T15:17:38.828455Z",
   dateTimeOffsetString: "2022-10-23T15:17:38.828455+09:00",
   dateIsoString: new Date().toISOString(),
-  levels: Array<number>(WK.MAX_LEVEL)
+  levels: Array.from<number>({ length: WK.MAX_LEVEL })
     .fill(WK.MIN_LEVEL)
     .map((item, itemIdx) => item + itemIdx),
   emptyParams,
@@ -834,7 +835,7 @@ export const testFor = test.extend({
   },
 
   // Spaced Repetition Systems
-  spacedRepetitionSystemStageNumbers: Array<number>(WK.MAX_SRS_STAGE)
+  spacedRepetitionSystemStageNumbers: Array.from<number>({ length: WK.MAX_SRS_STAGE })
     .fill(WK.MIN_SRS_STAGE)
     .map((stage, stageIdx) => stage + stageIdx),
   spacedRepetitionSystem,
@@ -1024,7 +1025,7 @@ export const testFor = test.extend({
   },
 
   // User
-  lessonBatchSizeNumbers: Array<number>(WK.MAX_LESSON_BATCH_SIZE - 2)
+  lessonBatchSizeNumbers: Array.from<number>({ length: WK.MAX_LESSON_BATCH_SIZE - 2 })
     .fill(WK.MIN_LESSON_BATCH_SIZE)
     .map((batchSize, batchSizeIdx) => batchSize + batchSizeIdx),
   user: {
@@ -1091,3 +1092,5 @@ export const testFor = test.extend({
     data: [voiceActor],
   },
 });
+
+export default testFor;

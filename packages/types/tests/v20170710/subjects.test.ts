@@ -2,28 +2,32 @@ import * as v from "valibot";
 import { describe, expect } from "vitest";
 
 import * as WK from "../../src/v20170710/index.js";
-import { testFor } from "./fixtures.js";
+import testFor from "./fixtures.js";
 
 describe("SubjectType", () => {
   testFor("Valid Subject Types", ({ subjectTypes }) => {
     if (Array.isArray(subjectTypes)) {
-      subjectTypes.forEach((subject) => {
+      for (const subject of subjectTypes) {
         expect(() => v.assert(WK.SubjectType, subject)).not.toThrow();
         expect(WK.isSubjectType(subject)).toBe(true);
-      });
+      }
     } else {
       throw new TypeError("Expected subjectTypes to be an array");
     }
   });
   testFor("Invalid Subject Type", () => {
-    expect(() => v.assert(WK.SubjectType, "not real")).toThrow();
+    expect(() => v.assert(WK.SubjectType, "not real")).toThrow(
+      `Invalid type: Expected ("kana_vocabulary" | "kanji" | "radical" | "vocabulary") but received "not real"`,
+    );
     expect(WK.isSubjectType("not real")).toBe(false);
   });
 });
 
 describe("SubjectTuple", () => {
   testFor("Empty SubjectTuple throws error", ({ emptySubjectTuple }) => {
-    expect(() => v.assert(WK.SubjectTuple, emptySubjectTuple)).toThrow();
+    expect(() => v.assert(WK.SubjectTuple, emptySubjectTuple)).toThrow(
+      `Invalid type: Expected ("kana_vocabulary" | "kanji" | "radical" | "vocabulary") but received undefined`,
+    );
     expect(WK.isSubjectTuple(emptySubjectTuple)).toBe(false);
   });
   testFor("Partial SubjectTuple is valid", ({ partialSubjectTuple }) => {
@@ -35,7 +39,9 @@ describe("SubjectTuple", () => {
     expect(WK.isSubjectTuple(fullSubjectTuple)).toBe(true);
   });
   testFor("SubjectTuple with repeated items throws error", ({ repeatedSubjectTuple }) => {
-    expect(() => v.assert(WK.SubjectTuple, repeatedSubjectTuple)).toThrow();
+    expect(() => v.assert(WK.SubjectTuple, repeatedSubjectTuple)).toThrow(
+      "Duplicate Subject Type detected in Subject Tuple",
+    );
     expect(WK.isSubjectTuple(repeatedSubjectTuple)).toBe(false);
   });
 });

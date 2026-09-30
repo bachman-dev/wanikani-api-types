@@ -1,7 +1,7 @@
 import { assertType, describe } from "vitest";
 
 import type * as WK from "../../src/v20170710/index.js";
-import { testFor } from "./fixtures.js";
+import testFor from "./fixtures.js";
 
 describe("Review", () => {
   testFor("Review from WaniKani API Docs", ({ review }) => {

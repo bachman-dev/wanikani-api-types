@@ -1,8 +1,8 @@
 import type * as v from "valibot";
 import { assertType, describe, expectTypeOf } from "vitest";
 
-import * as WK from "../../src/v20170710/index.js";
-import { testFor } from "./fixtures.js";
+import type * as WK from "../../src/v20170710/index.js";
+import testFor from "./fixtures.js";
 
 describe("ApiRevision", () => {
   testFor("Valid WaniKani API Revision", ({ apiRevision }) => {
@@ -19,9 +19,9 @@ describe("DatableString", () => {
 describe("Level", () => {
   testFor("Valid Levels", ({ levels }) => {
     if (Array.isArray(levels)) {
-      levels.forEach((level) => {
+      for (const level of levels) {
         assertType<WK.Level>(level);
-      });
+      }
     } else {
       throw new TypeError("Expected levels to be an array");
     }

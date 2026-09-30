@@ -1,14 +1,14 @@
 import { assertType, describe } from "vitest";
 
 import type * as WK from "../../src/v20170710/index.js";
-import { testFor } from "./fixtures.js";
+import testFor from "./fixtures.js";
 
 describe("SubjectType", () => {
   testFor("Valid Subject Types", ({ subjectTypes }) => {
     if (Array.isArray(subjectTypes)) {
-      subjectTypes.forEach((subject) => {
+      for (const subject of subjectTypes) {
         assertType<WK.SubjectType>(subject);
-      });
+      }
     } else {
       throw new TypeError("Expected subjectTypes to be an array");
     }

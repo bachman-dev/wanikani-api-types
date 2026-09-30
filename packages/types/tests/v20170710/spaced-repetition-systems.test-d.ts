@@ -1,14 +1,14 @@
 import { assertType, describe } from "vitest";
 
 import type * as WK from "../../src/v20170710/index.js";
-import { testFor } from "./fixtures.js";
+import testFor from "./fixtures.js";
 
 describe("SpacedRepetitionSystemStageNumber", () => {
   testFor("Valid SRS Stage Numbers", ({ spacedRepetitionSystemStageNumbers }) => {
     if (Array.isArray(spacedRepetitionSystemStageNumbers)) {
-      spacedRepetitionSystemStageNumbers.forEach((stage) => {
+      for (const stage of spacedRepetitionSystemStageNumbers) {
         assertType<WK.SpacedRepetitionSystemStageNumber>(stage);
-      });
+      }
     } else {
       throw new TypeError("Expected spacedRepetitionSystemStageNumbers to be an array");
     }

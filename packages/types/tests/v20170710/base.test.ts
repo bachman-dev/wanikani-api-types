@@ -2,7 +2,7 @@ import * as v from "valibot";
 import { describe, expect } from "vitest";
 
 import * as WK from "../../src/v20170710/index.js";
-import { testFor } from "./fixtures.js";
+import testFor from "./fixtures.js";
 
 describe("ApiRevision", () => {
   testFor("Valid WaniKani API Revision", ({ apiRevision }) => {
@@ -28,25 +28,25 @@ describe("DatableString", () => {
 
 describe("Level", () => {
   testFor(`Invalid Level: ${WK.MIN_LEVEL - 1}`, () => {
-    expect(() => v.assert(WK.Level, WK.MIN_LEVEL - 1)).toThrow();
+    expect(() => v.assert(WK.Level, WK.MIN_LEVEL - 1)).toThrow("Invalid value: Expected >=1 but received 0");
     expect(WK.isLevel(WK.MIN_LEVEL - 1)).toBe(false);
   });
   testFor("Valid Levels", ({ levels }) => {
     if (Array.isArray(levels)) {
-      levels.forEach((level) => {
+      for (const level of levels) {
         expect(() => v.assert(WK.Level, level)).not.toThrow();
         expect(WK.isLevel(level)).toBe(true);
-      });
+      }
     } else {
       throw new TypeError("Expected levels to be an array");
     }
   });
   testFor(`Invalid Level: ${WK.MAX_LEVEL + 1}`, () => {
-    expect(() => v.assert(WK.Level, WK.MAX_LEVEL + 1)).toThrow();
+    expect(() => v.assert(WK.Level, WK.MAX_LEVEL + 1)).toThrow("Invalid value: Expected <=60 but received 61");
     expect(WK.isLevel(WK.MAX_LEVEL + 1)).toBe(false);
   });
   testFor("Invalid Level: Non-Integer", () => {
-    expect(() => v.assert(WK.Level, 1.23)).toThrow();
+    expect(() => v.assert(WK.Level, 1.23)).toThrow("Invalid safe integer: Received 1.23");
     expect(WK.isLevel(1.23)).toBe(false);
   });
 });
