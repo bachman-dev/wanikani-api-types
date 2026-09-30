@@ -3,8 +3,8 @@ on:
   release:
     types: [published]
 jobs:
-  test:
-    name: "Publish Release"
+  publish:
+    name: "Publish Release (${{ github.event.release.tag_name }})"
     runs-on: ubuntu-latest
     permissions:
       id-token: write
@@ -14,6 +14,54 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           ref: ${{ github.event.release.tag_name }}
+      # Release tags take the form `<package directory>@<version>`, e.g. `types@3.0.0` publishes
+      # `packages/types` at version 3.0.0. The tagged version must match the package's package.json.
+      - name: Resolve Package From Release Tag
+        id: package
+        env:
+          TAG_NAME: ${{ github.event.release.tag_name }}
+          IS_PRERELEASE: ${{ github.event.release.prerelease }}
+        run: |
+          if [[ ! "$TAG_NAME" =~ ^([a-z0-9-]+)@([0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?)$ ]]; then
+            echo "::error::Release tag '$TAG_NAME' must be in the form '<package directory>@<version>' (e.g. 'types@3.0.0')."
+            exit 1
+          fi
+          directory="${BASH_REMATCH[1]}"
+          tag_version="${BASH_REMATCH[2]}"
+          manifest="packages/$directory/package.json"
+
+          if [[ ! -f "$manifest" ]]; then
+            echo "::error::No package found at '$manifest'. Available packages: $(ls packages | paste -sd ',' - | sed 's/,/, /g')."
+            exit 1
+          fi
+          if [[ "$(jq -r '.private // false' "$manifest")" == "true" ]]; then
+            echo "::error::Package '$directory' is private and cannot be published."
+            exit 1
+          fi
+
+          name="$(jq -r '.name' "$manifest")"
+          version="$(jq -r '.version' "$manifest")"
+          if [[ "$version" != "$tag_version" ]]; then
+            echo "::error file=$manifest::Release tag version ($tag_version) does not match $name version ($version)."
+            exit 1
+          fi
+
+          if [[ "$version" == *-* ]]; then
+            if [[ "$IS_PRERELEASE" != "true" ]]; then
+              echo "::error::$name@$version is a prerelease version, but the GitHub release is not marked as a pre-release."
+              exit 1
+            fi
+            dist_tag="next"
+          else
+            dist_tag="latest"
+          fi
+
+          {
+            echo "name=$name"
+            echo "version=$version"
+            echo "dist-tag=$dist_tag"
+          } >> "$GITHUB_OUTPUT"
+          echo "Publishing **$name@$version** under the \`$dist_tag\` dist-tag." >> "$GITHUB_STEP_SUMMARY"
       - name: Setup pnpm
         uses: pnpm/setup@fbda4c85fc2e1e08721cd8763afea8f48d60f024 # v3.0.0
         with:
@@ -23,19 +71,13 @@ jobs:
         run: pnpm lint
       - name: Run Unit Tests
         run: pnpm test
-      #- name: Build Documentation
-      #  run: pnpm build:docs
-      - name: Build Library
-        run: pnpm build
-      - name: Publish Library (Prerelease)
-        if: ${{ github.event.release.prerelease }}
-        run: pnpm stage publish --tag=next --access=public --recursive --no-git-checks
+      - name: Build Package
+        run: pnpm exec turbo run build --filter="$PACKAGE_NAME"
         env:
-          NPM_CONFIG_PROVENANCE: true
-      - name: Publish Library (Latest)
-        if: ${{ !github.event.release.prerelease }}
-        run: pnpm stage publish --access=public --recursive --no-git-checks
+          PACKAGE_NAME: ${{ steps.package.outputs.name }}
+      - name: Publish Package
+        run: pnpm stage publish --filter="$PACKAGE_NAME" --fail-if-no-match --tag="$DIST_TAG" --access=public --no-git-checks
         env:
+          PACKAGE_NAME: ${{ steps.package.outputs.name }}
+          DIST_TAG: ${{ steps.package.outputs.dist-tag }}
           NPM_CONFIG_PROVENANCE: true
-      #- name: Publish Documentation
-      #  run: "curl -X POST ${{ secrets.CLOUDFLARE_DEPLOY_HOOK }}"
