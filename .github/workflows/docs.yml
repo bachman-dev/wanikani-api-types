@@ -1,9 +1,0 @@
-name: Docs
-on: workflow_dispatch
-jobs:
-  test:
-    name: "Rebuild and Deploy Docs"
-    runs-on: ubuntu-latest
-    steps:
-      - name: Trigger Cloudflare Deploy Hook
-        run: "curl -X POST ${{ secrets.CLOUDFLARE_DEPLOY_HOOK }}"

@@ -85,12 +85,12 @@ jobs:
         with:
           cache: true
           require-lockfile: true
+      - name: Build Package
+        run: pnpm exec turbo run build --filter="$PACKAGE_NAME"
       - name: Lint Code
         run: pnpm lint
       - name: Run Unit Tests
         run: pnpm test
-      - name: Build Package
-        run: pnpm exec turbo run build --filter="$PACKAGE_NAME"
       - name: Publish Package
         run: pnpm stage publish --filter="$PACKAGE_NAME" --fail-if-no-match --tag="$DIST_TAG" --access=public --no-git-checks
         env:

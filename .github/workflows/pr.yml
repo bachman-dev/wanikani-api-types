@@ -11,8 +11,8 @@ on:
       - synchronize
       - ready_for_review
 jobs:
-  test:
-    name: "Lint and Test"
+  current:
+    name: "Build (Current TypeScript devDependency)"
     runs-on: ubuntu-latest
     if: ${{ !github.event.pull_request.draft }}
     steps:
@@ -23,6 +23,8 @@ jobs:
         with:
           cache: true
           require-lockfile: true
+      - name: Build Packages
+        run: pnpm build
       - name: Lint Code
         run: pnpm lint
       - name: Run Unit Tests
@@ -31,13 +33,11 @@ jobs:
         uses: codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f # v7
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-      #- name: Build Documentation
-      #  run: pnpm build:docs
-  check-ts-versions:
+  past-ts-versions:
     name: "Build (TypeScript ${{ matrix.typescript-version }})"
     runs-on: ubuntu-latest
     if: ${{ !github.event.pull_request.draft }}
-    needs: test
+    needs: current
     strategy:
       fail-fast: false
       matrix:
@@ -56,12 +56,12 @@ jobs:
         run: pnpm install
       - name: Install TypeScript ${{ matrix.typescript-version }}
         run: 'pnpm add --save-dev typescript@"~${{ matrix.typescript-version }}"'
-      - name: Build Library
+      - name: Build Packages
         run: pnpm build
   gate:
     name: "All PR Checks Passed"
     runs-on: ubuntu-latest
     if: ${{ !github.event.pull_request.draft }}
-    needs: [test, check-ts-versions]
+    needs: [current, past-ts-versions]
     steps:
       - run: exit 0
