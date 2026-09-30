@@ -30,5 +30,5 @@
     "typescript-eslint": "8.69.0",
     "vitest": "5.0.0"
   },
-  "packageManager": "pnpm@12.3.2+sha512.82f9035314646eea981adec85c711a21ab5f3b05659b3f9ce9d270cbb93e8a0f614da17922bae097902e2b860ee8eb6d5c1a7e89299a16877c0c243f36b8e15b"
+  "packageManager": "pnpm@12.7.0+sha512.9c56477e360068d6e9dca6a92efb4e46b3dc5a52fcebf3d84d78b9736c0ded589a561621a52f68219a7a39facc63cdc079c3226ef9c9d5f02b79f74e69a807b6"
 }
