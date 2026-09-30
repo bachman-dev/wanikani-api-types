@@ -53,7 +53,7 @@ After checking out a new branch, make any needed changes, and run all scripts de
 
 ## Releasing
 
-_This section is for maintainers._
+Only maintainers publish releases; the steps below are for their reference.
 
 Each package is released separately, from a GitHub release whose tag names the package's folder and the version being released: `<package folder>@<version>`, e.g. `types@3.0.0` or `requests@1.0.0-beta.1`.
 
@@ -68,7 +68,7 @@ Each package is released separately, from a GitHub release whose tag names the p
    - lints, tests, and builds the package, along with any packages it depends on;
    - stages the package for publishing to npm;
    - fills in empty release notes with the pull requests labeled for that package since its previous release.
-4. Approve the staged package on npm (e.g. with `pnpm stage approve`) so it becomes available to install.
+4. On the npm website, approve the package's new version under **Staged Packages** so it becomes available to install.
 
 A package that depends on another package in this repository (e.g. `requests` on `types`) is published depending on that package's version as of the tagged commit. If a release relies on unreleased changes to another package, release that package first.
 
