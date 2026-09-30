@@ -152,11 +152,11 @@ importers:
   packages/types:
     dependencies:
       typescript:
-        specifier: 5.4.x - 6.0.x
-        version: 6.0.3
+        specifier: 7.0.x
+        version: 7.0.2
       valibot:
         specifier: ^1.0.0
-        version: 1.5.0(typescript@6.0.3)
+        version: 1.5.0(typescript@7.0.2)
 
   packages/utils: {}
 
@@ -1280,11 +1280,6 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  typescript@6.0.3:
-    resolution: {integrity: sha512-y2TvuxSZPDyQakkFRPZHKFm+KKVqIisdg9/CZwm9ftvKXLP8NRWj38/ODjNbr43SsoXqNuAisEf1GdCxqWcdBw==}
-    engines: {node: '>=14.17'}
-    hasBin: true
-
   typescript@7.0.2:
     resolution: {integrity: sha512-8FYau96o3NKOhbjKi/qNvG/W5jhzxkbdm5sj9AbZ/5T5sWqn3hJgLfGx27sRKZWTvyzCP8dLRBTf5tBTSRVUNA==}
     engines: {node: '>=16.20.0'}
@@ -2142,9 +2137,6 @@ snapshots:
 
   typescript@5.6.1-rc: {}
 
-  typescript@6.0.3:
-    optional: true
-
   typescript@7.0.2:
     optionalDependencies:
       '@typescript/typescript-aix-ppc64': 7.0.2
@@ -2173,9 +2165,9 @@ snapshots:
       '@quansync/fs': 1.1.0
       quansync: 1.0.0
 
-  valibot@1.5.0(typescript@6.0.3):
+  valibot@1.5.0(typescript@7.0.2):
     optionalDependencies:
-      typescript: 6.0.3
+      typescript: 7.0.2
 
   validate-npm-package-name@5.0.1: {}
 
