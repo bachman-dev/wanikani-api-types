@@ -1,6 +1,5 @@
-import * as v from "valibot";
-
-import * as m from "./lang/index.js";
+/** A type-only symbol used to brand {@link DatableString}, so a plain `string` can't be mistaken for one. */
+declare const datableStringBrand: unique symbol;
 
 /**
  * All known WaniKani API revisions, created when breaking changes are introduced to the WaniKani API.
@@ -9,7 +8,6 @@ import * as m from "./lang/index.js";
  * @see {@link https://docs.api.wanikani.com/20170710/#revisions-aka-versioning}
  */
 export type ApiRevision = "20170710";
-export const ApiRevision = v.literal("20170710");
 
 /**
  * A constant representing the WaniKani API revision. This will match the revision module being imported from, or the
@@ -21,46 +19,21 @@ export const ApiRevision = v.literal("20170710");
 export const API_REVISION: ApiRevision = "20170710";
 
 /**
- * A type guard that checks if the given value matches the type predicate.
- *
- * @category Base
- * @category Type Guards
- * @param value An unknown value
- * @returns A type predicate
- */
-// @__NO_SIDE_EFFECTS__
-export function isApiRevision(value: unknown): value is ApiRevision {
-  return v.is(ApiRevision, value);
-}
-
-/**
  * Items with this type will have their number validated as a safe integer >= 0.
  *
  * @category Base
  */
 export type SafeInteger = number & {};
-export const SafeInteger = v.pipe(v.number(), v.safeInteger(), v.minValue(0));
 
 /**
  * A `string` sent to/returned from the WaniKani API that can be converted into a JavaScript `Date` object.
  *
+ * @remarks
+ *   This is a branded type. A `string` can be narrowed to it by validating it with one of the schema library packages
+ *   (e.g. `@bachman-dev/wanikani-api-valibot`), or by using a type assertion if it's known to be valid.
  * @category Base
  */
-export type DatableString = v.Brand<"DatableString"> & string;
-export const DatableString = v.pipe(v.string(), v.trim(), v.isoTimestamp(), v.brand("DatableString"));
-
-/**
- * A type guard that checks if the given value matches the type predicate.
- *
- * @category Base
- * @category Type Guards
- * @param value An unknown value
- * @returns A type predicate
- */
-// @__NO_SIDE_EFFECTS__
-export function isDatableString(value: unknown): value is DatableString {
-  return v.is(DatableString, value);
-}
+export type DatableString = string & { readonly [datableStringBrand]: "DatableString" };
 
 /**
  * The minimum level provided by WaniKani; exported for use in lieu of a Magic Number.
@@ -82,20 +55,6 @@ export const MAX_LEVEL = 60;
  * @category Base
  */
 export type Level = number & {};
-export const Level = v.pipe(SafeInteger, v.minValue(MIN_LEVEL), v.maxValue(MAX_LEVEL));
-
-/**
- * A type guard that checks if the given value matches the type predicate.
- *
- * @category Base
- * @category Type Guards
- * @param value An unknown value
- * @returns A type predicate
- */
-// @__NO_SIDE_EFFECTS__
-export function isLevel(value: unknown): value is Level {
-  return v.is(Level, value);
-}
 
 /**
  * The common properties across all Resources from the WaniKani API.
@@ -113,10 +72,6 @@ export interface BaseResource {
   /** The URL of the requested resource. */
   url: string;
 }
-export const BaseResource = v.object({
-  data_updated_at: DatableString,
-  url: v.string(),
-});
 
 /**
  * The common properties across all Collection items from the WaniKani API.
@@ -158,17 +113,6 @@ export interface BaseCollection {
   /** The URL of the request. For collections, that will contain all the filters and options you've passed to the API. */
   url: string;
 }
-export const BaseCollection = v.object({
-  data_updated_at: v.union([DatableString, v.null()]),
-  object: v.literal("collection"),
-  pages: v.object({
-    next_url: v.union([v.string(), v.null()]),
-    per_page: v.number(),
-    previous_url: v.union([v.string(), v.null()]),
-  }),
-  total_count: v.number(),
-  url: v.string(),
-});
 
 /**
  * Query string parameters that can be sent to any WaniKani API collection endpoint.
@@ -198,12 +142,6 @@ export interface CollectionParameters {
   /** Only resources updated after this time are returned. */
   updated_after?: DatableString | Date;
 }
-export const CollectionParameters = v.object({
-  ids: v.optional(v.array(SafeInteger)),
-  page_after_id: v.optional(SafeInteger),
-  page_before_id: v.optional(SafeInteger),
-  updated_after: v.optional(v.union([DatableString, v.date()], m.dateUnion)),
-});
 
 /**
  * The common properties across all Reports from the WaniKani API
@@ -224,11 +162,6 @@ export interface BaseReport {
   /** The URL of the requested report. */
   url: string;
 }
-export const BaseReport = v.object({
-  data_updated_at: DatableString,
-  object: v.literal("report"),
-  url: v.string(),
-});
 
 /**
  * An error response returned by the WaniKani API.
@@ -241,21 +174,4 @@ export interface ApiError {
 
   /** A message string that describes the error. */
   error: string;
-}
-export const ApiError = v.object({
-  code: v.number(),
-  error: v.string(),
-});
-
-/**
- * A type guard that checks if the given value matches the type predicate.
- *
- * @category Base
- * @category Type Guards
- * @param value An unknown value
- * @returns A type predicate
- */
-// @__NO_SIDE_EFFECTS__
-export function isApiError(value: unknown): value is ApiError {
-  return v.is(ApiError, value);
 }

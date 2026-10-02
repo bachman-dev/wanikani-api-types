@@ -1,15 +1,15 @@
 // oxlint-disable oxc/no-barrel-file -- This is an entrypoint for the v20170710 API revision
 /** @category API Reference */
 
-export * from "./assignments.js";
+export type * from "./assignments.js";
 export * from "./base.js";
-export * from "./level-progressions.js";
-export * from "./resets.js";
-export * from "./review-statistics.js";
-export * from "./reviews.js";
+export type * from "./level-progressions.js";
+export type * from "./resets.js";
+export type * from "./review-statistics.js";
+export type * from "./reviews.js";
 export * from "./spaced-repetition-systems.js";
-export * from "./study-materials.js";
-export * from "./subjects.js";
-export * from "./summary.js";
+export type * from "./study-materials.js";
+export type * from "./subjects.js";
+export type * from "./summary.js";
 export * from "./user.js";
-export * from "./voice-actors.js";
+export type * from "./voice-actors.js";

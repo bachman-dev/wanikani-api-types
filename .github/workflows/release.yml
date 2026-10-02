@@ -85,8 +85,9 @@ jobs:
         with:
           cache: true
           require-lockfile: true
-      - name: Build Package
-        run: pnpm exec turbo run build --filter="$PACKAGE_NAME"
+      # The full test suite runs below, and some packages' tests rely on other packages being built
+      - name: Build Packages
+        run: pnpm build
       - name: Lint Code
         run: pnpm lint
       - name: Run Unit Tests

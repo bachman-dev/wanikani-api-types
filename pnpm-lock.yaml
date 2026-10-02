@@ -200,6 +200,8 @@ importers:
         specifier: 5.0.2
         version: 5.0.2(@vitest/coverage-v8@5.0.2)(vite@8.3.1)
 
+  packages/fixtures: {}
+
   packages/requests:
     dependencies:
       '@bachman-dev/wanikani-api-types':
@@ -211,11 +213,25 @@ importers:
       typescript:
         specifier: 7.0.x
         version: 7.0.2
-      valibot:
-        specifier: ^1.0.0
-        version: 1.5.0(typescript@7.0.2)
+    devDependencies:
+      '@bachman-dev/wanikani-api-fixtures':
+        specifier: workspace:*
+        version: link:../fixtures
 
   packages/utils: {}
+
+  packages/valibot:
+    dependencies:
+      '@bachman-dev/wanikani-api-types':
+        specifier: workspace:*
+        version: link:../types
+    devDependencies:
+      '@bachman-dev/wanikani-api-fixtures':
+        specifier: workspace:*
+        version: link:../fixtures
+      valibot:
+        specifier: 1.5.0
+        version: 1.5.0(typescript@7.0.2)
 
 packages:
 

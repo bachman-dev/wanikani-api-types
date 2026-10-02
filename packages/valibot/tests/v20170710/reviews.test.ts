@@ -49,6 +49,14 @@ describe("ReviewPayload", () => {
   testFor("ReviewPayload with Subject ID and DatableString", ({ reviewPayloadWithSubjectAndDatableStrings }) => {
     expect(() => v.assert(WaniKani.ReviewPayload, reviewPayloadWithSubjectAndDatableStrings)).not.toThrow();
   });
+  testFor("ReviewPayload with an explicitly undefined Subject ID", () => {
+    const payload = {
+      review: { assignment_id: 1, subject_id: undefined, incorrect_meaning_answers: 0, incorrect_reading_answers: 0 },
+    };
+    expect(() => v.assert(WaniKani.ReviewPayload, payload)).toThrow(
+      "Review Payload must have one and only one of either an assignment_id or subject_id positive integer",
+    );
+  });
 });
 
 describe("CreatedReview", () => {

@@ -1,0 +1,13 @@
+{
+  "name": "@bachman-dev/wanikani-api-fixtures",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Example WaniKani API data shared across test suites",
+  "license": "MIT",
+  "author": "Collin Bachman <collin.r68zdn9d@bachman.dev>",
+  "type": "module",
+  "exports": {
+    "./v20170710": "./src/v20170710/index.ts",
+    "./package.json": "./package.json"
+  }
+}

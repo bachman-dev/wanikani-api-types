@@ -25,7 +25,10 @@ export default function stringifyParameters(params: CollectionParameters): strin
     "in_review",
   ]);
 
-  for (const [key, value] of Object.entries(params)) {
+  // Optional parameters explicitly set to `undefined` are treated as if they were omitted
+  const definedParams = Object.entries(params).filter(([, value]) => typeof value !== "undefined");
+
+  for (const [key, value] of definedParams) {
     if (emptyQueryParams.has(key) && typeof value === "boolean") {
       if (value) {
         queryString += isFirstItem ? "?" : "&";

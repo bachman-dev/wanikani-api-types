@@ -2,7 +2,7 @@ import { coverageConfigDefaults, defineConfig } from "vitest/config";
 
 export default defineConfig({
   test: {
-    projects: ["packages/*"],
+    projects: ["packages/*", "!packages/fixtures"],
     coverage: {
       enabled: true,
       include: ["packages/*/src/**/*.ts"],

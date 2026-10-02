@@ -1,6 +1,4 @@
-import * as v from "valibot";
-
-import { BaseCollection, BaseResource, DatableString, Level } from "./base.js";
+import type { BaseCollection, BaseResource, DatableString, Level } from "./base.js";
 
 /**
  * Level progressions contain information about a user's progress through the WaniKani levels.
@@ -50,37 +48,6 @@ export interface LevelProgression extends BaseResource {
   /** The kind of object returned. */
   object: "level_progression";
 }
-export const LevelProgression = v.object(
-  v.entriesFromObjects([
-    BaseResource,
-    v.object({
-      data: v.object({
-        abandoned_at: v.union([DatableString, v.null()]),
-        completed_at: v.union([DatableString, v.null()]),
-        created_at: DatableString,
-        level: Level,
-        passed_at: v.union([DatableString, v.null()]),
-        started_at: v.union([DatableString, v.null()]),
-        unlocked_at: v.union([DatableString, v.null()]),
-      }),
-      id: v.number(),
-      object: v.literal("level_progression"),
-    }),
-  ]),
-);
-
-/**
- * A type guard that checks if the given value matches the type predicate.
- *
- * @category Level Progressions
- * @category Type Guards
- * @param value An unknown value
- * @returns A type predicate
- */
-// @__NO_SIDE_EFFECTS__
-export function isLevelProgression(value: unknown): value is LevelProgression {
-  return v.is(LevelProgression, value);
-}
 
 /**
  * A collection of level progressions returned from the WaniKani API.
@@ -93,27 +60,6 @@ export interface LevelProgressionCollection extends BaseCollection {
   /** An array of returned level progressions. */
   data: LevelProgression[];
 }
-export const LevelProgressionCollection = v.object(
-  v.entriesFromObjects([
-    BaseCollection,
-    v.object({
-      data: v.array(LevelProgression),
-    }),
-  ]),
-);
-
-/**
- * A type guard that checks if the given value matches the type predicate.
- *
- * @category Level Progressions
- * @category Type Guards
- * @param value An unknown value
- * @returns A type predicate
- */
-// @__NO_SIDE_EFFECTS__
-export function isLevelProgressionCollection(value: unknown): value is LevelProgressionCollection {
-  return v.is(LevelProgressionCollection, value);
-}
 
 /**
  * Parameters that can be passed to the WaniKani API to filter a request for a Level Progression Collection.
@@ -123,4 +69,4 @@ export function isLevelProgressionCollection(value: unknown): value is LevelProg
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-level-progressions}
  * @see {@link @bachman-dev/wanikani-api-requests!v20170710.stringifyParameters}
  */
-export { CollectionParameters as LevelProgressionParameters } from "./base.ts";
+export type { CollectionParameters as LevelProgressionParameters } from "./base.js";

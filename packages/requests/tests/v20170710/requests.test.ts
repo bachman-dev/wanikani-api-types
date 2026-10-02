@@ -284,6 +284,37 @@ describe("ApiRequestFactory", () => {
     expect(request.body).toBe(expectedBody);
   });
 
+  // Our types disallow explicitly undefined properties, but only for consumers using `exactOptionalPropertyTypes`
+  testFor("Omits the unused ID from a Review's body when explicitly undefined", ({ requestFactory }) => {
+    const expectedAssignmentBody = `{"review":{"assignment_id":123,"incorrect_meaning_answers":0,"incorrect_reading_answers":0}}`;
+    const expectedSubjectBody = `{"review":{"subject_id":456,"incorrect_meaning_answers":0,"incorrect_reading_answers":0}}`;
+
+    const assignmentPayload: Types.ReviewPayload = {
+      // @ts-expect-error -- Explicitly undefined ID, as allowed without `exactOptionalPropertyTypes`
+      review: {
+        assignment_id: 123,
+        subject_id: undefined,
+        incorrect_meaning_answers: 0,
+        incorrect_reading_answers: 0,
+      },
+    };
+    const subjectPayload: Types.ReviewPayload = {
+      // @ts-expect-error -- Explicitly undefined ID, as allowed without `exactOptionalPropertyTypes`
+      review: {
+        assignment_id: undefined,
+        subject_id: 456,
+        incorrect_meaning_answers: 0,
+        incorrect_reading_answers: 0,
+      },
+    };
+
+    const assignmentRequest = requestFactory.reviews.create(assignmentPayload);
+    const subjectRequest = requestFactory.reviews.create(subjectPayload);
+
+    expect(assignmentRequest.body).toBe(expectedAssignmentBody);
+    expect(subjectRequest.body).toBe(expectedSubjectBody);
+  });
+
   testFor("Returns GET request for a Review Statistic Collection", ({ requestFactory }) => {
     const expectedMethod = "GET";
     const expectedUrl1 = "https://api.wanikani.com/v2/review_statistics";

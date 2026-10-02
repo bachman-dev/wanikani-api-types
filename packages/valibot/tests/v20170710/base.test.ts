@@ -71,6 +71,11 @@ describe("CollectionParameters", () => {
   testFor("CollectionParameters with DatableString properties", ({ collectionParamsWithDatableStrings }) => {
     expect(() => v.assert(WaniKani.CollectionParameters, collectionParamsWithDatableStrings)).not.toThrow();
   });
+  testFor("CollectionParameters with an explicitly undefined property", () => {
+    expect(() => v.assert(WaniKani.CollectionParameters, { ids: undefined })).toThrow(
+      "Invalid type: Expected Array but received undefined",
+    );
+  });
 });
 
 describe("ApiError", () => {

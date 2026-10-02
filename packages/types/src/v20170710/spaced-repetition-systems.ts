@@ -1,6 +1,4 @@
-import * as v from "valibot";
-
-import { BaseCollection, BaseResource, DatableString, SafeInteger } from "./base.js";
+import type { BaseCollection, BaseResource, DatableString } from "./base.js";
 
 /**
  * The minimum SRS Stage Number used in WaniKani's SRS; exported for use in lieu of a Magic Number.
@@ -29,24 +27,6 @@ export const MAX_SRS_STAGE = 9;
  * @category Spaced Repetition Systems
  */
 export type SpacedRepetitionSystemStageNumber = number & {};
-export const SpacedRepetitionSystemStageNumber = v.pipe(
-  SafeInteger,
-  v.minValue(MIN_SRS_STAGE),
-  v.maxValue(MAX_SRS_STAGE),
-);
-
-/**
- * A type guard that checks if the given value matches the type predicate.
- *
- * @category Spaced Repetition Systems
- * @category Type Guards
- * @param value An unknown value
- * @returns A type predicate
- */
-// @__NO_SIDE_EFFECTS__
-export function isSpacedRepetitionSystemStageNumber(value: unknown): value is SpacedRepetitionSystemStageNumber {
-  return v.is(SpacedRepetitionSystemStageNumber, value);
-}
 
 /**
  * An individual Spaced Repetition System (SRS) Stage.
@@ -64,11 +44,6 @@ export interface SpacedRepetitionSystemStage {
   /** The position of the stage within the continuous order. */
   position: SpacedRepetitionSystemStageNumber;
 }
-export const SpacedRepetitionSystemStage = v.object({
-  interval: v.union([v.number(), v.null()]),
-  interval_unit: v.union([v.picklist(["days", "hours", "milliseconds", "minutes", "seconds", "weeks"]), v.null()]),
-  position: SpacedRepetitionSystemStageNumber,
-});
 
 /**
  * Available spaced repetition systems used for calculating `srs_stage` changes to Assignments and Reviews. Has
@@ -112,38 +87,6 @@ export interface SpacedRepetitionSystem extends BaseResource {
   /** The kind of object returned. */
   object: "spaced_repetition_system";
 }
-export const SpacedRepetitionSystem = v.object(
-  v.entriesFromObjects([
-    BaseResource,
-    v.object({
-      data: v.object({
-        burning_stage_position: SpacedRepetitionSystemStageNumber,
-        created_at: DatableString,
-        description: v.string(),
-        name: v.string(),
-        passing_stage_position: SpacedRepetitionSystemStageNumber,
-        stages: v.array(SpacedRepetitionSystemStage),
-        starting_stage_position: SpacedRepetitionSystemStageNumber,
-        unlocking_stage_position: SpacedRepetitionSystemStageNumber,
-      }),
-      id: v.number(),
-      object: v.literal("spaced_repetition_system"),
-    }),
-  ]),
-);
-
-/**
- * A type guard that checks if the given value matches the type predicate.
- *
- * @category Spaced Repetition Systems
- * @category Type Guards
- * @param value An unknown value
- * @returns A type predicate
- */
-// @__NO_SIDE_EFFECTS__
-export function isSpacedRepetitionSystem(value: unknown): value is SpacedRepetitionSystem {
-  return v.is(SpacedRepetitionSystem, value);
-}
 
 /**
  * A collection of Spaced Repetition Systems returned from the WaniKani API.
@@ -156,27 +99,6 @@ export interface SpacedRepetitionSystemCollection extends BaseCollection {
   /** An array of returned Spaced Repetition Systems. */
   data: SpacedRepetitionSystem[];
 }
-export const SpacedRepetitionSystemCollection = v.object(
-  v.entriesFromObjects([
-    BaseCollection,
-    v.object({
-      data: v.array(SpacedRepetitionSystem),
-    }),
-  ]),
-);
-
-/**
- * A type guard that checks if the given value matches the type predicate.
- *
- * @category Spaced Repetition Systems
- * @category Type Guards
- * @param value An unknown value
- * @returns A type predicate
- */
-// @__NO_SIDE_EFFECTS__
-export function isSpacedRepetitionSystemCollection(value: unknown): value is SpacedRepetitionSystemCollection {
-  return v.is(SpacedRepetitionSystemCollection, value);
-}
 
 /**
  * Parameters that can be passed to the WaniKani API to filter a request for a Spaced Repetition System Collection.
@@ -186,4 +108,4 @@ export function isSpacedRepetitionSystemCollection(value: unknown): value is Spa
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-spaced-repetition-systems}
  * @see {@link @bachman-dev/wanikani-api-requests!v20170710.stringifyParameters}
  */
-export { CollectionParameters as SpacedRepetitionSystemParameters } from "./base.ts";
+export type { CollectionParameters as SpacedRepetitionSystemParameters } from "./base.js";

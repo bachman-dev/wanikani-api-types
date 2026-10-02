@@ -80,9 +80,11 @@ We provide various type definitions to help with sending/receiving type-safe ele
 - **Parameter Types** that can be broken down into a query string to append to a URI for the API (especially when fetching Collections) -- see below.
 - **Payloads** that represent JSON bodies sent to the API when creating/updating certain resources
 
-### Type Guards
+### Runtime Validation
 
-For all the types representing items coming from the WaniKani API, we provide type guards to quickly validate if the data matches a type (e.g. a WaniKani resource, or an API error if something went wrong), without producing any side-effects to keep your application's bundle size small.
+This package only contains type definitions and a handful of constants, and has no dependencies. To validate data at runtime (e.g. with type guards), use one of the schema library packages, which also re-export everything from this package:
+
+- [`@bachman-dev/wanikani-api-valibot`](../valibot) for [Valibot](https://valibot.dev)
 
 ### Examples
 

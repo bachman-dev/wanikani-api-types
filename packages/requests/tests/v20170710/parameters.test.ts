@@ -49,6 +49,21 @@ describe("stringifyParameters", () => {
     expect(stringifyParameters(params)).toBe(expectedString);
   });
 
+  // Our types disallow explicitly undefined properties, but only for consumers using `exactOptionalPropertyTypes`
+  testFor("Skips parameters explicitly set to undefined", () => {
+    // @ts-expect-error -- Explicitly undefined properties, as allowed without `exactOptionalPropertyTypes`
+    const params: WaniKani.AssignmentParameters = {
+      hidden: undefined,
+      levels: [1, 2],
+      subject_ids: undefined,
+      unlocked: true,
+    };
+    const expectedString = "?levels=1,2&unlocked=true";
+    expect(stringifyParameters(params)).toBe(expectedString);
+    // @ts-expect-error -- Explicitly undefined property, as allowed without `exactOptionalPropertyTypes`
+    expect(stringifyParameters({ ids: undefined })).toBe("");
+  });
+
   testFor("Throws an error when passed a non-object", () => {
     const notAnObject = "not an object";
     // @ts-expect-error -- We pass a string instead of an object to test throwing an error
