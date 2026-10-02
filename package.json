@@ -17,7 +17,7 @@
     "@arethetypeswrong/core": "0.18.5",
     "@bachman-dev/oxc-config": "0.3.0",
     "@vitest/coverage-v8": "5.0.2",
-    "oxfmt": "0.70.0",
+    "oxfmt": "0.71.0",
     "oxlint": "1.85.0",
     "oxlint-tsgolint": "7.0.2003",
     "publint": "0.3.24",
