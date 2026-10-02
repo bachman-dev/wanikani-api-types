@@ -1,6 +1,4 @@
-import * as v from "valibot";
-
-import { BaseResource, DatableString, Level, SafeInteger } from "./base.js";
+import type { BaseResource, DatableString, Level } from "./base.js";
 
 /**
  * The minimum batch size for lessons in the WaniKani app; exported for use in lieu of a Magic Number.
@@ -22,24 +20,6 @@ export const MAX_LESSON_BATCH_SIZE = 10;
  * @category User
  */
 export type LessonBatchSizeNumber = number & {};
-export const LessonBatchSizeNumber = v.pipe(
-  SafeInteger,
-  v.minValue(MIN_LESSON_BATCH_SIZE),
-  v.maxValue(MAX_LESSON_BATCH_SIZE),
-);
-
-/**
- * A type guard that checks if the given value matches the type predicate.
- *
- * @category User
- * @category Type Guards
- * @param value An unknown value
- * @returns A type predicate
- */
-// @__NO_SIDE_EFFECTS__
-export function isLessonBatchSizeNumber(value: unknown): value is LessonBatchSizeNumber {
-  return v.is(LessonBatchSizeNumber, value);
-}
 
 /**
  * User settings specific to the WaniKani application.
@@ -78,16 +58,6 @@ export interface UserPreferences {
   /** The order in which reviews are presented. The options are `lower_levels_first` and `shuffled`. */
   reviews_presentation_order: "lower_levels_first" | "shuffled";
 }
-export const UserPreferences = v.object({
-  default_voice_actor_id: SafeInteger,
-  extra_study_autoplay_audio: v.boolean(),
-  lessons_autoplay_audio: v.boolean(),
-  lessons_batch_size: LessonBatchSizeNumber,
-  lessons_presentation_order: v.picklist(["ascending_level_then_shuffled", "ascending_level_then_subject", "shuffled"]),
-  reviews_autoplay_audio: v.boolean(),
-  reviews_display_srs_indicator: v.boolean(),
-  reviews_presentation_order: v.picklist(["lower_levels_first", "shuffled"]),
-});
 
 /**
  * A user and their status/information on WaniKani.
@@ -154,42 +124,6 @@ export interface User extends BaseResource {
   /** The kind of object returned. */
   object: "user";
 }
-export const User = v.object(
-  v.entriesFromObjects([
-    BaseResource,
-    v.object({
-      data: v.object({
-        current_vacation_started_at: v.union([DatableString, v.null()]),
-        id: v.string(),
-        level: Level,
-        preferences: UserPreferences,
-        profile_url: v.string(),
-        started_at: DatableString,
-        subscription: v.object({
-          active: v.boolean(),
-          max_level_granted: Level,
-          period_ends_at: v.union([DatableString, v.null()]),
-          type: v.picklist(["free", "lifetime", "recurring", "unknown"]),
-        }),
-        username: v.string(),
-      }),
-      object: v.literal("user"),
-    }),
-  ]),
-);
-
-/**
- * A type guard that checks if the given value matches the type predicate.
- *
- * @category User
- * @category Type Guards
- * @param value An unknown value
- * @returns A type predicate
- */
-// @__NO_SIDE_EFFECTS__
-export function isUser(value: unknown): value is User {
-  return v.is(User, value);
-}
 
 /**
  * The payload sent to the WaniKani API to update a user's preferences.
@@ -205,8 +139,3 @@ export interface UserPreferencesPayload {
     preferences: Partial<UserPreferences>;
   };
 }
-export const UserPreferencesPayload = v.object({
-  user: v.object({
-    preferences: v.partial(UserPreferences),
-  }),
-});

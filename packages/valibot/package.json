@@ -1,9 +1,9 @@
 {
-  "name": "@bachman-dev/wanikani-api-types",
-  "version": "3.0.0-alpha.0",
-  "description": "Regularly updated type definitions for the WaniKani API",
+  "name": "@bachman-dev/wanikani-api-valibot",
+  "version": "1.0.0-alpha.0",
+  "description": "Regularly updated Valibot schema for the WaniKani API",
   "keywords": [
-    "types",
+    "valibot",
     "wanikani",
     "wanikani api"
   ],
@@ -13,7 +13,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/bachman-dev/wanikani-api-types.git",
-    "directory": "packages/types"
+    "directory": "packages/valibot"
   },
   "files": [
     "dist"
@@ -27,15 +27,14 @@
   "scripts": {
     "build": "tsdown --config tsdown.config.ts"
   },
+  "dependencies": {
+    "@bachman-dev/wanikani-api-types": "workspace:*"
+  },
   "devDependencies": {
-    "@bachman-dev/wanikani-api-fixtures": "workspace:*"
+    "@bachman-dev/wanikani-api-fixtures": "workspace:*",
+    "valibot": "1.5.0"
   },
   "peerDependencies": {
-    "typescript": "7.0.x"
-  },
-  "peerDependenciesMeta": {
-    "typescript": {
-      "optional": true
-    }
+    "valibot": "^1.0.0"
   }
 }

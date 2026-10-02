@@ -32,6 +32,7 @@ Each package in this repository is released on its own, with its own version num
   - `types` for `@bachman-dev/wanikani-api-types`
   - `requests` for `@bachman-dev/wanikani-api-requests`
   - `utils` for `@bachman-dev/wanikani-api-utils`
+  - `valibot` for `@bachman-dev/wanikani-api-valibot`
 
   A pull request that changes more than one package gets each of those packages' labels. Changes that don't affect a published package (e.g. GitHub Actions or repository tooling) don't need one.
 

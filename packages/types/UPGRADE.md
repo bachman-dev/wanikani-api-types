@@ -18,6 +18,23 @@ All of these packages share the same version number, such that all of them can b
 
 ### ⚠️ Breaking Changes
 
+#### Valibot Schema and Type Guards Moved to `@bachman-dev/wanikani-api-valibot`
+
+This package no longer depends on Valibot, and only exports type definitions and constants (e.g. `API_REVISION`, `MAX_LEVEL`). All Valibot schema and type guards (e.g. `isAssignment`, `isApiError`) have been moved to the new `@bachman-dev/wanikani-api-valibot` package.
+
+The Valibot package re-exports all the types and constants from this package, so you can replace your imports instead of installing both packages:
+
+```diff
+- import { Assignment, isApiError, type DatableString } from "@bachman-dev/wanikani-api-types/v20170710";
++ import { Assignment, isApiError, type DatableString } from "@bachman-dev/wanikani-api-valibot/v20170710";
+```
+
+If you only use the types from this package, there's nothing to change, and the advice from 2.0 to use `import type` to avoid bundling Valibot no longer applies.
+
+#### `DatableString` Uses Its Own Brand
+
+`DatableString` was previously branded using Valibot's `v.Brand<"DatableString">`; it now uses a brand that doesn't rely on Valibot. Strings parsed with the `DatableString` schema from `@bachman-dev/wanikani-api-valibot` are still typed as a `DatableString`, but types that reference Valibot's brand directly won't be compatible.
+
 #### Items Moved to Other Packages
 
 The following items have been moved to these respective packages:

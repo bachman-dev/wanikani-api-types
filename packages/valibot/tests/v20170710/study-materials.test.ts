@@ -43,6 +43,11 @@ describe("StudyMaterialUpdatePayload", () => {
   testFor("Payload with all properties", ({ fullStudyMaterialUpdatePayload }) => {
     expect(() => v.assert(WaniKani.StudyMaterialUpdatePayload, fullStudyMaterialUpdatePayload)).not.toThrow();
   });
+  testFor("Payload with an explicitly undefined property", () => {
+    expect(() => v.assert(WaniKani.StudyMaterialUpdatePayload, { meaning_note: undefined })).toThrow(
+      "Invalid type: Expected string but received undefined",
+    );
+  });
 });
 
 describe("StudyMaterialCreatePayload", () => {

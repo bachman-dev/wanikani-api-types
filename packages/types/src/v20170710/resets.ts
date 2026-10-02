@@ -1,6 +1,4 @@
-import * as v from "valibot";
-
-import { BaseCollection, BaseResource, DatableString, Level } from "./base.js";
+import type { BaseCollection, BaseResource, DatableString, Level } from "./base.js";
 
 /**
  * Users can reset their progress back to any level at or below their current level. When they reset to a particular
@@ -34,34 +32,6 @@ export interface Reset extends BaseResource {
   /** The kind of object returned. */
   object: "reset";
 }
-export const Reset = v.object(
-  v.entriesFromObjects([
-    BaseResource,
-    v.object({
-      data: v.object({
-        confirmed_at: v.union([DatableString, v.null()]),
-        created_at: DatableString,
-        original_level: Level,
-        target_level: Level,
-      }),
-      id: v.number(),
-      object: v.literal("reset"),
-    }),
-  ]),
-);
-
-/**
- * A type guard that checks if the given value matches the type predicate.
- *
- * @category Resets
- * @category Type Guards
- * @param value An unknown value
- * @returns A type predicate
- */
-// @__NO_SIDE_EFFECTS__
-export function isReset(value: unknown): value is Reset {
-  return v.is(Reset, value);
-}
 
 /**
  * A collection of resets returned from the WaniKani API.
@@ -74,27 +44,6 @@ export interface ResetCollection extends BaseCollection {
   /** An array of returned resets. */
   data: Reset[];
 }
-export const ResetCollection = v.object(
-  v.entriesFromObjects([
-    BaseCollection,
-    v.object({
-      data: v.array(Reset),
-    }),
-  ]),
-);
-
-/**
- * A type guard that checks if the given value matches the type predicate.
- *
- * @category Resets
- * @category Type Guards
- * @param value An unknown value
- * @returns A type predicate
- */
-// @__NO_SIDE_EFFECTS__
-export function isResetCollection(value: unknown): value is ResetCollection {
-  return v.is(ResetCollection, value);
-}
 
 /**
  * Parameters that can be passed to the WaniKani API to filter a request for a Reset Collection.
@@ -104,4 +53,4 @@ export function isResetCollection(value: unknown): value is ResetCollection {
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-resets}
  * @see {@link @bachman-dev/wanikani-api-requests!v20170710.stringifyParameters}
  */
-export { CollectionParameters as ResetParameters } from "./base.ts";
+export type { CollectionParameters as ResetParameters } from "./base.js";

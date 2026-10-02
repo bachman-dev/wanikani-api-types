@@ -1,10 +1,7 @@
-import * as v from "valibot";
-
-import * as m from "./lang/index.js";
-import { Assignment } from "./assignments.js";
-import { BaseCollection, BaseResource, CollectionParameters, DatableString, SafeInteger } from "./base.js";
-import { ReviewStatistic } from "./review-statistics.js";
-import { SpacedRepetitionSystemStageNumber } from "./spaced-repetition-systems.js";
+import type { Assignment } from "./assignments.js";
+import type { BaseCollection, BaseResource, CollectionParameters, DatableString, SafeInteger } from "./base.js";
+import type { ReviewStatistic } from "./review-statistics.js";
+import type { SpacedRepetitionSystemStageNumber } from "./spaced-repetition-systems.js";
 
 /**
  * Reviews log all the correct and incorrect answers provided through the 'Reviews' section of WaniKani. Review records
@@ -52,38 +49,6 @@ export interface Review extends BaseResource {
   /** The kind of object returned. */
   object: "review";
 }
-export const Review = v.object(
-  v.entriesFromObjects([
-    BaseResource,
-    v.object({
-      data: v.object({
-        assignment_id: v.number(),
-        created_at: DatableString,
-        ending_srs_stage: SpacedRepetitionSystemStageNumber,
-        incorrect_meaning_answers: v.number(),
-        incorrect_reading_answers: v.number(),
-        spaced_repetition_system_id: v.number(),
-        starting_srs_stage: SpacedRepetitionSystemStageNumber,
-        subject_id: v.number(),
-      }),
-      id: v.number(),
-      object: v.literal("review"),
-    }),
-  ]),
-);
-
-/**
- * A type guard that checks if the given value matches the type predicate.
- *
- * @category Reviews
- * @category Type Guards
- * @param value An unknown value
- * @returns A type predicate
- */
-// @__NO_SIDE_EFFECTS__
-export function isReview(value: unknown): value is Review {
-  return v.is(Review, value);
-}
 
 /**
  * A collection of reviews returned from the WaniKani API.
@@ -95,27 +60,6 @@ export function isReview(value: unknown): value is Review {
 export interface ReviewCollection extends BaseCollection {
   /** An array of returned reviews. */
   data: Review[];
-}
-export const ReviewCollection = v.object(
-  v.entriesFromObjects([
-    BaseCollection,
-    v.object({
-      data: v.array(Review),
-    }),
-  ]),
-);
-
-/**
- * A type guard that checks if the given value matches the type predicate.
- *
- * @category Reviews
- * @category Type Guards
- * @param value An unknown value
- * @returns A type predicate
- */
-// @__NO_SIDE_EFFECTS__
-export function isReviewCollection(value: unknown): value is ReviewCollection {
-  return v.is(ReviewCollection, value);
 }
 
 /**
@@ -133,15 +77,6 @@ export interface ReviewParameters extends CollectionParameters {
   /** Only reviews where `data.subject_id` matches one of the array values are returned. */
   subject_ids?: SafeInteger[];
 }
-export const ReviewParameters = v.object(
-  v.entriesFromObjects([
-    CollectionParameters,
-    v.object({
-      assignment_ids: v.optional(v.array(SafeInteger)),
-      subject_ids: v.optional(v.array(SafeInteger)),
-    }),
-  ]),
-);
 
 /**
  * The payload used in the request to create a new review via the WaniKani API.
@@ -184,31 +119,6 @@ export interface ReviewPayload {
       }
   );
 }
-export const ReviewPayload = v.object({
-  review: v.intersect(
-    [
-      v.object({
-        incorrect_meaning_answers: SafeInteger,
-        incorrect_reading_answers: SafeInteger,
-        created_at: v.optional(v.union([DatableString, v.date()], m.dateUnion)),
-      }),
-      v.union(
-        [
-          v.object({
-            assignment_id: SafeInteger,
-            subject_id: v.optional(v.never()),
-          }),
-          v.object({
-            subject_id: SafeInteger,
-            assignment_id: v.optional(v.never()),
-          }),
-        ],
-        m.reviewPayloadUnion,
-      ),
-    ],
-    m.reviewPayloadIntersect,
-  ),
-});
 
 /**
  * A created review returned from the WaniKani API.
@@ -234,28 +144,4 @@ export interface CreatedReview extends Review {
      */
     review_statistic: ReviewStatistic;
   };
-}
-export const CreatedReview = v.object(
-  v.entriesFromObjects([
-    Review,
-    v.object({
-      resources_updated: v.object({
-        assignment: Assignment,
-        review_statistic: ReviewStatistic,
-      }),
-    }),
-  ]),
-);
-
-/**
- * A type guard that checks if the given value matches the type predicate.
- *
- * @category Reviews
- * @category Type Guards
- * @param value An unknown value
- * @returns A type predicate
- */
-// @__NO_SIDE_EFFECTS__
-export function isCreatedReview(value: unknown): value is CreatedReview {
-  return v.is(CreatedReview, value);
 }

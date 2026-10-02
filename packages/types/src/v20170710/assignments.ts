@@ -1,9 +1,6 @@
-import * as v from "valibot";
-
-import * as m from "./lang/index.js";
-import { BaseCollection, BaseResource, CollectionParameters, DatableString, Level, SafeInteger } from "./base.js";
-import { SpacedRepetitionSystemStageNumber } from "./spaced-repetition-systems.js";
-import { SubjectTuple, SubjectType } from "./subjects.js";
+import type { BaseCollection, BaseResource, CollectionParameters, DatableString, Level, SafeInteger } from "./base.js";
+import type { SpacedRepetitionSystemStageNumber } from "./spaced-repetition-systems.js";
+import type { SubjectTuple, SubjectType } from "./subjects.js";
 
 /**
  * Assignments contain information about a user's progress on a particular subject, including their current state and
@@ -67,41 +64,6 @@ export interface Assignment extends BaseResource {
   /** The kind of object returned. */
   object: "assignment";
 }
-export const Assignment = v.object(
-  v.entriesFromObjects([
-    BaseResource,
-    v.object({
-      data: v.object({
-        available_at: v.union([DatableString, v.null()]),
-        burned_at: v.union([DatableString, v.null()]),
-        created_at: DatableString,
-        hidden: v.boolean(),
-        passed_at: v.union([DatableString, v.null()]),
-        resurrected_at: v.union([DatableString, v.null()]),
-        srs_stage: SpacedRepetitionSystemStageNumber,
-        started_at: v.union([DatableString, v.null()]),
-        subject_id: v.number(),
-        subject_type: SubjectType,
-        unlocked_at: v.union([DatableString, v.null()]),
-      }),
-      id: v.number(),
-      object: v.literal("assignment"),
-    }),
-  ]),
-);
-
-/**
- * A type guard that checks if the given value matches the type predicate.
- *
- * @category Assignments
- * @category Type Guards
- * @param value An unknown value
- * @returns A type predicate
- */
-// @__NO_SIDE_EFFECTS__
-export function isAssignment(value: unknown): value is Assignment {
-  return v.is(Assignment, value);
-}
 
 /**
  * A collection of assignments returned from the WaniKani API.
@@ -113,27 +75,6 @@ export function isAssignment(value: unknown): value is Assignment {
 export interface AssignmentCollection extends BaseCollection {
   /** An array of returned assignments. */
   data: Assignment[];
-}
-export const AssignmentCollection = v.object(
-  v.entriesFromObjects([
-    BaseCollection,
-    v.object({
-      data: v.array(Assignment),
-    }),
-  ]),
-);
-
-/**
- * A type guard that checks if the given value matches the type predicate.
- *
- * @category Assignments
- * @category Type Guards
- * @param value An unknown value
- * @returns A type predicate
- */
-// @__NO_SIDE_EFFECTS__
-export function isAssignmentCollection(value: unknown): value is AssignmentCollection {
-  return v.is(AssignmentCollection, value);
 }
 
 /**
@@ -199,26 +140,6 @@ export interface AssignmentParameters extends CollectionParameters {
    */
   unlocked?: boolean;
 }
-export const AssignmentParameters = v.object(
-  v.entriesFromObjects([
-    CollectionParameters,
-    v.object({
-      available_after: v.optional(v.union([DatableString, v.date()], m.dateUnion)),
-      available_before: v.optional(v.union([DatableString, v.date()], m.dateUnion)),
-      burned: v.optional(v.boolean()),
-      hidden: v.optional(v.boolean()),
-      immediately_available_for_lessons: v.optional(v.boolean()),
-      immediately_available_for_review: v.optional(v.boolean()),
-      in_review: v.optional(v.boolean()),
-      levels: v.optional(v.array(Level)),
-      srs_stages: v.optional(v.array(SpacedRepetitionSystemStageNumber)),
-      started: v.optional(v.boolean()),
-      subject_ids: v.optional(v.array(SafeInteger)),
-      subject_types: v.optional(SubjectTuple),
-      unlocked: v.optional(v.boolean()),
-    }),
-  ]),
-);
 
 /**
  * The optional payload used in the request to start a new assignment via the WaniKani API.
@@ -234,8 +155,3 @@ export interface AssignmentPayload {
     started_at?: DatableString | Date;
   };
 }
-export const AssignmentPayload = v.object({
-  assignment: v.object({
-    started_at: v.optional(v.union([DatableString, v.date()], m.dateUnion)),
-  }),
-});

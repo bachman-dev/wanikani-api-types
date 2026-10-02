@@ -1,6 +1,4 @@
-import * as v from "valibot";
-
-import { BaseReport, DatableString } from "./base.js";
+import type { BaseReport, DatableString } from "./base.js";
 
 /**
  * Details about subjects listed as available for lessons in the Summary report.
@@ -18,10 +16,6 @@ export interface SummaryInterval {
   /** Collection of unique identifiers for subjects. */
   subject_ids: number[];
 }
-export const SummaryInterval = v.object({
-  available_at: DatableString,
-  subject_ids: v.array(v.number()),
-});
 
 /**
  * The summary report contains currently available lessons and reviews and the reviews that will become available in the
@@ -43,29 +37,4 @@ export interface Summary extends BaseReport {
     /** Details about subjects available for reviews now and in the next 24 hours by the hour (total of 25 objects). */
     reviews: SummaryInterval[];
   };
-}
-export const Summary = v.object(
-  v.entriesFromObjects([
-    BaseReport,
-    v.object({
-      data: v.object({
-        lessons: v.array(SummaryInterval),
-        next_reviews_at: v.union([DatableString, v.null()]),
-        reviews: v.array(SummaryInterval),
-      }),
-    }),
-  ]),
-);
-
-/**
- * A type guard that checks if the given value matches the type predicate.
- *
- * @category Summary
- * @category Type Guards
- * @param value An unknown value
- * @returns A type predicate
- */
-// @__NO_SIDE_EFFECTS__
-export function isSummary(value: unknown): value is Summary {
-  return v.is(Summary, value);
 }

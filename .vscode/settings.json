@@ -18,6 +18,11 @@
     // Utils
     "**/packages/utils/**/.*.?*": "Utils - ${filename}.${extname}",
     "**/packages/utils/**/.[!.]*": "Utils - ${filename}",
-    "**/packages/utils/**/*.*": "Utils - ${filename}.${extname}"
+    "**/packages/utils/**/*.*": "Utils - ${filename}.${extname}",
+
+    // Valibot
+    "**/packages/valibot/**/.*.?*": "Valibot - ${filename}.${extname}",
+    "**/packages/valibot/**/.[!.]*": "Valibot - ${filename}",
+    "**/packages/valibot/**/*.*": "Valibot - ${filename}.${extname}"
   }
 }

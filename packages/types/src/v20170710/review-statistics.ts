@@ -1,7 +1,5 @@
-import * as v from "valibot";
-
-import { BaseCollection, BaseResource, CollectionParameters, DatableString, SafeInteger } from "./base.js";
-import { SubjectTuple, SubjectType } from "./subjects.js";
+import type { BaseCollection, BaseResource, CollectionParameters, DatableString, SafeInteger } from "./base.js";
+import type { SubjectTuple, SubjectType } from "./subjects.js";
 
 /**
  * Review statistics summarize the activity recorded in reviews. They contain sum the number of correct and incorrect
@@ -63,43 +61,6 @@ export interface ReviewStatistic extends BaseResource {
   /** The kind of object returned. */
   object: "review_statistic";
 }
-export const ReviewStatistic = v.object(
-  v.entriesFromObjects([
-    BaseResource,
-    v.object({
-      data: v.object({
-        created_at: DatableString,
-        hidden: v.boolean(),
-        meaning_correct: v.number(),
-        meaning_current_streak: v.number(),
-        meaning_incorrect: v.number(),
-        meaning_max_streak: v.number(),
-        percentage_correct: v.number(),
-        reading_correct: v.number(),
-        reading_current_streak: v.number(),
-        reading_incorrect: v.number(),
-        reading_max_streak: v.number(),
-        subject_id: v.number(),
-        subject_type: SubjectType,
-      }),
-      id: v.number(),
-      object: v.literal("review_statistic"),
-    }),
-  ]),
-);
-
-/**
- * A type guard that checks if the given value matches the type predicate.
- *
- * @category Review Statistics
- * @category Type Guards
- * @param value An unknown value
- * @returns A type predicate
- */
-// @__NO_SIDE_EFFECTS__
-export function isReviewStatistic(value: unknown): value is ReviewStatistic {
-  return v.is(ReviewStatistic, value);
-}
 
 /**
  * A collection of review statistics returned from the WaniKani API.
@@ -111,27 +72,6 @@ export function isReviewStatistic(value: unknown): value is ReviewStatistic {
 export interface ReviewStatisticCollection extends BaseCollection {
   /** An array of returned review statistics. */
   data: ReviewStatistic[];
-}
-export const ReviewStatisticCollection = v.object(
-  v.entriesFromObjects([
-    BaseCollection,
-    v.object({
-      data: v.array(ReviewStatistic),
-    }),
-  ]),
-);
-
-/**
- * A type guard that checks if the given value matches the type predicate.
- *
- * @category Review Statistics
- * @category Type Guards
- * @param value An unknown value
- * @returns A type predicate
- */
-// @__NO_SIDE_EFFECTS__
-export function isReviewStatisticCollection(value: unknown): value is ReviewStatisticCollection {
-  return v.is(ReviewStatisticCollection, value);
 }
 
 /**
@@ -158,15 +98,3 @@ export interface ReviewStatisticParameters extends CollectionParameters {
   /** Only review statistics where `data.subject_type` matches one of the array values are returned. */
   subject_types?: SubjectTuple;
 }
-export const ReviewStatisticParameters = v.object(
-  v.entriesFromObjects([
-    CollectionParameters,
-    v.object({
-      hidden: v.optional(v.boolean()),
-      percentages_greater_than: v.optional(v.number()),
-      percentages_less_than: v.optional(v.number()),
-      subject_ids: v.optional(v.array(SafeInteger)),
-      subject_types: v.optional(SubjectTuple),
-    }),
-  ]),
-);

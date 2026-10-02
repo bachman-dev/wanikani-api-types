@@ -45,4 +45,10 @@ describe("UserPreferencesPayload", () => {
   testFor("Payload with all properties", ({ userPayloadWithAllProperties }) => {
     expect(() => v.assert(WaniKani.UserPreferencesPayload, userPayloadWithAllProperties)).not.toThrow();
   });
+  testFor("Payload with an explicitly undefined property", () => {
+    const payload = { user: { preferences: { lessons_batch_size: undefined } } };
+    expect(() => v.assert(WaniKani.UserPreferencesPayload, payload)).toThrow(
+      "Invalid type: Expected number but received undefined",
+    );
+  });
 });

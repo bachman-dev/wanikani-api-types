@@ -1,4 +1,3 @@
-import type * as v from "valibot";
 import { assertType, describe, expectTypeOf } from "vitest";
 
 import type * as WaniKani from "../../src/v20170710/index.js";
@@ -11,8 +10,13 @@ describe("ApiRevision", () => {
 });
 
 describe("DatableString", () => {
-  testFor("Valid DatableString Type", () => {
-    expectTypeOf<v.InferOutput<typeof WaniKani.DatableString>>().toEqualTypeOf<WaniKani.DatableString>();
+  testFor("DatableString is a branded string", () => {
+    expectTypeOf<WaniKani.DatableString>().toExtend<string>();
+    expectTypeOf<string>().not.toExtend<WaniKani.DatableString>();
+  });
+  testFor("DatableString fixtures", ({ dateTimeUtcString, collectionParamsWithDatableStrings }) => {
+    expectTypeOf(dateTimeUtcString).not.toExtend<WaniKani.DatableString>();
+    assertType<WaniKani.DatableString | Date | undefined>(collectionParamsWithDatableStrings.updated_after);
   });
 });
 
