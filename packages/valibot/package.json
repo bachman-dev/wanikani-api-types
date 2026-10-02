@@ -1,6 +1,6 @@
 {
   "name": "@bachman-dev/wanikani-api-valibot",
-  "version": "3.0.0-alpha.0",
+  "version": "1.0.0-alpha.0",
   "description": "Regularly updated Valibot schema for the WaniKani API",
   "keywords": [
     "valibot",
