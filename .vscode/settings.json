@@ -23,6 +23,11 @@
     // Valibot
     "**/packages/valibot/**/.*.?*": "Valibot - ${filename}.${extname}",
     "**/packages/valibot/**/.[!.]*": "Valibot - ${filename}",
-    "**/packages/valibot/**/*.*": "Valibot - ${filename}.${extname}"
+    "**/packages/valibot/**/*.*": "Valibot - ${filename}.${extname}",
+
+    // Zod
+    "**/packages/zod/**/.*.?*": "Zod - ${filename}.${extname}",
+    "**/packages/zod/**/.[!.]*": "Zod - ${filename}",
+    "**/packages/zod/**/*.*": "Zod - ${filename}.${extname}"
   }
 }

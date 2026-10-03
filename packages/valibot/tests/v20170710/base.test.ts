@@ -71,6 +71,11 @@ describe("CollectionParameters", () => {
   testFor("CollectionParameters with DatableString properties", ({ collectionParamsWithDatableStrings }) => {
     expect(() => v.assert(WaniKani.CollectionParameters, collectionParamsWithDatableStrings)).not.toThrow();
   });
+  testFor("CollectionParameters with a bad DatableString", ({ collectionParamsWithBadDatableStringUnion }) => {
+    expect(() => v.assert(WaniKani.CollectionParameters, collectionParamsWithBadDatableStringUnion)).toThrow(
+      "Expected either a valid ISO-8601 timestamp string or a JavaScript Date",
+    );
+  });
   testFor("CollectionParameters with an explicitly undefined property", () => {
     expect(() => v.assert(WaniKani.CollectionParameters, { ids: undefined })).toThrow(
       "Invalid type: Expected Array but received undefined",

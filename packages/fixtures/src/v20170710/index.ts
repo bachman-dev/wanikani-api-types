@@ -668,6 +668,9 @@ export default function createFixtures<TDatableString extends string>(
     collectionParamsWithDatableStrings: {
       updated_after: toDatableString(new Date().toISOString()),
     },
+    collectionParamsWithBadDatableStringUnion: {
+      updated_after: 1,
+    },
     apiError: {
       error: "Not found",
       code: 404,
