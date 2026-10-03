@@ -1,0 +1,40 @@
+{
+  "name": "@bachman-dev/wanikani-api-zod",
+  "version": "1.0.0-alpha.0",
+  "description": "Regularly updated Zod schema for the WaniKani API",
+  "keywords": [
+    "wanikani",
+    "wanikani api",
+    "zod"
+  ],
+  "homepage": "https://wanikani-api-types.bachman.dev",
+  "license": "MIT",
+  "author": "Collin Bachman <collin.r68zdn9d@bachman.dev>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bachman-dev/wanikani-api-types.git",
+    "directory": "packages/zod"
+  },
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.js",
+    "./v20170710": "./dist/v20170710/index.js",
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "tsdown --config tsdown.config.ts"
+  },
+  "dependencies": {
+    "@bachman-dev/wanikani-api-types": "workspace:*"
+  },
+  "devDependencies": {
+    "@bachman-dev/wanikani-api-fixtures": "workspace:*",
+    "zod": "4.6.5"
+  },
+  "peerDependencies": {
+    "zod": "^4.3.0"
+  }
+}

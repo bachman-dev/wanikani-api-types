@@ -233,6 +233,19 @@ importers:
         specifier: 1.5.0
         version: 1.5.0(typescript@7.0.2)
 
+  packages/zod:
+    dependencies:
+      '@bachman-dev/wanikani-api-types':
+        specifier: workspace:*
+        version: link:../types
+    devDependencies:
+      '@bachman-dev/wanikani-api-fixtures':
+        specifier: workspace:*
+        version: link:../fixtures
+      zod:
+        specifier: 4.6.5
+        version: 4.6.5
+
 packages:
 
   '@andrewbranch/untar.js@1.0.4':
@@ -1465,6 +1478,9 @@ packages:
   yuku-parser@0.10.2:
     resolution: {integrity: sha512-CgaU0/PPjCAIEZ3WQroosOxTY3eeKldAN3h+vk8pMNz4+jl1CZzBR4pW+K/rRPF112VooCL5FdjJoiMNjDrL2A==}
 
+  zod@4.6.5:
+    resolution: {integrity: sha512-v5l/aFXZQeai4awLbOpSoHecE9UiMrnfx75tEXLjNonXVARxQ5mOeipTjROUchszUNCqnE+hqAMujRsRHsut2Q==}
+
 snapshots:
 
   '@andrewbranch/untar.js@1.0.4': {}
@@ -2296,3 +2312,5 @@ snapshots:
       '@yuku-parser/binding-linux-x64-musl': 0.10.2
       '@yuku-parser/binding-win32-arm64': 0.10.2
       '@yuku-parser/binding-win32-x64': 0.10.2
+
+  zod@4.6.5: {}
