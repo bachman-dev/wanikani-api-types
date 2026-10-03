@@ -58,10 +58,68 @@ jobs:
         run: 'pnpm add --save-dev typescript@"~${{ matrix.typescript-version }}"'
       - name: Build Packages
         run: pnpm build
+  lowest-peers:
+    name: "Build (Lowest Peer Dependencies)"
+    runs-on: ubuntu-latest
+    if: ${{ !github.event.pull_request.draft }}
+    needs: current
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - name: Setup pnpm
+        uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6
+      - name: Setup Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        with:
+          node-version-file: ".nvmrc"
+          cache: "pnpm"
+      - name: Install Dependencies
+        run: pnpm install
+      # devDependencies track the latest versions, so this installs the lowest published version
+      # satisfying each package's required peer dependencies (e.g. valibot ^1.0.0 → 1.0.0) to catch
+      # use of features they lack. Optional peers (i.e. TypeScript) are covered by their own matrix.
+      - name: Install Lowest Peer Dependencies
+        run: |
+          {
+            echo "### Lowest Peer Dependencies"
+            echo ""
+            echo "| Package | Peer | Range | Installed |"
+            echo "| --- | --- | --- | --- |"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          for manifest in packages/*/package.json; do
+            name="$(jq -r '.name' "$manifest")"
+            specifiers=()
+            while IFS=$'\t' read -r peer range; do
+              version="$(npm view "$peer@$range" version --json | jq -r 'if type == "array" then .[] else . end' | sort -V | head -n 1)"
+              if [[ -z "$version" ]]; then
+                echo "::error file=$manifest::No published version of $peer satisfies $range."
+                exit 1
+              fi
+              echo "$name: $peer@$range -> $version"
+              echo "| \`$name\` | \`$peer\` | \`$range\` | \`$version\` |" >> "$GITHUB_STEP_SUMMARY"
+              specifiers+=("$peer@$version")
+            done < <(jq -r '
+              (.peerDependenciesMeta // {}) as $meta
+              | (.peerDependencies // {}) | to_entries[]
+              | select($meta[.key].optional != true)
+              | [.key, .value] | @tsv
+            ' "$manifest")
+
+            if (( ${#specifiers[@]} > 0 )); then
+              pnpm --filter "$name" add --save-dev --save-exact "${specifiers[@]}"
+            fi
+          done
+      - name: Build Packages
+        run: pnpm build
+      # The build doesn't type check or resolve external imports, so the (type-checked) tests are what
+      # catch an API missing from a lower peer version
+      - name: Run Unit Tests
+        run: pnpm test
   gate:
     name: "All PR Checks Passed"
     runs-on: ubuntu-latest
     if: ${{ !github.event.pull_request.draft }}
-    needs: [current, past-ts-versions]
+    needs: [current, past-ts-versions, lowest-peers]
     steps:
       - run: exit 0
