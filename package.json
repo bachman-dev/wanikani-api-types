@@ -7,6 +7,7 @@
   "type": "module",
   "scripts": {
     "build": "turbo run build",
+    "check": "turbo run check",
     "format": "oxfmt --config oxfmt.config.ts --write .",
     "format:check": "oxfmt --config oxfmt.config.ts --check .",
     "lint": "oxlint --config oxlint.config.ts .",

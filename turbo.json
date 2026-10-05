@@ -6,6 +6,9 @@
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/LICENSE"],
       "outputs": ["dist/**"]
+    },
+    "check": {
+      "dependsOn": ["^build"]
     }
   }
 }
