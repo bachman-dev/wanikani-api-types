@@ -2,3 +2,4 @@
 /** @category API Reference */
 
 export * from "./base.js";
+export * from "./spaced-repetition-systems.ts";
