@@ -5,11 +5,11 @@ import * as WaniKani from "../../src/v20170710/index.js";
 import testFor from "./fixtures.js";
 
 describe("SpacedRepetitionSystemStageNumber", () => {
-  testFor("Invalid SRS Stage Number: -1", () => {
+  testFor(`Invalid SRS Stage Number: ${WaniKani.MIN_SRS_STAGE - 1}`, () => {
     expect(() => v.assert(WaniKani.SpacedRepetitionSystemStageNumber, -1)).toThrow(
-      "Invalid value: Expected >=0 but received -1",
+      `Invalid value: Expected >=${WaniKani.MIN_SRS_STAGE} but received ${WaniKani.MIN_SRS_STAGE - 1}`,
     );
-    expect(WaniKani.isSpacedRepetitionSystemStageNumber(-1)).toBe(false);
+    expect(WaniKani.isSpacedRepetitionSystemStageNumber(WaniKani.MIN_SRS_STAGE - 1)).toBe(false);
   });
   testFor("Valid SRS Stage Numbers", ({ spacedRepetitionSystemStageNumbers }) => {
     if (Array.isArray(spacedRepetitionSystemStageNumbers)) {
@@ -23,7 +23,7 @@ describe("SpacedRepetitionSystemStageNumber", () => {
   });
   testFor(`Invalid SRS Stage Number: ${WaniKani.MAX_SRS_STAGE + 1}`, () => {
     expect(() => v.assert(WaniKani.SpacedRepetitionSystemStageNumber, WaniKani.MAX_SRS_STAGE + 1)).toThrow(
-      "Invalid value: Expected <=9 but received 10",
+      `Invalid value: Expected <=${WaniKani.MAX_SRS_STAGE} but received ${WaniKani.MAX_SRS_STAGE + 1}`,
     );
     expect(WaniKani.isSpacedRepetitionSystemStageNumber(WaniKani.MAX_SRS_STAGE + 1)).toBe(false);
   });

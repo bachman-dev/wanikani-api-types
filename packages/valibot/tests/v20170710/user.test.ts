@@ -5,9 +5,11 @@ import * as WaniKani from "../../src/v20170710/index.js";
 import testFor from "./fixtures.js";
 
 describe("LessonBatchSizeNumber", () => {
-  testFor("Invalid Lesson Batch Size: 2", () => {
-    expect(() => v.assert(WaniKani.LessonBatchSizeNumber, 2)).toThrow("Invalid value: Expected >=3 but received 2");
-    expect(WaniKani.isLessonBatchSizeNumber(2)).toBe(false);
+  testFor(`Invalid Lesson Batch Size: ${WaniKani.MIN_LESSON_BATCH_SIZE - 1}`, () => {
+    expect(() => v.assert(WaniKani.LessonBatchSizeNumber, WaniKani.MIN_LESSON_BATCH_SIZE - 1)).toThrow(
+      `Invalid value: Expected >=${WaniKani.MIN_LESSON_BATCH_SIZE} but received ${WaniKani.MIN_LESSON_BATCH_SIZE - 1}`,
+    );
+    expect(WaniKani.isLessonBatchSizeNumber(WaniKani.MIN_LESSON_BATCH_SIZE - 1)).toBe(false);
   });
   testFor("Valid Lesson Batch Sizes", ({ lessonBatchSizeNumbers }) => {
     if (Array.isArray(lessonBatchSizeNumbers)) {
@@ -21,7 +23,7 @@ describe("LessonBatchSizeNumber", () => {
   });
   testFor(`Invalid Lesson Batch Size: ${WaniKani.MAX_LESSON_BATCH_SIZE + 1}`, () => {
     expect(() => v.assert(WaniKani.LessonBatchSizeNumber, WaniKani.MAX_LESSON_BATCH_SIZE + 1)).toThrow(
-      "Invalid value: Expected <=10 but received 11",
+      `Invalid value: Expected <=${WaniKani.MAX_LESSON_BATCH_SIZE} but received ${WaniKani.MAX_LESSON_BATCH_SIZE + 1}`,
     );
     expect(WaniKani.isLessonBatchSizeNumber(WaniKani.MAX_LESSON_BATCH_SIZE + 1)).toBe(false);
   });
