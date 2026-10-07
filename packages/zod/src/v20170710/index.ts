@@ -3,5 +3,6 @@
 
 export * from "./assignments.ts";
 export * from "./base.js";
+export * from "./level-progressions.ts";
 export * from "./spaced-repetition-systems.ts";
 export * from "./subjects.ts";
