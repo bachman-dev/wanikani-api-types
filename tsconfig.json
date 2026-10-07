@@ -5,7 +5,7 @@
     "declaration": true,
     "erasableSyntaxOnly": true,
     "exactOptionalPropertyTypes": true,
-    "lib": ["es2022"],
+    "lib": ["es2024"],
     "module": "NodeNext",
     "moduleResolution": "nodenext",
     "noImplicitOverride": true,
@@ -16,7 +16,7 @@
     "rewriteRelativeImportExtensions": true,
     "skipLibCheck": true,
     "strict": true,
-    "target": "es2025",
+    "target": "es2024",
     "useUnknownInCatchVariables": true,
     "verbatimModuleSyntax": true
   }
