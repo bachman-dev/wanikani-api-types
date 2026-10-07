@@ -6,7 +6,7 @@ export default defineConfig({
   dts: { sourcemap: true },
   entry: ["src/index.ts", "src/v20170710/index.ts"],
   format: "esm",
-  target: "es2025",
+  target: "es2024",
   platform: "neutral",
   exports: true,
   publint: {
