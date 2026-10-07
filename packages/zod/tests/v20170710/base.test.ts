@@ -38,10 +38,10 @@ describe("Level", () => {
         {
           origin: "number",
           code: "too_small",
-          minimum: 1,
+          minimum: WaniKani.MIN_LEVEL,
           inclusive: true,
           path: [],
-          message: "Too small: expected number to be >=1",
+          message: `Too small: expected number to be >=${WaniKani.MIN_LEVEL}`,
         },
       ]),
     );
@@ -63,10 +63,10 @@ describe("Level", () => {
         {
           origin: "number",
           code: "too_big",
-          maximum: 60,
+          maximum: WaniKani.MAX_LEVEL,
           inclusive: true,
           path: [],
-          message: "Too big: expected number to be <=60",
+          message: `Too big: expected number to be <=${WaniKani.MAX_LEVEL}`,
         },
       ]),
     );

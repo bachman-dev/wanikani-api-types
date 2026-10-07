@@ -25,7 +25,8 @@
     "./package.json": "./package.json"
   },
   "scripts": {
-    "build": "tsdown --config tsdown.config.ts"
+    "build": "tsdown --config tsdown.config.ts",
+    "check": "tsc --noEmit"
   },
   "dependencies": {
     "@bachman-dev/wanikani-api-types": "workspace:*"
@@ -35,6 +36,6 @@
     "zod": "4.6.5"
   },
   "peerDependencies": {
-    "zod": "^4.3.0"
+    "zod": "^4.6.0"
   }
 }

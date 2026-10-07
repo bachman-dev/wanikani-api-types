@@ -29,7 +29,7 @@ describe("DatableString", () => {
 describe("Level", () => {
   testFor(`Invalid Level: ${WaniKani.MIN_LEVEL - 1}`, () => {
     expect(() => v.assert(WaniKani.Level, WaniKani.MIN_LEVEL - 1)).toThrow(
-      "Invalid value: Expected >=1 but received 0",
+      `Invalid value: Expected >=${WaniKani.MIN_LEVEL} but received ${WaniKani.MIN_LEVEL - 1}`,
     );
     expect(WaniKani.isLevel(WaniKani.MIN_LEVEL - 1)).toBe(false);
   });
@@ -45,7 +45,7 @@ describe("Level", () => {
   });
   testFor(`Invalid Level: ${WaniKani.MAX_LEVEL + 1}`, () => {
     expect(() => v.assert(WaniKani.Level, WaniKani.MAX_LEVEL + 1)).toThrow(
-      "Invalid value: Expected <=60 but received 61",
+      `Invalid value: Expected <=${WaniKani.MAX_LEVEL} but received ${WaniKani.MAX_LEVEL + 1}`,
     );
     expect(WaniKani.isLevel(WaniKani.MAX_LEVEL + 1)).toBe(false);
   });

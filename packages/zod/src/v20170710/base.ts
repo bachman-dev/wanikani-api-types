@@ -12,7 +12,7 @@ export { API_REVISION, MIN_LEVEL, MAX_LEVEL } from "@bachman-dev/wanikani-api-ty
  * @see {@link https://docs.api.wanikani.com/20170710/#revisions-aka-versioning}
  */
 export type ApiRevision = Types.ApiRevision;
-export const ApiRevision = z.literal(Types.API_REVISION);
+export const ApiRevision = z.toZod<Types.ApiRevision>()(z.literal(Types.API_REVISION));
 
 /**
  * A type guard that checks if the given value matches the type predicate.
@@ -24,7 +24,7 @@ export const ApiRevision = z.literal(Types.API_REVISION);
  */
 // @__NO_SIDE_EFFECTS__
 export function isApiRevision(value: unknown): value is ApiRevision {
-  return z.safeParse(ApiRevision, value).success;
+  return z.validate(ApiRevision, value);
 }
 
 /**
@@ -32,8 +32,9 @@ export function isApiRevision(value: unknown): value is ApiRevision {
  *
  * @category Base
  */
-export type SafeInteger = Types.SafeInteger;
-export const SafeInteger = z.number().check(z.int(), z.nonnegative());
+// TODO: If we no longer need to alias the type, switch to z.toZod<Types.SafeInteger>()
+// oxlint-disable-next-line typescript/consistent-type-assertions -- number & {} is identical to number at runtime, we may eventually switch it back to number depending on how docs turn out
+export const SafeInteger = z.number().check(z.int(), z.nonnegative()) as z.ZodMiniType<Types.SafeInteger>;
 
 /**
  * A `string` sent to/returned from the WaniKani API that can be converted into a JavaScript `Date` object.
@@ -41,10 +42,12 @@ export const SafeInteger = z.number().check(z.int(), z.nonnegative());
  * @category Base
  */
 export type DatableString = Types.DatableString;
-export const DatableString = z.pipe(
-  z.iso.datetime({ offset: true }),
-  // oxlint-disable-next-line typescript/consistent-type-assertions, typescript/no-unsafe-type-assertion -- Validated above
-  z.transform((value) => value as DatableString),
+export const DatableString = z.toZod<Types.DatableString>()(
+  z.pipe(
+    z.iso.datetime({ offset: true }),
+    // oxlint-disable-next-line typescript/consistent-type-assertions, typescript/no-unsafe-type-assertion -- Validated above
+    z.transform((value) => value as DatableString),
+  ),
 );
 
 /**
@@ -57,7 +60,7 @@ export const DatableString = z.pipe(
  */
 // @__NO_SIDE_EFFECTS__
 export function isDatableString(value: unknown): value is DatableString {
-  return z.safeParse(DatableString, value).success;
+  return z.validate(DatableString, value);
 }
 
 /**
@@ -66,7 +69,7 @@ export function isDatableString(value: unknown): value is DatableString {
  * @category Base
  */
 export type Level = Types.Level;
-export const Level = SafeInteger.check(z.minimum(Types.MIN_LEVEL), z.maximum(Types.MAX_LEVEL));
+export const Level = z.toZod<Types.Level>()(SafeInteger.check(z.minimum(Types.MIN_LEVEL), z.maximum(Types.MAX_LEVEL)));
 
 /**
  * A type guard that checks if the given value matches the type predicate.
@@ -78,7 +81,7 @@ export const Level = SafeInteger.check(z.minimum(Types.MIN_LEVEL), z.maximum(Typ
  */
 // @__NO_SIDE_EFFECTS__
 export function isLevel(value: unknown): value is Level {
-  return z.safeParse(Level, value).success;
+  return z.validate(Level, value);
 }
 
 /**
@@ -91,10 +94,12 @@ export function isLevel(value: unknown): value is Level {
  * @see {@link https://docs.api.wanikani.com/20170710/#response-structure}
  */
 export type BaseResource = Types.BaseResource;
-export const BaseResource = z.object({
-  data_updated_at: DatableString,
-  url: z.string(),
-});
+export const BaseResource = z.toZod<Types.BaseResource>()(
+  z.object({
+    data_updated_at: DatableString,
+    url: z.string(),
+  }),
+);
 
 /**
  * The common properties across all Collection items from the WaniKani API.
@@ -106,17 +111,19 @@ export const BaseResource = z.object({
  * @see {@link https://docs.api.wanikani.com/20170710/#response-structure}
  */
 export type BaseCollection = Types.BaseCollection;
-export const BaseCollection = z.object({
-  data_updated_at: z.union([DatableString, z.null()]),
-  object: z.literal("collection"),
-  pages: z.object({
-    next_url: z.union([z.string(), z.null()]),
-    per_page: z.number(),
-    previous_url: z.union([z.string(), z.null()]),
+export const BaseCollection = z.toZod<Types.BaseCollection>()(
+  z.object({
+    data_updated_at: z.nullable(DatableString),
+    object: z.literal("collection"),
+    pages: z.object({
+      next_url: z.nullable(z.string()),
+      per_page: z.number(),
+      previous_url: z.nullable(z.string()),
+    }),
     total_count: z.number(),
     url: z.string(),
   }),
-});
+);
 
 /**
  * Query string parameters that can be sent to any WaniKani API collection endpoint.
@@ -126,12 +133,14 @@ export const BaseCollection = z.object({
  * @see {@link @bachman-dev/wanikani-api-requests!v20170710.stringifyParameters}
  */
 export type CollectionParameters = Types.CollectionParameters;
-export const CollectionParameters = z.object({
-  ids: z.exactOptional(z.array(SafeInteger)),
-  page_after_id: z.exactOptional(SafeInteger),
-  page_before_id: z.exactOptional(SafeInteger),
-  updated_after: z.exactOptional(z.union([DatableString, z.date()], { error: m.dateUnion })),
-});
+export const CollectionParameters = z.toZod<Types.CollectionParameters>()(
+  z.object({
+    ids: z.exactOptional(z.array(SafeInteger)),
+    page_after_id: z.exactOptional(SafeInteger),
+    page_before_id: z.exactOptional(SafeInteger),
+    updated_after: z.exactOptional(z.union([DatableString, z.date()], { error: m.dateUnion })),
+  }),
+);
 
 /**
  * The common properties across all Reports from the WaniKani API
@@ -143,11 +152,13 @@ export const CollectionParameters = z.object({
  * @see {@link https://docs.api.wanikani.com/20170710/#response-structure}
  */
 export type BaseReport = Types.BaseReport;
-export const BaseReport = z.object({
-  data_updated_at: DatableString,
-  object: z.literal("report"),
-  url: z.string(),
-});
+export const BaseReport = z.toZod<Types.BaseReport>()(
+  z.object({
+    data_updated_at: DatableString,
+    object: z.literal("report"),
+    url: z.string(),
+  }),
+);
 
 /**
  * An error response returned by the WaniKani API.
@@ -155,10 +166,12 @@ export const BaseReport = z.object({
  * @category Base
  */
 export type ApiError = Types.ApiError;
-export const ApiError = z.object({
-  code: z.number(),
-  error: z.string(),
-});
+export const ApiError = z.toZod<Types.ApiError>()(
+  z.object({
+    code: z.number(),
+    error: z.string(),
+  }),
+);
 
 /**
  * A type guard that checks if the given value matches the type predicate.
@@ -170,5 +183,5 @@ export const ApiError = z.object({
  */
 // @__NO_SIDE_EFFECTS__
 export function isApiError(value: unknown): value is ApiError {
-  return z.safeParse(ApiError, value).success;
+  return z.validate(ApiError, value);
 }

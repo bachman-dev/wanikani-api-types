@@ -1,3 +1,4 @@
+// oxlint-disable oxc/no-barrel-file -- This is an entrypoint for the package
 /** @category API Reference */
 
 /*
