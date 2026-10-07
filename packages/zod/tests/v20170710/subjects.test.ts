@@ -25,9 +25,9 @@ describe("SubjectType", () => {
       new z.$ZodRealError([
         {
           code: "invalid_value",
-          values: ["kana_vocabulary", "kanji", "radical", "vocabulary"],
+          values: WaniKani.SubjectType.options,
           path: [],
-          message: 'Invalid option: expected one of "kana_vocabulary"|"kanji"|"radical"|"vocabulary"',
+          message: `Invalid option: expected one of ${WaniKani.SubjectType.options.map((option) => `"${option}"`).join("|")}`,
         },
       ]),
     );
@@ -41,9 +41,9 @@ describe("SubjectTuple", () => {
       new z.$ZodRealError([
         {
           code: "invalid_value",
-          values: ["kana_vocabulary", "kanji", "radical", "vocabulary"],
+          values: WaniKani.SubjectType.options,
           path: [0],
-          message: 'Invalid option: expected one of "kana_vocabulary"|"kanji"|"radical"|"vocabulary"',
+          message: `Invalid option: expected one of ${WaniKani.SubjectType.options.map((option) => `"${option}"`).join("|")}`,
         },
       ]),
     );

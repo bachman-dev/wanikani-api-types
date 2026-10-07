@@ -6,7 +6,7 @@ import testFor from "./fixtures.js";
 
 describe("SpacedRepetitionSystemStageNumber", () => {
   testFor(`Invalid SRS Stage Number: ${WaniKani.MIN_SRS_STAGE - 1}`, () => {
-    expect(() => v.assert(WaniKani.SpacedRepetitionSystemStageNumber, -1)).toThrow(
+    expect(() => v.assert(WaniKani.SpacedRepetitionSystemStageNumber, WaniKani.MIN_SRS_STAGE - 1)).toThrow(
       `Invalid value: Expected >=${WaniKani.MIN_SRS_STAGE} but received ${WaniKani.MIN_SRS_STAGE - 1}`,
     );
     expect(WaniKani.isSpacedRepetitionSystemStageNumber(WaniKani.MIN_SRS_STAGE - 1)).toBe(false);

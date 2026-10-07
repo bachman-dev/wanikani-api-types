@@ -10,8 +10,8 @@ z.config(en());
 setLang("en");
 
 describe("SpacedRepetitionSystemStageNumber", () => {
-  testFor("Invalid SRS Stage Number: -1", () => {
-    expect(() => WaniKani.SpacedRepetitionSystemStageNumber.parse(-1)).toThrow(
+  testFor(`Invalid SRS Stage Number: ${WaniKani.MIN_SRS_STAGE - 1}`, () => {
+    expect(() => WaniKani.SpacedRepetitionSystemStageNumber.parse(WaniKani.MIN_SRS_STAGE - 1)).toThrow(
       new z.$ZodRealError([
         {
           origin: "number",
@@ -19,7 +19,7 @@ describe("SpacedRepetitionSystemStageNumber", () => {
           minimum: WaniKani.MIN_SRS_STAGE,
           inclusive: true,
           path: [],
-          message: "Too small: expected number to be >=0",
+          message: `Too small: expected number to be >=${WaniKani.MIN_SRS_STAGE}`,
         },
       ]),
     );
@@ -44,7 +44,7 @@ describe("SpacedRepetitionSystemStageNumber", () => {
           maximum: WaniKani.MAX_SRS_STAGE,
           inclusive: true,
           path: [],
-          message: "Too big: expected number to be <=9",
+          message: `Too big: expected number to be <=${WaniKani.MAX_SRS_STAGE}`,
         },
       ]),
     );

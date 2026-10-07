@@ -17,7 +17,7 @@ describe("SubjectType", () => {
   });
   testFor("Invalid Subject Type", () => {
     expect(() => v.assert(WaniKani.SubjectType, "not real")).toThrow(
-      `Invalid type: Expected ("kana_vocabulary" | "kanji" | "radical" | "vocabulary") but received "not real"`,
+      `Invalid type: Expected (${WaniKani.SubjectType.options.map((option) => `"${option}"`).join(" | ")}) but received "not real"`,
     );
     expect(WaniKani.isSubjectType("not real")).toBe(false);
   });
@@ -26,7 +26,7 @@ describe("SubjectType", () => {
 describe("SubjectTuple", () => {
   testFor("Empty SubjectTuple throws error", ({ emptySubjectTuple }) => {
     expect(() => v.assert(WaniKani.SubjectTuple, emptySubjectTuple)).toThrow(
-      `Invalid type: Expected ("kana_vocabulary" | "kanji" | "radical" | "vocabulary") but received undefined`,
+      `Invalid type: Expected (${WaniKani.SubjectType.options.map((option) => `"${option}"`).join(" | ")}) but received undefined`,
     );
     expect(WaniKani.isSubjectTuple(emptySubjectTuple)).toBe(false);
   });
