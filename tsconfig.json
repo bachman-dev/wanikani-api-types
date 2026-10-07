@@ -5,7 +5,7 @@
     "declaration": true,
     "erasableSyntaxOnly": true,
     "exactOptionalPropertyTypes": true,
-    "lib": ["es2025"],
+    "lib": ["es2022"],
     "module": "NodeNext",
     "moduleResolution": "nodenext",
     "noImplicitOverride": true,
