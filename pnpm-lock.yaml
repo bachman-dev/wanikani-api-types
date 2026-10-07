@@ -211,7 +211,7 @@ importers:
   packages/types:
     dependencies:
       typescript:
-        specifier: 7.0.x
+        specifier: 5.9.x - 7.0.x
         version: 7.0.2
     devDependencies:
       '@bachman-dev/wanikani-api-fixtures':

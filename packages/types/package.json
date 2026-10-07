@@ -32,7 +32,7 @@
     "@bachman-dev/wanikani-api-fixtures": "workspace:*"
   },
   "peerDependencies": {
-    "typescript": "7.0.x"
+    "typescript": "5.9.x - 7.0.x"
   },
   "peerDependenciesMeta": {
     "typescript": {
