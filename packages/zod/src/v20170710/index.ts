@@ -10,3 +10,4 @@ export * from "./reviews.ts";
 export * from "./spaced-repetition-systems.ts";
 export * from "./study-materials.ts";
 export * from "./subjects.ts";
+export * from "./summary.ts";
