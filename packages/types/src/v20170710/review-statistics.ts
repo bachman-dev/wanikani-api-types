@@ -22,41 +22,41 @@ export interface ReviewStatistic extends BaseResource {
     hidden: boolean;
 
     /** Total number of correct answers submitted for the meaning of the associated subject. */
-    meaning_correct: number;
+    meaning_correct: SafeInteger;
 
     /** The current, uninterrupted series of correct answers given for the meaning of the associated subject. */
-    meaning_current_streak: number;
+    meaning_current_streak: SafeInteger;
 
     /** Total number of incorrect answers submitted for the meaning of the associated subject. */
-    meaning_incorrect: number;
+    meaning_incorrect: SafeInteger;
 
     /** The longest, uninterrupted series of correct answers ever given for the meaning of the associated subject. */
-    meaning_max_streak: number;
+    meaning_max_streak: SafeInteger;
 
     /** The overall correct answer rate by the user for the subject, including both meaning and reading. */
     percentage_correct: number;
 
     /** Total number of correct answers submitted for the reading of the associated subject. */
-    reading_correct: number;
+    reading_correct: SafeInteger;
 
     /** The current, uninterrupted series of correct answers given for the reading of the associated subject. */
-    reading_current_streak: number;
+    reading_current_streak: SafeInteger;
 
     /** Total number of incorrect answers submitted for the reading of the associated subject. */
-    reading_incorrect: number;
+    reading_incorrect: SafeInteger;
 
     /** The longest, uninterrupted series of correct answers ever given for the reading of the associated subject. */
-    reading_max_streak: number;
+    reading_max_streak: SafeInteger;
 
     /** Unique identifier of the associated subject. */
-    subject_id: number;
+    subject_id: SafeInteger;
 
     /** The type of the associated subject. */
     subject_type: SubjectType;
   };
 
   /** A unique number identifying the review statistic. */
-  id: number;
+  id: SafeInteger;
 
   /** The kind of object returned. */
   object: "review_statistic";

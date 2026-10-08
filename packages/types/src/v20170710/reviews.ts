@@ -16,7 +16,7 @@ export interface Review extends BaseResource {
   /** Data for the returned review. */
   data: {
     /** Unique identifier of the associated assignment. */
-    assignment_id: number;
+    assignment_id: SafeInteger;
 
     /** Timestamp when the review was created. */
     created_at: DatableString;
@@ -28,23 +28,23 @@ export interface Review extends BaseResource {
     ending_srs_stage: SpacedRepetitionSystemStageNumber;
 
     /** The number of times the user has answered the meaning incorrectly. */
-    incorrect_meaning_answers: number;
+    incorrect_meaning_answers: SafeInteger;
 
     /** The number of times the user has answered the reading incorrectly. */
-    incorrect_reading_answers: number;
+    incorrect_reading_answers: SafeInteger;
 
     /** Unique identifier of the associated `spaced_repetition_system`. */
-    spaced_repetition_system_id: number;
+    spaced_repetition_system_id: SafeInteger;
 
     /** The starting SRS stage interval, with valid values ranging from `1` to `8`. */
     starting_srs_stage: SpacedRepetitionSystemStageNumber;
 
     /** Unique identifier of the associated subject. */
-    subject_id: number;
+    subject_id: SafeInteger;
   };
 
   /** A unique number identifying the review. */
-  id: number;
+  id: SafeInteger;
 
   /** The kind of object returned. */
   object: "review";

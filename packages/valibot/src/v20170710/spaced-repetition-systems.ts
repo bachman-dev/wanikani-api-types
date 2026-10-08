@@ -39,8 +39,8 @@ export function isSpacedRepetitionSystemStageNumber(value: unknown): value is Sp
  */
 export type SpacedRepetitionSystemStage = Types.SpacedRepetitionSystemStage;
 export const SpacedRepetitionSystemStage = v.object({
-  interval: v.union([v.number(), v.null()]),
-  interval_unit: v.union([v.picklist(["days", "hours", "milliseconds", "minutes", "seconds", "weeks"]), v.null()]),
+  interval: v.nullable(SafeInteger),
+  interval_unit: v.nullable(v.picklist(["days", "hours", "milliseconds", "minutes", "seconds", "weeks"])),
   position: SpacedRepetitionSystemStageNumber,
 });
 
@@ -67,7 +67,7 @@ export const SpacedRepetitionSystem = v.object(
         starting_stage_position: SpacedRepetitionSystemStageNumber,
         unlocking_stage_position: SpacedRepetitionSystemStageNumber,
       }),
-      id: v.number(),
+      id: SafeInteger,
       object: v.literal("spaced_repetition_system"),
     }),
   ]),

@@ -98,7 +98,7 @@ export interface BaseCollection {
     next_url: string | null;
 
     /** Maximum number of items delivered per page for this collection. */
-    per_page: number;
+    per_page: SafeInteger;
 
     /**
      * The URL of the previous page of results. If there are no results at all or no previous page to go to, the value
@@ -108,7 +108,7 @@ export interface BaseCollection {
   };
 
   /** The total number of items in the collection. */
-  total_count: number;
+  total_count: SafeInteger;
 
   /** The URL of the request. For collections, that will contain all the filters and options you've passed to the API. */
   url: string;
@@ -170,7 +170,7 @@ export interface BaseReport {
  */
 export interface ApiError {
   /** An HTTP status code indicating the type of error. */
-  code: number;
+  code: SafeInteger;
 
   /** A message string that describes the error. */
   error: string;

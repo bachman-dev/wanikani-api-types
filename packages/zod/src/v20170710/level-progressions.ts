@@ -1,7 +1,7 @@
 import type * as Types from "@bachman-dev/wanikani-api-types/v20170710";
 import * as z from "zod/mini";
 
-import { BaseCollection, BaseResource, DatableString, Level } from "./base.js";
+import { BaseCollection, BaseResource, DatableString, Level, SafeInteger } from "./base.js";
 
 /**
  * Level progressions contain information about a user's progress through the WaniKani levels.
@@ -30,7 +30,7 @@ export const LevelProgression = z.toZod<Types.LevelProgression>()(
       started_at: z.nullable(DatableString),
       unlocked_at: z.nullable(DatableString),
     }),
-    id: z.number(),
+    id: SafeInteger,
     object: z.literal("level_progression"),
   }),
 );

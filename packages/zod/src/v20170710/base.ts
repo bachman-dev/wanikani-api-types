@@ -117,10 +117,10 @@ export const BaseCollection = z.toZod<Types.BaseCollection>()(
     object: z.literal("collection"),
     pages: z.object({
       next_url: z.nullable(z.string()),
-      per_page: z.number(),
+      per_page: SafeInteger,
       previous_url: z.nullable(z.string()),
     }),
-    total_count: z.number(),
+    total_count: SafeInteger,
     url: z.string(),
   }),
 );
@@ -168,7 +168,7 @@ export const BaseReport = z.toZod<Types.BaseReport>()(
 export type ApiError = Types.ApiError;
 export const ApiError = z.toZod<Types.ApiError>()(
   z.object({
-    code: z.number(),
+    code: SafeInteger,
     error: z.string(),
   }),
 );

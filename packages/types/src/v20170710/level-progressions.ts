@@ -1,4 +1,4 @@
-import type { BaseCollection, BaseResource, DatableString, Level } from "./base.js";
+import type { BaseCollection, BaseResource, DatableString, Level, SafeInteger } from "./base.js";
 
 /**
  * Level progressions contain information about a user's progress through the WaniKani levels.
@@ -43,7 +43,7 @@ export interface LevelProgression extends BaseResource {
   };
 
   /** A unique number identifying the level progression. */
-  id: number;
+  id: SafeInteger;
 
   /** The kind of object returned. */
   object: "level_progression";

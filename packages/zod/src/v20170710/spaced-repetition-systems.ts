@@ -38,7 +38,7 @@ export function isSpacedRepetitionSystemStageNumber(value: unknown): value is Sp
 export type SpacedRepetitionSystemStage = Types.SpacedRepetitionSystemStage;
 export const SpacedRepetitionSystemStage = z.toZod<Types.SpacedRepetitionSystemStage>()(
   z.object({
-    interval: z.nullable(z.number()),
+    interval: z.nullable(SafeInteger),
     interval_unit: z.nullable(z.enum(["days", "hours", "milliseconds", "minutes", "seconds", "weeks"])),
     position: SpacedRepetitionSystemStageNumber,
   }),
@@ -66,7 +66,7 @@ export const SpacedRepetitionSystem = z.toZod<Types.SpacedRepetitionSystem>()(
       starting_stage_position: SpacedRepetitionSystemStageNumber,
       unlocking_stage_position: SpacedRepetitionSystemStageNumber,
     }),
-    id: z.number(),
+    id: SafeInteger,
     object: z.literal("spaced_repetition_system"),
   }),
 );

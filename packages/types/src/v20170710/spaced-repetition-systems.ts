@@ -1,4 +1,4 @@
-import type { BaseCollection, BaseResource, DatableString } from "./base.js";
+import type { BaseCollection, BaseResource, DatableString, SafeInteger } from "./base.js";
 
 /**
  * The minimum SRS Stage Number used in WaniKani's SRS; exported for use in lieu of a Magic Number.
@@ -36,7 +36,7 @@ export type SpacedRepetitionSystemStageNumber = number & {};
  */
 export interface SpacedRepetitionSystemStage {
   /** The length of time added to the time of review registration, adjusted to the beginning of the hour. */
-  interval: number | null;
+  interval: SafeInteger | null;
 
   /** Unit of time. Can be the following: `milliseconds`, `seconds`, `minutes`, `hours`, `days`, and `weeks`. */
   interval_unit: "days" | "hours" | "milliseconds" | "minutes" | "seconds" | "weeks" | null;
@@ -82,7 +82,7 @@ export interface SpacedRepetitionSystem extends BaseResource {
   };
 
   /** A unique number identifying the Spaced Repetition System. */
-  id: number;
+  id: SafeInteger;
 
   /** The kind of object returned. */
   object: "spaced_repetition_system";

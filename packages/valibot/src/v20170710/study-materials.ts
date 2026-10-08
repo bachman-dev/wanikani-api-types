@@ -37,11 +37,11 @@ export const StudyMaterial = v.object(
         v.object({
           created_at: DatableString,
           hidden: v.boolean(),
-          subject_id: v.number(),
+          subject_id: SafeInteger,
           subject_type: SubjectType,
         }),
       ]),
-      id: v.number(),
+      id: SafeInteger,
       object: v.literal("study_material"),
     }),
   ]),

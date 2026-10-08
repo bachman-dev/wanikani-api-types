@@ -21,16 +21,16 @@ export const Review = z.toZod<Types.Review>()(
   z.object({
     ...BaseResource.shape,
     data: z.object({
-      assignment_id: z.number(),
+      assignment_id: SafeInteger,
       created_at: DatableString,
       ending_srs_stage: SpacedRepetitionSystemStageNumber,
-      incorrect_meaning_answers: z.number(),
-      incorrect_reading_answers: z.number(),
-      spaced_repetition_system_id: z.number(),
+      incorrect_meaning_answers: SafeInteger,
+      incorrect_reading_answers: SafeInteger,
+      spaced_repetition_system_id: SafeInteger,
       starting_srs_stage: SpacedRepetitionSystemStageNumber,
-      subject_id: z.number(),
+      subject_id: SafeInteger,
     }),
-    id: z.number(),
+    id: SafeInteger,
     object: z.literal("review"),
   }),
 );
@@ -134,13 +134,15 @@ export const ReviewPayload = z.toZod<Types.ReviewPayload>()(
  * @see {@link https://docs.api.wanikani.com/20170710/#create-a-review}
  */
 export type CreatedReview = Types.CreatedReview;
-export const CreatedReview = z.object({
-  ...Review.shape,
-  resources_updated: z.object({
-    assignment: Assignment,
-    review_statistic: ReviewStatistic,
+export const CreatedReview = z.toZod<Types.CreatedReview>()(
+  z.object({
+    ...Review.shape,
+    resources_updated: z.object({
+      assignment: Assignment,
+      review_statistic: ReviewStatistic,
+    }),
   }),
-});
+);
 
 /**
  * A type guard that checks if the given value matches the type predicate.

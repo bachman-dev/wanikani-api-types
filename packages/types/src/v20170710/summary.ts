@@ -1,4 +1,4 @@
-import type { BaseReport, DatableString } from "./base.js";
+import type { BaseReport, DatableString, SafeInteger } from "./base.js";
 
 /**
  * Details about subjects listed as available for lessons in the Summary report.
@@ -14,7 +14,7 @@ export interface SummaryInterval {
   available_at: DatableString;
 
   /** Collection of unique identifiers for subjects. */
-  subject_ids: number[];
+  subject_ids: SafeInteger[];
 }
 
 /**

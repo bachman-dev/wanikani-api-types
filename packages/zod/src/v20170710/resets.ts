@@ -1,7 +1,7 @@
 import type * as Types from "@bachman-dev/wanikani-api-types/v20170710";
 import * as z from "zod/mini";
 
-import { BaseCollection, BaseResource, DatableString, Level } from "./base.js";
+import { BaseCollection, BaseResource, DatableString, Level, SafeInteger } from "./base.js";
 
 /**
  * Users can reset their progress back to any level at or below their current level. When they reset to a particular
@@ -23,7 +23,7 @@ export const Reset = z.toZod<Types.Reset>()(
       original_level: Level,
       target_level: Level,
     }),
-    id: z.number(),
+    id: SafeInteger,
     object: z.literal("reset"),
   }),
 );

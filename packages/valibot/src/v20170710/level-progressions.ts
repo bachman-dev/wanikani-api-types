@@ -1,7 +1,7 @@
 import type * as Types from "@bachman-dev/wanikani-api-types/v20170710";
 import * as v from "valibot";
 
-import { BaseCollection, BaseResource, DatableString, Level } from "./base.js";
+import { BaseCollection, BaseResource, DatableString, Level, SafeInteger } from "./base.js";
 
 /**
  * Level progressions contain information about a user's progress through the WaniKani levels.
@@ -23,15 +23,15 @@ export const LevelProgression = v.object(
     BaseResource,
     v.object({
       data: v.object({
-        abandoned_at: v.union([DatableString, v.null()]),
-        completed_at: v.union([DatableString, v.null()]),
+        abandoned_at: v.nullable(DatableString),
+        completed_at: v.nullable(DatableString),
         created_at: DatableString,
         level: Level,
-        passed_at: v.union([DatableString, v.null()]),
-        started_at: v.union([DatableString, v.null()]),
-        unlocked_at: v.union([DatableString, v.null()]),
+        passed_at: v.nullable(DatableString),
+        started_at: v.nullable(DatableString),
+        unlocked_at: v.nullable(DatableString),
       }),
-      id: v.number(),
+      id: SafeInteger,
       object: v.literal("level_progression"),
     }),
   ]),

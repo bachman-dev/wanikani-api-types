@@ -28,11 +28,11 @@ export const Assignment = z.toZod<Types.Assignment>()(
       resurrected_at: z.nullable(DatableString),
       srs_stage: SpacedRepetitionSystemStageNumber,
       started_at: z.nullable(DatableString),
-      subject_id: z.number(),
+      subject_id: SafeInteger,
       subject_type: SubjectType,
       unlocked_at: z.nullable(DatableString),
     }),
-    id: z.number(),
+    id: SafeInteger,
     object: z.literal("assignment"),
   }),
 );

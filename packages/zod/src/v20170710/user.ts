@@ -12,9 +12,8 @@ export { MIN_LESSON_BATCH_SIZE, MAX_LESSON_BATCH_SIZE } from "@bachman-dev/wanik
  * @category User
  */
 export type LessonBatchSizeNumber = Types.LessonBatchSizeNumber;
-export const LessonBatchSizeNumber = SafeInteger.check(
-  z.minimum(MIN_LESSON_BATCH_SIZE),
-  z.maximum(MAX_LESSON_BATCH_SIZE),
+export const LessonBatchSizeNumber = z.toZod<Types.LessonBatchSizeNumber>()(
+  SafeInteger.check(z.minimum(MIN_LESSON_BATCH_SIZE), z.maximum(MAX_LESSON_BATCH_SIZE)),
 );
 
 /**
@@ -39,7 +38,7 @@ export function isLessonBatchSizeNumber(value: unknown): value is LessonBatchSiz
 export type UserPreferences = Types.UserPreferences;
 export const UserPreferences = z.toZod<Types.UserPreferences>()(
   z.object({
-    default_voice_actor_id: z.number(),
+    default_voice_actor_id: SafeInteger,
     extra_study_autoplay_audio: z.boolean(),
     lessons_autoplay_audio: z.boolean(),
     lessons_batch_size: LessonBatchSizeNumber,
