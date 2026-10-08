@@ -1,4 +1,4 @@
-import type { BaseCollection, BaseResource, CollectionParameters, DatableString, Level } from "./base.js";
+import type { BaseCollection, BaseResource, CollectionParameters, DatableString, Level, SafeInteger } from "./base.js";
 
 /**
  * The types of subjects used on WaniKani and its API.
@@ -79,7 +79,7 @@ export interface SubjectBaseData {
    * The position that the subject appears in lessons. Note that the value is scoped to the level of the subject, so
    * there are duplicate values across levels.
    */
-  lesson_position: number;
+  lesson_position: SafeInteger;
 
   /** The level of the subject, from `1` to `60`. */
   level: Level;
@@ -97,7 +97,7 @@ export interface SubjectBaseData {
   slug: string;
 
   /** Unique identifier of the associated Spaced Repetition System. */
-  spaced_repetition_system_id: number;
+  spaced_repetition_system_id: SafeInteger;
 }
 
 /**
@@ -143,7 +143,7 @@ export type RadicalCharacterImage = {
  */
 export interface RadicalData extends SubjectBaseData {
   /** An array of numeric identifiers for the kanji that have the radical as a component. */
-  amalgamation_subject_ids: number[];
+  amalgamation_subject_ids: SafeInteger[];
 
   /** A collection of images of the radical. */
   character_images: RadicalCharacterImage[];
@@ -183,7 +183,7 @@ export interface KanjiReading {
  */
 export interface KanjiData extends SubjectBaseData {
   /** An array of numeric identifiers for the vocabulary that have the kanji as a component. */
-  amalgamation_subject_ids: number[];
+  amalgamation_subject_ids: SafeInteger[];
 
   /** The UTF-8 characters for the subject, including kanji and hiragana. */
   characters: string;
@@ -192,7 +192,7 @@ export interface KanjiData extends SubjectBaseData {
    * An array of numeric identifiers for the radicals that make up this kanji. Note that these are the subjects that
    * must have passed assignments in order to unlock this subject's assignment.
    */
-  component_subject_ids: number[];
+  component_subject_ids: SafeInteger[];
 
   /** Meaning hint for the kanji. */
   meaning_hint: string | null;
@@ -207,7 +207,7 @@ export interface KanjiData extends SubjectBaseData {
   readings: KanjiReading[];
 
   /** An array of numeric identifiers for kanji which are visually similar to the kanji in question. */
-  visually_similar_subject_ids: number[];
+  visually_similar_subject_ids: SafeInteger[];
 }
 
 /**
@@ -243,10 +243,10 @@ export interface VocabularyPronunciationAudio {
     pronunciation: string;
 
     /** A unique ID shared between same source pronunciation audio. */
-    source_id: number;
+    source_id: SafeInteger;
 
     /** A unique ID belonging to the voice actor. */
-    voice_actor_id: number;
+    voice_actor_id: SafeInteger;
 
     /** Humanized name of the voice actor. */
     voice_actor_name: string;
@@ -290,7 +290,7 @@ export interface VocabularyData extends SubjectBaseData {
    * An array of numeric identifiers for the kanji that make up this vocabulary. Note that these are the subjects that
    * must be have passed assignments in order to unlock this subject's assignment.
    */
-  component_subject_ids: number[];
+  component_subject_ids: SafeInteger[];
 
   /** A collection of context sentences. */
   context_sentences: VocabularyContextSentence[];
@@ -341,7 +341,7 @@ export interface KanaVocabularyData extends SubjectBaseData {
  */
 export type Subject = BaseResource & {
   /** A unique number identifying the subject. */
-  id: number;
+  id: SafeInteger;
 } & (
     | {
         /** Data for the returned kana-only vocabulary. */

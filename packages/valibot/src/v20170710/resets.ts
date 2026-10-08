@@ -1,7 +1,7 @@
 import type * as Types from "@bachman-dev/wanikani-api-types/v20170710";
 import * as v from "valibot";
 
-import { BaseCollection, BaseResource, DatableString, Level } from "./base.js";
+import { BaseCollection, BaseResource, DatableString, Level, SafeInteger } from "./base.js";
 
 /**
  * Users can reset their progress back to any level at or below their current level. When they reset to a particular
@@ -19,12 +19,12 @@ export const Reset = v.object(
     BaseResource,
     v.object({
       data: v.object({
-        confirmed_at: v.union([DatableString, v.null()]),
+        confirmed_at: v.nullable(DatableString),
         created_at: DatableString,
         original_level: Level,
         target_level: Level,
       }),
-      id: v.number(),
+      id: SafeInteger,
       object: v.literal("reset"),
     }),
   ]),

@@ -1,7 +1,7 @@
 import type * as Types from "@bachman-dev/wanikani-api-types/v20170710";
 import * as v from "valibot";
 
-import { BaseCollection, BaseResource, DatableString } from "./base.js";
+import { BaseCollection, BaseResource, DatableString, SafeInteger } from "./base.js";
 
 /**
  * Available voice actors used for vocabulary reading pronunciation audio.
@@ -21,7 +21,7 @@ export const VoiceActor = v.object(
         gender: v.picklist(["female", "male"]),
         name: v.string(),
       }),
-      id: v.number(),
+      id: SafeInteger,
       object: v.literal("voice_actor"),
     }),
   ]),

@@ -1,4 +1,4 @@
-import type { BaseCollection, BaseResource, DatableString } from "./base.js";
+import type { BaseCollection, BaseResource, DatableString, SafeInteger } from "./base.js";
 
 /**
  * Available voice actors used for vocabulary reading pronunciation audio.
@@ -24,7 +24,7 @@ export interface VoiceActor extends BaseResource {
   };
 
   /** A unique number identifying the voice actor. */
-  id: number;
+  id: SafeInteger;
 
   /** The kind of object returned. */
   object: "voice_actor";

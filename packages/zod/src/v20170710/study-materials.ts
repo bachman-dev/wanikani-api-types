@@ -37,10 +37,10 @@ export const StudyMaterial = z.toZod<Types.StudyMaterial>()(
       ...StudyMaterialBaseData.shape,
       created_at: DatableString,
       hidden: z.boolean(),
-      subject_id: z.number(),
+      subject_id: SafeInteger,
       subject_type: SubjectType,
     }),
-    id: z.number(),
+    id: SafeInteger,
     object: z.literal("study_material"),
   }),
 );

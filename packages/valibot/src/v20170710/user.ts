@@ -62,7 +62,7 @@ export const User = v.object(
     BaseResource,
     v.object({
       data: v.object({
-        current_vacation_started_at: v.union([DatableString, v.null()]),
+        current_vacation_started_at: v.nullable(DatableString),
         id: v.string(),
         level: Level,
         preferences: UserPreferences,
@@ -71,7 +71,7 @@ export const User = v.object(
         subscription: v.object({
           active: v.boolean(),
           max_level_granted: Level,
-          period_ends_at: v.union([DatableString, v.null()]),
+          period_ends_at: v.nullable(DatableString),
           type: v.picklist(["free", "lifetime", "recurring", "unknown"]),
         }),
         username: v.string(),

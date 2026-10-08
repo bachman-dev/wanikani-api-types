@@ -1,4 +1,4 @@
-import type { BaseResource, DatableString, Level } from "./base.js";
+import type { BaseResource, DatableString, Level, SafeInteger } from "./base.js";
 
 /**
  * The minimum batch size for lessons in the WaniKani app; exported for use in lieu of a Magic Number.
@@ -32,7 +32,7 @@ export interface UserPreferences {
    * @deprecated This is a deprecated user preference. It will always return `1` and cannot be set. It exists only to
    * ensure existing consumers of this API don't break.
    */
-  default_voice_actor_id: number;
+  default_voice_actor_id: SafeInteger;
 
   /** Automatically play pronunciation audio for vocabulary during extra study. */
   extra_study_autoplay_audio: boolean;

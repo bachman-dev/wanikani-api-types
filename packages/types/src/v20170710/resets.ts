@@ -1,4 +1,4 @@
-import type { BaseCollection, BaseResource, DatableString, Level } from "./base.js";
+import type { BaseCollection, BaseResource, DatableString, Level, SafeInteger } from "./base.js";
 
 /**
  * Users can reset their progress back to any level at or below their current level. When they reset to a particular
@@ -27,7 +27,7 @@ export interface Reset extends BaseResource {
   };
 
   /** A unique number identifying the reset. */
-  id: number;
+  id: SafeInteger;
 
   /** The kind of object returned. */
   object: "reset";

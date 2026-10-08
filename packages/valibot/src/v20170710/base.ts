@@ -110,14 +110,14 @@ export const BaseResource = v.object({
  */
 export type BaseCollection = Types.BaseCollection;
 export const BaseCollection = v.object({
-  data_updated_at: v.union([DatableString, v.null()]),
+  data_updated_at: v.nullable(DatableString),
   object: v.literal("collection"),
   pages: v.object({
-    next_url: v.union([v.string(), v.null()]),
-    per_page: v.number(),
-    previous_url: v.union([v.string(), v.null()]),
+    next_url: v.nullable(v.string()),
+    per_page: SafeInteger,
+    previous_url: v.nullable(v.string()),
   }),
-  total_count: v.number(),
+  total_count: SafeInteger,
   url: v.string(),
 });
 
@@ -159,7 +159,7 @@ export const BaseReport = v.object({
  */
 export type ApiError = Types.ApiError;
 export const ApiError = v.object({
-  code: v.number(),
+  code: SafeInteger,
   error: v.string(),
 });
 

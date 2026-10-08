@@ -1,7 +1,7 @@
 import type * as Types from "@bachman-dev/wanikani-api-types/v20170710";
 import * as v from "valibot";
 
-import { BaseCollection, BaseResource, CollectionParameters, DatableString, Level } from "./base.js";
+import { BaseCollection, BaseResource, CollectionParameters, DatableString, Level, SafeInteger } from "./base.js";
 
 /**
  * The types of subjects used on WaniKani and its API.
@@ -93,13 +93,13 @@ export const SubjectBaseData = v.object({
   auxiliary_meanings: v.array(SubjectAuxiliaryMeaning),
   created_at: DatableString,
   document_url: v.string(),
-  hidden_at: v.union([DatableString, v.null()]),
-  lesson_position: v.number(),
+  hidden_at: v.nullable(DatableString),
+  lesson_position: SafeInteger,
   level: Level,
   meaning_mnemonic: v.string(),
   meanings: v.array(SubjectMeaning),
   slug: v.string(),
-  spaced_repetition_system_id: v.number(),
+  spaced_repetition_system_id: SafeInteger,
 });
 
 /**
@@ -142,9 +142,9 @@ export const RadicalData = v.object(
   v.entriesFromObjects([
     SubjectBaseData,
     v.object({
-      amalgamation_subject_ids: v.array(v.number()),
+      amalgamation_subject_ids: v.array(SafeInteger),
       character_images: v.array(RadicalCharacterImage),
-      characters: v.union([v.string(), v.null()]),
+      characters: v.nullable(v.string()),
     }),
   ]),
 );
@@ -174,14 +174,14 @@ export const KanjiData = v.object(
   v.entriesFromObjects([
     SubjectBaseData,
     v.object({
-      amalgamation_subject_ids: v.array(v.number()),
+      amalgamation_subject_ids: v.array(SafeInteger),
       characters: v.string(),
-      component_subject_ids: v.array(v.number()),
-      meaning_hint: v.union([v.string(), v.null()]),
-      reading_hint: v.union([v.string(), v.null()]),
+      component_subject_ids: v.array(SafeInteger),
+      meaning_hint: v.nullable(v.string()),
+      reading_hint: v.nullable(v.string()),
       reading_mnemonic: v.string(),
       readings: v.array(KanjiReading),
-      visually_similar_subject_ids: v.array(v.number()),
+      visually_similar_subject_ids: v.array(SafeInteger),
     }),
   ]),
 );
@@ -210,8 +210,8 @@ export const VocabularyPronunciationAudio = v.object({
   metadata: v.object({
     gender: v.picklist(["female", "male"]),
     pronunciation: v.string(),
-    source_id: v.number(),
-    voice_actor_id: v.number(),
+    source_id: SafeInteger,
+    voice_actor_id: SafeInteger,
     voice_actor_name: v.string(),
     voice_description: v.string(),
   }),
@@ -243,7 +243,7 @@ export const VocabularyData = v.object(
     SubjectBaseData,
     v.object({
       characters: v.string(),
-      component_subject_ids: v.array(v.number()),
+      component_subject_ids: v.array(SafeInteger),
       context_sentences: v.array(VocabularyContextSentence),
       parts_of_speech: v.array(v.string()),
       pronunciation_audios: v.array(VocabularyPronunciationAudio),
@@ -287,7 +287,7 @@ export type Subject = Types.Subject;
 export const Subject = v.intersect([
   BaseResource,
   v.object({
-    id: v.number(),
+    id: SafeInteger,
   }),
   v.variant("object", [
     v.object({

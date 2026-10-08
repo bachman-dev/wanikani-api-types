@@ -1,7 +1,7 @@
 import type * as Types from "@bachman-dev/wanikani-api-types/v20170710";
 import * as v from "valibot";
 
-import { BaseReport, DatableString } from "./base.js";
+import { BaseReport, DatableString, SafeInteger } from "./base.js";
 
 /**
  * Details about subjects listed as available for lessons in the Summary report.
@@ -12,7 +12,7 @@ import { BaseReport, DatableString } from "./base.js";
 export type SummaryInterval = Types.SummaryInterval;
 export const SummaryInterval = v.object({
   available_at: DatableString,
-  subject_ids: v.array(v.number()),
+  subject_ids: v.array(SafeInteger),
 });
 
 /**
@@ -30,7 +30,7 @@ export const Summary = v.object(
     v.object({
       data: v.object({
         lessons: v.array(SummaryInterval),
-        next_reviews_at: v.union([DatableString, v.null()]),
+        next_reviews_at: v.nullable(DatableString),
         reviews: v.array(SummaryInterval),
       }),
     }),

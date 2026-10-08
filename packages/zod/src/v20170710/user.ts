@@ -39,7 +39,7 @@ export function isLessonBatchSizeNumber(value: unknown): value is LessonBatchSiz
 export type UserPreferences = Types.UserPreferences;
 export const UserPreferences = z.toZod<Types.UserPreferences>()(
   z.object({
-    default_voice_actor_id: z.number(),
+    default_voice_actor_id: SafeInteger,
     extra_study_autoplay_audio: z.boolean(),
     lessons_autoplay_audio: z.boolean(),
     lessons_batch_size: LessonBatchSizeNumber,

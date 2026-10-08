@@ -1,7 +1,7 @@
 import type * as Types from "@bachman-dev/wanikani-api-types/v20170710";
 import * as z from "zod/mini";
 
-import { BaseCollection, BaseResource, DatableString } from "./base.js";
+import { BaseCollection, BaseResource, DatableString, SafeInteger } from "./base.js";
 
 /**
  * Available voice actors used for vocabulary reading pronunciation audio.
@@ -20,7 +20,7 @@ export const VoiceActor = z.toZod<Types.VoiceActor>()(
       gender: z.enum(["female", "male"]),
       name: z.string(),
     }),
-    id: z.number(),
+    id: SafeInteger,
     object: z.literal("voice_actor"),
   }),
 );

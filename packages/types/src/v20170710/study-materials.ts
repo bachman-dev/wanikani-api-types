@@ -38,14 +38,14 @@ export interface StudyMaterial extends BaseResource {
     hidden: boolean;
 
     /** Unique identifier of the associated subject. */
-    subject_id: number;
+    subject_id: SafeInteger;
 
     /** The type of the associated subject. */
     subject_type: SubjectType;
   };
 
   /** A unique number identifying the study material. */
-  id: number;
+  id: SafeInteger;
 
   /** The kind of object returned. */
   object: "study_material";

@@ -2,7 +2,7 @@ import type * as Types from "@bachman-dev/wanikani-api-types/v20170710";
 import * as z from "zod/mini";
 
 import * as m from "./lang/index.ts";
-import { BaseCollection, BaseResource, CollectionParameters, DatableString, Level } from "./base.js";
+import { BaseCollection, BaseResource, CollectionParameters, DatableString, Level, SafeInteger } from "./base.js";
 
 /**
  * The types of subjects used on WaniKani and its API.
@@ -98,12 +98,12 @@ export const SubjectBaseData = z.toZod<Types.SubjectBaseData>()(
     created_at: DatableString,
     document_url: z.string(),
     hidden_at: z.nullable(DatableString),
-    lesson_position: z.number(),
+    lesson_position: SafeInteger,
     level: Level,
     meaning_mnemonic: z.string(),
     meanings: z.array(SubjectMeaning),
     slug: z.string(),
-    spaced_repetition_system_id: z.number(),
+    spaced_repetition_system_id: SafeInteger,
   }),
 );
 
@@ -148,7 +148,7 @@ export type RadicalData = Types.RadicalData;
 export const RadicalData = z.toZod<Types.RadicalData>()(
   z.object({
     ...SubjectBaseData.shape,
-    amalgamation_subject_ids: z.array(z.number()),
+    amalgamation_subject_ids: z.array(SafeInteger),
     character_images: z.array(RadicalCharacterImage),
     characters: z.nullable(z.string()),
   }),
@@ -180,14 +180,14 @@ export type KanjiData = Types.KanjiData;
 export const KanjiData = z.toZod<Types.KanjiData>()(
   z.object({
     ...SubjectBaseData.shape,
-    amalgamation_subject_ids: z.array(z.number()),
+    amalgamation_subject_ids: z.array(SafeInteger),
     characters: z.string(),
-    component_subject_ids: z.array(z.number()),
+    component_subject_ids: z.array(SafeInteger),
     meaning_hint: z.nullable(z.string()),
     reading_hint: z.nullable(z.string()),
     reading_mnemonic: z.string(),
     readings: z.array(KanjiReading),
-    visually_similar_subject_ids: z.array(z.number()),
+    visually_similar_subject_ids: z.array(SafeInteger),
   }),
 );
 
@@ -218,8 +218,8 @@ export const VocabularyPronunciationAudio = z.toZod<Types.VocabularyPronunciatio
     metadata: z.object({
       gender: z.enum(["female", "male"]),
       pronunciation: z.string(),
-      source_id: z.number(),
-      voice_actor_id: z.number(),
+      source_id: SafeInteger,
+      voice_actor_id: SafeInteger,
       voice_actor_name: z.string(),
       voice_description: z.string(),
     }),
@@ -253,7 +253,7 @@ export const VocabularyData = z.toZod<Types.VocabularyData>()(
   z.object({
     ...SubjectBaseData.shape,
     characters: z.string(),
-    component_subject_ids: z.array(z.number()),
+    component_subject_ids: z.array(SafeInteger),
     context_sentences: z.array(VocabularyContextSentence),
     parts_of_speech: z.array(z.string()),
     pronunciation_audios: z.array(VocabularyPronunciationAudio),
@@ -295,7 +295,7 @@ export const Subject = z.toZod<Types.Subject>()(
   z.intersection(
     z.object({
       ...BaseResource.shape,
-      id: z.number(),
+      id: SafeInteger,
     }),
     z.discriminatedUnion("object", [
       z.object({

@@ -1,7 +1,7 @@
 import type * as Types from "@bachman-dev/wanikani-api-types/v20170710";
 import * as z from "zod/mini";
 
-import { BaseReport, DatableString } from "./base.js";
+import { BaseReport, DatableString, SafeInteger } from "./base.js";
 
 /**
  * Details about subjects listed as available for lessons in the Summary report.
@@ -10,10 +10,12 @@ import { BaseReport, DatableString } from "./base.js";
  * @see {@link https://docs.api.wanikani.com/20170710/#summary}
  */
 export type SummaryInterval = Types.SummaryInterval;
-export const SummaryInterval = z.object({
-  available_at: DatableString,
-  subject_ids: z.array(z.number()),
-});
+export const SummaryInterval = z.toZod<Types.SummaryInterval>()(
+  z.object({
+    available_at: DatableString,
+    subject_ids: z.array(SafeInteger),
+  }),
+);
 
 /**
  * The summary report contains currently available lessons and reviews and the reviews that will become available in the

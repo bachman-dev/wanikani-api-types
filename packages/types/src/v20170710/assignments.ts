@@ -42,7 +42,7 @@ export interface Assignment extends BaseResource {
     started_at: DatableString | null;
 
     /** Unique identifier of the associated subject. */
-    subject_id: number;
+    subject_id: SafeInteger;
 
     /** The type of the associated subject. */
     subject_type: SubjectType;
@@ -59,7 +59,7 @@ export interface Assignment extends BaseResource {
   };
 
   /** A unique number identifying the assignment. */
-  id: number;
+  id: SafeInteger;
 
   /** The kind of object returned. */
   object: "assignment";
