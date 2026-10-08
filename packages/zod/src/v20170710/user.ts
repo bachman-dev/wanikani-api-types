@@ -12,9 +12,8 @@ export { MIN_LESSON_BATCH_SIZE, MAX_LESSON_BATCH_SIZE } from "@bachman-dev/wanik
  * @category User
  */
 export type LessonBatchSizeNumber = Types.LessonBatchSizeNumber;
-export const LessonBatchSizeNumber = SafeInteger.check(
-  z.minimum(MIN_LESSON_BATCH_SIZE),
-  z.maximum(MAX_LESSON_BATCH_SIZE),
+export const LessonBatchSizeNumber = z.toZod<Types.LessonBatchSizeNumber>()(
+  SafeInteger.check(z.minimum(MIN_LESSON_BATCH_SIZE), z.maximum(MAX_LESSON_BATCH_SIZE)),
 );
 
 /**

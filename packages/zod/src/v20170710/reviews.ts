@@ -134,13 +134,15 @@ export const ReviewPayload = z.toZod<Types.ReviewPayload>()(
  * @see {@link https://docs.api.wanikani.com/20170710/#create-a-review}
  */
 export type CreatedReview = Types.CreatedReview;
-export const CreatedReview = z.object({
-  ...Review.shape,
-  resources_updated: z.object({
-    assignment: Assignment,
-    review_statistic: ReviewStatistic,
+export const CreatedReview = z.toZod<Types.CreatedReview>()(
+  z.object({
+    ...Review.shape,
+    resources_updated: z.object({
+      assignment: Assignment,
+      review_statistic: ReviewStatistic,
+    }),
   }),
-});
+);
 
 /**
  * A type guard that checks if the given value matches the type predicate.
