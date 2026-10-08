@@ -46,14 +46,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
       - name: Setup pnpm
-        uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6
-      - name: Setup Node.js
-        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        uses: pnpm/setup@fbda4c85fc2e1e08721cd8763afea8f48d60f024 # v3.0.0
         with:
-          node-version-file: ".nvmrc"
-          cache: "pnpm"
-      - name: Install Dependencies
-        run: pnpm install
+          cache: true
+          require-lockfile: true
       - name: Install TypeScript ${{ matrix.typescript-version }}
         run: 'pnpm add --save-dev typescript@"~${{ matrix.typescript-version }}"'
       - name: Build Packages
@@ -67,14 +63,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
       - name: Setup pnpm
-        uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6
-      - name: Setup Node.js
-        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        uses: pnpm/setup@fbda4c85fc2e1e08721cd8763afea8f48d60f024 # v3.0.0
         with:
-          node-version-file: ".nvmrc"
-          cache: "pnpm"
-      - name: Install Dependencies
-        run: pnpm install
+          cache: true
+          require-lockfile: true
       # devDependencies track the latest versions, so this installs the lowest published version
       # satisfying each package's required peer dependencies (e.g. valibot ^1.0.0 → 1.0.0) to catch
       # use of features they lack. Optional peers (i.e. TypeScript) are covered by their own matrix.
