@@ -71,6 +71,8 @@ jobs:
       # satisfying each package's required peer dependencies (e.g. valibot ^1.0.0 → 1.0.0) to catch
       # use of features they lack. Optional peers (i.e. TypeScript) are covered by their own matrix.
       - name: Install Lowest Peer Dependencies
+        # Explicit bash adds pipefail, so a failing `npm view` fails the step instead of being piped onward
+        shell: bash
         run: |
           {
             echo "### Lowest Peer Dependencies"
@@ -83,7 +85,8 @@ jobs:
             name="$(jq -r '.name' "$manifest")"
             specifiers=()
             while IFS=$'\t' read -r peer range; do
-              version="$(npm view "$peer@$range" version --json | jq -r 'if type == "array" then .[] else . end' | sort -V | head -n 1)"
+              # --prefix keeps npm from reading the root package.json, whose devEngines (pnpm) npm rejects
+              version="$(npm view "$peer@$range" version --json --prefix "$RUNNER_TEMP" | jq -r 'if type == "array" then .[] else . end' | sort -V | head -n 1)"
               if [[ -z "$version" ]]; then
                 echo "::error file=$manifest::No published version of $peer satisfies $range."
                 exit 1
