@@ -3,11 +3,9 @@ import { describe, expect } from "vitest";
 import { en } from "zod/locales";
 
 import * as WaniKani from "../../src/v20170710/index.js";
-import { setLang } from "../../src/v20170710/lang/_internal.ts";
 import testFor from "./fixtures.js";
 
 z.config(en());
-setLang("en");
 
 describe("SpacedRepetitionSystemStageNumber", () => {
   testFor(`Invalid SRS Stage Number: ${WaniKani.MIN_SRS_STAGE - 1}`, () => {

@@ -3,11 +3,9 @@ import { describe, expect } from "vitest";
 import { en } from "zod/locales";
 
 import * as WaniKani from "../../src/v20170710/index.js";
-import { setLang } from "../../src/v20170710/lang/_internal.ts";
 import testFor from "./fixtures.js";
 
 z.config(en());
-setLang("en");
 
 describe("StudyMaterial", () => {
   testFor("Real StudyMaterial", ({ studyMaterial }) => {
