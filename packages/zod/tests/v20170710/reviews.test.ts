@@ -1,7 +1,11 @@
+import * as z from "zod/v4/core";
 import { describe, expect } from "vitest";
+import { en } from "zod/locales";
 
 import * as WaniKani from "../../src/v20170710/index.js";
 import testFor from "./fixtures.js";
+
+z.config(en());
 
 describe("Review", () => {
   testFor("Review from WaniKani API Docs", ({ review }) => {

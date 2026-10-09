@@ -9,7 +9,7 @@ export default defineConfig({
       exclude: [
         "packages/*/src/index.ts",
         "packages/*/src/v20170710/index.ts",
-        "packages/*/src/v20170710/lang/**",
+        "packages/valibot/src/v20170710/lang/**",
         "**/tests/**",
         "**/node_modules/**",
         ...coverageConfigDefaults.exclude,
