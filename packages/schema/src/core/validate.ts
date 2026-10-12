@@ -1,37 +1,6 @@
-import { indexRevision, messagesOf, referencesOf, walkSchema } from "./analysis.js";
+import { findCycle, indexRevision, messagesOf, referencesOf, walkSchema } from "./analysis.js";
 import type { Module, Revision } from "./revision.js";
 import type { Definition } from "./schema.js";
-
-function findCycle(graph: ReadonlyMap<string, ReadonlySet<string>>): string[] | undefined {
-  const visiting: string[] = [];
-  const visited = new Set<string>();
-  const visit = (node: string): string[] | undefined => {
-    const index = visiting.indexOf(node);
-    if (index !== -1) {
-      return [...visiting.slice(index), node];
-    }
-    if (visited.has(node)) {
-      return undefined;
-    }
-    visiting.push(node);
-    for (const next of graph.get(node) ?? []) {
-      const cycle = visit(next);
-      if (cycle !== undefined) {
-        return cycle;
-      }
-    }
-    visiting.pop();
-    visited.add(node);
-    return undefined;
-  };
-  for (const node of graph.keys()) {
-    const cycle = visit(node);
-    if (cycle !== undefined) {
-      return cycle;
-    }
-  }
-  return undefined;
-}
 
 function validateSchema(definition: Definition, problems: string[]): void {
   if (definition.kind !== "definition") {

@@ -83,44 +83,38 @@ export function walkSchema(schema: Schema, visit: (schema: Schema) => void): voi
  */
 export function referencesOf(definition: Definition): Reference[] {
   const references = new Set<Reference>();
-  switch (definition.kind) {
-    case "alias":
-      references.add(definition.target);
-      break;
-    case "constant":
-      if (definition.type !== undefined) {
-        references.add(definition.type);
+  if (definition.kind === "alias") {
+    references.add(definition.target);
+  } else if (definition.kind === "constant") {
+    if (definition.type !== undefined) {
+      references.add(definition.type);
+    }
+  } else {
+    walkSchema(definition.schema, (schema) => {
+      switch (schema.kind) {
+        case "alias":
+        case "definition":
+          references.add(schema);
+          break;
+        case "number":
+          for (const reference of [schema.base, schema.min, schema.max]) {
+            if (typeof reference === "object") {
+              references.add(reference);
+            }
+          }
+          break;
+        case "object":
+          for (const parent of schema.extends) {
+            references.add(parent);
+          }
+          break;
+        case "partial":
+          references.add(schema.source);
+          break;
+        default:
+          break;
       }
-      break;
-    case "definition":
-      walkSchema(definition.schema, (schema) => {
-        switch (schema.kind) {
-          case "alias":
-          case "definition":
-            references.add(schema);
-            break;
-          case "number":
-            for (const reference of [schema.base, schema.min, schema.max]) {
-              if (typeof reference === "object") {
-                references.add(reference);
-              }
-            }
-            break;
-          case "object":
-            for (const parent of schema.extends) {
-              references.add(parent);
-            }
-            break;
-          case "partial":
-            references.add(schema.source);
-            break;
-          default:
-            break;
-        }
-      });
-      break;
-    default:
-      break;
+    });
   }
   return [...references];
 }
@@ -280,4 +274,41 @@ export function hasDeprecatedEntries(module: Module): boolean {
     }
   }
   return deprecated.length > 0;
+}
+
+/**
+ * Finds a cycle in a dependency graph.
+ *
+ * @param graph Each node's dependencies; dependencies without an entry of their own have none
+ * @returns The nodes of the first cycle found, starting and ending with the same node, or `undefined` if there's none
+ */
+export function findCycle(graph: ReadonlyMap<string, ReadonlySet<string>>): string[] | undefined {
+  const visiting: string[] = [];
+  const visited = new Set<string>();
+  const visit = (node: string): string[] | undefined => {
+    const index = visiting.indexOf(node);
+    if (index !== -1) {
+      return [...visiting.slice(index), node];
+    }
+    if (visited.has(node)) {
+      return undefined;
+    }
+    visiting.push(node);
+    for (const next of graph.get(node) ?? []) {
+      const cycle = visit(next);
+      if (cycle !== undefined) {
+        return cycle;
+      }
+    }
+    visiting.pop();
+    visited.add(node);
+    return undefined;
+  };
+  for (const node of graph.keys()) {
+    const cycle = visit(node);
+    if (cycle !== undefined) {
+      return cycle;
+    }
+  }
+  return undefined;
 }
