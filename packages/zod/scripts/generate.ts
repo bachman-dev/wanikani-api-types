@@ -15,7 +15,6 @@ import {
   type NumberBound,
   type Property,
   type Revision,
-  type RevisionIndex,
   type Schema,
   type SchemaDefinition,
   type StringSchema,
@@ -197,15 +196,15 @@ function renderValue(definition: SchemaDefinition, context: Context): string {
   return `export const ${name} = z.toZod<Types.${name}>()(${rendered});`;
 }
 
-function renderDefinition(definition: Definition, context: Context, index: RevisionIndex): string {
+function renderDefinition(definition: Definition, context: Context): string {
   const { module } = context.scope;
   const docs = renderJsDoc(definition.docs, { categories: categoriesOf(definition, module) });
   switch (definition.kind) {
     case "alias": {
-      // Aliases are re-exported under their new name, rather than imported
-      const targetModule = index.moduleOf(definition.target);
-      const from = targetModule === module ? "" : ` from "./${targetModule.name}.js"`;
-      return `${docs}\nexport { ${definition.target.name} as ${definition.name} }${from};`;
+      const { name } = definition;
+      return `${docs}
+export type ${name} = Types.${name};
+export const ${name} = ${context.scope.use(definition.target)};`;
     }
     case "constant":
       // Constants are re-exported from the types package, see generateModule()
@@ -223,15 +222,20 @@ function generateModule(module: Module, revision: Revision): string {
   const index = indexRevision(revision);
   const context: Context = { scope: createModuleScope(module, index), constants: new Set(), usesMessages: false };
 
-  const definitions = module.definitions.map((definition) => renderDefinition(definition, context, index));
-  const hasSchema = module.definitions.some((definition) => definition.kind === "definition");
+  const definitions = module.definitions.map((definition) => renderDefinition(definition, context));
+  const hasSchema = module.definitions.some((definition) => definition.kind !== "constant");
   const constants = module.definitions
     .filter((definition): definition is ConstantDefinition => definition.kind === "constant")
     .map((definition) => definition.name);
 
-  const directives = hasDeprecatedEntries(module)
-    ? "/* oxlint-disable typescript/no-deprecated -- The API still returns deprecated properties, so they're validated */"
-    : "";
+  const directives = [
+    hasDeprecatedEntries(module)
+      ? "/* oxlint-disable typescript/no-deprecated -- The API still returns deprecated properties, so they're validated */"
+      : "",
+    module.definitions.some((definition) => definition.kind === "alias")
+      ? "/* oxlint-disable unicorn/prefer-export-from -- Aliases are declared, rather than re-exported, so they're documented */"
+      : "",
+  ];
   const imports = [
     hasSchema ? `import type * as Types from "${typesPackage(revision)}";\nimport * as z from "zod/mini";` : "",
     renderImport(context.constants, typesPackage(revision)),
@@ -242,7 +246,12 @@ function generateModule(module: Module, revision: Revision): string {
   ];
   const reexports = constants.length > 0 ? `export { ${constants.join(", ")} } from "${typesPackage(revision)}";` : "";
 
-  return joinBlocks([directives, imports.filter((line) => line !== "").join("\n"), reexports, ...definitions]);
+  return joinBlocks([
+    directives.filter((line) => line !== "").join("\n"),
+    imports.filter((line) => line !== "").join("\n"),
+    reexports,
+    ...definitions,
+  ]);
 }
 
 function generateRevisionIndex(revision: Revision): string {

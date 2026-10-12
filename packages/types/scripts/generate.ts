@@ -12,7 +12,6 @@ import {
   type ModuleScope,
   type Property,
   type Revision,
-  type RevisionIndex,
   type Schema,
   type SchemaDefinition,
   categoriesOf,
@@ -153,15 +152,11 @@ function renderConstant(definition: ConstantDefinition, scope: ModuleScope): str
   return `export const ${definition.name}${annotation} = ${renderLiteral(definition.value)};`;
 }
 
-function renderDefinition(definition: Definition, scope: ModuleScope, index: RevisionIndex): string {
+function renderDefinition(definition: Definition, scope: ModuleScope): string {
   const docs = renderJsDoc(definition.docs, { categories: categoriesOf(definition, scope.module) });
   switch (definition.kind) {
-    case "alias": {
-      // Aliases are re-exported under their new name, rather than imported
-      const targetModule = index.moduleOf(definition.target);
-      const from = targetModule === scope.module ? "" : ` from "./${targetModule.name}.js"`;
-      return `${docs}\nexport type { ${definition.target.name} as ${definition.name} }${from};`;
-    }
+    case "alias":
+      return `${docs}\nexport type ${definition.name} = ${scope.use(definition.target)};`;
     case "constant":
       return `${docs}\n${renderConstant(definition, scope)}`;
     case "definition":
@@ -181,7 +176,7 @@ function generateModule(module: Module, revision: Revision): string {
       const docs = `/** A type-only symbol used to brand {@link ${definition.name}}, so a plain \`string\` can't be mistaken for one. */`;
       return `${docs}\ndeclare const ${brandSymbolName(definition)}: unique symbol;`;
     });
-  const definitions = module.definitions.map((definition) => renderDefinition(definition, scope, index));
+  const definitions = module.definitions.map((definition) => renderDefinition(definition, scope));
   const imports = [...scope.imports()].map(([importedModule, names]) =>
     renderImport(names, `./${importedModule.name}.js`, { type: true }),
   );
