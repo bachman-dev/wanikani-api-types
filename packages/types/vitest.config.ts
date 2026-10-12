@@ -8,5 +8,6 @@ export default defineConfig({
       enabled: true,
     },
     pool: "threads",
+    isolate: false,
   },
 });

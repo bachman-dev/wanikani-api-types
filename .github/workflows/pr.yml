@@ -25,6 +25,18 @@ jobs:
           require-lockfile: true
       - name: Build Packages
         run: pnpm build
+      # Any changes after regenerating each package from the schema package mean the generated files weren't
+      # regenerated and committed alongside a schema change
+      - name: Generate Packages
+        run: pnpm generate
+      - name: Check for Uncommitted Changes
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "::error::Generated files are out of date; run \`pnpm generate\` and commit the changes."
+            git status --short
+            git --no-pager diff
+            exit 1
+          fi
       - name: Lint Code
         run: pnpm lint
       - name: Run Unit Tests

@@ -9,6 +9,10 @@
     },
     "check": {
       "dependsOn": ["^build"]
+    },
+    "generate": {
+      "cache": false,
+      "dependsOn": ["^build"]
     }
   }
 }

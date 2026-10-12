@@ -26,10 +26,12 @@
   },
   "scripts": {
     "build": "tsdown --config tsdown.config.ts",
-    "check": "tsc --noEmit"
+    "check": "tsc --noEmit && tsc --noEmit -p scripts",
+    "generate": "node scripts/generate.ts"
   },
   "devDependencies": {
-    "@bachman-dev/wanikani-api-fixtures": "workspace:*"
+    "@bachman-dev/wanikani-api-fixtures": "workspace:*",
+    "@bachman-dev/wanikani-api-schema": "workspace:*"
   },
   "peerDependencies": {
     "typescript": "5.9.x - 7.0.x"
