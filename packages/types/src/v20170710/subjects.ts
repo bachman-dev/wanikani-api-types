@@ -5,7 +5,6 @@ import type { BaseCollection, BaseResource, CollectionParameters, DatableString,
 /**
  * The types of subjects used on WaniKani and its API.
  *
- * @category Subjects
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  */
 export type SubjectType = "kana_vocabulary" | "kanji" | "radical" | "vocabulary";
@@ -13,7 +12,6 @@ export type SubjectType = "kana_vocabulary" | "kanji" | "radical" | "vocabulary"
 /**
  * A non-empty array of WaniKani subject types.
  *
- * @category Subjects
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  */
 export type SubjectTuple = [first: SubjectType, ...rest: SubjectType[]];
@@ -21,7 +19,6 @@ export type SubjectTuple = [first: SubjectType, ...rest: SubjectType[]];
 /**
  * A subject's auxilliary meanings.
  *
- * @category Subjects
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  */
 export interface SubjectAuxiliaryMeaning {
@@ -38,7 +35,6 @@ export interface SubjectAuxiliaryMeaning {
 /**
  * Information pertaining to a subject's meaning.
  *
- * @category Subjects
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  */
 export interface SubjectMeaning {
@@ -58,7 +54,6 @@ export interface SubjectMeaning {
  * @remarks
  *   This only represents a partial structure of a subject, and it's highly recommended to use one of the child type
  *   definitions that extend this type definition.
- * @category Subjects
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  */
 export interface SubjectBaseData {
@@ -105,7 +100,6 @@ export interface SubjectBaseData {
 /**
  * An image representing a radical subject.
  *
- * @category Subjects
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  */
 export type RadicalCharacterImage = {
@@ -143,7 +137,6 @@ export type RadicalCharacterImage = {
 /**
  * Data returned only for radical subjects.
  *
- * @category Subjects
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  */
 export interface RadicalData extends SubjectBaseData {
@@ -163,7 +156,6 @@ export interface RadicalData extends SubjectBaseData {
 /**
  * Information pertaining to a reading of a kanji subject.
  *
- * @category Subjects
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  */
 export interface KanjiReading {
@@ -183,7 +175,6 @@ export interface KanjiReading {
 /**
  * Data returned only for kanji subjects.
  *
- * @category Subjects
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  */
 export interface KanjiData extends SubjectBaseData {
@@ -218,7 +209,6 @@ export interface KanjiData extends SubjectBaseData {
 /**
  * Japanese context sentences for vocabulary, with a corresponding English translation.
  *
- * @category Subjects
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  */
 export interface VocabularyContextSentence {
@@ -232,7 +222,6 @@ export interface VocabularyContextSentence {
 /**
  * Information pertaining to pronunciation audio for a vocabulary subject.
  *
- * @category Subjects
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  */
 export interface VocabularyPronunciationAudio {
@@ -267,7 +256,6 @@ export interface VocabularyPronunciationAudio {
 /**
  * Information pertaining to a reading of a vocabulary subject..
  *
- * @category Subjects
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  */
 export interface VocabularyReading {
@@ -284,7 +272,6 @@ export interface VocabularyReading {
 /**
  * Data returned only for vocabulary subjects.
  *
- * @category Subjects
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  */
 export interface VocabularyData extends SubjectBaseData {
@@ -316,7 +303,6 @@ export interface VocabularyData extends SubjectBaseData {
 /**
  * Data returned only for kana-only vocabulary subjects.
  *
- * @category Subjects
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  */
 export interface KanaVocabularyData extends SubjectBaseData {
@@ -340,8 +326,6 @@ export interface KanaVocabularyData extends SubjectBaseData {
  *
  * This type is for mixed or unknown subject types; it is a discriminated union based on the subject's `object` key.
  *
- * @category Resources
- * @category Subjects
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  */
 export type Subject = BaseResource & {
@@ -381,8 +365,6 @@ export type Subject = BaseResource & {
 /**
  * A collection of subjects of mixed or unknown types returned from the WaniKani API.
  *
- * @category Collections
- * @category Subjects
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-subjects}
  */
 export interface SubjectCollection extends BaseCollection {
@@ -393,8 +375,6 @@ export interface SubjectCollection extends BaseCollection {
 /**
  * Parameters that can be passed to the WaniKani API to filter a request for a Subject Collection.
  *
- * @category Parameters
- * @category Subjects
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-subjects}
  */
 export interface SubjectParameters extends CollectionParameters {

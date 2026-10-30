@@ -11,7 +11,6 @@ export { API_REVISION, MIN_LEVEL, MAX_LEVEL } from "@bachman-dev/wanikani-api-ty
 /**
  * All known WaniKani API revisions, created when breaking changes are introduced to the WaniKani API.
  *
- * @category Base
  * @see {@link https://docs.api.wanikani.com/20170710/#revisions-aka-versioning}
  */
 export type ApiRevision = Types.ApiRevision;
@@ -20,8 +19,6 @@ export const ApiRevision = z.toZod<Types.ApiRevision>()(z.literal("20170710"));
 /**
  * A type guard that checks if the given value matches the type predicate.
  *
- * @category Base
- * @category Type Guards
  * @param value An unknown value
  * @returns A type predicate
  */
@@ -30,11 +27,7 @@ export function isApiRevision(value: unknown): value is ApiRevision {
   return z.validate(ApiRevision, value);
 }
 
-/**
- * Items with this type will have their number validated as a safe integer >= 0.
- *
- * @category Base
- */
+/** Items with this type will have their number validated as a safe integer >= 0. */
 export type SafeInteger = Types.SafeInteger;
 // oxlint-disable-next-line typescript/consistent-type-assertions -- `number & {}` is identical to `number` at runtime
 export const SafeInteger = z.number().check(z.int(), z.minimum(0)) as z.ZodMiniType<Types.SafeInteger>;
@@ -45,7 +38,6 @@ export const SafeInteger = z.number().check(z.int(), z.minimum(0)) as z.ZodMiniT
  * @remarks
  *   This is a branded type. A `string` can be narrowed to it by validating it with one of the schema library packages
  *   (e.g. `@bachman-dev/wanikani-api-valibot`), or by using a type assertion if it's known to be valid.
- * @category Base
  */
 export type DatableString = Types.DatableString;
 export const DatableString = z.toZod<Types.DatableString>()(
@@ -59,8 +51,6 @@ export const DatableString = z.toZod<Types.DatableString>()(
 /**
  * A type guard that checks if the given value matches the type predicate.
  *
- * @category Base
- * @category Type Guards
  * @param value An unknown value
  * @returns A type predicate
  */
@@ -69,19 +59,13 @@ export function isDatableString(value: unknown): value is DatableString {
   return z.validate(DatableString, value);
 }
 
-/**
- * A number representing a level in WaniKani, from `1` to `60`.
- *
- * @category Base
- */
+/** A number representing a level in WaniKani, from `1` to `60`. */
 export type Level = Types.Level;
 export const Level = z.toZod<Types.Level>()(SafeInteger.check(z.minimum(MIN_LEVEL), z.maximum(MAX_LEVEL)));
 
 /**
  * A type guard that checks if the given value matches the type predicate.
  *
- * @category Base
- * @category Type Guards
  * @param value An unknown value
  * @returns A type predicate
  */
@@ -95,8 +79,6 @@ export function isLevel(value: unknown): value is Level {
  *
  * @remarks
  *   This is a partial interface; most use cases involve using a reource that extends it.
- * @category Base
- * @category Resources
  * @see {@link https://docs.api.wanikani.com/20170710/#response-structure}
  */
 export type BaseResource = Types.BaseResource;
@@ -114,8 +96,6 @@ export const BaseResource = z.toZod<Types.BaseResource>()(
  *
  * @remarks
  *   This is a partial interface; most use cases involve using a reource that extends it.
- * @category Base
- * @category Collections
  * @see {@link https://docs.api.wanikani.com/20170710/#response-structure}
  */
 export type BaseCollection = Types.BaseCollection;
@@ -147,12 +127,7 @@ export const BaseCollection = z.toZod<Types.BaseCollection>()(
   }),
 );
 
-/**
- * Query string parameters that can be sent to any WaniKani API collection endpoint.
- *
- * @category Base
- * @category Parameters
- */
+/** Query string parameters that can be sent to any WaniKani API collection endpoint. */
 export type CollectionParameters = Types.CollectionParameters;
 export const CollectionParameters = z.toZod<Types.CollectionParameters>()(
   z.object({
@@ -180,8 +155,6 @@ export const CollectionParameters = z.toZod<Types.CollectionParameters>()(
  *
  * @remarks
  *   This is a partial interface; most use cases involve using a reource that extends it.
- * @category Base
- * @category Reports
  * @see {@link https://docs.api.wanikani.com/20170710/#response-structure}
  */
 export type BaseReport = Types.BaseReport;
@@ -196,11 +169,7 @@ export const BaseReport = z.toZod<Types.BaseReport>()(
   }),
 );
 
-/**
- * An error response returned by the WaniKani API.
- *
- * @category Base
- */
+/** An error response returned by the WaniKani API. */
 export type ApiError = Types.ApiError;
 export const ApiError = z.toZod<Types.ApiError>()(
   z.object({
@@ -214,8 +183,6 @@ export const ApiError = z.toZod<Types.ApiError>()(
 /**
  * A type guard that checks if the given value matches the type predicate.
  *
- * @category Base
- * @category Type Guards
  * @param value An unknown value
  * @returns A type predicate
  */

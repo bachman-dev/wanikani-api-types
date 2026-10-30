@@ -76,7 +76,6 @@ export const ReviewStatistic = define(
       "Review statistics summarize the activity recorded in reviews. They contain sum the number of correct and incorrect answers for both meaning and reading. They track current and maximum streaks of correct answers. They store the overall percentage of correct answers versus total answers.",
       "A review statistic is created when the user has done their first review on the related subject.",
     ],
-    categories: ["Resources"],
     see: ["https://docs.api.wanikani.com/20170710/#review-statistics"],
   },
   { typeGuard: true },
@@ -90,7 +89,6 @@ export const ReviewStatisticCollection = define(
   ),
   {
     description: "A collection of review statistics returned from the WaniKani API.",
-    categories: ["Collections"],
     see: collectionSee,
   },
   { typeGuard: true },
@@ -123,12 +121,11 @@ export const ReviewStatisticParameters = define(
   {
     description:
       "Parameters that can be passed to the WaniKani API to filter a request for a Review Statistic Collection.",
-    categories: ["Parameters"],
     see: collectionSee,
   },
 );
 
-export default defineModule("review-statistics", "Review Statistics", [
+export default defineModule("review-statistics", [
   ReviewStatistic,
   ReviewStatisticCollection,
   ReviewStatisticParameters,

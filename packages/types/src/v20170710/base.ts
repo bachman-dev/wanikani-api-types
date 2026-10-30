@@ -6,7 +6,6 @@ declare const datableStringBrand: unique symbol;
 /**
  * All known WaniKani API revisions, created when breaking changes are introduced to the WaniKani API.
  *
- * @category Base
  * @see {@link https://docs.api.wanikani.com/20170710/#revisions-aka-versioning}
  */
 export type ApiRevision = "20170710";
@@ -15,16 +14,11 @@ export type ApiRevision = "20170710";
  * A constant representing the WaniKani API revision. This will match the revision module being imported from, or the
  * latest revision when importing from the root module.
  *
- * @category Base
  * @see {@link https://docs.api.wanikani.com/20170710/#revisions-aka-versioning}
  */
 export const API_REVISION: ApiRevision = "20170710";
 
-/**
- * Items with this type will have their number validated as a safe integer >= 0.
- *
- * @category Base
- */
+/** Items with this type will have their number validated as a safe integer >= 0. */
 export type SafeInteger = number & {};
 
 /**
@@ -33,29 +27,16 @@ export type SafeInteger = number & {};
  * @remarks
  *   This is a branded type. A `string` can be narrowed to it by validating it with one of the schema library packages
  *   (e.g. `@bachman-dev/wanikani-api-valibot`), or by using a type assertion if it's known to be valid.
- * @category Base
  */
 export type DatableString = string & { readonly [datableStringBrand]: "DatableString" };
 
-/**
- * The minimum level provided by WaniKani; exported for use in lieu of a Magic Number.
- *
- * @category Base
- */
+/** The minimum level provided by WaniKani; exported for use in lieu of a Magic Number. */
 export const MIN_LEVEL = 1;
 
-/**
- * The maximum level provided by WaniKani; exported for use in lieu of a Magic Number.
- *
- * @category Base
- */
+/** The maximum level provided by WaniKani; exported for use in lieu of a Magic Number. */
 export const MAX_LEVEL = 60;
 
-/**
- * A number representing a level in WaniKani, from `1` to `60`.
- *
- * @category Base
- */
+/** A number representing a level in WaniKani, from `1` to `60`. */
 export type Level = number & {};
 
 /**
@@ -63,8 +44,6 @@ export type Level = number & {};
  *
  * @remarks
  *   This is a partial interface; most use cases involve using a reource that extends it.
- * @category Base
- * @category Resources
  * @see {@link https://docs.api.wanikani.com/20170710/#response-structure}
  */
 export interface BaseResource {
@@ -80,8 +59,6 @@ export interface BaseResource {
  *
  * @remarks
  *   This is a partial interface; most use cases involve using a reource that extends it.
- * @category Base
- * @category Collections
  * @see {@link https://docs.api.wanikani.com/20170710/#response-structure}
  */
 export interface BaseCollection {
@@ -116,12 +93,7 @@ export interface BaseCollection {
   url: string;
 }
 
-/**
- * Query string parameters that can be sent to any WaniKani API collection endpoint.
- *
- * @category Base
- * @category Parameters
- */
+/** Query string parameters that can be sent to any WaniKani API collection endpoint. */
 export interface CollectionParameters {
   /** Only resources where `data.id` matches one of the array values are returned. */
   ids?: SafeInteger[];
@@ -149,8 +121,6 @@ export interface CollectionParameters {
  *
  * @remarks
  *   This is a partial interface; most use cases involve using a reource that extends it.
- * @category Base
- * @category Reports
  * @see {@link https://docs.api.wanikani.com/20170710/#response-structure}
  */
 export interface BaseReport {
@@ -164,11 +134,7 @@ export interface BaseReport {
   url: string;
 }
 
-/**
- * An error response returned by the WaniKani API.
- *
- * @category Base
- */
+/** An error response returned by the WaniKani API. */
 export interface ApiError {
   /** An HTTP status code indicating the type of error. */
   code: SafeInteger;

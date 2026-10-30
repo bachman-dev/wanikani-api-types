@@ -29,7 +29,6 @@ export const Reset = define(
       "Users can reset their progress back to any level at or below their current level. When they reset to a particular level, all of the assignments and review_statistics at that level or higher are set back to their default state.",
       "Resets contain information about when those resets happen, the starting level, and the target level.",
     ],
-    categories: ["Resources"],
     see: ["https://docs.api.wanikani.com/20170710/#resets"],
   },
   { typeGuard: true },
@@ -40,7 +39,6 @@ export const ResetCollection = define(
   object({ data: property(array(Reset), "An array of returned resets.") }, { extends: [BaseCollection] }),
   {
     description: "A collection of resets returned from the WaniKani API.",
-    categories: ["Collections"],
     see: collectionSee,
   },
   { typeGuard: true },
@@ -48,8 +46,7 @@ export const ResetCollection = define(
 
 export const ResetParameters = alias("ResetParameters", CollectionParameters, {
   description: "Parameters that can be passed to the WaniKani API to filter a request for a Reset Collection.",
-  categories: ["Parameters"],
   see: collectionSee,
 });
 
-export default defineModule("resets", "Resets", [Reset, ResetCollection, ResetParameters]);
+export default defineModule("resets", [Reset, ResetCollection, ResetParameters]);

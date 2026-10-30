@@ -10,8 +10,6 @@ import { BaseCollection, BaseResource, CollectionParameters, DatableString, Safe
 /**
  * Available voice actors used for vocabulary reading pronunciation audio.
  *
- * @category Resources
- * @category Voice Actors
  * @see {@link https://docs.api.wanikani.com/20170710/#voice-actors}
  */
 export type VoiceActor = Types.VoiceActor;
@@ -41,8 +39,6 @@ export const VoiceActor = v.object(
 /**
  * A type guard that checks if the given value matches the type predicate.
  *
- * @category Voice Actors
- * @category Type Guards
  * @param value An unknown value
  * @returns A type predicate
  */
@@ -54,8 +50,6 @@ export function isVoiceActor(value: unknown): value is VoiceActor {
 /**
  * A collection of voice actors returned from the WaniKani API.
  *
- * @category Collections
- * @category Voice Actors
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-voice-actors}
  */
 export type VoiceActorCollection = Types.VoiceActorCollection;
@@ -72,8 +66,6 @@ export const VoiceActorCollection = v.object(
 /**
  * A type guard that checks if the given value matches the type predicate.
  *
- * @category Voice Actors
- * @category Type Guards
  * @param value An unknown value
  * @returns A type predicate
  */
@@ -85,8 +77,6 @@ export function isVoiceActorCollection(value: unknown): value is VoiceActorColle
 /**
  * Parameters that can be passed to the WaniKani API to filter a request for a Voice Actor Collection.
  *
- * @category Parameters
- * @category Voice Actors
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-voice-actors}
  */
 export type VoiceActorParameters = Types.VoiceActorParameters;

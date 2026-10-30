@@ -60,7 +60,6 @@ export const StudyMaterial = define(
   {
     description:
       "Study materials store user-specific notes and synonyms for a given subject. The records are created as soon as the user enters any study information.",
-    categories: ["Resources"],
     see: ["https://docs.api.wanikani.com/20170710/#study-materials"],
   },
   { typeGuard: true },
@@ -74,7 +73,6 @@ export const StudyMaterialCollection = define(
   ),
   {
     description: "A collection of study materials returned from the WaniKani API.",
-    categories: ["Collections"],
     see: collectionSee,
   },
   { typeGuard: true },
@@ -99,14 +97,12 @@ export const StudyMaterialParameters = define(
   {
     description:
       "Parameters that can be passed to the WaniKani API to filter a request for a Study Material Collection.",
-    categories: ["Parameters"],
     see: collectionSee,
   },
 );
 
 export const StudyMaterialUpdatePayload = define("StudyMaterialUpdatePayload", partial(StudyMaterialBaseData), {
   description: "The payload sent to the WaniKani API when updating study materials.",
-  categories: ["Payloads"],
   see: ["https://docs.api.wanikani.com/20170710/#update-a-study-material"],
 });
 
@@ -118,12 +114,11 @@ export const StudyMaterialCreatePayload = define(
   ),
   {
     description: "The payload sent to the WaniKani API when creating new study materials.",
-    categories: ["Payloads"],
     see: ["https://docs.api.wanikani.com/20170710/#create-a-study-material"],
   },
 );
 
-export default defineModule("study-materials", "Study Materials", [
+export default defineModule("study-materials", [
   StudyMaterialBaseData,
   StudyMaterial,
   StudyMaterialCollection,

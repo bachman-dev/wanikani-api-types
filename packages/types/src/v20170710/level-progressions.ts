@@ -12,8 +12,6 @@ import type { BaseCollection, BaseResource, CollectionParameters, DatableString,
  * - Have access to the level. Under `/user`, the `data.level` must be less than or equal to
  *   `data.subscription.max_level_granted`.
  *
- * @category Level Progressions
- * @category Resources
  * @see {@link https://docs.api.wanikani.com/20170710/#level-progressions}
  */
 export interface LevelProgression extends BaseResource {
@@ -54,8 +52,6 @@ export interface LevelProgression extends BaseResource {
 /**
  * A collection of level progressions returned from the WaniKani API.
  *
- * @category Collections
- * @category Level Progressions
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-level-progressions}
  */
 export interface LevelProgressionCollection extends BaseCollection {
@@ -66,8 +62,6 @@ export interface LevelProgressionCollection extends BaseCollection {
 /**
  * Parameters that can be passed to the WaniKani API to filter a request for a Level Progression Collection.
  *
- * @category Level Progressions
- * @category Parameters
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-level-progressions}
  */
 export type LevelProgressionParameters = CollectionParameters;

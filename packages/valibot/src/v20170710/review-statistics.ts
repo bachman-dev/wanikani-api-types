@@ -13,8 +13,6 @@ import { SubjectTuple, SubjectType } from "./subjects.js";
  *
  * A review statistic is created when the user has done their first review on the related subject.
  *
- * @category Resources
- * @category Review Statistics
  * @see {@link https://docs.api.wanikani.com/20170710/#review-statistics}
  */
 export type ReviewStatistic = Types.ReviewStatistic;
@@ -62,8 +60,6 @@ export const ReviewStatistic = v.object(
 /**
  * A type guard that checks if the given value matches the type predicate.
  *
- * @category Review Statistics
- * @category Type Guards
  * @param value An unknown value
  * @returns A type predicate
  */
@@ -75,8 +71,6 @@ export function isReviewStatistic(value: unknown): value is ReviewStatistic {
 /**
  * A collection of review statistics returned from the WaniKani API.
  *
- * @category Collections
- * @category Review Statistics
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-review-statistics}
  */
 export type ReviewStatisticCollection = Types.ReviewStatisticCollection;
@@ -93,8 +87,6 @@ export const ReviewStatisticCollection = v.object(
 /**
  * A type guard that checks if the given value matches the type predicate.
  *
- * @category Review Statistics
- * @category Type Guards
  * @param value An unknown value
  * @returns A type predicate
  */
@@ -106,8 +98,6 @@ export function isReviewStatisticCollection(value: unknown): value is ReviewStat
 /**
  * Parameters that can be passed to the WaniKani API to filter a request for a Review Statistic Collection.
  *
- * @category Parameters
- * @category Review Statistics
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-review-statistics}
  */
 export type ReviewStatisticParameters = Types.ReviewStatisticParameters;

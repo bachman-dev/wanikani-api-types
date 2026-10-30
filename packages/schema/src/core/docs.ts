@@ -6,9 +6,6 @@ function prefixFirstLine(prefix: string, lines: string[]): string[] {
 }
 
 export interface JsDocOptions {
-  /** `@category` tags to print; for definitions, see {@link categoriesOf}. */
-  readonly categories?: readonly string[];
-
   /** Extra tags to print after all others, e.g. `@param value An unknown value`. */
   readonly tags?: readonly string[];
 }
@@ -30,9 +27,6 @@ export function renderJsDoc(docs: Docs | undefined, options: JsDocOptions = {}):
   }
   if (docs?.remarks !== undefined) {
     tags.push(...prefixFirstLine("@remarks ", textLines(docs.remarks)));
-  }
-  for (const category of options.categories ?? []) {
-    tags.push(`@category ${category}`);
   }
   for (const url of docs?.see ?? []) {
     tags.push(`@see {@link ${url}}`);

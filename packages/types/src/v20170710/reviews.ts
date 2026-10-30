@@ -10,8 +10,6 @@ import type { SpacedRepetitionSystemStageNumber } from "./spaced-repetition-syst
  * are created when a user answers all the parts of a subject correctly once; some subjects have both meaning or reading
  * parts, and some only have one or the other. Note that reviews are not created for the quizzes in lessons.
  *
- * @category Resources
- * @category Reviews
  * @see {@link https://docs.api.wanikani.com/20170710/#reviews}
  */
 export interface Review extends BaseResource {
@@ -55,8 +53,6 @@ export interface Review extends BaseResource {
 /**
  * A collection of reviews returned from the WaniKani API.
  *
- * @category Collections
- * @category Reviews
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-reviews}
  */
 export interface ReviewCollection extends BaseCollection {
@@ -67,8 +63,6 @@ export interface ReviewCollection extends BaseCollection {
 /**
  * Parameters that can be passed to the WaniKani API to filter a request for a Review Collection.
  *
- * @category Parameters
- * @category Reviews
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-reviews}
  */
 export interface ReviewParameters extends CollectionParameters {
@@ -82,8 +76,6 @@ export interface ReviewParameters extends CollectionParameters {
 /**
  * The payload used in the request to create a new review via the WaniKani API.
  *
- * @category Payloads
- * @category Reviews
  * @see {@link https://docs.api.wanikani.com/20170710/#create-a-review}
  */
 export interface ReviewPayload {
@@ -124,8 +116,6 @@ export interface ReviewPayload {
 /**
  * A created review returned from the WaniKani API.
  *
- * @category Resources
- * @category Reviews
  * @see {@link https://docs.api.wanikani.com/20170710/#create-a-review}
  */
 export interface CreatedReview extends Review {

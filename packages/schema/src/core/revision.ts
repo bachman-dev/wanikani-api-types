@@ -6,9 +6,6 @@ export interface Module {
   /** The file name, without an extension. */
   readonly name: string;
 
-  /** The documentation category of every definition in the module. */
-  readonly category: string;
-
   /** The definitions, in the order they're generated; a definition must come after any it references. */
   readonly definitions: readonly Definition[];
 }
@@ -34,12 +31,11 @@ export interface Revision {
  * Defines a module of an API revision.
  *
  * @param name The file name, without an extension
- * @param category The documentation category of every definition in the module
  * @param definitions The definitions, in the order they're generated
  * @returns The module
  */
-export function defineModule(name: string, category: string, definitions: readonly Definition[]): Module {
-  return { name, category, definitions };
+export function defineModule(name: string, definitions: readonly Definition[]): Module {
+  return { name, definitions };
 }
 
 /**

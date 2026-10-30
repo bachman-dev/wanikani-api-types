@@ -23,7 +23,6 @@ export const VoiceActor = define(
   ),
   {
     description: "Available voice actors used for vocabulary reading pronunciation audio.",
-    categories: ["Resources"],
     see: ["https://docs.api.wanikani.com/20170710/#voice-actors"],
   },
   { typeGuard: true },
@@ -34,7 +33,6 @@ export const VoiceActorCollection = define(
   object({ data: property(array(VoiceActor), "An array of returned voice actors.") }, { extends: [BaseCollection] }),
   {
     description: "A collection of voice actors returned from the WaniKani API.",
-    categories: ["Collections"],
     see: collectionSee,
   },
   { typeGuard: true },
@@ -42,8 +40,7 @@ export const VoiceActorCollection = define(
 
 export const VoiceActorParameters = alias("VoiceActorParameters", CollectionParameters, {
   description: "Parameters that can be passed to the WaniKani API to filter a request for a Voice Actor Collection.",
-  categories: ["Parameters"],
   see: collectionSee,
 });
 
-export default defineModule("voice-actors", "Voice Actors", [VoiceActor, VoiceActorCollection, VoiceActorParameters]);
+export default defineModule("voice-actors", [VoiceActor, VoiceActorCollection, VoiceActorParameters]);

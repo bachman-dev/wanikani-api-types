@@ -5,8 +5,6 @@ import type { BaseCollection, BaseResource, CollectionParameters, DatableString,
 /**
  * Available voice actors used for vocabulary reading pronunciation audio.
  *
- * @category Resources
- * @category Voice Actors
  * @see {@link https://docs.api.wanikani.com/20170710/#voice-actors}
  */
 export interface VoiceActor extends BaseResource {
@@ -35,8 +33,6 @@ export interface VoiceActor extends BaseResource {
 /**
  * A collection of voice actors returned from the WaniKani API.
  *
- * @category Collections
- * @category Voice Actors
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-voice-actors}
  */
 export interface VoiceActorCollection extends BaseCollection {
@@ -47,8 +43,6 @@ export interface VoiceActorCollection extends BaseCollection {
 /**
  * Parameters that can be passed to the WaniKani API to filter a request for a Voice Actor Collection.
  *
- * @category Parameters
- * @category Voice Actors
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-voice-actors}
  */
 export type VoiceActorParameters = CollectionParameters;

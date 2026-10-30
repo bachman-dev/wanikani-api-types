@@ -8,7 +8,6 @@ import {
   GENERATED_HEADER,
   alias,
   array,
-  categoriesOf,
   constant,
   createModuleScope,
   define,
@@ -65,7 +64,7 @@ describe("renderJsDoc", () => {
     expect(
       renderJsDoc(
         { description: "Hello.", remarks: "Note.", see: ["https://example.com"] },
-        { categories: ["A", "B"], tags: ["@returns Nothing"] },
+        { tags: ["@returns Nothing"] },
       ),
     ).toBe(
       [
@@ -73,8 +72,6 @@ describe("renderJsDoc", () => {
         " * Hello.",
         " *",
         " * @remarks Note.",
-        " * @category A",
-        " * @category B",
         " * @see {@link https://example.com}",
         " * @returns Nothing",
         " */",
@@ -138,8 +135,8 @@ describe("hasDeprecatedEntries", () => {
       object({ outer: property(object({ inner: property(string(), { deprecated: "Old." }) })) }),
       "Nested.",
     );
-    expect(hasDeprecatedEntries(defineModule("nested", "Nested", [Nested]))).toBe(true);
-    expect(hasDeprecatedEntries(defineModule("other", "Other", [constant("OTHER", 1, "Other.")]))).toBe(false);
+    expect(hasDeprecatedEntries(defineModule("nested", [Nested]))).toBe(true);
+    expect(hasDeprecatedEntries(defineModule("other", [constant("OTHER", 1, "Other.")]))).toBe(false);
   });
 });
 
@@ -147,8 +144,8 @@ describe("createModuleScope", () => {
   it("only imports used definitions from other modules", () => {
     const First = define("First", string(), "First.");
     const Second = define("Second", array(First), "Second.");
-    const firstModule = defineModule("first", "First", [First]);
-    const secondModule = defineModule("second", "Second", [Second]);
+    const firstModule = defineModule("first", [First]);
+    const secondModule = defineModule("second", [Second]);
     const index = indexRevision({ modules: [firstModule, secondModule] });
 
     const scope = createModuleScope(secondModule, index);
@@ -182,9 +179,7 @@ describe("validateRevision", () => {
     expect(
       validateRevision({
         messages: {},
-        modules: [
-          defineModule("module", "Module", [UsesLater, Later, Branded, Variant, Messaged, UsesOutside, Duplicate]),
-        ],
+        modules: [defineModule("module", [UsesLater, Later, Branded, Variant, Messaged, UsesOutside, Duplicate])],
       }),
     ).toStrictEqual([
       "UsesLater references Later before it's defined in module",
@@ -202,7 +197,7 @@ describe("validateRevision", () => {
     expect(
       validateRevision({
         messages: {},
-        modules: [defineModule("first", "First", [First, Third]), defineModule("second", "Second", [Second])],
+        modules: [defineModule("first", [First, Third]), defineModule("second", [Second])],
       }),
     ).toStrictEqual(["Modules depend on each other in a cycle: first -> second -> first"]);
   });
@@ -244,21 +239,11 @@ describe("resolveAlias", () => {
   });
 });
 
-describe("categoriesOf", () => {
-  it("sorts a definition's categories along with its module's category", () => {
-    const Categorized = define("Categorized", string(), { description: "Categorized.", categories: ["B", "Z"] });
-    const Uncategorized = define("Uncategorized", string(), "Uncategorized.");
-    const module = defineModule("module", "M", [Categorized, Uncategorized]);
-    expect(categoriesOf(Categorized, module)).toStrictEqual(["B", "M", "Z"]);
-    expect(categoriesOf(Uncategorized, module)).toStrictEqual(["M"]);
-  });
-});
-
 describe("indexRevision", () => {
   it("finds the module of each definition", () => {
     const Inside = define("Inside", string(), "Inside.");
     const Outside = define("Outside", string(), "Outside.");
-    const module = defineModule("module", "Module", [Inside]);
+    const module = defineModule("module", [Inside]);
     const index = indexRevision({ modules: [module] });
     expect(index.moduleOf(Inside)).toBe(module);
     expect(index.findModule(Outside)).toBeUndefined();
@@ -289,7 +274,7 @@ describe("defineRevision", () => {
     expect(() =>
       defineRevision({
         revision: "20000101",
-        modules: [defineModule("module", "Module", [Duplicate, Duplicate])],
+        modules: [defineModule("module", [Duplicate, Duplicate])],
         messages: {},
       }),
     ).toThrow("Invalid schema for revision 20000101:\n- Duplicate is defined more than once");

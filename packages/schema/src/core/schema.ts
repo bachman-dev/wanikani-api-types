@@ -19,12 +19,6 @@ export interface Docs {
   /** Printed as a `@remarks` tag. */
   readonly remarks?: Text;
 
-  /**
-   * Printed as `@category` tags, alongside the category of the module containing the definition. Only used for
-   * definitions.
-   */
-  readonly categories?: readonly string[];
-
   /** URLs printed as `@see` tags. */
   readonly see?: readonly string[];
 }

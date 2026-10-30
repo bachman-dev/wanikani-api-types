@@ -86,7 +86,6 @@ export const SpacedRepetitionSystem = define(
   {
     description:
       "Available spaced repetition systems used for calculating `srs_stage` changes to Assignments and Reviews. Has relationship with Subjects.",
-    categories: ["Resources"],
     see,
   },
   { typeGuard: true },
@@ -100,7 +99,6 @@ export const SpacedRepetitionSystemCollection = define(
   ),
   {
     description: "A collection of Spaced Repetition Systems returned from the WaniKani API.",
-    categories: ["Collections"],
     see: collectionSee,
   },
   { typeGuard: true },
@@ -109,11 +107,10 @@ export const SpacedRepetitionSystemCollection = define(
 export const SpacedRepetitionSystemParameters = alias("SpacedRepetitionSystemParameters", CollectionParameters, {
   description:
     "Parameters that can be passed to the WaniKani API to filter a request for a Spaced Repetition System Collection.",
-  categories: ["Parameters"],
   see: collectionSee,
 });
 
-export default defineModule("spaced-repetition-systems", "Spaced Repetition Systems", [
+export default defineModule("spaced-repetition-systems", [
   MIN_SRS_STAGE,
   MAX_SRS_REVIEW_STAGE,
   MAX_SRS_STAGE,

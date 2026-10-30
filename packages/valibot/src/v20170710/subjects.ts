@@ -9,7 +9,6 @@ import { BaseCollection, BaseResource, CollectionParameters, DatableString, Leve
 /**
  * The types of subjects used on WaniKani and its API.
  *
- * @category Subjects
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  */
 export type SubjectType = Types.SubjectType;
@@ -18,8 +17,6 @@ export const SubjectType = v.picklist(["kana_vocabulary", "kanji", "radical", "v
 /**
  * A type guard that checks if the given value matches the type predicate.
  *
- * @category Subjects
- * @category Type Guards
  * @param value An unknown value
  * @returns A type predicate
  */
@@ -31,7 +28,6 @@ export function isSubjectType(value: unknown): value is SubjectType {
 /**
  * A non-empty array of WaniKani subject types.
  *
- * @category Subjects
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  */
 export type SubjectTuple = Types.SubjectTuple;
@@ -43,8 +39,6 @@ export const SubjectTuple = v.pipe(
 /**
  * A type guard that checks if the given value matches the type predicate.
  *
- * @category Subjects
- * @category Type Guards
  * @param value An unknown value
  * @returns A type predicate
  */
@@ -56,7 +50,6 @@ export function isSubjectTuple(value: unknown): value is SubjectTuple {
 /**
  * A subject's auxilliary meanings.
  *
- * @category Subjects
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  */
 export type SubjectAuxiliaryMeaning = Types.SubjectAuxiliaryMeaning;
@@ -73,7 +66,6 @@ export const SubjectAuxiliaryMeaning = v.object({
 /**
  * Information pertaining to a subject's meaning.
  *
- * @category Subjects
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  */
 export type SubjectMeaning = Types.SubjectMeaning;
@@ -92,7 +84,6 @@ export const SubjectMeaning = v.object({
  * @remarks
  *   This only represents a partial structure of a subject, and it's highly recommended to use one of the child type
  *   definitions that extend this type definition.
- * @category Subjects
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  */
 export type SubjectBaseData = Types.SubjectBaseData;
@@ -131,7 +122,6 @@ export const SubjectBaseData = v.object({
 /**
  * An image representing a radical subject.
  *
- * @category Subjects
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  */
 export type RadicalCharacterImage = Types.RadicalCharacterImage;
@@ -169,7 +159,6 @@ export const RadicalCharacterImage = v.intersect([
 /**
  * Data returned only for radical subjects.
  *
- * @category Subjects
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  */
 export type RadicalData = Types.RadicalData;
@@ -193,7 +182,6 @@ export const RadicalData = v.object(
 /**
  * Information pertaining to a reading of a kanji subject.
  *
- * @category Subjects
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  */
 export type KanjiReading = Types.KanjiReading;
@@ -211,7 +199,6 @@ export const KanjiReading = v.object({
 /**
  * Data returned only for kanji subjects.
  *
- * @category Subjects
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  */
 export type KanjiData = Types.KanjiData;
@@ -245,7 +232,6 @@ export const KanjiData = v.object(
 /**
  * Japanese context sentences for vocabulary, with a corresponding English translation.
  *
- * @category Subjects
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  */
 export type VocabularyContextSentence = Types.VocabularyContextSentence;
@@ -259,7 +245,6 @@ export const VocabularyContextSentence = v.object({
 /**
  * Information pertaining to pronunciation audio for a vocabulary subject.
  *
- * @category Subjects
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  */
 export type VocabularyPronunciationAudio = Types.VocabularyPronunciationAudio;
@@ -288,7 +273,6 @@ export const VocabularyPronunciationAudio = v.object({
 /**
  * Information pertaining to a reading of a vocabulary subject..
  *
- * @category Subjects
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  */
 export type VocabularyReading = Types.VocabularyReading;
@@ -304,7 +288,6 @@ export const VocabularyReading = v.object({
 /**
  * Data returned only for vocabulary subjects.
  *
- * @category Subjects
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  */
 export type VocabularyData = Types.VocabularyData;
@@ -336,7 +319,6 @@ export const VocabularyData = v.object(
 /**
  * Data returned only for kana-only vocabulary subjects.
  *
- * @category Subjects
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  */
 export type KanaVocabularyData = Types.KanaVocabularyData;
@@ -363,8 +345,6 @@ export const KanaVocabularyData = v.object(
  *
  * This type is for mixed or unknown subject types; it is a discriminated union based on the subject's `object` key.
  *
- * @category Resources
- * @category Subjects
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  */
 export type Subject = Types.Subject;
@@ -409,8 +389,6 @@ export const Subject = v.intersect([
 /**
  * A type guard that checks if the given value matches the type predicate.
  *
- * @category Subjects
- * @category Type Guards
  * @param value An unknown value
  * @returns A type predicate
  */
@@ -422,8 +400,6 @@ export function isSubject(value: unknown): value is Subject {
 /**
  * A collection of subjects of mixed or unknown types returned from the WaniKani API.
  *
- * @category Collections
- * @category Subjects
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-subjects}
  */
 export type SubjectCollection = Types.SubjectCollection;
@@ -440,8 +416,6 @@ export const SubjectCollection = v.object(
 /**
  * A type guard that checks if the given value matches the type predicate.
  *
- * @category Subjects
- * @category Type Guards
  * @param value An unknown value
  * @returns A type predicate
  */
@@ -453,8 +427,6 @@ export function isSubjectCollection(value: unknown): value is SubjectCollection 
 /**
  * Parameters that can be passed to the WaniKani API to filter a request for a Subject Collection.
  *
- * @category Parameters
- * @category Subjects
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-subjects}
  */
 export type SubjectParameters = Types.SubjectParameters;
