@@ -68,7 +68,6 @@ export const Assignment = define(
   {
     description:
       "Assignments contain information about a user's progress on a particular subject, including their current state and timestamps for various progress milestones. Assignments are created when a user has passed all the components of the given subject and the assignment is at or below their current level for the first time.",
-
     see: ["https://docs.api.wanikani.com/20170710/#assignments"],
   },
   { typeGuard: true },
@@ -79,7 +78,6 @@ export const AssignmentCollection = define(
   object({ data: property(array(Assignment), "An array of returned assignments.") }, { extends: [BaseCollection] }),
   {
     description: "A collection of assignments returned from the WaniKani API.",
-
     see: collectionSee,
   },
   { typeGuard: true },
@@ -137,7 +135,6 @@ export const AssignmentParameters = define(
   ),
   {
     description: "Parameters that can be passed to the WaniKani API to filter a request for an Assignment Collection.",
-
     see: collectionSee,
   },
 );

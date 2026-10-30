@@ -46,7 +46,6 @@ export const LevelProgression = define(
       "- Reach a 90% passing rate on assignments for a user's current level with a `subject_type` of `kanji`. Passed assignments have `data.passed` equal to `true` and a `data.passed_at` that's in the past.",
       "- Have access to the level. Under `/user`, the `data.level` must be less than or equal to `data.subscription.max_level_granted`.",
     ],
-
     see: ["https://docs.api.wanikani.com/20170710/#level-progressions"],
   },
   { typeGuard: true },
@@ -60,7 +59,6 @@ export const LevelProgressionCollection = define(
   ),
   {
     description: "A collection of level progressions returned from the WaniKani API.",
-
     see: collectionSee,
   },
   { typeGuard: true },
@@ -69,7 +67,6 @@ export const LevelProgressionCollection = define(
 export const LevelProgressionParameters = alias("LevelProgressionParameters", CollectionParameters, {
   description:
     "Parameters that can be passed to the WaniKani API to filter a request for a Level Progression Collection.",
-
   see: collectionSee,
 });
 

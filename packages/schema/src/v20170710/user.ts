@@ -139,7 +139,6 @@ export const UserPreferencesPayload = define(
   }),
   {
     description: "The payload sent to the WaniKani API to update a user's preferences.",
-
     see: ["https://docs.api.wanikani.com/20170710/#update-user-information"],
   },
 );

@@ -39,7 +39,6 @@ export const Summary = define(
   {
     description:
       "The summary report contains currently available lessons and reviews and the reviews that will become available in the next 24 hours, grouped by the hour.",
-
     see,
   },
   { typeGuard: true },

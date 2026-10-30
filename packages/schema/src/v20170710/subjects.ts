@@ -289,7 +289,6 @@ export const Subject = define(
       "The exact structure of a subject depends on the subject type. The available subject types are `kana_vocabulary`, `kanji`, `radical`, and `vocabulary`. Note that any attributes called out for the specific subject type behaves differently than the common attribute of the same name.",
       "This type is for mixed or unknown subject types; it is a discriminated union based on the subject's `object` key.",
     ],
-
     see,
   },
   { typeGuard: true },
@@ -303,7 +302,6 @@ export const SubjectCollection = define(
   ),
   {
     description: "A collection of subjects of mixed or unknown types returned from the WaniKani API.",
-
     see: ["https://docs.api.wanikani.com/20170710/#get-all-subjects"],
   },
   { typeGuard: true },
@@ -325,7 +323,6 @@ export const SubjectParameters = define(
   ),
   {
     description: "Parameters that can be passed to the WaniKani API to filter a request for a Subject Collection.",
-
     see: ["https://docs.api.wanikani.com/20170710/#get-all-subjects"],
   },
 );
