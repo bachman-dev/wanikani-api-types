@@ -9,7 +9,6 @@ import type { SubjectTuple, SubjectType } from "./subjects.js";
  * @remarks
  *   For creating study materials, use {@link StudyMaterialCreatePayload}; for updating study materials, use
  *   {@link StudyMaterialUpdatePayload}.
- * @category Study Materials
  */
 export interface StudyMaterialBaseData {
   /** Free form note related to the meaning(s) of the associated subject. */
@@ -26,8 +25,6 @@ export interface StudyMaterialBaseData {
  * Study materials store user-specific notes and synonyms for a given subject. The records are created as soon as the
  * user enters any study information.
  *
- * @category Resources
- * @category Study Materials
  * @see {@link https://docs.api.wanikani.com/20170710/#study-materials}
  */
 export interface StudyMaterial extends BaseResource {
@@ -56,8 +53,6 @@ export interface StudyMaterial extends BaseResource {
 /**
  * A collection of study materials returned from the WaniKani API.
  *
- * @category Collections
- * @category Study Materials
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-study-materials}
  */
 export interface StudyMaterialCollection extends BaseCollection {
@@ -68,8 +63,6 @@ export interface StudyMaterialCollection extends BaseCollection {
 /**
  * Parameters that can be passed to the WaniKani API to filter a request for a Study Material Collection.
  *
- * @category Parameters
- * @category Study Materials
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-study-materials}
  */
 export interface StudyMaterialParameters extends CollectionParameters {
@@ -86,8 +79,6 @@ export interface StudyMaterialParameters extends CollectionParameters {
 /**
  * The payload sent to the WaniKani API when updating study materials.
  *
- * @category Payloads
- * @category Study Materials
  * @see {@link https://docs.api.wanikani.com/20170710/#update-a-study-material}
  */
 export type StudyMaterialUpdatePayload = Partial<StudyMaterialBaseData>;
@@ -95,8 +86,6 @@ export type StudyMaterialUpdatePayload = Partial<StudyMaterialBaseData>;
 /**
  * The payload sent to the WaniKani API when creating new study materials.
  *
- * @category Payloads
- * @category Study Materials
  * @see {@link https://docs.api.wanikani.com/20170710/#create-a-study-material}
  */
 export interface StudyMaterialCreatePayload extends StudyMaterialUpdatePayload {

@@ -14,8 +14,6 @@ import { SpacedRepetitionSystemStageNumber } from "./spaced-repetition-systems.j
  * are created when a user answers all the parts of a subject correctly once; some subjects have both meaning or reading
  * parts, and some only have one or the other. Note that reviews are not created for the quizzes in lessons.
  *
- * @category Resources
- * @category Reviews
  * @see {@link https://docs.api.wanikani.com/20170710/#reviews}
  */
 export type Review = Types.Review;
@@ -56,8 +54,6 @@ export const Review = v.object(
 /**
  * A type guard that checks if the given value matches the type predicate.
  *
- * @category Reviews
- * @category Type Guards
  * @param value An unknown value
  * @returns A type predicate
  */
@@ -69,8 +65,6 @@ export function isReview(value: unknown): value is Review {
 /**
  * A collection of reviews returned from the WaniKani API.
  *
- * @category Collections
- * @category Reviews
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-reviews}
  */
 export type ReviewCollection = Types.ReviewCollection;
@@ -87,8 +81,6 @@ export const ReviewCollection = v.object(
 /**
  * A type guard that checks if the given value matches the type predicate.
  *
- * @category Reviews
- * @category Type Guards
  * @param value An unknown value
  * @returns A type predicate
  */
@@ -100,8 +92,6 @@ export function isReviewCollection(value: unknown): value is ReviewCollection {
 /**
  * Parameters that can be passed to the WaniKani API to filter a request for a Review Collection.
  *
- * @category Parameters
- * @category Reviews
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-reviews}
  */
 export type ReviewParameters = Types.ReviewParameters;
@@ -120,8 +110,6 @@ export const ReviewParameters = v.object(
 /**
  * The payload used in the request to create a new review via the WaniKani API.
  *
- * @category Payloads
- * @category Reviews
  * @see {@link https://docs.api.wanikani.com/20170710/#create-a-review}
  */
 export type ReviewPayload = Types.ReviewPayload;
@@ -168,8 +156,6 @@ export const ReviewPayload = v.object({
 /**
  * A created review returned from the WaniKani API.
  *
- * @category Resources
- * @category Reviews
  * @see {@link https://docs.api.wanikani.com/20170710/#create-a-review}
  */
 export type CreatedReview = Types.CreatedReview;
@@ -199,8 +185,6 @@ export const CreatedReview = v.object(
 /**
  * A type guard that checks if the given value matches the type predicate.
  *
- * @category Reviews
- * @category Type Guards
  * @param value An unknown value
  * @returns A type predicate
  */

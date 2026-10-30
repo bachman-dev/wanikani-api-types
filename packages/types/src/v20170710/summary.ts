@@ -5,7 +5,6 @@ import type { BaseReport, DatableString, SafeInteger } from "./base.js";
 /**
  * Details about subjects listed as available for lessons in the Summary report.
  *
- * @category Summary
  * @see {@link https://docs.api.wanikani.com/20170710/#summary}
  */
 export interface SummaryInterval {
@@ -23,8 +22,6 @@ export interface SummaryInterval {
  * The summary report contains currently available lessons and reviews and the reviews that will become available in the
  * next 24 hours, grouped by the hour.
  *
- * @category Reports
- * @category Summary
  * @see {@link https://docs.api.wanikani.com/20170710/#summary}
  */
 export interface Summary extends BaseReport {

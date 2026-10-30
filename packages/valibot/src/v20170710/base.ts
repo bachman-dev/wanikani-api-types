@@ -11,7 +11,6 @@ export { API_REVISION, MIN_LEVEL, MAX_LEVEL } from "@bachman-dev/wanikani-api-ty
 /**
  * All known WaniKani API revisions, created when breaking changes are introduced to the WaniKani API.
  *
- * @category Base
  * @see {@link https://docs.api.wanikani.com/20170710/#revisions-aka-versioning}
  */
 export type ApiRevision = Types.ApiRevision;
@@ -20,8 +19,6 @@ export const ApiRevision = v.literal("20170710");
 /**
  * A type guard that checks if the given value matches the type predicate.
  *
- * @category Base
- * @category Type Guards
  * @param value An unknown value
  * @returns A type predicate
  */
@@ -30,11 +27,7 @@ export function isApiRevision(value: unknown): value is ApiRevision {
   return v.is(ApiRevision, value);
 }
 
-/**
- * Items with this type will have their number validated as a safe integer >= 0.
- *
- * @category Base
- */
+/** Items with this type will have their number validated as a safe integer >= 0. */
 export type SafeInteger = Types.SafeInteger;
 export const SafeInteger = v.pipe(v.number(), v.safeInteger(), v.minValue(0));
 
@@ -44,7 +37,6 @@ export const SafeInteger = v.pipe(v.number(), v.safeInteger(), v.minValue(0));
  * @remarks
  *   This is a branded type. A `string` can be narrowed to it by validating it with one of the schema library packages
  *   (e.g. `@bachman-dev/wanikani-api-valibot`), or by using a type assertion if it's known to be valid.
- * @category Base
  */
 export type DatableString = Types.DatableString;
 export const DatableString = v.pipe(
@@ -58,8 +50,6 @@ export const DatableString = v.pipe(
 /**
  * A type guard that checks if the given value matches the type predicate.
  *
- * @category Base
- * @category Type Guards
  * @param value An unknown value
  * @returns A type predicate
  */
@@ -68,19 +58,13 @@ export function isDatableString(value: unknown): value is DatableString {
   return v.is(DatableString, value);
 }
 
-/**
- * A number representing a level in WaniKani, from `1` to `60`.
- *
- * @category Base
- */
+/** A number representing a level in WaniKani, from `1` to `60`. */
 export type Level = Types.Level;
 export const Level = v.pipe(SafeInteger, v.minValue(MIN_LEVEL), v.maxValue(MAX_LEVEL));
 
 /**
  * A type guard that checks if the given value matches the type predicate.
  *
- * @category Base
- * @category Type Guards
  * @param value An unknown value
  * @returns A type predicate
  */
@@ -94,8 +78,6 @@ export function isLevel(value: unknown): value is Level {
  *
  * @remarks
  *   This is a partial interface; most use cases involve using a reource that extends it.
- * @category Base
- * @category Resources
  * @see {@link https://docs.api.wanikani.com/20170710/#response-structure}
  */
 export type BaseResource = Types.BaseResource;
@@ -111,8 +93,6 @@ export const BaseResource = v.object({
  *
  * @remarks
  *   This is a partial interface; most use cases involve using a reource that extends it.
- * @category Base
- * @category Collections
  * @see {@link https://docs.api.wanikani.com/20170710/#response-structure}
  */
 export type BaseCollection = Types.BaseCollection;
@@ -142,12 +122,7 @@ export const BaseCollection = v.object({
   url: v.string(),
 });
 
-/**
- * Query string parameters that can be sent to any WaniKani API collection endpoint.
- *
- * @category Base
- * @category Parameters
- */
+/** Query string parameters that can be sent to any WaniKani API collection endpoint. */
 export type CollectionParameters = Types.CollectionParameters;
 export const CollectionParameters = v.object({
   /** Only resources where `data.id` matches one of the array values are returned. */
@@ -173,8 +148,6 @@ export const CollectionParameters = v.object({
  *
  * @remarks
  *   This is a partial interface; most use cases involve using a reource that extends it.
- * @category Base
- * @category Reports
  * @see {@link https://docs.api.wanikani.com/20170710/#response-structure}
  */
 export type BaseReport = Types.BaseReport;
@@ -187,11 +160,7 @@ export const BaseReport = v.object({
   url: v.string(),
 });
 
-/**
- * An error response returned by the WaniKani API.
- *
- * @category Base
- */
+/** An error response returned by the WaniKani API. */
 export type ApiError = Types.ApiError;
 export const ApiError = v.object({
   /** An HTTP status code indicating the type of error. */
@@ -203,8 +172,6 @@ export const ApiError = v.object({
 /**
  * A type guard that checks if the given value matches the type predicate.
  *
- * @category Base
- * @category Type Guards
  * @param value An unknown value
  * @returns A type predicate
  */

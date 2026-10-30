@@ -18,7 +18,6 @@ import {
   type Schema,
   type SchemaDefinition,
   type StringSchema,
-  categoriesOf,
   createModuleScope,
   generatePackageFiles,
   hasDeprecatedEntries,
@@ -172,11 +171,10 @@ function renderSchema(schema: Schema, context: Context, brand?: string): string 
   }
 }
 
-function renderTypeGuard(definition: SchemaDefinition, module: Module): string {
+function renderTypeGuard(definition: SchemaDefinition): string {
   const docs = renderJsDoc(
     { description: "A type guard that checks if the given value matches the type predicate." },
     {
-      categories: [module.category, "Type Guards"],
       tags: ["@param value An unknown value", "@returns A type predicate"],
     },
   );
@@ -197,8 +195,7 @@ function renderValue(definition: SchemaDefinition, context: Context): string {
 }
 
 function renderDefinition(definition: Definition, context: Context): string {
-  const { module } = context.scope;
-  const docs = renderJsDoc(definition.docs, { categories: categoriesOf(definition, module) });
+  const docs = renderJsDoc(definition.docs);
   switch (definition.kind) {
     case "alias": {
       const { name } = definition;
@@ -211,7 +208,7 @@ export const ${name} = ${context.scope.use(definition.target)};`;
       return "";
     case "definition": {
       const declaration = `${docs}\nexport type ${definition.name} = Types.${definition.name};\n${renderValue(definition, context)}`;
-      return definition.typeGuard ? `${declaration}\n\n${renderTypeGuard(definition, module)}` : declaration;
+      return definition.typeGuard ? `${declaration}\n\n${renderTypeGuard(definition)}` : declaration;
     }
     default:
       throw new Error(`Unsupported definition: ${JSON.stringify(definition satisfies never)}`);
@@ -256,14 +253,14 @@ function generateModule(module: Module, revision: Revision): string {
 
 function generateRevisionIndex(revision: Revision): string {
   return joinBlocks([
-    `// oxlint-disable oxc/no-barrel-file -- This is an entrypoint for the ${revision.folder} API revision\n/** @category API Reference */`,
+    `// oxlint-disable oxc/no-barrel-file -- This is an entrypoint for the ${revision.folder} API revision`,
     revision.modules.map((module) => `export * from "./${module.name}.js";`).join("\n"),
   ]);
 }
 
 function generateRootIndex(revision: Revision): string {
   return joinBlocks([
-    "// oxlint-disable oxc/no-barrel-file -- This is an entrypoint for the package\n/** @category API Reference */",
+    "// oxlint-disable oxc/no-barrel-file -- This is an entrypoint for the package",
     "/*\nThis file exports all the types available in the recommended API revision. Thereby, things MAY break in the future.\nTry sticking to imports from a specific revision.\n*/",
     `export * from "./${revision.folder}/index.js";`,
   ]);

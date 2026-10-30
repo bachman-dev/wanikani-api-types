@@ -14,7 +14,6 @@ import {
   type Revision,
   type Schema,
   type SchemaDefinition,
-  categoriesOf,
   createModuleScope,
   generatePackageFiles,
   indexRevision,
@@ -153,7 +152,7 @@ function renderConstant(definition: ConstantDefinition, scope: ModuleScope): str
 }
 
 function renderDefinition(definition: Definition, scope: ModuleScope): string {
-  const docs = renderJsDoc(definition.docs, { categories: categoriesOf(definition, scope.module) });
+  const docs = renderJsDoc(definition.docs);
   switch (definition.kind) {
     case "alias":
       return `${docs}\nexport type ${definition.name} = ${scope.use(definition.target)};`;
@@ -190,14 +189,13 @@ function generateRevisionIndex(revision: Revision): string {
     return `export ${hasValues ? "*" : "type *"} from "./${module.name}.js";`;
   });
   return joinBlocks([
-    `// oxlint-disable oxc/no-barrel-file -- This is an entrypoint for the ${revision.folder} API revision\n/** @category API Reference */`,
+    `// oxlint-disable oxc/no-barrel-file -- This is an entrypoint for the ${revision.folder} API revision`,
     exports.join("\n"),
   ]);
 }
 
 function generateRootIndex(revision: Revision): string {
   return joinBlocks([
-    "/** @category API Reference */",
     "/*\nThis file exports all the types available in the recommended API revision. Thereby, things MAY break in the future.\nTry sticking to imports from a specific revision.\n*/",
     `export * from "./${revision.folder}/index.js";`,
   ]);

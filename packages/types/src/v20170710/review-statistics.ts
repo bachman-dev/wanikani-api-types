@@ -10,8 +10,6 @@ import type { SubjectTuple, SubjectType } from "./subjects.js";
  *
  * A review statistic is created when the user has done their first review on the related subject.
  *
- * @category Resources
- * @category Review Statistics
  * @see {@link https://docs.api.wanikani.com/20170710/#review-statistics}
  */
 export interface ReviewStatistic extends BaseResource {
@@ -67,8 +65,6 @@ export interface ReviewStatistic extends BaseResource {
 /**
  * A collection of review statistics returned from the WaniKani API.
  *
- * @category Collections
- * @category Review Statistics
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-review-statistics}
  */
 export interface ReviewStatisticCollection extends BaseCollection {
@@ -79,8 +75,6 @@ export interface ReviewStatisticCollection extends BaseCollection {
 /**
  * Parameters that can be passed to the WaniKani API to filter a request for a Review Statistic Collection.
  *
- * @category Parameters
- * @category Review Statistics
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-review-statistics}
  */
 export interface ReviewStatisticParameters extends CollectionParameters {

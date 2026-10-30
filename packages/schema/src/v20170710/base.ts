@@ -88,7 +88,7 @@ export const BaseResource = define(
   {
     description: "The common properties across all Resources from the WaniKani API.",
     remarks: "This is a partial interface; most use cases involve using a reource that extends it.",
-    categories: ["Resources"],
+
     see: ["https://docs.api.wanikani.com/20170710/#response-structure"],
   },
 );
@@ -124,7 +124,7 @@ export const BaseCollection = define(
   {
     description: "The common properties across all Collection items from the WaniKani API.",
     remarks: "This is a partial interface; most use cases involve using a reource that extends it.",
-    categories: ["Collections"],
+
     see: ["https://docs.api.wanikani.com/20170710/#response-structure"],
   },
 );
@@ -148,7 +148,6 @@ export const CollectionParameters = define(
   }),
   {
     description: "Query string parameters that can be sent to any WaniKani API collection endpoint.",
-    categories: ["Parameters"],
   },
 );
 
@@ -162,7 +161,7 @@ export const BaseReport = define(
   {
     description: "The common properties across all Reports from the WaniKani API",
     remarks: "This is a partial interface; most use cases involve using a reource that extends it.",
-    categories: ["Reports"],
+
     see: ["https://docs.api.wanikani.com/20170710/#response-structure"],
   },
 );
@@ -177,7 +176,7 @@ export const ApiError = define(
   { typeGuard: true },
 );
 
-export default defineModule("base", "Base", [
+export default defineModule("base", [
   ApiRevision,
   API_REVISION,
   SafeInteger,

@@ -8,8 +8,6 @@ import type { BaseCollection, BaseResource, CollectionParameters, DatableString,
  *
  * Resets contain information about when those resets happen, the starting level, and the target level.
  *
- * @category Resets
- * @category Resources
  * @see {@link https://docs.api.wanikani.com/20170710/#resets}
  */
 export interface Reset extends BaseResource {
@@ -38,8 +36,6 @@ export interface Reset extends BaseResource {
 /**
  * A collection of resets returned from the WaniKani API.
  *
- * @category Collections
- * @category Resets
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-resets}
  */
 export interface ResetCollection extends BaseCollection {
@@ -50,8 +46,6 @@ export interface ResetCollection extends BaseCollection {
 /**
  * Parameters that can be passed to the WaniKani API to filter a request for a Reset Collection.
  *
- * @category Parameters
- * @category Resets
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-resets}
  */
 export type ResetParameters = CollectionParameters;

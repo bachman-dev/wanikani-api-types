@@ -2,31 +2,18 @@
 
 import type { BaseResource, DatableString, Level, SafeInteger } from "./base.js";
 
-/**
- * The minimum batch size for lessons in the WaniKani app; exported for use in lieu of a Magic Number.
- *
- * @category User
- */
+/** The minimum batch size for lessons in the WaniKani app; exported for use in lieu of a Magic Number. */
 export const MIN_LESSON_BATCH_SIZE = 3;
 
-/**
- * The maximum batch size for lessons in the WaniKani app; exported for use in lieu of a Magic Number.
- *
- * @category User
- */
+/** The maximum batch size for lessons in the WaniKani app; exported for use in lieu of a Magic Number. */
 export const MAX_LESSON_BATCH_SIZE = 10;
 
-/**
- * A number representing a valid lesson batch size in WaniKani, from `3` to `10`.
- *
- * @category User
- */
+/** A number representing a valid lesson batch size in WaniKani, from `3` to `10`. */
 export type LessonBatchSizeNumber = number & {};
 
 /**
  * User settings specific to the WaniKani application.
  *
- * @category User
  * @see {@link https://docs.api.wanikani.com/20170710/#user}
  */
 export interface UserPreferences {
@@ -64,8 +51,6 @@ export interface UserPreferences {
 /**
  * A user and their status/information on WaniKani.
  *
- * @category Resources
- * @category User
  * @see {@link https://docs.api.wanikani.com/20170710/#user}
  */
 export interface User extends BaseResource {
@@ -130,8 +115,6 @@ export interface User extends BaseResource {
 /**
  * The payload sent to the WaniKani API to update a user's preferences.
  *
- * @category Payloads
- * @category User
  * @see {@link https://docs.api.wanikani.com/20170710/#update-user-information}
  */
 export interface UserPreferencesPayload {

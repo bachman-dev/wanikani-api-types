@@ -120,7 +120,7 @@ export const User = define(
     },
     { extends: [BaseResource] },
   ),
-  { description: "A user and their status/information on WaniKani.", categories: ["Resources"], see },
+  { description: "A user and their status/information on WaniKani.", see },
   { typeGuard: true },
 );
 
@@ -139,12 +139,12 @@ export const UserPreferencesPayload = define(
   }),
   {
     description: "The payload sent to the WaniKani API to update a user's preferences.",
-    categories: ["Payloads"],
+
     see: ["https://docs.api.wanikani.com/20170710/#update-user-information"],
   },
 );
 
-export default defineModule("user", "User", [
+export default defineModule("user", [
   MIN_LESSON_BATCH_SIZE,
   MAX_LESSON_BATCH_SIZE,
   LessonBatchSizeNumber,

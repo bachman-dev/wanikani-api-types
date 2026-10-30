@@ -10,11 +10,7 @@ import { BaseResource, DatableString, Level, SafeInteger } from "./base.js";
 
 export { MIN_LESSON_BATCH_SIZE, MAX_LESSON_BATCH_SIZE } from "@bachman-dev/wanikani-api-types/v20170710";
 
-/**
- * A number representing a valid lesson batch size in WaniKani, from `3` to `10`.
- *
- * @category User
- */
+/** A number representing a valid lesson batch size in WaniKani, from `3` to `10`. */
 export type LessonBatchSizeNumber = Types.LessonBatchSizeNumber;
 export const LessonBatchSizeNumber = v.pipe(
   SafeInteger,
@@ -25,8 +21,6 @@ export const LessonBatchSizeNumber = v.pipe(
 /**
  * A type guard that checks if the given value matches the type predicate.
  *
- * @category User
- * @category Type Guards
  * @param value An unknown value
  * @returns A type predicate
  */
@@ -38,7 +32,6 @@ export function isLessonBatchSizeNumber(value: unknown): value is LessonBatchSiz
 /**
  * User settings specific to the WaniKani application.
  *
- * @category User
  * @see {@link https://docs.api.wanikani.com/20170710/#user}
  */
 export type UserPreferences = Types.UserPreferences;
@@ -70,8 +63,6 @@ export const UserPreferences = v.object({
 /**
  * A user and their status/information on WaniKani.
  *
- * @category Resources
- * @category User
  * @see {@link https://docs.api.wanikani.com/20170710/#user}
  */
 export type User = Types.User;
@@ -131,8 +122,6 @@ export const User = v.object(
 /**
  * A type guard that checks if the given value matches the type predicate.
  *
- * @category User
- * @category Type Guards
  * @param value An unknown value
  * @returns A type predicate
  */
@@ -144,8 +133,6 @@ export function isUser(value: unknown): value is User {
 /**
  * The payload sent to the WaniKani API to update a user's preferences.
  *
- * @category Payloads
- * @category User
  * @see {@link https://docs.api.wanikani.com/20170710/#update-user-information}
  */
 export type UserPreferencesPayload = Types.UserPreferencesPayload;

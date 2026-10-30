@@ -2,38 +2,21 @@
 
 import type { BaseCollection, BaseResource, CollectionParameters, DatableString, SafeInteger } from "./base.js";
 
-/**
- * The minimum SRS Stage Number used in WaniKani's SRS; exported for use in lieu of a Magic Number.
- *
- * @category Spaced Repetition Systems
- */
+/** The minimum SRS Stage Number used in WaniKani's SRS; exported for use in lieu of a Magic Number. */
 export const MIN_SRS_STAGE = 0;
 
-/**
- * The maximum SRS Stage Number used in WaniKani's reviews; exported for use in lieu of a Magic Number.
- *
- * @category Spaced Repetition Systems
- */
+/** The maximum SRS Stage Number used in WaniKani's reviews; exported for use in lieu of a Magic Number. */
 export const MAX_SRS_REVIEW_STAGE = 8;
 
-/**
- * The maximum SRS Stage Number used in WaniKani's SRS; exported for use in lieu of a Magic Number.
- *
- * @category Spaced Repetition Systems
- */
+/** The maximum SRS Stage Number used in WaniKani's SRS; exported for use in lieu of a Magic Number. */
 export const MAX_SRS_STAGE = 9;
 
-/**
- * A valid WaniKani Spaced Repetition System (SRS) Stage Number, based on the known SRS' on WaniKani and its API.
- *
- * @category Spaced Repetition Systems
- */
+/** A valid WaniKani Spaced Repetition System (SRS) Stage Number, based on the known SRS' on WaniKani and its API. */
 export type SpacedRepetitionSystemStageNumber = number & {};
 
 /**
  * An individual Spaced Repetition System (SRS) Stage.
  *
- * @category Spaced Repetition Systems
  * @see {@link https://docs.api.wanikani.com/20170710/#spaced-repetition-systems}
  */
 export interface SpacedRepetitionSystemStage {
@@ -51,8 +34,6 @@ export interface SpacedRepetitionSystemStage {
  * Available spaced repetition systems used for calculating `srs_stage` changes to Assignments and Reviews. Has
  * relationship with Subjects.
  *
- * @category Resources
- * @category Spaced Repetition Systems
  * @see {@link https://docs.api.wanikani.com/20170710/#spaced-repetition-systems}
  */
 export interface SpacedRepetitionSystem extends BaseResource {
@@ -93,8 +74,6 @@ export interface SpacedRepetitionSystem extends BaseResource {
 /**
  * A collection of Spaced Repetition Systems returned from the WaniKani API.
  *
- * @category Collections
- * @category Spaced Repetition Systems
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-spaced-repetition-systems}
  */
 export interface SpacedRepetitionSystemCollection extends BaseCollection {
@@ -105,8 +84,6 @@ export interface SpacedRepetitionSystemCollection extends BaseCollection {
 /**
  * Parameters that can be passed to the WaniKani API to filter a request for a Spaced Repetition System Collection.
  *
- * @category Parameters
- * @category Spaced Repetition Systems
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-spaced-repetition-systems}
  */
 export type SpacedRepetitionSystemParameters = CollectionParameters;

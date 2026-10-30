@@ -1,17 +1,11 @@
 /**
  * A regular expression that matches the markup found in WaniKani's subject mnemonics and hints. Both the tag and inner
  * text are captured for each match.
- *
- * @category Subjects
  */
 export const SUBJECT_MARKUP_MATCHER =
   /<(?<tag>ja|kanji|meaning|radical|reading|vocabulary)>(?<textContent>.*?)<\/\1>/dgv;
 
-/**
- * An object representing parsed subject markup.
- *
- * @category Subjects
- */
+/** An object representing parsed subject markup. */
 export type ParsedSubjectMarkup =
   | {
       /** Plain text, either on its own or within a markup tag. */
@@ -27,7 +21,6 @@ export type ParsedSubjectMarkup =
 /**
  * Parses WaniKani subject markup (mnemonics, hints, etc) for easier display/formatting.
  *
- * @category Subjects
  * @param text The subject markup to parse
  * @returns A structured array of objects that can be traversed and displayed
  */

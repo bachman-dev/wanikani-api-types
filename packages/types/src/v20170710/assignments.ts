@@ -9,8 +9,6 @@ import type { SubjectTuple, SubjectType } from "./subjects.js";
  * timestamps for various progress milestones. Assignments are created when a user has passed all the components of the
  * given subject and the assignment is at or below their current level for the first time.
  *
- * @category Assignments
- * @category Resources
  * @see {@link https://docs.api.wanikani.com/20170710/#assignments}
  */
 export interface Assignment extends BaseResource {
@@ -70,8 +68,6 @@ export interface Assignment extends BaseResource {
 /**
  * A collection of assignments returned from the WaniKani API.
  *
- * @category Assignments
- * @category Collections
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-assignments}
  */
 export interface AssignmentCollection extends BaseCollection {
@@ -82,8 +78,6 @@ export interface AssignmentCollection extends BaseCollection {
 /**
  * Parameters that can be passed to the WaniKani API to filter a request for an Assignment Collection.
  *
- * @category Assignments
- * @category Parameters
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-assignments}
  */
 export interface AssignmentParameters extends CollectionParameters {
@@ -145,8 +139,6 @@ export interface AssignmentParameters extends CollectionParameters {
 /**
  * The optional payload used in the request to start a new assignment via the WaniKani API.
  *
- * @category Assignments
- * @category Payloads
  * @see {@link https://docs.api.wanikani.com/20170710/#start-an-assignment}
  */
 export interface AssignmentPayload {

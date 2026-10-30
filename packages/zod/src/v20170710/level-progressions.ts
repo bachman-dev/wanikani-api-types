@@ -17,8 +17,6 @@ import { BaseCollection, BaseResource, CollectionParameters, DatableString, Leve
  * - Have access to the level. Under `/user`, the `data.level` must be less than or equal to
  *   `data.subscription.max_level_granted`.
  *
- * @category Level Progressions
- * @category Resources
  * @see {@link https://docs.api.wanikani.com/20170710/#level-progressions}
  */
 export type LevelProgression = Types.LevelProgression;
@@ -55,8 +53,6 @@ export const LevelProgression = z.toZod<Types.LevelProgression>()(
 /**
  * A type guard that checks if the given value matches the type predicate.
  *
- * @category Level Progressions
- * @category Type Guards
  * @param value An unknown value
  * @returns A type predicate
  */
@@ -68,8 +64,6 @@ export function isLevelProgression(value: unknown): value is LevelProgression {
 /**
  * A collection of level progressions returned from the WaniKani API.
  *
- * @category Collections
- * @category Level Progressions
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-level-progressions}
  */
 export type LevelProgressionCollection = Types.LevelProgressionCollection;
@@ -84,8 +78,6 @@ export const LevelProgressionCollection = z.toZod<Types.LevelProgressionCollecti
 /**
  * A type guard that checks if the given value matches the type predicate.
  *
- * @category Level Progressions
- * @category Type Guards
  * @param value An unknown value
  * @returns A type predicate
  */
@@ -97,8 +89,6 @@ export function isLevelProgressionCollection(value: unknown): value is LevelProg
 /**
  * Parameters that can be passed to the WaniKani API to filter a request for a Level Progression Collection.
  *
- * @category Level Progressions
- * @category Parameters
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-level-progressions}
  */
 export type LevelProgressionParameters = Types.LevelProgressionParameters;

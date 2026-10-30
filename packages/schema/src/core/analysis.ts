@@ -201,17 +201,6 @@ export function numberChecks(schema: NumberSchema): NumberConstraints {
   return checks;
 }
 
-/**
- * Collects the categories of a definition: its module's category, along with any of its own, sorted alphabetically.
- *
- * @param definition The definition
- * @param module The module containing the definition
- * @returns The categories
- */
-export function categoriesOf(definition: Definition, module: Module): string[] {
-  return [...new Set([module.category, ...(definition.docs.categories ?? [])])].toSorted();
-}
-
 /** Lookup helpers for a revision, shared by generators. */
 export interface RevisionIndex {
   /** Finds the module containing a definition, if it's part of the revision. */

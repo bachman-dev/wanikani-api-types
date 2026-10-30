@@ -12,7 +12,6 @@ import { SubjectTuple, SubjectType } from "./subjects.js";
  * @remarks
  *   For creating study materials, use {@link StudyMaterialCreatePayload}; for updating study materials, use
  *   {@link StudyMaterialUpdatePayload}.
- * @category Study Materials
  */
 export type StudyMaterialBaseData = Types.StudyMaterialBaseData;
 export const StudyMaterialBaseData = z.toZod<Types.StudyMaterialBaseData>()(
@@ -30,8 +29,6 @@ export const StudyMaterialBaseData = z.toZod<Types.StudyMaterialBaseData>()(
  * Study materials store user-specific notes and synonyms for a given subject. The records are created as soon as the
  * user enters any study information.
  *
- * @category Resources
- * @category Study Materials
  * @see {@link https://docs.api.wanikani.com/20170710/#study-materials}
  */
 export type StudyMaterial = Types.StudyMaterial;
@@ -60,8 +57,6 @@ export const StudyMaterial = z.toZod<Types.StudyMaterial>()(
 /**
  * A type guard that checks if the given value matches the type predicate.
  *
- * @category Study Materials
- * @category Type Guards
  * @param value An unknown value
  * @returns A type predicate
  */
@@ -73,8 +68,6 @@ export function isStudyMaterial(value: unknown): value is StudyMaterial {
 /**
  * A collection of study materials returned from the WaniKani API.
  *
- * @category Collections
- * @category Study Materials
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-study-materials}
  */
 export type StudyMaterialCollection = Types.StudyMaterialCollection;
@@ -89,8 +82,6 @@ export const StudyMaterialCollection = z.toZod<Types.StudyMaterialCollection>()(
 /**
  * A type guard that checks if the given value matches the type predicate.
  *
- * @category Study Materials
- * @category Type Guards
  * @param value An unknown value
  * @returns A type predicate
  */
@@ -102,8 +93,6 @@ export function isStudyMaterialCollection(value: unknown): value is StudyMateria
 /**
  * Parameters that can be passed to the WaniKani API to filter a request for a Study Material Collection.
  *
- * @category Parameters
- * @category Study Materials
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-study-materials}
  */
 export type StudyMaterialParameters = Types.StudyMaterialParameters;
@@ -122,8 +111,6 @@ export const StudyMaterialParameters = z.toZod<Types.StudyMaterialParameters>()(
 /**
  * The payload sent to the WaniKani API when updating study materials.
  *
- * @category Payloads
- * @category Study Materials
  * @see {@link https://docs.api.wanikani.com/20170710/#update-a-study-material}
  */
 export type StudyMaterialUpdatePayload = Types.StudyMaterialUpdatePayload;
@@ -141,8 +128,6 @@ export const StudyMaterialUpdatePayload = z.toZod<Types.StudyMaterialUpdatePaylo
 /**
  * The payload sent to the WaniKani API when creating new study materials.
  *
- * @category Payloads
- * @category Study Materials
  * @see {@link https://docs.api.wanikani.com/20170710/#create-a-study-material}
  */
 export type StudyMaterialCreatePayload = Types.StudyMaterialCreatePayload;

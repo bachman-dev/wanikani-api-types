@@ -66,7 +66,7 @@ export const Review = define(
   {
     description:
       "Reviews log all the correct and incorrect answers provided through the 'Reviews' section of WaniKani. Review records are created when a user answers all the parts of a subject correctly once; some subjects have both meaning or reading parts, and some only have one or the other. Note that reviews are not created for the quizzes in lessons.",
-    categories: ["Resources"],
+
     see: ["https://docs.api.wanikani.com/20170710/#reviews"],
   },
   { typeGuard: true },
@@ -77,7 +77,7 @@ export const ReviewCollection = define(
   object({ data: property(array(Review), "An array of returned reviews.") }, { extends: [BaseCollection] }),
   {
     description: "A collection of reviews returned from the WaniKani API.",
-    categories: ["Collections"],
+
     see: collectionSee,
   },
   { typeGuard: true },
@@ -100,7 +100,7 @@ export const ReviewParameters = define(
   ),
   {
     description: "Parameters that can be passed to the WaniKani API to filter a request for a Review Collection.",
-    categories: ["Parameters"],
+
     see: collectionSee,
   },
 );
@@ -158,7 +158,7 @@ export const ReviewPayload = define(
   }),
   {
     description: "The payload used in the request to create a new review via the WaniKani API.",
-    categories: ["Payloads"],
+
     see: createSee,
   },
 );
@@ -185,16 +185,10 @@ export const CreatedReview = define(
   ),
   {
     description: "A created review returned from the WaniKani API.",
-    categories: ["Resources"],
+
     see: createSee,
   },
   { typeGuard: true },
 );
 
-export default defineModule("reviews", "Reviews", [
-  Review,
-  ReviewCollection,
-  ReviewParameters,
-  ReviewPayload,
-  CreatedReview,
-]);
+export default defineModule("reviews", [Review, ReviewCollection, ReviewParameters, ReviewPayload, CreatedReview]);

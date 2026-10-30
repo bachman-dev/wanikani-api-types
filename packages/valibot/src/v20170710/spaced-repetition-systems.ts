@@ -10,19 +10,13 @@ import { BaseCollection, BaseResource, CollectionParameters, DatableString, Safe
 
 export { MIN_SRS_STAGE, MAX_SRS_REVIEW_STAGE, MAX_SRS_STAGE } from "@bachman-dev/wanikani-api-types/v20170710";
 
-/**
- * A valid WaniKani Spaced Repetition System (SRS) Stage Number, based on the known SRS' on WaniKani and its API.
- *
- * @category Spaced Repetition Systems
- */
+/** A valid WaniKani Spaced Repetition System (SRS) Stage Number, based on the known SRS' on WaniKani and its API. */
 export type SpacedRepetitionSystemStageNumber = Types.SpacedRepetitionSystemStageNumber;
 export const SpacedRepetitionSystemStageNumber = v.pipe(SafeInteger, v.maxValue(MAX_SRS_STAGE));
 
 /**
  * A type guard that checks if the given value matches the type predicate.
  *
- * @category Spaced Repetition Systems
- * @category Type Guards
  * @param value An unknown value
  * @returns A type predicate
  */
@@ -34,7 +28,6 @@ export function isSpacedRepetitionSystemStageNumber(value: unknown): value is Sp
 /**
  * An individual Spaced Repetition System (SRS) Stage.
  *
- * @category Spaced Repetition Systems
  * @see {@link https://docs.api.wanikani.com/20170710/#spaced-repetition-systems}
  */
 export type SpacedRepetitionSystemStage = Types.SpacedRepetitionSystemStage;
@@ -51,8 +44,6 @@ export const SpacedRepetitionSystemStage = v.object({
  * Available spaced repetition systems used for calculating `srs_stage` changes to Assignments and Reviews. Has
  * relationship with Subjects.
  *
- * @category Resources
- * @category Spaced Repetition Systems
  * @see {@link https://docs.api.wanikani.com/20170710/#spaced-repetition-systems}
  */
 export type SpacedRepetitionSystem = Types.SpacedRepetitionSystem;
@@ -90,8 +81,6 @@ export const SpacedRepetitionSystem = v.object(
 /**
  * A type guard that checks if the given value matches the type predicate.
  *
- * @category Spaced Repetition Systems
- * @category Type Guards
  * @param value An unknown value
  * @returns A type predicate
  */
@@ -103,8 +92,6 @@ export function isSpacedRepetitionSystem(value: unknown): value is SpacedRepetit
 /**
  * A collection of Spaced Repetition Systems returned from the WaniKani API.
  *
- * @category Collections
- * @category Spaced Repetition Systems
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-spaced-repetition-systems}
  */
 export type SpacedRepetitionSystemCollection = Types.SpacedRepetitionSystemCollection;
@@ -121,8 +108,6 @@ export const SpacedRepetitionSystemCollection = v.object(
 /**
  * A type guard that checks if the given value matches the type predicate.
  *
- * @category Spaced Repetition Systems
- * @category Type Guards
  * @param value An unknown value
  * @returns A type predicate
  */
@@ -134,8 +119,6 @@ export function isSpacedRepetitionSystemCollection(value: unknown): value is Spa
 /**
  * Parameters that can be passed to the WaniKani API to filter a request for a Spaced Repetition System Collection.
  *
- * @category Parameters
- * @category Spaced Repetition Systems
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-spaced-repetition-systems}
  */
 export type SpacedRepetitionSystemParameters = Types.SpacedRepetitionSystemParameters;

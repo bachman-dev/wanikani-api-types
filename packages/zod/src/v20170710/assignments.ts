@@ -13,8 +13,6 @@ import { SubjectTuple, SubjectType } from "./subjects.js";
  * timestamps for various progress milestones. Assignments are created when a user has passed all the components of the
  * given subject and the assignment is at or below their current level for the first time.
  *
- * @category Assignments
- * @category Resources
  * @see {@link https://docs.api.wanikani.com/20170710/#assignments}
  */
 export type Assignment = Types.Assignment;
@@ -66,8 +64,6 @@ export const Assignment = z.toZod<Types.Assignment>()(
 /**
  * A type guard that checks if the given value matches the type predicate.
  *
- * @category Assignments
- * @category Type Guards
  * @param value An unknown value
  * @returns A type predicate
  */
@@ -79,8 +75,6 @@ export function isAssignment(value: unknown): value is Assignment {
 /**
  * A collection of assignments returned from the WaniKani API.
  *
- * @category Assignments
- * @category Collections
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-assignments}
  */
 export type AssignmentCollection = Types.AssignmentCollection;
@@ -95,8 +89,6 @@ export const AssignmentCollection = z.toZod<Types.AssignmentCollection>()(
 /**
  * A type guard that checks if the given value matches the type predicate.
  *
- * @category Assignments
- * @category Type Guards
  * @param value An unknown value
  * @returns A type predicate
  */
@@ -108,8 +100,6 @@ export function isAssignmentCollection(value: unknown): value is AssignmentColle
 /**
  * Parameters that can be passed to the WaniKani API to filter a request for an Assignment Collection.
  *
- * @category Assignments
- * @category Parameters
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-assignments}
  */
 export type AssignmentParameters = Types.AssignmentParameters;
@@ -163,8 +153,6 @@ export const AssignmentParameters = z.toZod<Types.AssignmentParameters>()(
 /**
  * The optional payload used in the request to start a new assignment via the WaniKani API.
  *
- * @category Assignments
- * @category Payloads
  * @see {@link https://docs.api.wanikani.com/20170710/#start-an-assignment}
  */
 export type AssignmentPayload = Types.AssignmentPayload;
