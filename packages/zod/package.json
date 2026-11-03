@@ -35,7 +35,7 @@
   "devDependencies": {
     "@bachman-dev/wanikani-api-fixtures": "workspace:*",
     "@bachman-dev/wanikani-api-schema": "workspace:*",
-    "zod": "4.6.5"
+    "zod": "4.6.7"
   },
   "peerDependencies": {
     "zod": "^4.6.0"
