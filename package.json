@@ -20,7 +20,7 @@
     "@bachman-dev/oxc-config": "0.3.0",
     "@types/node": "26.6.5",
     "@vitest/coverage-v8": "5.0.3",
-    "oxfmt": "0.72.0",
+    "oxfmt": "0.75.0",
     "oxlint": "1.87.0",
     "oxlint-tsgolint": "7.0.2005",
     "publint": "0.3.25",
