@@ -170,8 +170,8 @@ importers:
         specifier: 0.18.5
         version: 0.18.5
       '@bachman-dev/oxc-config':
-        specifier: 0.3.0
-        version: 0.3.0(oxfmt@0.75.0)(oxlint@1.90.0(oxlint-tsgolint@7.0.2005))
+        specifier: 0.4.0
+        version: 0.4.0(oxfmt@0.75.0)(oxlint@1.90.0(oxlint-tsgolint@7.0.2005))
       '@types/node':
         specifier: 26.6.6
         version: 26.6.6
@@ -289,11 +289,11 @@ packages:
     resolution: {integrity: sha512-WCsemW40Cpc6gouC1SrY6PBaZ+oLRlEVY9XBvZBI7il/HyUrb2nJ505wE1MHEFyDZNnrWDEuy4jL50WVHfTTSQ==}
     engines: {node: '>=6.9.0'}
 
-  '@bachman-dev/oxc-config@0.3.0':
-    resolution: {integrity: sha512-uHa3ghCPpos40W/ZUZ6HVfUWsx+SClXV4fU1BMFHAO4vHsiUIRnh1dqKEzrk7zeu1P48EGt2j8PFeMexUHSbxA==}
+  '@bachman-dev/oxc-config@0.4.0':
+    resolution: {integrity: sha512-IJbP9CMeXRGyPUVM7/hirYVjMiD6JLUYClDwsNhVs/dl6D8rLLRXITRCfmPXez+7engo0vIXVMFYVOpdfmbKaw==}
     peerDependencies:
-      oxfmt: '>=0.68.0 <1'
-      oxlint: ^1.83.0
+      oxfmt: '>=0.75.0 <1'
+      oxlint: ^1.90.0
     peerDependenciesMeta:
       oxfmt:
         optional: true
@@ -1603,7 +1603,7 @@ snapshots:
       '@babel/helper-string-parser': 7.29.11
       '@babel/helper-validator-identifier': 7.29.7
 
-  '@bachman-dev/oxc-config@0.3.0(oxfmt@0.75.0)(oxlint@1.90.0(oxlint-tsgolint@7.0.2005))':
+  '@bachman-dev/oxc-config@0.4.0(oxfmt@0.75.0)(oxlint@1.90.0(oxlint-tsgolint@7.0.2005))':
     optionalDependencies:
       oxfmt: 0.75.0
       oxlint: 1.90.0(oxlint-tsgolint@7.0.2005)
